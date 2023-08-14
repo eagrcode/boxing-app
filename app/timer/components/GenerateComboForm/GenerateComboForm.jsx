@@ -1,7 +1,10 @@
 // context
 import { useFightData } from "@/app/context/useFightData";
 
-const GenerateComboForm = ({ handleGetRandomCombo }) => {
+// utils
+import getRandomCombo from "@/app/utils/getRandomCombo";
+
+const GenerateComboForm = ({ setRandomCombo }) => {
   // destructure context
   const { difficulty, setDifficulty } = useFightData();
 
@@ -9,6 +12,12 @@ const GenerateComboForm = ({ handleGetRandomCombo }) => {
   const handleInputChange = (e) => {
     const { value } = e.target;
     setDifficulty(value);
+  };
+
+  // get random combo from db on click
+  const handleGetRandomCombo = async (difficulty) => {
+    const combo = await getRandomCombo(difficulty);
+    setRandomCombo(combo);
   };
 
   // submit form and pass difficulty to parent
