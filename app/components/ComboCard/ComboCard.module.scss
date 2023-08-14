@@ -1,0 +1,18 @@
+.ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 5px;
+
+  flex-wrap: wrap;
+  li {
+    border: solid 1px white;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+
+  .arrow:last-child {
+    display: none;
+  }
+}

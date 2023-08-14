@@ -1,0 +1,33 @@
+.header {
+  position: sticky;
+  bottom: 0;
+  z-index: 999;
+  width: 100%;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  width: 100%;
+  padding: 0 1rem;
+
+  background-color: black;
+  border-top: solid 1px rgba(255, 255, 255, 0.1);
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  a {
+    text-decoration: none;
+    color: rgb(210, 210, 210);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8rem;
+  }
+}
