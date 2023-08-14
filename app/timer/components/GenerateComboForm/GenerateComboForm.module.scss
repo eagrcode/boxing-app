@@ -1,0 +1,24 @@
+.form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+
+  select {
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: transparent;
+    font-family: sans-serif;
+  }
+
+  button {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    border: transparent;
+    font-size: 1rem;
+  }
+}

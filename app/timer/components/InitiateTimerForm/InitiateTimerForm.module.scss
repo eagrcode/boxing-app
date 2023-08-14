@@ -1,0 +1,84 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  font-size: 1rem;
+
+  background-color: rgba(128, 128, 128, 0.2);
+  padding: 1rem;
+
+  .topContainer {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+
+    .labelContainer {
+      display: flex;
+      flex: 0 1 auto;
+      gap: 2rem;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+
+    .inputContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      justify-content: space-evenly;
+      flex-grow: 1;
+
+      div {
+        display: flex;
+
+        input {
+          width: 100%;
+        }
+
+        input[type="range"] {
+          -webkit-appearance: none;
+          appearance: none;
+          background: transparent;
+          cursor: pointer;
+        }
+
+        /***** Chrome, Safari, Opera, and Edge Chromium *****/
+        input[type="range"]::-webkit-slider-runnable-track {
+          background: #6b6c6c58;
+          height: 5px;
+        }
+
+        /******** Firefox ********/
+        input[type="range"]::-moz-range-track {
+          background: #6b6c6c58;
+          height: 5px;
+        }
+
+        /***** Thumb Styles *****/
+        /***** Chrome, Safari, Opera, and Edge Chromium *****/
+        input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none; /* Override default look */
+          appearance: none;
+          margin-top: -12.5px; /* Centers thumb on the track */
+          background-color: rgb(230, 230, 230);
+          height: 30px;
+          width: 30px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  button {
+    width: 100%;
+    max-width: 300px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background-color: white;
+    color: black;
+  }
+}

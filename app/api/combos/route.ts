@@ -8,6 +8,7 @@ export const GET = async (request: Request) => {
   try {
     const url = new URL(request.url);
     const difficulty = url.searchParams.get("difficulty");
+    const lastComboId = url.searchParams.get("lastComboId");
     const supabase = createRouteHandlerClient({ cookies });
 
     const { data, error } = await supabase

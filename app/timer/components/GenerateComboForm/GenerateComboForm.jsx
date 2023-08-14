@@ -1,3 +1,5 @@
+import styles from "./GenerateComboForm.module.scss";
+
 // context
 import { useFightData } from "@/app/context/useFightData";
 
@@ -27,8 +29,8 @@ const GenerateComboForm = ({ setRandomCombo }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="difficulty">Difficulty:</label>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <label htmlFor="difficulty">Difficulty</label>
       <select id="difficulty" name="difficulty" onChange={handleInputChange} value={difficulty}>
         <option value="Beginner">Beginner</option>
         <option value="Amateur">Amateur</option>

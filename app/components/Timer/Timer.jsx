@@ -13,7 +13,10 @@ import ComboCard from "../ComboCard/ComboCard";
 // context
 import { useFightData } from "@/app/context/useFightData";
 
-const Timer = ({ setFightMode, randomCombo, setRandomCombo, handleGetRandomCombo }) => {
+// utils
+import getRandomCombo from "@/app/utils/getRandomCombo";
+
+const Timer = ({ setIsTimerActive, randomCombo, setRandomCombo }) => {
   // destructure context
   const {
     difficulty,
@@ -51,6 +54,35 @@ const Timer = ({ setFightMode, randomCombo, setRandomCombo, handleGetRandomCombo
   console.log("Fight: ", isFightRound);
   console.log("Rest: ", isRestRound);
 
+  // format display based on round type
+  const renderTimerText = (remainingTime) => {
+    switch (true) {
+      case isWarmupRound:
+        return (
+          <>
+            {formatRemainingTime(remainingTime)}
+            <p>WARMUP</p>
+          </>
+        );
+      case isFinished:
+        return <p>DONE!</p>;
+      case isRestRound:
+        return (
+          <>
+            {formatRemainingTime(remainingTime)}
+            <p>REST</p>
+          </>
+        );
+      default:
+        return (
+          <>
+            {formatRemainingTime(remainingTime)}
+            <p>FIGHT!</p>
+          </>
+        );
+    }
+  };
+
   // format remaining time to 00:00
   const formatRemainingTime = (remainingTime) => {
     const minutes = Math.floor(remainingTime / 60);
@@ -68,10 +100,15 @@ const Timer = ({ setFightMode, randomCombo, setRandomCombo, handleGetRandomCombo
 
   // fetch random combo after each new round
   useEffect(() => {
-    if (isRestRound) {
-      handleGetRandomCombo(difficulty);
+    const fetchRandomCombo = async () => {
+      const combo = await getRandomCombo(difficulty);
+      setRandomCombo(combo);
+    };
+
+    if (Object.keys(randomCombo).length > 0 && isRestRound) {
+      fetchRandomCombo();
     }
-  }, [isRestRound, handleGetRandomCombo, difficulty]);
+  }, [isRestRound, difficulty, setRandomCombo]);
 
   // change duration based on round type
   useEffect(() => {
@@ -109,7 +146,7 @@ const Timer = ({ setFightMode, randomCombo, setRandomCombo, handleGetRandomCombo
     setWarmupTime(DEFAULT_WARMUP_TIME);
     setCurrentRound(1);
     setRandomCombo({});
-    setFightMode(false);
+    setIsTimerActive(false);
   };
 
   return (
@@ -134,19 +171,7 @@ const Timer = ({ setFightMode, randomCombo, setRandomCombo, handleGetRandomCombo
       >
         {({ remainingTime }) => (
           <div role="timer" aria-live="assertive" className={styles.timeText}>
-            {isFinished ? (
-              <p>DONE!</p>
-            ) : isRestRound ? (
-              <>
-                {formatRemainingTime(remainingTime)}
-                <p>Rest</p>
-              </>
-            ) : (
-              <>
-                {formatRemainingTime(remainingTime)}
-                <p>Fight!</p>
-              </>
-            )}
+            {renderTimerText(remainingTime)}
           </div>
         )}
       </CountdownCircleTimer>

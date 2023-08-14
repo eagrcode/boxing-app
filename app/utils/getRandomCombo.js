@@ -10,7 +10,6 @@ const getRandomCombo = async (difficulty) => {
     return data;
   } catch (error) {
     console.log(`Fetch error: ${error.message}`);
-    return { error: true, message: error.message };
   }
 };
 
