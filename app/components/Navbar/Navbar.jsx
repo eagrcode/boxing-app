@@ -26,6 +26,11 @@ const Navbar = () => {
       url: "/workouts",
       icon: <GiCrossedSwords size={30} />,
     },
+    {
+      id: 4,
+      title: "Login",
+      url: "/login",
+    },
   ];
 
   return (
