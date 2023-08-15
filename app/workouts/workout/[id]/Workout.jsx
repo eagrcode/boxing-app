@@ -7,6 +7,8 @@ const Workout = ({ title, rounds, roundTime, restTime, warmupTime, data }) => {
   // init router
   const router = useRouter();
 
+  console.log(data);
+
   // handle workout timer start
   // const handleStart = () => {
   //   setSelectedWorkout(data);
