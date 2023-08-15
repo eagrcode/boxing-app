@@ -8,6 +8,9 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+// components
+import CreateWorkoutForm from "./components/CreateWorkoutForm/CreateWorkoutForm";
+
 const page = async () => {
   const supabase = createServerComponentClient({ cookies });
 
@@ -26,6 +29,8 @@ const page = async () => {
     <>
       <h1>Account</h1>
       <p>Email address: {user.email}</p>
+      <p>Create workout</p>
+      <CreateWorkoutForm userID={user.id} />
     </>
   );
 };
