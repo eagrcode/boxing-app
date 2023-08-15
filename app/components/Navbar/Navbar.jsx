@@ -6,7 +6,17 @@ import { FaHome } from "react-icons/fa";
 import { IoTimerOutline } from "react-icons/io5";
 import { GiCrossedSwords } from "react-icons/gi";
 
-const Navbar = () => {
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+
+const Navbar = async () => {
+  const supabase = createServerComponentClient({ cookies });
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  console.log(session?.user);
+
   const links = [
     {
       id: 1,
@@ -28,7 +38,7 @@ const Navbar = () => {
     },
     {
       id: 4,
-      title: "Login",
+      title: session ? "Logout" : "Login",
       url: "/login",
     },
   ];
@@ -46,6 +56,7 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
+        {session && <p>Hello, user!</p>}
       </nav>
     </header>
   );
