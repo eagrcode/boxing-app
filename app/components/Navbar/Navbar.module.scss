@@ -1,36 +1,141 @@
 .header {
-  position: sticky;
-  bottom: 0;
+  position: fixed;
+  top: 0;
   z-index: 999;
   width: 100%;
-  text-align: center;
+  backdrop-filter: blur(10px);
+
+  @media (min-width: 768px) {
+    top: 0;
+    width: 100%;
+    padding: 0;
+    border-right: solid 1px rgba(120, 120, 120, 0.2);
+  }
 }
 
 .nav {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  height: 4rem;
   width: 100%;
+  height: 3rem;
   padding: 0 1rem;
 
-  background-color: black;
-  border-top: solid 1px rgba(255, 255, 255, 0.1);
-
-  ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
+  @media (min-width: 500px) {
+    padding: 0 2rem;
   }
 
-  a {
-    text-decoration: none;
-    color: rgb(210, 210, 210);
+  // @media (min-width: 768px) {
+  //   padding: 0 3rem;
+  // }
+
+  @media (min-width: 1200px) {
+    padding: 0 8rem;
+  }
+}
+
+.menuContainer {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 50%;
+  // height: calc(100svh - var(--nav-height));
+  height: 100vh;
+  z-index: -1;
+
+  background-color: gray;
+
+  transform: translateX(-100%);
+  transition: ease-in-out 0.2s;
+
+  &.isOpen {
+    transform: translateX(0);
+  }
+
+  @media (min-width: 768px) {
+    position: relative;
+    width: fit-content;
+    height: 100%;
+    flex-direction: row;
+    transform: translate(0);
+    background-color: transparent;
+    z-index: 1;
+  }
+}
+
+.menu {
+  list-style: none;
+  flex-direction: column;
+  width: 100%;
+  font-size: 1rem;
+  text-align: center;
+
+  @media (min-width: 768px) {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    text-align: center;
     align-items: center;
-    font-size: 0.8rem;
+    width: fit-content;
+    height: 100%;
+    gap: 1rem;
+  }
+}
+
+.item {
+  &:hover {
+    background-color: hsla(240, 50%, 80%, 0.1);
+  }
+
+  @media (min-width: 768px) {
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+.link {
+  display: block;
+  padding: 1rem 8px;
+
+  @media (min-width: 768px) {
+    padding: 0;
+  }
+}
+
+.socialMenu {
+  list-style: none;
+  text-align: center;
+
+  li {
+    padding: 1rem;
+    position: relative;
+  }
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+}
+
+.icon {
+  font-size: 1.6rem;
+  cursor: pointer;
+
+  transition: all ease-out 0.1s;
+}
+
+.toggle {
+  justify-self: flex-end;
+  background-color: transparent;
+  border: transparent;
+
+  padding: 1rem;
+
+  @media (min-width: 768px) {
+    padding: 0;
   }
 }

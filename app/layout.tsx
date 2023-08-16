@@ -6,18 +6,32 @@ import Navbar from "@/app/components/Navbar/Navbar";
 // context
 import { FightDataProvider } from "@/app/context/useFightData";
 
+// supabase client
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
+// next
+import { cookies } from "next/headers";
+
 export const metadata = {
   title: "Supabang",
   description: "Boxingapp",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // init supabase client
+  const supabase = createServerComponentClient({ cookies });
+
+  // get session data
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   return (
     <html lang="en">
       <body>
         <FightDataProvider>
+          <Navbar session={session} />
           <main>{children}</main>
-          <Navbar />
         </FightDataProvider>
       </body>
     </html>
