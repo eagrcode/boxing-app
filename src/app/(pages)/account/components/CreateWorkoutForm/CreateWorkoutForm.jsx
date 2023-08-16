@@ -78,6 +78,7 @@ const CreateWorkoutForm = ({ userID }) => {
           rest_time: restTime,
           warmup_time: warmupTime,
           round_info: roundInfo,
+          is_public: isPublic,
         },
       ])
       .select();
