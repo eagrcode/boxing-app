@@ -1,3 +1,6 @@
+// styles
+import styles from "./WorkoutsFeed.module.scss";
+
 // components
 import WorkoutCard from "@/src/components/WorkoutCard/WorkoutCard.jsx";
 
@@ -11,7 +14,7 @@ const WorkoutsFeed = async () => {
   console.log(workouts);
 
   return (
-    <>
+    <div className={styles.container}>
       {workouts.map((workout) => (
         <WorkoutCard
           key={workout.id}
@@ -19,9 +22,10 @@ const WorkoutsFeed = async () => {
           title={workout.title}
           workoutRounds={workout.number_of_rounds}
           workoutRoundTime={workout.round_time}
+          createdBy={workout.profiles.email}
         />
       ))}
-    </>
+    </div>
   );
 };
 

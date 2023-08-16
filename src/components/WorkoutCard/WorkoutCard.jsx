@@ -7,17 +7,20 @@ import styles from "./WorkoutCard.module.scss";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const WorkoutCard = ({ id, title, workoutRounds, workoutRoundTime }) => {
+// icons
+import { RiTimerLine } from "react-icons/ri";
+
+const WorkoutCard = ({ id, title, workoutRounds, workoutRoundTime, createdBy }) => {
   return (
-    <Link href={`/workouts/workout/${id}`}>
+    <Link className={styles.workoutLink} href={`/workouts/workout/${id}`}>
       <div key={id} className={styles.card}>
         <div className={styles.cardTop}>
-          <h1>{title}</h1>
+          <h2>{title}</h2>
           <p>
-            Rounds: {workoutRounds} x {workoutRoundTime} min
+            <RiTimerLine /> {workoutRounds} x {workoutRoundTime} min
           </p>
         </div>
-        <div className={styles.roundsContainer}></div>
+        <p className={styles.createdBy}>Created by {createdBy}</p>
       </div>
     </Link>
   );

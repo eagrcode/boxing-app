@@ -7,7 +7,7 @@ const Workout = ({ title, rounds, roundTime, restTime, warmupTime, data }) => {
   // init router
   const router = useRouter();
 
-  console.log(data);
+  console.log(data.profiles.email);
 
   // handle workout timer start
   // const handleStart = () => {
