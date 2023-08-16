@@ -4,9 +4,9 @@ import { cookies } from "next/headers";
 
 export const GET = async (request: Request, { params }: any) => {
   console.log(request);
+
   const { id } = params;
 
-  // fetch
   try {
     const supabase = createRouteHandlerClient({ cookies });
     const { data, error } = await supabase.from("workouts").select().eq("user_id", id);
