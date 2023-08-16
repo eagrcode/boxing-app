@@ -17,6 +17,7 @@ const CreateWorkoutForm = ({ userID }) => {
   const [restTime, setRestTime] = useState(5);
   const [warmupTime, setWarmupTime] = useState(5);
   const [sequences, setSequences] = useState([]);
+  const [isPublic, setIsPublic] = useState(false);
 
   // supabase client
   const supabase = createClientComponentClient();
@@ -150,6 +151,14 @@ const CreateWorkoutForm = ({ userID }) => {
           </div>
         </div>
       </div>
+      <input
+        type="checkbox"
+        id="public"
+        name="public"
+        onChange={() => setIsPublic((prev) => !prev)}
+        checked={isPublic}
+      />
+      <label htmlFor="public">Set workout as public</label>
       {Array.from({ length: rounds }).map((_, index) => (
         <input
           key={index}
