@@ -7,7 +7,16 @@ export const GET = async (request: Request, { params }: any) => {
 
   try {
     const supabase = createRouteHandlerClient({ cookies });
-    const { data, error } = await supabase.from("workouts").select().eq("id", id).single();
+    const { data, error } = await supabase
+      .from("workouts")
+      .select(
+        `
+      *,
+      profiles: user_id (email)
+    `
+      )
+      .eq("id", id)
+      .single();
 
     if (error) {
       console.log(error);
