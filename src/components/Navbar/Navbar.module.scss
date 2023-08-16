@@ -55,10 +55,10 @@
   gap: 1rem;
   width: 50%;
   // height: calc(100svh - var(--nav-height));
-  height: 100vh;
+  height: 100dvh;
   z-index: -1;
 
-  background-color: gray;
+  background-color: hsl(0, 0%, 10%);
 
   transform: translateX(-100%);
   transition: ease-in-out 0.2s;
@@ -111,39 +111,9 @@
 .link {
   display: block;
   padding: 1rem 8px;
-
-  @media (min-width: 768px) {
-    padding: 0;
-  }
-}
-
-.socialMenu {
-  list-style: none;
-  text-align: center;
-
-  li {
-    padding: 1rem;
-    position: relative;
-  }
-
-  @media (min-width: 768px) {
-    display: flex;
-  }
-}
-
-.icon {
-  font-size: 1.6rem;
-  cursor: pointer;
-
-  transition: all ease-out 0.1s;
-}
-
-.toggle {
-  justify-self: flex-end;
-  background-color: transparent;
-  border: transparent;
-
-  padding: 1rem;
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
 
   @media (min-width: 768px) {
     padding: 0;
