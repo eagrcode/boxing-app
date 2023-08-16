@@ -13,6 +13,7 @@ import { useState } from "react";
 
 // next
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 // components
 import LogoutButton from "../LogoutButton";
@@ -27,6 +28,27 @@ const Navbar = ({ session }) => {
 
   // log user details if true
   console.log(user);
+
+  const pathname = usePathname();
+
+  const formatPathname = (pathname) => {
+    switch (pathname) {
+      case "/":
+        return "Home";
+      case "/timer":
+        return "Timer";
+      case "/workouts":
+        return "Workouts";
+      case "/login":
+        return "Login";
+      case "/account":
+        return "Account";
+      default:
+        "";
+    }
+  };
+
+  console.log(pathname);
 
   // init links view for unauthenticated users
   const unAuthLinks = [
@@ -87,6 +109,7 @@ const Navbar = ({ session }) => {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
+        <h1>{formatPathname(pathname)}</h1>
         <div className={`${styles.menuContainer} ${isOpen && styles.isOpen}`}>
           <ul className={styles.menu}>
             {!session
