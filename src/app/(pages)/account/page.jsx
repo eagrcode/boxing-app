@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 
 // components
 import CreateWorkoutForm from "./components/CreateWorkoutForm/CreateWorkoutForm";
-import WorkoutCard from "@/src/components/WorkoutCard/WorkoutCard";
+import UserWorkoutCard from "./components/UserWorkoutCard/UserWorkoutCard";
 
 // utils
 import getUserWorkouts from "@/src/utils/getUserWorkouts";
@@ -24,6 +24,7 @@ const page = async () => {
   } = await supabase.auth.getSession();
 
   const user = session && session.user;
+  console.log(user.id);
 
   if (!session) {
     redirect("/login");
@@ -34,13 +35,12 @@ const page = async () => {
 
   return (
     <>
-      <h1>Account</h1>
-      <p>Email address: {user.email}</p>
-      <p>My Workouts:</p>
+      <p>Hello!, {user.email}</p>
+      {/* <p>{`My Workouts (${userWorkouts.length})`}</p> */}
       {userWorkouts && (
         <ul>
           {userWorkouts.map((workout) => (
-            <WorkoutCard
+            <UserWorkoutCard
               key={workout.id}
               id={workout.id}
               title={workout.title}
