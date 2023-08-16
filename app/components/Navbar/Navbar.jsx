@@ -19,15 +19,8 @@ import LogoutButton from "../LogoutButton";
 import Hamburger from "./Hamburger/Hamburger";
 
 const Navbar = ({ session }) => {
+  // init state
   const [isOpen, setIsOpen] = useState(false);
-
-  // // init supabase client
-  // const supabase = createClientComponentClient();
-
-  // // get session data
-  // const {
-  //   data: { session },
-  // } = supabase.auth.getSession();
 
   // destructure user data
   const user = session && session.user;
@@ -90,50 +83,28 @@ const Navbar = ({ session }) => {
     },
   ];
 
-  // return (
-  //   <header className={styles.header}>
-  //     <nav className={styles.nav}>
-  //       <ul>
-  //         {!session
-  //           ? unAuthLinks.map((link) => <Link href={link.url}>{link.title}</Link>)
-  //           : authLinks.map((link) => <Link href={link.url}>{link.title}</Link>)}
-  //         {session && <LogoutButton />}
-  //       </ul>
-  //     </nav>
-  //   </header>
-  // );
-
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
         <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
         <div className={`${styles.menuContainer} ${isOpen && styles.isOpen}`}>
           <ul className={styles.menu}>
-            <li className={styles.item} onClick={() => setIsOpen(false)}>
-              <Link className={styles.link} href="/" scroll={false}>
-                Home
-              </Link>
-            </li>
-            <li className={styles.item} onClick={() => setIsOpen(false)}>
-              <Link className={styles.link} href="/timer" scroll={false}>
-                Timer
-              </Link>
-            </li>
-            <li className={styles.item} onClick={() => setIsOpen(false)}>
-              <Link className={styles.link} href="/workouts" scroll={false}>
-                Workouts
-              </Link>
-            </li>
-            {user && (
-              <>
-                <li className={styles.item} onClick={() => setIsOpen(false)}>
-                  <Link className={styles.link} href="/account" scroll={false}>
-                    Account
-                  </Link>
-                </li>
-                <LogoutButton />
-              </>
-            )}
+            {!session
+              ? unAuthLinks.map((link) => (
+                  <li className={styles.item}>
+                    <Link className={styles.link} href={link.url}>
+                      {link.title}
+                    </Link>
+                  </li>
+                ))
+              : authLinks.map((link) => (
+                  <li className={styles.item}>
+                    <Link className={styles.link} href={link.url}>
+                      {link.title}
+                    </Link>
+                  </li>
+                ))}
+            {session && <LogoutButton />}
           </ul>
         </div>
       </nav>
