@@ -11,8 +11,6 @@ const WorkoutsFeed = async () => {
   // fetch workouts data
   const workouts = await getWorkouts();
 
-  console.log(workouts);
-
   return (
     <div className={styles.container}>
       {workouts.map((workout) => (
