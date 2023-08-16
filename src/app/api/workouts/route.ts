@@ -7,7 +7,7 @@ export const GET = async (request: Request) => {
   // fetch
   try {
     const supabase = createRouteHandlerClient({ cookies });
-    const { data, error } = await supabase.from("workouts").select();
+    const { data, error } = await supabase.from("workouts").select().eq("is_public", true);
 
     if (error) {
       console.log(error);
