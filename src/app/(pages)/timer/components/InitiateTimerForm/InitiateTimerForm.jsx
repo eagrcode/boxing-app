@@ -2,7 +2,7 @@
 import styles from "./InitiateTimerForm.module.scss";
 
 // context
-import { useFightData } from "@/app/context/useFightData";
+import { useFightData } from "@/src/context/useFightData";
 
 const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
   // destructure context

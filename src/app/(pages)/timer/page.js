@@ -6,12 +6,9 @@ import styles from "./page.module.scss";
 // react
 import { useState, useCallback } from "react";
 
-// utils
-import getRandomCombo from "@/app/utils/getRandomCombo";
-
 // components
-import ComboCard from "@/app/components/ComboCard/ComboCard";
-import Timer from "@/app/components/Timer/Timer";
+import ComboCard from "@/src/components/ComboCard/ComboCard";
+import Timer from "@/src/components/Timer/Timer";
 import InitiateTimerForm from "./components/InitiateTimerForm/InitiateTimerForm";
 import GenerateComboForm from "./components/GenerateComboForm/GenerateComboForm";
 

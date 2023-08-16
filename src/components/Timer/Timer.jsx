@@ -11,10 +11,10 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import ComboCard from "../ComboCard/ComboCard";
 
 // context
-import { useFightData } from "@/app/context/useFightData";
+import { useFightData } from "@/src/context/useFightData";
 
 // utils
-import getRandomCombo from "@/app/utils/getRandomCombo";
+import getRandomCombo from "@/src/utils/getRandomCombo";
 
 const Timer = ({ setIsTimerActive, randomCombo, setRandomCombo }) => {
   // destructure context

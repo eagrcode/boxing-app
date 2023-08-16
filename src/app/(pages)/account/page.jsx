@@ -10,10 +10,10 @@ import { redirect } from "next/navigation";
 
 // components
 import CreateWorkoutForm from "./components/CreateWorkoutForm/CreateWorkoutForm";
-import WorkoutCard from "@/app/components/WorkoutCard/WorkoutCard";
+import WorkoutCard from "@/src/components/WorkoutCard/WorkoutCard";
 
 // utils
-import getUserWorkouts from "@/app/utils/getUserWorkouts";
+import getUserWorkouts from "@/src/utils/getUserWorkouts";
 
 const page = async () => {
   const supabase = createServerComponentClient({ cookies });

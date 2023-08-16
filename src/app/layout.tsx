@@ -1,10 +1,10 @@
 import "./globals.css";
 
 // components
-import Navbar from "@/app/components/Navbar/Navbar";
+import Navbar from "@/src/components/Navbar/Navbar";
 
 // context
-import { FightDataProvider } from "@/app/context/useFightData";
+import { FightDataProvider } from "@/src/context/useFightData";
 
 // supabase client
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
