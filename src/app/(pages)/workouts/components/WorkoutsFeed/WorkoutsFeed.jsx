@@ -7,7 +7,7 @@ import WorkoutCard from "@/src/components/WorkoutCard/WorkoutCard.jsx";
 // utils
 import getWorkouts from "@/src/utils/getWorkouts";
 
-const WorkoutsFeed = async () => {
+export default async function WorkoutsFeed() {
   // fetch workouts data
   const workouts = await getWorkouts();
 
@@ -25,6 +25,4 @@ const WorkoutsFeed = async () => {
       ))}
     </div>
   );
-};
-
-export default WorkoutsFeed;
+}

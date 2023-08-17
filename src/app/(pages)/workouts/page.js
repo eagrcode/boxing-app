@@ -1,8 +1,6 @@
 // components
 import WorkoutsFeed from "./components/WorkoutsFeed/WorkoutsFeed";
 
-const WorkoutsPage = () => {
+export default function WorkoutsPage() {
   return <WorkoutsFeed />;
-};
-
-export default WorkoutsPage;
+}

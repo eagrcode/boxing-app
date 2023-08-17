@@ -15,7 +15,7 @@ import UserWorkoutCard from "./components/UserWorkoutCard/UserWorkoutCard";
 // utils
 import getUserWorkouts from "@/src/utils/getUserWorkouts";
 
-const page = async () => {
+export default async function AccountPage() {
   const supabase = createServerComponentClient({ cookies });
 
   // get session data
@@ -54,6 +54,4 @@ const page = async () => {
       <CreateWorkoutForm userID={user.id} />
     </>
   );
-};
-
-export default page;
+}

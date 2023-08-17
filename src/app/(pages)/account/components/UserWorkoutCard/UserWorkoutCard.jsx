@@ -10,7 +10,7 @@ import Link from "next/link";
 // icons
 import { RiTimerLine } from "react-icons/ri";
 
-const UserWorkoutCard = ({ id, title, workoutRounds, workoutRoundTime, createdBy }) => {
+export default function UserWorkoutCard({ id, title, workoutRounds, workoutRoundTime, createdBy }) {
   return (
     <Link className={styles.workoutLink} href={`/account/userWorkout/${id}`}>
       <div key={id} className={styles.card}>
@@ -24,6 +24,4 @@ const UserWorkoutCard = ({ id, title, workoutRounds, workoutRoundTime, createdBy
       </div>
     </Link>
   );
-};
-
-export default UserWorkoutCard;
+}

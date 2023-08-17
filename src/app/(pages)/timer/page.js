@@ -12,12 +12,10 @@ import Timer from "@/src/components/Timer/Timer";
 import InitiateTimerForm from "./components/InitiateTimerForm/InitiateTimerForm";
 import GenerateComboForm from "./components/GenerateComboForm/GenerateComboForm";
 
-const Fight = () => {
+export default function TimerPage() {
   // init state
   const [randomCombo, setRandomCombo] = useState({});
   const [isTimerActive, setIsTimerActive] = useState(false);
-  const [isNormalMode, setIsNormalMode] = useState(false);
-  const [isRandomMode, setIsRandomMode] = useState(true);
 
   // Show form to initialise settings for Timer component
   if (!isTimerActive) {
@@ -61,6 +59,4 @@ const Fight = () => {
       setRandomCombo={setRandomCombo}
     />
   );
-};
-
-export default Fight;
+}

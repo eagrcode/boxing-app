@@ -1,12 +1,10 @@
 // utils
 import getWorkoutById from "@/src/utils/getWorkoutById";
 
-const UserWorkoutPage = async ({ params }) => {
+export default async function UserWorkoutPage({ params }) {
   const workoutData = await getWorkoutById(params.id);
 
   console.log(workoutData);
 
   return <>{workoutData.id}</>;
-};
-
-export default UserWorkoutPage;
+}

@@ -4,7 +4,7 @@ import getWorkoutById from "@/src/utils/getWorkoutById";
 // components
 import Workout from "./Workout";
 
-const WorkoutPage = async ({ params }) => {
+export default async function WorkoutPage({ params }) {
   const workoutData = await getWorkoutById(params.id);
 
   console.log(workoutData);
@@ -19,6 +19,4 @@ const WorkoutPage = async ({ params }) => {
       data={workoutData}
     />
   );
-};
-
-export default WorkoutPage;
+}

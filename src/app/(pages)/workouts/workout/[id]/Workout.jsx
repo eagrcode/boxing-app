@@ -3,7 +3,7 @@
 // next
 import { useRouter } from "next/navigation";
 
-const Workout = ({ title, rounds, roundTime, restTime, warmupTime, data }) => {
+export default function Workout({ title, rounds, roundTime, restTime, warmupTime, data }) {
   // init router
   const router = useRouter();
 
@@ -29,6 +29,4 @@ const Workout = ({ title, rounds, roundTime, restTime, warmupTime, data }) => {
       <button>Start</button>
     </div>
   );
-};
-
-export default Workout;
+}
