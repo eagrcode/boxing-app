@@ -3,7 +3,14 @@
 // styles
 import styles from "./UserWorkout.module.scss";
 
+// supabase client
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+
+// next
+import { useRouter } from "next/navigation";
+
 export default function UserWorkout({
+  id,
   title,
   numberOfRounds,
   roundTime,
@@ -13,6 +20,24 @@ export default function UserWorkout({
   workoutData,
 }) {
   console.log(workoutData);
+
+  const router = useRouter();
+
+  // supabase client
+  const supabase = createClientComponentClient();
+
+  const handleDeleteWorkout = async (id) => {
+    try {
+      const { error } = await supabase.from("workouts").delete().eq("id", id);
+      if (error) {
+        console.error("Supabase error:", error.message);
+        return; // Exit early if there's an error
+      }
+      router.push("/account");
+    } catch (error) {
+      console.error("Unexpected error:", error.message);
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -36,6 +61,10 @@ export default function UserWorkout({
             </p>
           </div>
         ))}
+      </div>
+      <div>
+        <button>Edit</button>
+        <button onClick={() => handleDeleteWorkout(id)}>Delete</button>
       </div>
       <button className={styles.startBtn}>Start</button>
     </div>

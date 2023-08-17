@@ -10,6 +10,7 @@ export default async function UserWorkoutPage({ params }) {
   return (
     <>
       <UserWorkout
+        id={workoutData.id}
         title={workoutData.title}
         roundTime={workoutData.round_time}
         restTime={workoutData.rest_time}
