@@ -5,8 +5,8 @@
 }
 
 body {
-  background-color: black;
-  color: white;
+  background-color: hsl(0, 10%, 80%);
+
   font-family: sans-serif;
 }
 
@@ -19,6 +19,12 @@ main {
   padding: 2rem 0;
 }
 
+h2 {
+  font-weight: 600;
+  color: hsl(0, 0%, 0%);
+}
+
 p {
   font-size: 1rem;
+  color: hsl(0, 0%, 10%);
 }

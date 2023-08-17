@@ -5,7 +5,7 @@ const getUserWorkouts = async (id) => {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
     const data = await res.json();
-    console.log(data);
+
     return data;
   } catch (error) {
     console.log(error.message);

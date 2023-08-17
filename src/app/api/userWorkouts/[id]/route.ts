@@ -3,8 +3,6 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 export const GET = async (request: Request, { params }: any) => {
-  console.log(request);
-
   const { id } = params;
 
   try {
