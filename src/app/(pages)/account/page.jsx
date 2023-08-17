@@ -10,10 +10,7 @@ import { redirect } from "next/navigation";
 
 // components
 import CreateWorkoutForm from "./components/CreateWorkoutForm/CreateWorkoutForm";
-import UserWorkoutCard from "./components/UserWorkoutCard/UserWorkoutCard";
-
-// utils
-import getUserWorkouts from "@/src/utils/getUserWorkouts";
+import UserWorkoutList from "./components/UserWorkoutList/UserWorkoutList";
 
 export default async function AccountPage() {
   const supabase = createServerComponentClient({ cookies });
@@ -30,26 +27,11 @@ export default async function AccountPage() {
     redirect("/login");
   }
 
-  // get workouts
-  const userWorkouts = await getUserWorkouts(user.id);
-
   return (
     <>
       <p>Hello!, {user.email}</p>
-      {/* <p>{`My Workouts (${userWorkouts.length})`}</p> */}
-      {userWorkouts && (
-        <ul>
-          {userWorkouts.map((workout) => (
-            <UserWorkoutCard
-              key={workout.id}
-              id={workout.id}
-              title={workout.title}
-              workoutRounds={workout.number_of_rounds}
-              workoutRoundTime={workout.round_time}
-            />
-          ))}
-        </ul>
-      )}
+
+      <UserWorkoutList userID={user.id} />
       <p>Create workout</p>
       <CreateWorkoutForm userID={user.id} />
     </>
