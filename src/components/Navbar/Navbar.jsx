@@ -19,7 +19,7 @@ import { usePathname } from "next/navigation";
 import LogoutButton from "../LogoutButton";
 import Hamburger from "./Hamburger/Hamburger";
 
-const Navbar = ({ session }) => {
+export default function Navbar({ session }) {
   // init state
   const [isOpen, setIsOpen] = useState(false);
 
@@ -131,6 +131,4 @@ const Navbar = ({ session }) => {
       </nav>
     </header>
   );
-};
-
-export default Navbar;
+}
