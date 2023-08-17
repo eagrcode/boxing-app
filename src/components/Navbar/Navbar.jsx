@@ -48,8 +48,6 @@ const Navbar = ({ session }) => {
     }
   };
 
-  console.log(pathname);
-
   // init links view for unauthenticated users
   const unAuthLinks = [
     {
@@ -113,8 +111,8 @@ const Navbar = ({ session }) => {
         <div className={`${styles.menuContainer} ${isOpen && styles.isOpen}`}>
           <ul className={styles.menu}>
             {!session
-              ? unAuthLinks.map((link) => (
-                  <li className={styles.item}>
+              ? unAuthLinks.map((link, index) => (
+                  <li key={index} className={styles.item}>
                     <Link className={styles.link} href={link.url}>
                       {link.title}
                     </Link>
