@@ -3,70 +3,39 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
   width: 100%;
-  font-size: 1rem;
 
-  padding: 1rem;
+  gap: 1rem;
 
-  .topContainer {
-    display: flex;
+  border-radius: 10px;
+
+  input[type="text"] {
+    font-size: 1rem;
+    padding: 5px;
     width: 100%;
-    gap: 1rem;
+  }
 
-    .labelContainer {
+  .row {
+    width: 100%;
+  }
+
+  .titleContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .rangeContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.5rem;
+    margin-bottom: 8px;
+
+    div {
       display: flex;
-      flex: 0 1 auto;
-      gap: 2rem;
       flex-direction: column;
-      justify-content: space-evenly;
-    }
-
-    .inputContainer {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      justify-content: space-evenly;
-      flex-grow: 1;
-
-      div {
-        display: flex;
-
-        input {
-          width: 100%;
-        }
-
-        input[type="range"] {
-          -webkit-appearance: none;
-          appearance: none;
-          background: transparent;
-          cursor: pointer;
-        }
-
-        /***** Chrome, Safari, Opera, and Edge Chromium *****/
-        input[type="range"]::-webkit-slider-runnable-track {
-          background: #6b6c6c58;
-          height: 5px;
-        }
-
-        /******** Firefox ********/
-        input[type="range"]::-moz-range-track {
-          background: #6b6c6c58;
-          height: 5px;
-        }
-
-        /***** Thumb Styles *****/
-        /***** Chrome, Safari, Opera, and Edge Chromium *****/
-        input[type="range"]::-webkit-slider-thumb {
-          -webkit-appearance: none; /* Override default look */
-          appearance: none;
-          margin-top: -12.5px; /* Centers thumb on the track */
-          background-color: rgb(230, 230, 230);
-          height: 30px;
-          width: 30px;
-          border-radius: 50%;
-        }
-      }
+      gap: 15px;
     }
   }
 
@@ -74,10 +43,40 @@
     width: 100%;
     max-width: 300px;
     font-size: 1.2rem;
-    font-weight: bold;
     padding: 5px 10px;
     border-radius: 8px;
-    background-color: white;
-    color: black;
+    background-color: var(--accent-color-blue);
+    color: var(--accent-color-white);
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  /***** Chrome, Safari, Opera, and Edge Chromium *****/
+  input[type="range"]::-webkit-slider-runnable-track {
+    background: #6b6c6c58;
+    height: 5px;
+  }
+
+  /******** Firefox ********/
+  input[type="range"]::-moz-range-track {
+    background: #6b6c6c58;
+    height: 5px;
+  }
+
+  /***** Thumb Styles *****/
+  /***** Chrome, Safari, Opera, and Edge Chromium *****/
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    margin-top: -12.5px; /* Centers thumb on the track */
+    background-color: var(--accent-color-red);
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
   }
 }

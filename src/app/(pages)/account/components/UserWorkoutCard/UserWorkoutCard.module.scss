@@ -6,11 +6,13 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  border: solid 2px white;
-  color: white;
+
   padding: 1rem;
   gap: 1rem;
   border-radius: 5px;
+
+  background-color: var(--accent-color-white);
+  box-shadow: var(--box-shadow);
 
   .cardTop {
     display: flex;
@@ -25,11 +27,10 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      font-size: 1rem;
     }
   }
 
   .createdBy {
-    font-size: 10px;
+    font-size: 12px;
   }
 }

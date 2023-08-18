@@ -5,8 +5,8 @@
 }
 
 body {
-  background-color: hsl(40, 20%, 90%);
-
+  background-color: var(--bg-color-main);
+  color: var(--text-color-main);
   font-family: sans-serif;
 }
 
@@ -21,10 +21,12 @@ main {
 
 h2 {
   font-weight: 600;
-  color: hsl(0, 0%, 0%);
 }
 
 p {
   font-size: 1rem;
-  color: hsl(0, 0%, 10%);
+}
+
+button {
+  cursor: pointer;
 }

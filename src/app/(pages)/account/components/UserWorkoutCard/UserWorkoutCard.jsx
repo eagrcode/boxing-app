@@ -26,16 +26,16 @@ export default function UserWorkoutCard({ id, title, workoutRounds, workoutRound
   createdAt = formatDate(createdAt);
 
   return (
-    <Link className={styles.workoutLink} href={`/account/userWorkout/${id}`}>
-      <div key={id} className={styles.card}>
-        <div className={styles.cardTop}>
+    <div key={id} className={styles.card}>
+      <div className={styles.cardTop}>
+        <Link className={styles.workoutLink} href={`/account/userWorkout/${id}`}>
           <h2>{title}</h2>
-          <p>
-            <RiTimerLine /> {workoutRounds} x {workoutRoundTime} min
-          </p>
-        </div>
-        {<p className={styles.createdBy}>Created at {createdAt}</p>}
+        </Link>
+        <p>
+          <RiTimerLine /> {workoutRounds} x {workoutRoundTime} min
+        </p>
       </div>
-    </Link>
+      <p className={styles.createdBy}>Created at {createdAt}</p>
+    </div>
   );
 }

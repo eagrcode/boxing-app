@@ -30,10 +30,9 @@ export default async function AccountPage() {
   return (
     <>
       <p>Hello!, {user.email}</p>
-
       <UserWorkoutList userID={user.id} />
-      <p>Create workout</p>
-      <CreateWorkoutForm mode={"create"} />
+
+      {/* <CreateWorkoutForm mode={"create"} /> */}
     </>
   );
 }

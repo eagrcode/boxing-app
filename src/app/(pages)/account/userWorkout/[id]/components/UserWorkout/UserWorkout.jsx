@@ -62,14 +62,14 @@ export default function UserWorkout({
       <div className={styles.topContainer}>
         <div className={styles.titleContainer}>
           <h1>{title}</h1>
-          <p>{isPublic ? "public" : "private"}</p>
+          <button onClick={() => handleEditMode()} aria-label="edit">
+            <AiTwotoneEdit size={30} />
+          </button>
+          {/* <p>{isPublic ? "public" : "private"}</p> */}
         </div>
         <div className={styles.iconContainer}>
           <button onClick={() => handleDeleteWorkout(id)} aria-label="delete">
-            <TiDelete size={30} style={{ color: "hsl(0, 60%, 40%)" }} />
-          </button>
-          <button onClick={() => handleEditMode()} aria-label="edit">
-            <AiTwotoneEdit size={30} />
+            <TiDelete size={30} />
           </button>
         </div>
       </div>

@@ -97,87 +97,92 @@ const CreateWorkoutForm = ({ mode, workoutID }) => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <div className={styles.topContainer}>
-        <div className={styles.labelContainer}>
-          <label htmlFor="title">Title</label>
+      <div className={styles.titleContainer}>
+        <label htmlFor="title">Title</label>
+        <input
+          className={styles.titleInput}
+          type="text"
+          id="title"
+          name="title"
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className={styles.rangeContainer}>
+        <h2>Settings</h2>
+        <div className={styles.row}>
           <label htmlFor="rounds">Rounds {rounds}</label>
-          <label htmlFor="roundTime">Round / {formatTime(roundTime)}</label>
-          <label htmlFor="restTime">Rest {formatTime(restTime)}</label>
-          <label htmlFor="warmup">Warmup {formatTime(warmupTime)}</label>
-          <label htmlFor="public">Set workout as public</label>
+          <input
+            type="range"
+            id="rounds"
+            name="rounds"
+            min="1"
+            max="30"
+            step="1"
+            onChange={handleInputChange}
+            value={rounds}
+          />
         </div>
-        <div className={styles.inputContainer}>
-          <div>
-            <input type="text" id="title" name="title" onChange={handleInputChange} />
-          </div>
-          <div>
-            <input
-              type="range"
-              id="rounds"
-              name="rounds"
-              min="1"
-              max="30"
-              step="1"
-              onChange={handleInputChange}
-              value={rounds}
-            />
-          </div>
-          <div>
-            <input
-              type="range"
-              id="roundTime"
-              name="roundTime"
-              min="5"
-              max="300"
-              step="10"
-              onChange={handleInputChange}
-              value={roundTime}
-            />
-          </div>
-          <div>
-            <input
-              type="range"
-              id="restTime"
-              name="restTime"
-              min="0"
-              max="60"
-              step="5"
-              onChange={handleInputChange}
-              value={restTime}
-            />
-          </div>
-          <div>
-            <input
-              type="range"
-              id="warmup"
-              name="warmup"
-              min="10"
-              max="30"
-              step="5"
-              onChange={handleInputChange}
-              value={warmupTime}
-            />
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              id="public"
-              name="public"
-              onChange={() => setIsPublic((prev) => !prev)}
-              checked={isPublic}
-            />
-          </div>
+        <div className={styles.row}>
+          <label htmlFor="roundTime">Round / {formatTime(roundTime)}</label>
+          <input
+            type="range"
+            id="roundTime"
+            name="roundTime"
+            min="5"
+            max="300"
+            step="10"
+            onChange={handleInputChange}
+            value={roundTime}
+          />
+        </div>
+        <div className={styles.row}>
+          <label htmlFor="restTime">Rest {formatTime(restTime)}</label>
+          <input
+            type="range"
+            id="restTime"
+            name="restTime"
+            min="0"
+            max="60"
+            step="5"
+            onChange={handleInputChange}
+            value={restTime}
+          />
+        </div>
+        <div className={styles.row}>
+          <label htmlFor="warmup">Warmup {formatTime(warmupTime)}</label>
+          <input
+            type="range"
+            id="warmup"
+            name="warmup"
+            min="10"
+            max="30"
+            step="5"
+            onChange={handleInputChange}
+            value={warmupTime}
+          />
         </div>
       </div>
-
-      {Array.from({ length: rounds }).map((_, index) => (
+      <div className={styles.row}>
+        <label htmlFor="public">Set workout as public</label>
         <input
-          key={index}
-          type="text"
-          onChange={(e) => handleSequenceChange(index, e.target.value)}
-          placeholder={`Sequence for round ${index + 1} (e.g. Jab,Jab,Hook-L)`}
+          type="checkbox"
+          id="public"
+          name="public"
+          onChange={() => setIsPublic((prev) => !prev)}
+          checked={isPublic}
         />
+      </div>
+      {Array.from({ length: rounds }).map((_, index) => (
+        <div className={styles.row}>
+          <input
+            key={index}
+            type="text"
+            onChange={(e) => handleSequenceChange(index, e.target.value)}
+            placeholder={`Sequence for round ${index + 1} (e.g. Jab,Jab,Hook-L)`}
+          />
+        </div>
       ))}
+
       <button type="submit" className={styles.fightBtn}>
         Submit
       </button>

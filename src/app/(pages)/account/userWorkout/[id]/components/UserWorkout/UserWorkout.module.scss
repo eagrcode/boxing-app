@@ -16,6 +16,12 @@
       align-items: center;
       gap: 5px;
 
+      button {
+        background-color: transparent;
+        border: transparent;
+        color: var(--text-color-main);
+      }
+
       p {
         border: solid 1px black;
         border-radius: 10px;
@@ -31,6 +37,7 @@
       button {
         background-color: transparent;
         border: transparent;
+        color: var(--text-color-main);
       }
     }
   }
@@ -39,7 +46,7 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    background-color: hsl(0, 20%, 95%);
+    background-color: var(--accent-color-white);
     box-shadow: hsla(0, 0%, 50%, 0.2) 0px 2px 8px 0px;
     padding: 1rem;
     border-radius: 10px;
@@ -50,10 +57,11 @@
   }
 
   .startBtn {
-    background-color: hsl(230, 40%, 35%);
+    background-color: var(--accent-color-blue);
     border: transparent;
     border-radius: 10px;
-    color: hsl(0, 12%, 90%);
+    color: var(--accent-color-white);
+    font-weight: bold;
     font-size: 1.2rem;
     padding: 10px;
   }

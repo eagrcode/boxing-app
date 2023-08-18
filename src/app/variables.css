@@ -1,0 +1,9 @@
+:root {
+  --bg-color-main: hsl(40, 20%, 85%);
+  --text-color-main: hsl(0, 0%, 10%);
+  --accent-color-white: hsl(0, 20%, 95%);
+  --accent-color-red: hsl(0, 40%, 35%);
+  --accent-color-blue: hsl(230, 40%, 35%);
+  --accent-color-yel: rgb(255, 196, 0);
+  --box-shadow: hsla(0, 0%, 50%, 0.2) 0px 2px 8px 0px;
+}

@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./variables.css";
 
 // components
 import Navbar from "@/src/components/Navbar/Navbar";
