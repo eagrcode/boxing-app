@@ -1,7 +1,7 @@
 "use client";
 
 // styles
-import styles from "./CreateWorkoutForm.module.scss";
+import styles from "./WorkoutForm.module.scss";
 
 // react
 import { useState } from "react";
@@ -9,7 +9,7 @@ import { useState } from "react";
 // supabase client
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-const CreateWorkoutForm = ({ userID }) => {
+const CreateWorkoutForm = ({ mode }) => {
   // init state
   const [title, setTitle] = useState("");
   const [rounds, setRounds] = useState(1);
@@ -63,30 +63,31 @@ const CreateWorkoutForm = ({ userID }) => {
   // handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const roundInfo = sequences.map((seq, idx) => ({
-      round: idx + 1,
-      sequence: seq,
-    }));
+    const workoutData = {
+      title: title,
+      number_of_rounds: rounds,
+      round_time: roundTime,
+      rest_time: restTime,
+      warmup_time: warmupTime,
+      round_info: sequences.map((seq, idx) => ({
+        round: idx + 1,
+        sequence: seq,
+      })),
+      is_public: isPublic,
+    };
 
-    const { data, error } = await supabase
-      .from("workouts")
-      .insert([
-        {
-          title: title,
-          number_of_rounds: rounds,
-          round_time: roundTime,
-          rest_time: restTime,
-          warmup_time: warmupTime,
-          round_info: roundInfo,
-          is_public: isPublic,
-        },
-      ])
-      .select();
+    let data, error;
+
+    if (mode === "edit" && initialData?.id) {
+      ({ data, error } = await supabase.from("workouts").update(workoutData).select());
+    } else if (mode === "create") {
+      ({ data, error } = await supabase.from("workouts").insert([workoutData]).select());
+    }
 
     if (error) {
-      console.error("Error inserting data:", error);
+      console.log(error.message);
     } else {
-      console.log("Submitted to workouts!");
+      console.log("Submitted!");
     }
   };
 

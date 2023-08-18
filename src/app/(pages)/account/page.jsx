@@ -9,7 +9,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 // components
-import CreateWorkoutForm from "./components/CreateWorkoutForm/CreateWorkoutForm";
+import CreateWorkoutForm from "./components/WorkoutForm/WorkoutForm";
 import UserWorkoutList from "./components/UserWorkoutList/UserWorkoutList";
 
 export default async function AccountPage() {

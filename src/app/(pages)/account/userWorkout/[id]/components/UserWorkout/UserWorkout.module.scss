@@ -6,6 +6,22 @@
   gap: 1rem;
   padding: 0 1rem;
 
+  .titleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .iconContainer {
+      display: flex;
+      gap: 5px;
+
+      button {
+        background-color: transparent;
+        border: transparent;
+      }
+    }
+  }
+
   .container {
     display: flex;
     flex-direction: column;
