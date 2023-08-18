@@ -18,6 +18,7 @@ export default async function UserWorkoutPage({ params }) {
         roundInfo={workoutData.round_info}
         workoutData={workoutData}
         numberOfRounds={workoutData.number_of_rounds}
+        isPublic={workoutData.is_public}
       />
     </>
   );

@@ -33,7 +33,7 @@ export default async function AccountPage() {
 
       <UserWorkoutList userID={user.id} />
       <p>Create workout</p>
-      <CreateWorkoutForm userID={user.id} />
+      <CreateWorkoutForm mode={"create"} />
     </>
   );
 }

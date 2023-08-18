@@ -26,6 +26,7 @@ export default function UserWorkout({
   warmupTime,
   roundInfo,
   workoutData,
+  isPublic,
 }) {
   console.log(workoutData);
   // init local state
@@ -58,8 +59,11 @@ export default function UserWorkout({
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.titleContainer}>
-        <h1>{title}</h1>
+      <div className={styles.topContainer}>
+        <div className={styles.titleContainer}>
+          <h1>{title}</h1>
+          <p>{isPublic ? "public" : "private"}</p>
+        </div>
         <div className={styles.iconContainer}>
           <button onClick={() => handleDeleteWorkout(id)} aria-label="delete">
             <TiDelete size={30} style={{ color: "hsl(0, 60%, 40%)" }} />
@@ -95,7 +99,7 @@ export default function UserWorkout({
           <button className={styles.startBtn}>Start</button>
         </>
       ) : (
-        <WorkoutForm mode={"edit"} />
+        <WorkoutForm mode={"edit"} workoutID={id} />
       )}
     </div>
   );

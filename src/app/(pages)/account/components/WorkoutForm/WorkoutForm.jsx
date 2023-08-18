@@ -9,7 +9,7 @@ import { useState } from "react";
 // supabase client
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-const CreateWorkoutForm = ({ mode }) => {
+const CreateWorkoutForm = ({ mode, workoutID }) => {
   // init state
   const [title, setTitle] = useState("");
   const [rounds, setRounds] = useState(1);
@@ -78,8 +78,12 @@ const CreateWorkoutForm = ({ mode }) => {
 
     let data, error;
 
-    if (mode === "edit" && initialData?.id) {
-      ({ data, error } = await supabase.from("workouts").update(workoutData).select());
+    if (mode === "edit") {
+      ({ data, error } = await supabase
+        .from("workouts")
+        .update(workoutData)
+        .eq("id", workoutID)
+        .select());
     } else if (mode === "create") {
       ({ data, error } = await supabase.from("workouts").insert([workoutData]).select());
     }
@@ -93,16 +97,19 @@ const CreateWorkoutForm = ({ mode }) => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <label htmlFor="title">Title</label>
-      <input type="text" id="title" name="title" onChange={handleInputChange} />
       <div className={styles.topContainer}>
         <div className={styles.labelContainer}>
+          <label htmlFor="title">Title</label>
           <label htmlFor="rounds">Rounds {rounds}</label>
           <label htmlFor="roundTime">Round / {formatTime(roundTime)}</label>
           <label htmlFor="restTime">Rest {formatTime(restTime)}</label>
           <label htmlFor="warmup">Warmup {formatTime(warmupTime)}</label>
+          <label htmlFor="public">Set workout as public</label>
         </div>
         <div className={styles.inputContainer}>
+          <div>
+            <input type="text" id="title" name="title" onChange={handleInputChange} />
+          </div>
           <div>
             <input
               type="range"
@@ -151,16 +158,18 @@ const CreateWorkoutForm = ({ mode }) => {
               value={warmupTime}
             />
           </div>
+          <div>
+            <input
+              type="checkbox"
+              id="public"
+              name="public"
+              onChange={() => setIsPublic((prev) => !prev)}
+              checked={isPublic}
+            />
+          </div>
         </div>
       </div>
-      <input
-        type="checkbox"
-        id="public"
-        name="public"
-        onChange={() => setIsPublic((prev) => !prev)}
-        checked={isPublic}
-      />
-      <label htmlFor="public">Set workout as public</label>
+
       {Array.from({ length: rounds }).map((_, index) => (
         <input
           key={index}

@@ -6,10 +6,23 @@
   gap: 1rem;
   padding: 0 1rem;
 
-  .titleContainer {
+  .topContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .titleContainer {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      p {
+        border: solid 1px black;
+        border-radius: 10px;
+        padding: 2px 5px;
+        opacity: 0.5;
+      }
+    }
 
     .iconContainer {
       display: flex;
