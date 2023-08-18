@@ -10,7 +10,8 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    background-color: hsl(0, 12%, 90%);
+    background-color: hsl(0, 20%, 95%);
+    box-shadow: hsla(0, 0%, 50%, 0.2) 0px 2px 8px 0px;
     padding: 1rem;
     border-radius: 10px;
 
@@ -20,7 +21,7 @@
   }
 
   .startBtn {
-    background-color: hsl(0, 100%, 20%);
+    background-color: hsl(240, 60%, 20%);
     border: transparent;
     border-radius: 10px;
     color: hsl(0, 12%, 90%);
