@@ -1,7 +1,7 @@
 // fetch random combo from db
 const getRandomCombo = async (difficulty) => {
   try {
-    const res = await fetch(`http://192.168.0.27:3000/api/combos?difficulty=${difficulty}`);
+    const res = await fetch(`${location.origin}/api/combos?difficulty=${difficulty}`);
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
