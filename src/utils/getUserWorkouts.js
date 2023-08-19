@@ -1,6 +1,6 @@
 const getUserWorkouts = async (id) => {
   try {
-    const res = await fetch(`${location.origin}/api/userWorkouts/${id}`);
+    const res = await fetch(`http://localhost:3000/api/userWorkouts/${id}`);
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
