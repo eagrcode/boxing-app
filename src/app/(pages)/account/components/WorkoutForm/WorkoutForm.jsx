@@ -6,6 +6,9 @@ import styles from "./WorkoutForm.module.scss";
 // react
 import { useState } from "react";
 
+// next
+import { useRouter } from "next/navigation";
+
 // supabase client
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
@@ -21,6 +24,9 @@ const CreateWorkoutForm = ({ mode, workoutID }) => {
 
   // supabase client
   const supabase = createClientComponentClient();
+
+  // init router
+  const router = useRouter();
 
   // Function to format the time in "00:00" format
   const formatTime = (seconds) => {
@@ -92,6 +98,7 @@ const CreateWorkoutForm = ({ mode, workoutID }) => {
       console.log(error.message);
     } else {
       console.log("Submitted!");
+      router.push("/account");
     }
   };
 
