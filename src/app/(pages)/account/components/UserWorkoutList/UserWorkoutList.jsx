@@ -1,6 +1,9 @@
 // styles
 import styles from "./UserWorkoutList.module.scss";
 
+// next
+import Link from "next/link";
+
 // components
 import UserWorkoutCard from "../UserWorkoutCard/UserWorkoutCard";
 
@@ -13,7 +16,11 @@ export default async function UserWorkoutList({ userID }) {
 
   return (
     <div className={styles.wrapper}>
-      <p>{`My Workouts (${userWorkouts.length})`}</p>
+      <div className={styles.top}>
+        <p>{`My Workouts (${userWorkouts.length})`}</p>
+        <Link href="/account/createWorkout">Create workout</Link>
+      </div>
+
       {userWorkouts && (
         <div className={styles.container}>
           {userWorkouts.map((workout) => (
