@@ -10,10 +10,10 @@ import { useState, useEffect } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 // components
-import ComboCard from "@/components/ComboCard/ComboCard";
+import ComboCard from "@/src/components/ComboCard/ComboCard";
 
 // context
-import { useWorkoutMode } from "@/context/useWorkoutMode";
+import { useWorkoutMode } from "@/src/context/useWorkoutMode";
 
 const WorkoutTimer = () => {
   // destructure context
@@ -26,6 +26,8 @@ const WorkoutTimer = () => {
     workoutWarmupTime,
   } = useWorkoutMode();
 
+  console.log(selectedWorkout);
+
   // init state
   const [currentRound, setCurrentRound] = useState(1);
   const [currentDuration, setCurrentDuration] = useState(workoutWarmupTime);
@@ -35,9 +37,9 @@ const WorkoutTimer = () => {
 
   // calculate total rounds & format round types
   const totalRounds = workoutRestTime ? workoutRounds * 2 : workoutRounds;
-  const isWarmupRound = currentRound === 1 ? true : false;
-  const isFightRound = currentRound > 1 && currentRound % 2 == 0;
-  const isRestRound = workoutRestTime && currentRound > 1 && currentRound % 2 != 0;
+  const isWarmupRound = currentRound === 1;
+  const isFightRound = currentRound > 1 && currentRound % 2 === 0;
+  const isRestRound = workoutRestTime && currentRound > 1 && currentRound % 2 !== 0;
 
   // logs
   console.log("current round: ", currentRound);
@@ -45,6 +47,35 @@ const WorkoutTimer = () => {
   console.log("Warmup: ", isWarmupRound);
   console.log("Fight: ", isFightRound);
   console.log("Rest: ", isRestRound);
+
+  // format display based on round type
+  const renderTimerText = (remainingTime) => {
+    switch (true) {
+      case isWarmupRound:
+        return (
+          <>
+            {formatRemainingTime(remainingTime)}
+            <p>WARMUP</p>
+          </>
+        );
+      case isFinished:
+        return <p>DONE!</p>;
+      case isRestRound:
+        return (
+          <>
+            {formatRemainingTime(remainingTime)}
+            <p>REST</p>
+          </>
+        );
+      default:
+        return (
+          <>
+            {formatRemainingTime(remainingTime)}
+            <p>FIGHT!</p>
+          </>
+        );
+    }
+  };
 
   // format remaining time to 00:00
   const formatRemainingTime = (remainingTime) => {
@@ -68,14 +99,14 @@ const WorkoutTimer = () => {
     } else if (isRestRound) {
       setCurrentDuration(workoutRestTime);
     }
-  }, [isFightRound, isRestRound]);
+  }, [isFightRound, isRestRound, setCurrentDuration, workoutRoundTime, workoutRestTime]);
 
   // increment display round from second round onwards
   useEffect(() => {
     if (currentRound > 3 && isFightRound) {
       setDisplayRound((prev) => prev + 1);
     }
-  }, [currentRound, isFightRound]);
+  }, [currentRound, isFightRound, setDisplayRound]);
 
   // logic for end of rounds/workout
   const handleOnComplete = () => {
@@ -118,19 +149,7 @@ const WorkoutTimer = () => {
       >
         {({ remainingTime }) => (
           <div role="timer" aria-live="assertive" className={styles.timeText}>
-            {isFinished ? (
-              <p>DONE!</p>
-            ) : isRestRound ? (
-              <>
-                {formatRemainingTime(remainingTime)}
-                <p>Rest</p>
-              </>
-            ) : (
-              <>
-                {formatRemainingTime(remainingTime)}
-                <p>Fight!</p>
-              </>
-            )}
+            {renderTimerText(remainingTime)}
           </div>
         )}
       </CountdownCircleTimer>
@@ -143,7 +162,7 @@ const WorkoutTimer = () => {
         </button>
       </div>
 
-      <ComboCard punches={selectedWorkout.rounds[displayRound - 1].combo.punches} />
+      <ComboCard sequence={selectedWorkout.round_info[displayRound - 1].sequence} />
     </div>
   );
 };
