@@ -34,6 +34,7 @@ const WorkoutTimer = () => {
   const [isFinished, setIsFinished] = useState(false);
   const [isCountingDown, setIsCountingDown] = useState(true);
   const [displayRound, setDisplayRound] = useState(1);
+  const [currentCombo, setCurrentCombo] = useState(0);
 
   // calculate total rounds & format round types
   const totalRounds = workoutRestTime ? workoutRounds * 2 : workoutRounds;
@@ -101,6 +102,12 @@ const WorkoutTimer = () => {
     }
   }, [isFightRound, isRestRound, setCurrentDuration, workoutRoundTime, workoutRestTime]);
 
+  useEffect(() => {
+    if (isRestRound) {
+      setCurrentCombo((prev) => prev + 1);
+    }
+  }, [isRestRound, setCurrentCombo]);
+
   // increment display round from second round onwards
   useEffect(() => {
     if (currentRound > 3 && isFightRound) {
@@ -162,7 +169,7 @@ const WorkoutTimer = () => {
         </button>
       </div>
 
-      <ComboCard sequence={selectedWorkout.round_info[displayRound - 1].sequence} />
+      <ComboCard sequence={selectedWorkout.round_info[currentCombo].sequence} />
     </div>
   );
 };
