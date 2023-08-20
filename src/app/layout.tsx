@@ -6,6 +6,7 @@ import Navbar from "@/src/components/Navbar/Navbar";
 
 // context
 import { FightDataProvider } from "@/src/context/useFightData";
+import { WorkoutModeProvider } from "../context/useWorkoutMode";
 
 // supabase client
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -30,10 +31,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body>
-        <FightDataProvider>
-          <Navbar session={session} />
-          <main>{children}</main>
-        </FightDataProvider>
+        <WorkoutModeProvider>
+          <FightDataProvider>
+            <Navbar session={session} />
+            <main>{children}</main>
+          </FightDataProvider>
+        </WorkoutModeProvider>
       </body>
     </html>
   );
