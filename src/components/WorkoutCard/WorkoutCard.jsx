@@ -1,11 +1,20 @@
-"use client";
-
 // styles
 import styles from "./WorkoutCard.module.scss";
 
 // next
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { cookies } from "next/headers";
+
+// supabase client
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
+// utils
+import getWorkoutLikes from "@/src/utils/getWorkoutLikes";
+
+// components
+import LikeButton from "./LikeButton/LikeButton";
+import LikesDisplay from "./LikesDisplay/LikesDisplay";
 
 // icons
 import { RiTimerLine } from "react-icons/ri";
@@ -14,7 +23,26 @@ import { GiPunchBlast } from "react-icons/gi";
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 
-const WorkoutCard = ({ id, title, workoutRounds, workoutRoundTime, createdBy }) => {
+export default async function WorkoutCard({
+  id,
+  title,
+  workoutRounds,
+  workoutRoundTime,
+  createdBy,
+}) {
+  // init supabase client
+  const supabase = createServerComponentClient({ cookies });
+
+  // get session data
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const user = session?.user;
+
+  // fetch workout likes
+  const likes = await getWorkoutLikes(id);
+
   return (
     <div key={id} className={styles.card}>
       <div className={styles.cardTop}>
@@ -34,17 +62,11 @@ const WorkoutCard = ({ id, title, workoutRounds, workoutRoundTime, createdBy }) 
       </div>
       <div className={styles.createdByContainer}>
         {createdBy && <p className={styles.createdBy}>Created by {createdBy}</p>}
-        <div className={styles.likesContainer}>
-          {"0 "}
-          <GiPunchBlast size={20} />
-        </div>
+        <LikesDisplay id={id} likes={likes} />
       </div>
 
       <div className={styles.socialBtnContainer}>
-        <button>
-          <GiPunchBlast size={20} />
-          Like
-        </button>
+        <LikeButton id={id} userID={user && user.id} likes={likes} />
         <button>
           <FaRegStar size={20} />
           Save
@@ -52,6 +74,4 @@ const WorkoutCard = ({ id, title, workoutRounds, workoutRoundTime, createdBy }) 
       </div>
     </div>
   );
-};
-
-export default WorkoutCard;
+}

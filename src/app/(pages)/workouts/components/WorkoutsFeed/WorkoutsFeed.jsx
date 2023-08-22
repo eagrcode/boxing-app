@@ -13,7 +13,7 @@ export default async function WorkoutsFeed() {
 
   return (
     <div className={styles.container}>
-      {workouts.map((workout) => (
+      {workouts?.map((workout) => (
         <WorkoutCard
           key={workout.id}
           id={workout.id}

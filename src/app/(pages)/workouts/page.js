@@ -1,6 +1,6 @@
 // components
 import WorkoutsFeed from "./components/WorkoutsFeed/WorkoutsFeed";
 
-export default function WorkoutsPage() {
+export default async function WorkoutsPage() {
   return <WorkoutsFeed />;
 }
