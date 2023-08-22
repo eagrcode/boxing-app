@@ -12,7 +12,7 @@ import { useEffect, useState, useRef } from "react";
 // icons
 import { GiPunchBlast } from "react-icons/gi";
 
-export default function LikesDisplay({ id, likes }) {
+export default function LikesDisplay({ id, userID, likes }) {
   // init state
   const [realtimeLikes, setRealtimeLikes] = useState(likes);
 
@@ -32,9 +32,15 @@ export default function LikesDisplay({ id, likes }) {
         "postgres_changes",
         { event: "*", schema: "public", table: "likes", filter: `workout_id=eq.${id}` },
         (payload) => {
-          console.log(id, payload.new.workout_id);
-          if (payload.new.workout_id === idRef.current) {
-            setRealtimeLikes((prevLikes) => [...prevLikes, payload.new]);
+          console.log(payload);
+          switch (payload.eventType) {
+            case "INSERT":
+              setRealtimeLikes((prevLikes) => [...prevLikes, payload.new]);
+              break;
+            case "DELETE":
+              setRealtimeLikes((prevLikes) =>
+                prevLikes.filter((like) => like.id !== payload.old.id)
+              );
           }
         }
       )
@@ -48,7 +54,7 @@ export default function LikesDisplay({ id, likes }) {
   return (
     <div className={styles.likesContainer}>
       {realtimeLikes.length}
-      <GiPunchBlast size={20} />
+      <GiPunchBlast size={20} style={{ color: "var(--accent-color-blue)" }} />
     </div>
   );
 }

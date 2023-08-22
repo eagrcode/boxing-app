@@ -62,12 +62,12 @@ export default async function WorkoutCard({
       </div>
       <div className={styles.createdByContainer}>
         {createdBy && <p className={styles.createdBy}>Created by {createdBy}</p>}
-        <LikesDisplay id={id} likes={likes} />
+        <LikesDisplay id={id} userID={user && user.id} likes={likes} />
       </div>
 
       <div className={styles.socialBtnContainer}>
         <LikeButton id={id} userID={user && user.id} likes={likes} />
-        <button>
+        <button style={{ color: "var(--text-color-main)" }}>
           <FaRegStar size={20} />
           Save
         </button>
