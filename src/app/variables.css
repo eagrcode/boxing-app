@@ -2,9 +2,9 @@
   --bg-color-main: hsl(240, 15%, 3%);
   --text-color-main: hsl(240, 15%, 80%);
   --accent-color-white: hsl(0, 20%, 95%);
-  --accent-color-dark: hsl(240, 15%, 8%);
+  --accent-color-dark: hsl(250, 10%, 10%);
   --accent-color-red: hsl(0, 50%, 40%);
-  --accent-color-blue: hsl(230, 40%, 35%);
+  --accent-color-blue: hsl(205, 80%, 50%);
   --accent-color-yel: rgb(255, 196, 0);
   --box-shadow: hsla(0, 0%, 50%, 0.2) 0px 2px 8px 0px;
 }
