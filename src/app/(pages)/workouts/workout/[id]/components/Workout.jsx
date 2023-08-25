@@ -11,6 +11,7 @@ import { useWorkoutMode } from "@/src/context/useWorkoutMode";
 // components
 import WorkoutTimer from "../../../components/WorkoutTimer/WorkoutTimer";
 import LikeButton from "@/src/components/WorkoutCard/LikeButton/LikeButton";
+import SaveButton from "@/src/components/WorkoutCard/SaveButton/SaveButton";
 
 export default function Workout({
   id,
@@ -52,7 +53,6 @@ export default function Workout({
       <div className={styles.wrapper}>
         <div className={styles.headerContainer}>
           <h1>{title}</h1>
-          <LikeButton id={id} userID={userID} likes={likes} />
         </div>
         <div className={styles.container}>
           <div>
@@ -73,6 +73,10 @@ export default function Workout({
               </p>
             </div>
           ))}
+        </div>
+        <div className={`${styles.container} ${styles.socialContainer}`}>
+          <LikeButton id={id} userID={userID} likes={likes} />
+          <SaveButton />
         </div>
         <button onClick={handleStart} className={styles.startBtn}>
           Start

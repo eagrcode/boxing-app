@@ -24,6 +24,14 @@
     }
   }
 
+  .socialContainer {
+    flex-direction: row;
+
+    gap: 1rem;
+
+    padding: 1rem;
+  }
+
   .startBtn {
     background-color: var(--accent-color-red);
     border: transparent;

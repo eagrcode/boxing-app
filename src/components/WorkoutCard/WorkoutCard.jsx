@@ -11,9 +11,11 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 // utils
 import getWorkoutLikes from "@/src/utils/getWorkoutLikes";
+import isWorkoutSaved from "@/src/utils/isWorkoutSaved";
 
 // components
 import LikeButton from "./LikeButton/LikeButton";
+import SaveButton from "./SaveButton/SaveButton";
 import LikesDisplay from "./LikesDisplay/LikesDisplay";
 
 // icons
@@ -42,6 +44,7 @@ export default async function WorkoutCard({
 
   // fetch workout likes
   const likes = await getWorkoutLikes(id);
+  const saved = await isWorkoutSaved(id, user?.id);
 
   return (
     <div key={id} className={styles.card}>
@@ -67,10 +70,7 @@ export default async function WorkoutCard({
 
       <div className={styles.socialBtnContainer}>
         <LikeButton id={id} userID={user && user.id} likes={likes} />
-        <button style={{ color: "var(--text-color-main)" }}>
-          <FaRegStar size={20} />
-          Save
-        </button>
+        <SaveButton id={id} userID={user && user.id} saved={saved} />
       </div>
     </div>
   );
