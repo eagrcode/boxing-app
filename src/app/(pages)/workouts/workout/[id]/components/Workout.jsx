@@ -4,15 +4,16 @@
 import styles from "./Workout.module.scss";
 
 // next
-import { useRouter } from "next/navigation";
 
 // context
 import { useWorkoutMode } from "@/src/context/useWorkoutMode";
 
 // components
 import WorkoutTimer from "../../../components/WorkoutTimer/WorkoutTimer";
+import LikeButton from "@/src/components/WorkoutCard/LikeButton/LikeButton";
 
 export default function Workout({
+  id,
   title,
   numberOfRounds,
   roundTime,
@@ -20,6 +21,8 @@ export default function Workout({
   warmupTime,
   roundInfo,
   data,
+  likes,
+  userID,
 }) {
   // destructure context
   const {
@@ -31,9 +34,6 @@ export default function Workout({
     setWorkoutWarmupTime,
     setSelectedWorkout,
   } = useWorkoutMode();
-
-  // init router
-  const router = useRouter();
 
   console.log(data);
 
@@ -50,10 +50,13 @@ export default function Workout({
   if (!isWorkoutMode) {
     return (
       <div className={styles.wrapper}>
-        <h1>{title}</h1>
+        <div className={styles.headerContainer}>
+          <h1>{title}</h1>
+          <LikeButton id={id} userID={userID} likes={likes} />
+        </div>
         <div className={styles.container}>
-          <h2>Info</h2>
           <div>
+            <h2>Info</h2>
             <p>Total {numberOfRounds * roundTime} min</p>
             <p>{numberOfRounds} rounds</p>
             <p>{warmupTime} sec / warmup</p>
@@ -62,7 +65,7 @@ export default function Workout({
           </div>
         </div>
         <div className={styles.container}>
-          <h2>Combos</h2>
+          <h2>Sequence</h2>
           {roundInfo.map((round, index) => (
             <div key={index}>
               <p>

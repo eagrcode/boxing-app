@@ -6,11 +6,16 @@
   gap: 1rem;
   padding: 0 1rem;
 
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .container {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    background-color: hsl(0, 12%, 90%);
+    background-color: var(--accent-color-dark);
     padding: 1rem;
     border-radius: 10px;
 
@@ -20,7 +25,7 @@
   }
 
   .startBtn {
-    background-color: hsl(0, 100%, 20%);
+    background-color: var(--accent-color-red);
     border: transparent;
     border-radius: 10px;
     color: hsl(0, 12%, 90%);
