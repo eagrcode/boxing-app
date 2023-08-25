@@ -23,12 +23,13 @@ export default function Navbar({ session }) {
   // init state
   const [isOpen, setIsOpen] = useState(false);
 
-  // destructure user data
+  // destructure user from session
   const user = session && session.user;
 
-  // log user details if true
+  // log user details
   console.log(user);
 
+  // init usePathname
   const pathname = usePathname();
 
   const formatPathname = (pathname) => {
@@ -113,14 +114,22 @@ export default function Navbar({ session }) {
             {!session
               ? unAuthLinks.map((link, index) => (
                   <li key={index} className={styles.item}>
-                    <Link className={styles.link} href={link.url}>
+                    <Link
+                      onClick={() => setIsOpen((prev) => !prev)}
+                      className={styles.link}
+                      href={link.url}
+                    >
                       {link.title}
                     </Link>
                   </li>
                 ))
-              : authLinks.map((link) => (
-                  <li className={styles.item}>
-                    <Link className={styles.link} href={link.url}>
+              : authLinks.map((link, index) => (
+                  <li key={index} className={styles.item}>
+                    <Link
+                      onClick={() => setIsOpen((prev) => !prev)}
+                      className={styles.link}
+                      href={link.url}
+                    >
                       {link.title}
                     </Link>
                   </li>
