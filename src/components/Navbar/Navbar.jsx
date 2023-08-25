@@ -14,10 +14,14 @@ import { useState } from "react";
 // next
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 // components
 import LogoutButton from "../LogoutButton";
 import Hamburger from "./Hamburger/Hamburger";
+
+// icons
+import { IoChevronBack } from "react-icons/io5";
 
 export default function Navbar({ session }) {
   // init state
@@ -29,8 +33,9 @@ export default function Navbar({ session }) {
   // log user details
   console.log(user);
 
-  // init usePathname
+  // init next hooks
   const pathname = usePathname();
+  const router = useRouter();
 
   const formatPathname = (pathname) => {
     switch (pathname) {
@@ -45,7 +50,7 @@ export default function Navbar({ session }) {
       case "/account":
         return "Account";
       default:
-        "";
+        return "";
     }
   };
 
@@ -108,7 +113,14 @@ export default function Navbar({ session }) {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <Hamburger isOpen={isOpen} setIsOpen={setIsOpen} />
-        <h1>{formatPathname(pathname)}</h1>
+
+        {formatPathname(pathname) === "" ? (
+          <button className={styles.backBtn} onClick={() => router.back()}>
+            <IoChevronBack size={40} />
+          </button>
+        ) : (
+          <h1>{formatPathname(pathname)}</h1>
+        )}
         <div className={`${styles.menuContainer} ${isOpen && styles.isOpen}`}>
           <ul className={styles.menu}>
             {!session
