@@ -13,7 +13,7 @@ import styles from "./SaveButton.module.scss";
 import { FaRegStar } from "react-icons/fa";
 
 export default function SaveButton({ saved, id, userID }) {
-  const isSaved = saved.length > 0;
+  const isSaved = saved?.length > 0;
 
   // init state
   const [isSavedByUser, setIsSavedByUser] = useState(isSaved);
@@ -30,8 +30,8 @@ export default function SaveButton({ saved, id, userID }) {
   const handleSaveWorkout = async () => {
     if (!isSavedByUser) {
       const { data, error } = await supabase
-        .from("users_saved_workouts")
-        .insert([{ workout_id: id, user_id: userID }])
+        .from("user_saved_workouts")
+        .insert([{ workout_id: id }])
         .select();
 
       if (error) {
@@ -42,7 +42,7 @@ export default function SaveButton({ saved, id, userID }) {
       }
     } else {
       const { data, error } = await supabase
-        .from("users_saved_workouts")
+        .from("user_saved_workouts")
         .delete()
         .eq("workout_id", id);
 

@@ -9,8 +9,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 // components
-import CreateWorkoutForm from "./components/WorkoutForm/WorkoutForm";
 import UserWorkoutList from "./components/UserWorkoutList/UserWorkoutList";
+import UserSavedWorkouts from "./components/UserSavedWorkouts/UserSavedWorkouts";
 
 export default async function AccountPage() {
   const supabase = createServerComponentClient({ cookies });
@@ -21,7 +21,6 @@ export default async function AccountPage() {
   } = await supabase.auth.getSession();
 
   const user = session && session.user;
-  console.log(user.id);
 
   if (!session) {
     redirect("/login");
@@ -31,8 +30,7 @@ export default async function AccountPage() {
     <>
       <p>Hello!, {user.email}</p>
       <UserWorkoutList userID={user.id} />
-
-      {/* <CreateWorkoutForm mode={"create"} /> */}
+      <UserSavedWorkouts userID={user.id} />
     </>
   );
 }
