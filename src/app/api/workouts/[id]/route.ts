@@ -25,6 +25,6 @@ export const GET = async (request: Request, { params }: any) => {
     return new NextResponse(JSON.stringify(data), { status: 200 });
   } catch (error) {
     console.error(error); // log the error to the server console
-    return new NextResponse("Database error!", { status: 500 });
+    return new NextResponse("By id Database error!", { status: 500 });
   }
 };

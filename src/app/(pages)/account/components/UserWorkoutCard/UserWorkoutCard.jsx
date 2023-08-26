@@ -11,6 +11,7 @@ import Link from "next/link";
 import { RiTimerLine } from "react-icons/ri";
 
 export default function UserWorkoutCard({ id, title, workoutRounds, workoutRoundTime, createdAt }) {
+  console.log(workoutRounds, workoutRoundTime);
   // format created_at response from db
   function formatDate(timestamp) {
     const date = new Date(timestamp);
@@ -23,7 +24,7 @@ export default function UserWorkoutCard({ id, title, workoutRounds, workoutRound
   }
 
   // call function and assign formatted value
-  createdAt = formatDate(createdAt);
+  createdAt = createdAt && formatDate(createdAt);
 
   return (
     <div key={id} className={styles.card}>
@@ -35,7 +36,7 @@ export default function UserWorkoutCard({ id, title, workoutRounds, workoutRound
           <RiTimerLine /> {workoutRounds} x {workoutRoundTime} min
         </p>
       </div>
-      <p className={styles.createdBy}>Created at {createdAt}</p>
+      {createdAt && <p className={styles.createdBy}>Created at {createdAt}</p>}
     </div>
   );
 }

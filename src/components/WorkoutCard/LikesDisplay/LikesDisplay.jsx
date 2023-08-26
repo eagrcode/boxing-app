@@ -19,8 +19,6 @@ export default function LikesDisplay({ id, userID, likes }) {
   // init suabase client
   const supabase = createClientComponentClient();
 
-  console.log(realtimeLikes.length);
-
   const idRef = useRef(id);
   idRef.current = id;
 
@@ -53,7 +51,7 @@ export default function LikesDisplay({ id, userID, likes }) {
 
   return (
     <div className={styles.likesContainer}>
-      {realtimeLikes.length}
+      {realtimeLikes?.length}
       <GiPunchBlast size={20} style={{ color: "var(--accent-color-blue)" }} />
     </div>
   );

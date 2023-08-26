@@ -17,7 +17,7 @@ export default function LikeButton({ id, userID, likes }) {
   const supabase = createClientComponentClient();
 
   // check if user has already liked this workout - convert to bool
-  const findLike = !!likes.find((like) => like.user_id === userID);
+  const findLike = !!likes?.find((like) => like.user_id === userID);
 
   const [isLikedByUser, setIsLikedByUser] = useState(findLike);
 

@@ -1,4 +1,4 @@
-const getUserWorkouts = async (id) => {
+export default async function getUserWorkouts(id) {
   try {
     const res = await fetch(`http://192.168.0.27:3000/api/userWorkouts/${id}`);
     if (!res.ok) {
@@ -10,6 +10,4 @@ const getUserWorkouts = async (id) => {
   } catch (error) {
     console.log(error.message);
   }
-};
-
-export default getUserWorkouts;
+}
