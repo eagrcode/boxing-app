@@ -21,9 +21,6 @@ import LikesDisplay from "./LikesDisplay/LikesDisplay";
 // icons
 import { RiTimerLine } from "react-icons/ri";
 import { GiHighPunch } from "react-icons/gi";
-import { GiPunchBlast } from "react-icons/gi";
-import { FaRegStar } from "react-icons/fa";
-import { FaStar } from "react-icons/fa";
 
 export default async function WorkoutCard({
   id,
@@ -44,7 +41,7 @@ export default async function WorkoutCard({
 
   // fetch workout likes
   const likes = await getWorkoutLikes(id);
-  const saved = await isWorkoutSaved(id, user?.id);
+  // const saved = await isWorkoutSaved(id, user?.id);
 
   return (
     <div key={id} className={styles.card}>
@@ -70,7 +67,7 @@ export default async function WorkoutCard({
 
       <div className={styles.socialBtnContainer}>
         <LikeButton id={id} userID={user && user.id} likes={likes} />
-        <SaveButton id={id} userID={user && user.id} saved={saved} />
+        <SaveButton id={id} userID={user && user.id} />
       </div>
     </div>
   );

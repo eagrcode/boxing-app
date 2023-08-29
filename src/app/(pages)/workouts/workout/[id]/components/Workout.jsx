@@ -76,7 +76,7 @@ export default function Workout({
         </div>
         <div className={`${styles.container} ${styles.socialContainer}`}>
           <LikeButton id={id} userID={userID} likes={likes} />
-          <SaveButton />
+          <SaveButton id={id} userID={userID} />
         </div>
         <button onClick={handleStart} className={styles.startBtn}>
           Start

@@ -30,7 +30,7 @@ export default function LikesDisplay({ id, userID, likes }) {
         "postgres_changes",
         { event: "*", schema: "public", table: "likes", filter: `workout_id=eq.${id}` },
         (payload) => {
-          console.log(payload);
+          console.log(payload.eventType, payload);
           switch (payload.eventType) {
             case "INSERT":
               setRealtimeLikes((prevLikes) => [...prevLikes, payload.new]);

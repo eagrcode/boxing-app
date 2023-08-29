@@ -7,6 +7,7 @@ import Navbar from "@/src/components/Navbar/Navbar";
 // context
 import { FightDataProvider } from "@/src/context/useFightData";
 import { WorkoutModeProvider } from "../context/useWorkoutMode";
+import { SavedContextProvider } from "../context/useSaveContext";
 
 // supabase client
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
