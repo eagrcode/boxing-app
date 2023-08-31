@@ -2,12 +2,13 @@
 import styles from "./WorkoutCard.module.scss";
 
 // next
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { cookies } from "next/headers";
+
+// react
 
 // supabase client
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 // utils
 import getWorkoutLikes from "@/src/utils/getWorkoutLikes";
@@ -41,7 +42,7 @@ export default async function WorkoutCard({
 
   // fetch workout likes
   const likes = await getWorkoutLikes(id);
-  // const saved = await isWorkoutSaved(id, user?.id);
+  const saved = await isWorkoutSaved(id, user.id);
 
   return (
     <div key={id} className={styles.card}>
@@ -67,7 +68,7 @@ export default async function WorkoutCard({
 
       <div className={styles.socialBtnContainer}>
         <LikeButton id={id} userID={user && user.id} likes={likes} />
-        <SaveButton id={id} userID={user && user.id} />
+        <SaveButton id={id} userID={user && user.id} saved={saved} />
       </div>
     </div>
   );

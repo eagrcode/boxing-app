@@ -8,6 +8,8 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+import getUserSavedWorkouts from "@/src/utils/getUserSavedWorkouts";
+
 // components
 import UserWorkoutList from "./components/UserWorkoutList/UserWorkoutList";
 import UserSavedWorkouts from "./components/UserSavedWorkouts/UserSavedWorkouts";
@@ -22,6 +24,8 @@ export default async function AccountPage() {
 
   const user = session && session.user;
 
+  const savedWorkouts = await getUserSavedWorkouts(user.id);
+
   if (!session) {
     redirect("/login");
   }
@@ -30,7 +34,7 @@ export default async function AccountPage() {
     <>
       <p>Hello!, {user.email}</p>
       <UserWorkoutList userID={user.id} />
-      <UserSavedWorkouts userID={user.id} />
+      <UserSavedWorkouts savedWorkouts={savedWorkouts} userID={user.id} />
     </>
   );
 }

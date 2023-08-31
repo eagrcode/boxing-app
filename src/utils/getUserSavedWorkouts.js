@@ -1,17 +1,28 @@
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+
 export default async function getUserSavedWorkouts(id) {
-  console.log("fetch ID:", id);
+  const supabase = createServerComponentClient({ cookies });
 
   try {
-    const res = await fetch(`http://localhost:3000/api/userSavedWorkouts/${id}`);
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+    let { data, error } = await supabase
+      .from("user_saved_workouts")
+      .select(
+        `
+      workout_id,
+      workouts: workout_id ("*")
+    `
+      )
+      .eq("user_id", id);
+
+    if (error) {
+      console.log("DB error: ", error.message);
     }
-    const data = await res.json();
 
-    data && console.log("fetch data: ", data);
-
+    console.log("Fetch saved workouts: ", data);
     return data;
   } catch (error) {
-    console.log(error.message);
+    console.log("Fetch error: ", error.message);
+    return [];
   }
 }

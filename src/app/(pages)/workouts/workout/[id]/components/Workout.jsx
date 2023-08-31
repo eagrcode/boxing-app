@@ -23,6 +23,7 @@ export default function Workout({
   roundInfo,
   data,
   likes,
+  saved,
   userID,
 }) {
   // destructure context
@@ -76,7 +77,7 @@ export default function Workout({
         </div>
         <div className={`${styles.container} ${styles.socialContainer}`}>
           <LikeButton id={id} userID={userID} likes={likes} />
-          <SaveButton id={id} userID={userID} />
+          <SaveButton id={id} userID={userID} saved={saved} />
         </div>
         <button onClick={handleStart} className={styles.startBtn}>
           Start

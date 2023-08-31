@@ -11,7 +11,6 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 // next
 import { cookies } from "next/headers";
-import { SavedContextProvider } from "@/src/context/useSaveContext";
 
 export default async function WorkoutPage({ params }) {
   // init supabase client
@@ -26,24 +25,24 @@ export default async function WorkoutPage({ params }) {
 
   // fetch data
   const likes = await getWorkoutLikes(params.id);
+  const saved = await isWorkoutSaved(params.id, user.id);
   const workoutData = await getWorkoutById(params.id);
 
   console.log("workout page likes:", likes);
 
   return (
-    <SavedContextProvider>
-      <Workout
-        id={workoutData.id}
-        title={workoutData.title}
-        numberOfRounds={workoutData.number_of_rounds}
-        roundTime={workoutData.round_time}
-        restTime={workoutData.rest_time}
-        warmupTime={workoutData.warmup_time}
-        roundInfo={workoutData.round_info}
-        data={workoutData}
-        likes={likes}
-        userID={user && user.id}
-      />
-    </SavedContextProvider>
+    <Workout
+      id={workoutData.id}
+      title={workoutData.title}
+      numberOfRounds={workoutData.number_of_rounds}
+      roundTime={workoutData.round_time}
+      restTime={workoutData.rest_time}
+      warmupTime={workoutData.warmup_time}
+      roundInfo={workoutData.round_info}
+      data={workoutData}
+      likes={likes}
+      saved={saved}
+      userID={user && user.id}
+    />
   );
 }

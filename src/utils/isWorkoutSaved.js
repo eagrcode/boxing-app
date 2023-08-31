@@ -1,8 +1,7 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default async function isWorkoutSaved(id, userID) {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createClientComponentClient();
 
   try {
     const { data, error } = await supabase

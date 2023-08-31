@@ -9,6 +9,7 @@ import Link from "next/link";
 
 // icons
 import { RiTimerLine } from "react-icons/ri";
+import { GiHighPunch } from "react-icons/gi";
 
 export default function UserWorkoutCard({ id, title, workoutRounds, workoutRoundTime, createdAt }) {
   console.log(workoutRounds, workoutRoundTime);
@@ -29,14 +30,25 @@ export default function UserWorkoutCard({ id, title, workoutRounds, workoutRound
   return (
     <div key={id} className={styles.card}>
       <div className={styles.cardTop}>
-        <Link className={styles.workoutLink} href={`/account/userWorkout/${id}`}>
+        <div className={styles.titleContainer}>
+          <GiHighPunch size={20} />
           <h2>{title}</h2>
-        </Link>
+        </div>
         <p>
           <RiTimerLine /> {workoutRounds} x {workoutRoundTime} min
         </p>
       </div>
-      {createdAt && <p className={styles.createdBy}>Created at {createdAt}</p>}
+      <div className={styles.btnContainer}>
+        <button className={styles.btnStart}>START</button>
+        <Link className={styles.workoutLink} href={`/account/userWorkout/${id}`}>
+          <button>INFO</button>
+        </Link>
+      </div>
+      <div className={styles.createdByContainer}>
+        {<p className={styles.createdAt}>Created by {createdAt}</p>}
+      </div>
+
+      <div className={styles.socialBtnContainer}></div>
     </div>
   );
 }

@@ -5,11 +5,10 @@ import styles from "./UserSavedWorkouts.module.scss";
 import WorkoutCard from "@/src/components/WorkoutCard/WorkoutCard";
 
 // utils
-import getUserSavedWorkouts from "@/src/utils/getUserSavedWorkouts";
 
-export default async function UserSavedWorkouts({ userID }) {
-  const savedWorkouts = await getUserSavedWorkouts(userID);
+// react
 
+export default async function UserSavedWorkouts({ savedWorkouts, userID }) {
   console.log("component data: ", savedWorkouts);
 
   return (

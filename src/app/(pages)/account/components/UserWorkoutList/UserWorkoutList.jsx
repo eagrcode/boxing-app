@@ -10,6 +10,8 @@ import UserWorkoutCard from "../UserWorkoutCard/UserWorkoutCard";
 // utils
 import getUserWorkouts from "@/src/utils/getUserWorkouts";
 
+export const revalidate = 0;
+
 export default async function UserWorkoutList({ userID }) {
   // get workouts
   const userWorkouts = await getUserWorkouts(userID);
