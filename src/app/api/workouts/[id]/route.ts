@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-export const GET = async (request: Request, { params }: any) => {
+export const GET = async ({ params }: any) => {
   const { id } = params;
 
   try {
@@ -21,6 +21,8 @@ export const GET = async (request: Request, { params }: any) => {
     if (error) {
       console.log(error);
     }
+
+    console.log("FETCH WORKOUT BY ID ROUTE: ", data);
 
     return new NextResponse(JSON.stringify(data), { status: 200 });
   } catch (error) {

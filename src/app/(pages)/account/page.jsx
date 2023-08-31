@@ -22,13 +22,13 @@ export default async function AccountPage() {
     data: { session },
   } = await supabase.auth.getSession();
 
-  const user = session && session.user;
-
-  const savedWorkouts = await getUserSavedWorkouts(user.id);
-
   if (!session) {
     redirect("/login");
   }
+
+  const user = session && session.user;
+
+  const savedWorkouts = await getUserSavedWorkouts(user?.id);
 
   return (
     <>

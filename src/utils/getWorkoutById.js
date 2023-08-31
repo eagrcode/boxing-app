@@ -1,14 +1,29 @@
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+
 const getWorkoutById = async (id) => {
-  try {
-    const res = await fetch(`http://192.168.0.27:3000/api/workouts/${id}`);
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
-    const data = await res.json();
+  const supabase = createServerComponentClient({ cookies });
+
+  console.log("params.id: ", id);
+
+  const { data, error } = await supabase
+    .from("workouts")
+    .select(
+      `
+      *,
+      profiles: user_id (email)
+    `
+    )
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.log(error);
+  } else {
     return data;
-  } catch (error) {
-    console.log(error.message);
   }
+
+  console.log("FETCH WORKOUT BY ID: ", data);
 };
 
 export default getWorkoutById;

@@ -5,7 +5,10 @@ import getWorkoutById from "@/src/utils/getWorkoutById";
 import UserWorkout from "./components/UserWorkout/UserWorkout";
 
 export default async function UserWorkoutPage({ params }) {
+  console.log("params.id: ", params.id);
   const workoutData = await getWorkoutById(params.id);
+
+  console.log("COMPONENT DATA ID: ", workoutData);
 
   return (
     <>

@@ -37,8 +37,6 @@ export default function Workout({
     setSelectedWorkout,
   } = useWorkoutMode();
 
-  console.log(data);
-
   // handle workout timer start
   const handleStart = () => {
     setSelectedWorkout(data);

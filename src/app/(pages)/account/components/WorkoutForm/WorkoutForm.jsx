@@ -7,10 +7,14 @@ import styles from "./WorkoutForm.module.scss";
 import { useState } from "react";
 
 // next
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 // supabase client
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+
+// actions
+import editUserWorkout from "@/src/utils/editUserWorkout";
+import createUserWorkout from "@/src/utils/createUserWorkout";
 
 const CreateWorkoutForm = ({ mode, workoutID }) => {
   // init state
@@ -22,11 +26,10 @@ const CreateWorkoutForm = ({ mode, workoutID }) => {
   const [sequences, setSequences] = useState([]);
   const [isPublic, setIsPublic] = useState(false);
 
+  const path = usePathname();
+
   // supabase client
   const supabase = createClientComponentClient();
-
-  // init router
-  const router = useRouter();
 
   // Function to format the time in "00:00" format
   const formatTime = (seconds) => {
@@ -66,44 +69,29 @@ const CreateWorkoutForm = ({ mode, workoutID }) => {
     setSequences(newSequences);
   };
 
-  // handle form submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const workoutData = {
-      title: title,
-      number_of_rounds: rounds,
-      round_time: roundTime,
-      rest_time: restTime,
-      warmup_time: warmupTime,
-      round_info: sequences.map((seq, idx) => ({
-        round: idx + 1,
-        sequence: seq,
-      })),
-      is_public: isPublic,
-    };
-
-    let data, error;
-
-    if (mode === "edit") {
-      ({ data, error } = await supabase
-        .from("workouts")
-        .update(workoutData)
-        .eq("id", workoutID)
-        .select());
-    } else if (mode === "create") {
-      ({ data, error } = await supabase.from("workouts").insert([workoutData]).select());
-    }
-
-    if (error) {
-      console.log(error.message);
-    } else {
-      console.log("Submitted!");
-      router.push("/account");
-    }
+  const workoutData = {
+    title: title,
+    number_of_rounds: rounds,
+    round_time: roundTime,
+    rest_time: restTime,
+    warmup_time: warmupTime,
+    round_info: sequences.map((seq, idx) => ({
+      round: idx + 1,
+      sequence: seq,
+    })),
+    is_public: isPublic,
   };
 
+  function handleAction(mode) {
+    if (mode === "edit") {
+      editUserWorkout(workoutData, workoutID, path);
+    } else if (mode === "create") {
+      createUserWorkout(workoutData, workoutID, path);
+    }
+  }
+
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form action={() => handleAction(mode)} className={styles.form}>
       <div className={styles.titleContainer}>
         <label htmlFor="title">Title</label>
         <input
