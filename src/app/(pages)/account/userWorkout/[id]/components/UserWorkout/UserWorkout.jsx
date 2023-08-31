@@ -125,7 +125,7 @@ export default function UserWorkout({
             </button>
           </>
         ) : (
-          <WorkoutForm mode={"edit"} workoutID={id} />
+          <WorkoutForm mode={"edit"} workoutID={id} setIsEditMode={setIsEditMode} />
         )}
       </div>
     );

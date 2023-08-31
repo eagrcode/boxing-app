@@ -6,17 +6,17 @@ import styles from "./WorkoutForm.module.scss";
 // react
 import { useState } from "react";
 
-// next
-import { usePathname } from "next/navigation";
+// components
+import Button from "./Button";
 
-// supabase client
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+// next
+import { usePathname, useRouter } from "next/navigation";
 
 // actions
 import editUserWorkout from "@/src/utils/editUserWorkout";
 import createUserWorkout from "@/src/utils/createUserWorkout";
 
-const CreateWorkoutForm = ({ mode, workoutID }) => {
+const WorkoutForm = ({ mode, workoutID, setIsEditMode }) => {
   // init state
   const [title, setTitle] = useState("");
   const [rounds, setRounds] = useState(1);
@@ -26,10 +26,9 @@ const CreateWorkoutForm = ({ mode, workoutID }) => {
   const [sequences, setSequences] = useState([]);
   const [isPublic, setIsPublic] = useState(false);
 
+  // init hooks
+  const router = useRouter();
   const path = usePathname();
-
-  // supabase client
-  const supabase = createClientComponentClient();
 
   // Function to format the time in "00:00" format
   const formatTime = (seconds) => {
@@ -82,6 +81,7 @@ const CreateWorkoutForm = ({ mode, workoutID }) => {
     is_public: isPublic,
   };
 
+  // check mode type then handle server action
   function handleAction(mode) {
     if (mode === "edit") {
       editUserWorkout(workoutData, workoutID, path);
@@ -177,12 +177,9 @@ const CreateWorkoutForm = ({ mode, workoutID }) => {
           />
         </div>
       ))}
-
-      <button type="submit" className={styles.fightBtn}>
-        Submit
-      </button>
+      <Button setIsEditMode={setIsEditMode} />
     </form>
   );
 };
 
-export default CreateWorkoutForm;
+export default WorkoutForm;
