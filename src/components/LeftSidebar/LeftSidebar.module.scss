@@ -1,0 +1,33 @@
+.nav {
+  position: sticky;
+  left: 0;
+  height: 100dvh;
+
+  .menu {
+    display: flex;
+    list-style: none;
+    flex-direction: column;
+    width: 100%;
+    font-size: 1rem;
+    text-align: center;
+
+    .item {
+      .link {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+        text-decoration: none;
+        color: white;
+        font-size: 1.2rem;
+        width: fit-content;
+        border-radius: 5px;
+
+        &:hover {
+          background-color: hsla(240, 50%, 80%, 0.1);
+        }
+      }
+    }
+  }
+}

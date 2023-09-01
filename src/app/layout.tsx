@@ -3,6 +3,7 @@ import "./variables.css";
 
 // components
 import Navbar from "@/src/components/Navbar/Navbar";
+import LeftSidebar from "@/src/components/LeftSidebar/LeftSidebar";
 
 // context
 import { FightDataProvider } from "@/src/context/useFightData";
@@ -15,7 +16,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 export const metadata = {
-  title: "Supabang",
+  title: "RoundX",
   description: "Boxingapp",
 };
 
@@ -33,8 +34,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <WorkoutModeProvider>
           <FightDataProvider>
-            <Navbar session={session} />
-            <main>{children}</main>
+            {/* <Navbar session={session} /> */}
+            <div className="app-wrapper">
+              <LeftSidebar />
+              <main>{children}</main>
+            </div>
           </FightDataProvider>
         </WorkoutModeProvider>
       </body>
