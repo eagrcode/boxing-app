@@ -26,7 +26,9 @@ export default async function UserWorkoutList({ userID }) {
               id={workout.id}
               title={workout.title}
               workoutRounds={workout.number_of_rounds}
+              workoutWarmupTime={workout.warmup_time}
               workoutRoundTime={workout.round_time}
+              workoutRestTime={workout.rest_time}
               createdAt={workout.created_at}
             />
           ))}
