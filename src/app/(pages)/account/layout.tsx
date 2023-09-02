@@ -1,5 +1,5 @@
 // styles
-import LogoutButton from "@/src/components/LogoutButton";
+import LogoutButton from "@/src/components/buttons/LogoutButton/LogoutButton";
 import styles from "./page.module.scss";
 
 // supabase client
