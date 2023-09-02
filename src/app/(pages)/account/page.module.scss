@@ -4,6 +4,26 @@
   gap: 1rem;
   width: 100%;
 
+  .layoutTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .topLeft {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .avatar {
+      font-size: 2rem;
+      font-weight: bold;
+      background-color: white;
+      color: black;
+      border-radius: 15px;
+      padding: 1rem;
+    }
+  }
+
   .linkContainer {
     display: flex;
     justify-content: center;

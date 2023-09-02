@@ -20,7 +20,13 @@ export default async function AccountLayout({ children }: { children: React.Reac
 
   return (
     <div className={styles.wrapper}>
-      <p>Hello!, {user?.email}</p>
+      <div className={styles.layoutTop}>
+        <div className={styles.topLeft}>
+          <h1>Elliot Robinson</h1>
+          <p>{user?.email}</p>
+        </div>
+        <div className={styles.avatar}>ER</div>
+      </div>
       <LogoutButton />
       <div className={styles.linkContainer}>
         <Link className={styles.link} href="/account">
