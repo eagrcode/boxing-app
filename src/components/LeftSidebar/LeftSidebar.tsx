@@ -52,7 +52,11 @@ export default function LeftSidebar() {
         {authLinks.map((link, index) => (
           <li key={index} className={styles.item}>
             <Link
-              className={path === link.url ? `${styles.link} ${styles.active}` : styles.link}
+              className={
+                path === link.url || (path !== "/" && path.startsWith(link.url + "/"))
+                  ? `${styles.link} ${styles.active}`
+                  : styles.link
+              }
               href={link.url}
             >
               {link.icon}
