@@ -4,7 +4,7 @@ import styles from "./GenerateComboForm.module.scss";
 import { useFightData } from "@/src/context/useFightData";
 
 // utils
-import getRandomCombo from "@/src/utils/getRandomCombo";
+import getRandomCombo from "@/src/lib/services/getRandomCombo";
 
 const GenerateComboForm = ({ setRandomCombo }) => {
   // destructure context

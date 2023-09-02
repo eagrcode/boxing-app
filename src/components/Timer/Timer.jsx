@@ -14,7 +14,7 @@ import ComboCard from "../ComboCard/ComboCard";
 import { useFightData } from "@/src/context/useFightData";
 
 // utils
-import getRandomCombo from "@/src/utils/getRandomCombo";
+import getRandomCombo from "@/src//lib/services/getRandomCombo";
 
 const Timer = ({ setIsTimerActive, randomCombo, setRandomCombo }) => {
   // destructure context

@@ -1,5 +1,5 @@
 // utils
-import getWorkoutById from "@/src/utils/getWorkoutById";
+import getWorkoutById from "@/src/lib/services/getWorkoutById";
 
 // components
 import UserWorkout from "./components/UserWorkout/UserWorkout";

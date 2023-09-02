@@ -1,8 +1,11 @@
+"use client";
+
 // styles
 import styles from "./LeftSidebar.module.scss";
 
 // next
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 // icons
 import { GoHome } from "react-icons/go";
@@ -11,6 +14,10 @@ import { RiAccountCircleLine } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
 
 export default function LeftSidebar() {
+  const path = usePathname();
+
+  console.log(path);
+
   // init links view for authenticated users
   const authLinks = [
     {
@@ -44,7 +51,10 @@ export default function LeftSidebar() {
       <ul className={styles.menu}>
         {authLinks.map((link, index) => (
           <li key={index} className={styles.item}>
-            <Link className={styles.link} href={link.url}>
+            <Link
+              className={path === link.url ? `${styles.link} ${styles.active}` : styles.link}
+              href={link.url}
+            >
               {link.icon}
               {link.title}
             </Link>

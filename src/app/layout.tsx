@@ -17,17 +17,17 @@ import { cookies } from "next/headers";
 
 export const metadata = {
   title: "RoundX",
-  description: "Boxingapp",
+  description: "Boxing-app",
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // init supabase client
   const supabase = createServerComponentClient({ cookies });
 
-  // get session data
+  // get user data
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
     <html lang="en">
@@ -35,10 +35,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <WorkoutModeProvider>
           <FightDataProvider>
             {/* <Navbar session={session} /> */}
-            <div className="app-wrapper">
-              <LeftSidebar />
-              <main>{children}</main>
-            </div>
+            {user ? (
+              <div className="app-wrapper-user">
+                <LeftSidebar />
+                <main>{children}</main>
+              </div>
+            ) : (
+              <div className="app-wrapper">
+                <main>{children}</main>
+              </div>
+            )}
           </FightDataProvider>
         </WorkoutModeProvider>
       </body>

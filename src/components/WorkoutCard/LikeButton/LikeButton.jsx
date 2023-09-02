@@ -7,7 +7,7 @@ import styles from "./LikeButton.module.scss";
 import { usePathname } from "next/navigation";
 
 // utils
-import likeWorkout from "@/src/utils/likeWorkout";
+import likeWorkout from "@/src/lib/actions/likeWorkout";
 
 // icons
 import { GiPunchBlast } from "react-icons/gi";

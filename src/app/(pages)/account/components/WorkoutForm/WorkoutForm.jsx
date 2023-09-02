@@ -13,8 +13,8 @@ import Button from "./Button";
 import { usePathname, useRouter } from "next/navigation";
 
 // actions
-import editUserWorkout from "@/src/utils/editUserWorkout";
-import createUserWorkout from "@/src/utils/createUserWorkout";
+import editUserWorkout from "@/src/lib/actions/editUserWorkout";
+import createUserWorkout from "@/src/lib/actions/createUserWorkout";
 
 const WorkoutForm = ({ mode, workoutID, setIsEditMode }) => {
   // init state

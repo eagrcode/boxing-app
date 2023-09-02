@@ -18,6 +18,14 @@ body {
 
 .app-wrapper {
   display: flex;
+  justify-content: center;
+  /* padding: 1rem 3rem; */
+  gap: 3rem;
+}
+
+.app-wrapper-user {
+  display: flex;
+  justify-content: center;
   padding: 1rem 3rem;
   gap: 3rem;
 }

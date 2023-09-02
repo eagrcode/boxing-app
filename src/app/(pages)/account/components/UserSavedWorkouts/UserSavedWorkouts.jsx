@@ -13,10 +13,6 @@ export default async function UserSavedWorkouts({ savedWorkouts, userID }) {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.top}>
-        <p>{`Saved Workouts (${savedWorkouts.length})`}</p>
-      </div>
-
       {savedWorkouts && (
         <div className={styles.container}>
           {savedWorkouts?.map((save) => (

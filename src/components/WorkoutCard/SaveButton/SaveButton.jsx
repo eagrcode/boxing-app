@@ -13,7 +13,7 @@ import styles from "./SaveButton.module.scss";
 // icons
 import { FaRegStar } from "react-icons/fa";
 
-import saveWorkout from "@/src/utils/saveWorkout";
+import saveWorkout from "@/src/lib/actions/saveWorkout";
 
 export default function SaveButton({ saved, id, userID }) {
   const isSaved = saved?.length > 0;

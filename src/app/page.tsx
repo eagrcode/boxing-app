@@ -4,6 +4,10 @@ import Link from "next/link";
 
 // styles
 import "./globals.css";
+import styles from "./page.module.scss";
+
+// components
+import WorkoutsFeed from "@/src/app/(pages)/workouts/components/WorkoutsFeed/WorkoutsFeed";
 
 export const dynamic = "force-dynamic";
 
@@ -45,75 +49,37 @@ export default async function Index() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  return (
-    <div>
-      <div>
-        <div>
+  if (!user) {
+    return (
+      <div className={styles.pageWrapper}>
+        <div className={styles.hero}>
           <h1>
-            The fastest way to a smoother boxing experience with <strong>Supabang</strong>
+            Welcome to <span style={{ color: "white" }}>Fight</span>
+            <span style={{ color: "var(--accent-color-blue)" }}>X</span>
           </h1>
-          <button>
-            Get started by editing <strong>app/page.tsx</strong>
-          </button>
+          <p>the fastest way to a smoother boxing experience!</p>
+          <Link href="/login">
+            <button>Get Started</button>
+          </Link>
         </div>
 
-        <div />
-
-        <div>
-          <h2>Everything you need to get started</h2>
-          <div>
-            {resources.map(({ title, subtitle, url, icon }) => (
-              <a key={title} href={url} target="_blank" rel="noreferrer">
-                <h3>{title}</h3>
-                <div>
-                  <p>{subtitle}</p>
-                  <div>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d={icon}
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-            ))}
+        <div className={styles.featureContainer}>
+          <div className={styles.featureCard}>
+            <h2>Timer</h2>
+            <p>Do stuff with the timer and get sweaty</p>
           </div>
-        </div>
-
-        <div>
-          <div>
-            <h2>Examples</h2>
-            <p>
-              Look in the <code>_examples</code> folder to see how to create a Supabase client in
-              all the different contexts.
-            </p>
+          <div className={styles.featureCard}>
+            <h2>Feed</h2>
+            <p>View workouts posted by other users</p>
+          </div>
+          <div className={styles.featureCard}>
+            <h2>Create & Save</h2>
+            <p>Post and save workouts for quick access</p>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return <WorkoutsFeed />;
 }

@@ -1,7 +1,7 @@
 // utils
-import getWorkoutById from "@/src/utils/getWorkoutById";
-import getWorkoutLikes from "@/src/utils/getWorkoutLikes";
-import isWorkoutSaved from "@/src/utils/isWorkoutSaved";
+import getWorkoutById from "@/src/lib/services/getWorkoutById";
+import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
+import isWorkoutSaved from "@/src/lib/services/isWorkoutSaved";
 
 // components
 import Workout from "./components/Workout";

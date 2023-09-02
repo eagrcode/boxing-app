@@ -5,7 +5,7 @@ import styles from "./WorkoutsFeed.module.scss";
 import WorkoutCard from "@/src/components/WorkoutCard/WorkoutCard.jsx";
 
 // utils
-import getWorkouts from "@/src/utils/getWorkouts";
+import getWorkouts from "@/src/lib/services/getWorkouts";
 
 export default async function WorkoutsFeed() {
   // fetch workouts data

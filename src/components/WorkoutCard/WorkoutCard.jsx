@@ -11,8 +11,8 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 // utils
-import getWorkoutLikes from "@/src/utils/getWorkoutLikes";
-import isWorkoutSaved from "@/src/utils/isWorkoutSaved";
+import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
+import isWorkoutSaved from "@/src/lib/services/isWorkoutSaved";
 
 // components
 import LikeButton from "./LikeButton/LikeButton";

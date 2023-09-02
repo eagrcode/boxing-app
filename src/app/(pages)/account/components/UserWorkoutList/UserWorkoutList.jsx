@@ -8,7 +8,7 @@ import Link from "next/link";
 import UserWorkoutCard from "../UserWorkoutCard/UserWorkoutCard";
 
 // utils
-import getUserWorkouts from "@/src/utils/getUserWorkouts";
+import getUserWorkouts from "@/src/lib/services/getUserWorkouts";
 
 export const revalidate = 0;
 
@@ -18,11 +18,6 @@ export default async function UserWorkoutList({ userID }) {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.top}>
-        <p>{`My Workouts (${userWorkouts.length})`}</p>
-        <Link href="/account/createWorkout">Create workout</Link>
-      </div>
-
       {userWorkouts && (
         <div className={styles.container}>
           {userWorkouts.map((workout) => (
