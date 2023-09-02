@@ -1,3 +1,4 @@
+// styles
 import "./globals.css";
 import "./variables.css";
 
@@ -14,11 +15,17 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 // next
 import { cookies } from "next/headers";
+import { Roboto_Flex } from "next/font/google";
 
 export const metadata = {
   title: "RoundX",
   description: "Boxing-app",
 };
+
+const RobotoFlex = Roboto_Flex({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // init supabase client
@@ -30,7 +37,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   } = await supabase.auth.getUser();
 
   return (
-    <html lang="en">
+    <html lang="en" className={RobotoFlex.className}>
       <body>
         <WorkoutModeProvider>
           <FightDataProvider>
