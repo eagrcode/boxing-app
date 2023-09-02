@@ -1,0 +1,20 @@
+.linkContainer {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+
+  .link {
+    color: hsl(0, 0, 60%);
+    text-decoration: none;
+    padding: 5px;
+
+    &.active {
+      color: hsl(0, 0, 90%);
+      border-bottom: solid 1px hsl(0, 0, 90%);
+    }
+
+    &:hover {
+      color: white;
+    }
+  }
+}

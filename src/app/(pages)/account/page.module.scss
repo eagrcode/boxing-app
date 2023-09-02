@@ -23,19 +23,4 @@
       padding: 1rem;
     }
   }
-
-  .linkContainer {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-
-    .link {
-      color: var(--text-color-main);
-      text-decoration: none;
-
-      &:hover {
-        color: white;
-      }
-    }
-  }
 }

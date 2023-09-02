@@ -1,6 +1,9 @@
 // styles
-import LogoutButton from "@/src/components/buttons/LogoutButton/LogoutButton";
 import styles from "./page.module.scss";
+
+// components
+import UserAccountNav from "@/src/components/UserAccountNav/UserAccountNav";
+import LogoutButton from "@/src/components/buttons/LogoutButton/LogoutButton";
 
 // supabase client
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -28,14 +31,7 @@ export default async function AccountLayout({ children }: { children: React.Reac
         <div className={styles.avatar}>ER</div>
       </div>
       <LogoutButton />
-      <div className={styles.linkContainer}>
-        <Link className={styles.link} href="/account">
-          My Workouts
-        </Link>
-        <Link className={styles.link} href="/account/savedWorkouts">
-          Saved Workouts
-        </Link>
-      </div>
+      <UserAccountNav />
 
       {children}
     </div>
