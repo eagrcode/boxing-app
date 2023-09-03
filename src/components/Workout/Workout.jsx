@@ -9,7 +9,7 @@ import styles from "./Workout.module.scss";
 import { useWorkoutMode } from "@/src/context/useWorkoutMode";
 
 // components
-import WorkoutTimer from "../../app/(pages)/workouts/components/WorkoutTimer/WorkoutTimer";
+import WorkoutTimer from "@/src/components/WorkoutTimer/WorkoutTimer";
 import LikeButton from "@/src/components/WorkoutCard/LikeButton/LikeButton";
 import SaveButton from "@/src/components/WorkoutCard/SaveButton/SaveButton";
 
