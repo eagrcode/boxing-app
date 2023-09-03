@@ -1,5 +1,6 @@
 .likesContainer {
-  display: flex;
-  align-items: flex-end;
-  gap: 5px;
+  span {
+    font-size: 14px;
+    color: hsl(0, 0, 60%);
+  }
 }

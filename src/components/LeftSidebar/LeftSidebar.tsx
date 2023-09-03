@@ -16,8 +16,6 @@ import { IoCreateOutline } from "react-icons/io5";
 export default function LeftSidebar() {
   const path = usePathname();
 
-  console.log(path);
-
   // init links view for authenticated users
   const authLinks = [
     {

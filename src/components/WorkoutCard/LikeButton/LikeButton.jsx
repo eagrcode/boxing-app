@@ -27,8 +27,7 @@ export default function LikeButton({ id, userID, likes }) {
           color: `${isLiked ? "var(--accent-color-blue)" : "var(--text-color-main)"}`,
         }}
       >
-        <GiPunchBlast size={20} />
-        Like
+        <GiPunchBlast size={25} />
       </button>
     </form>
   );

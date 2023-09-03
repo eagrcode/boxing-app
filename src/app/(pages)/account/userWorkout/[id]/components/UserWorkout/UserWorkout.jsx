@@ -18,8 +18,8 @@ import { useState } from "react";
 import { useWorkoutMode } from "@/src/context/useWorkoutMode";
 
 // components
-import WorkoutForm from "../../../../components/WorkoutForm/WorkoutForm";
-import WorkoutTimer from "../../../../../workouts/components/WorkoutTimer/WorkoutTimer";
+import WorkoutForm from "@/src/components/WorkoutForm/WorkoutForm";
+import WorkoutTimer from "@/src/components/WorkoutTimer/WorkoutTimer";
 
 export default function UserWorkout({
   id,

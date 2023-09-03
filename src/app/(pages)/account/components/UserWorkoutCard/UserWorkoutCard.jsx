@@ -14,6 +14,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 // next
 import Link from "next/link";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 // icons
 import { RiTimerLine } from "react-icons/ri";
@@ -57,6 +58,8 @@ export default async function UserWorkoutCard({
     workoutWarmupTime + workoutRoundTime * workoutRounds + (workoutRestTime * workoutRounds) / 60
   );
 
+  // onClick={() => redirect(`/account/userWorkout/${id}`)}
+
   return (
     <div key={id} className={styles.card}>
       <div className={styles.cardTop}>
@@ -81,12 +84,11 @@ export default async function UserWorkoutCard({
       </div>
       {/* <div className={styles.btnContainer}>
         <button className={styles.btnStart}>START</button>
-        <Link className={styles.workoutLink} href={`/account/userWorkout/${id}`}>
-          <button>INFO</button>
-        </Link>
+        
       </div> */}
       <div className={styles.socialBtnContainer}>
         <LikeButton id={id} userID={user?.id} likes={likes} />
+        <LikesDisplay id={id} userID={user?.id} likes={likes} />
       </div>
     </div>
   );
