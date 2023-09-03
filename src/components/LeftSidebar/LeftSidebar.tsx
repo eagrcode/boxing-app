@@ -34,8 +34,8 @@ export default function LeftSidebar() {
     },
     {
       id: 3,
-      title: "Workouts",
-      url: "/workouts",
+      title: "Create",
+      url: "/createWorkout",
       icon: <IoCreateOutline size={30} />,
     },
     {
