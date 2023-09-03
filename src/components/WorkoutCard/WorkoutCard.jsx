@@ -57,7 +57,7 @@ export default async function WorkoutCard({
       </div>
       <div className={styles.btnContainer}>
         <button className={styles.btnStart}>START</button>
-        <Link className={styles.workoutLink} href={`/workouts/workout/${id}`}>
+        <Link className={styles.workoutLink} href={`/workout/${id}`}>
           <button>INFO</button>
         </Link>
       </div>
