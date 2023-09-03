@@ -8,7 +8,7 @@ import LeftSidebar from "@/src/components/LeftSidebar/LeftSidebar";
 
 // context
 import { FightDataProvider } from "@/src/context/useFightData";
-import { WorkoutModeProvider } from "../context/useWorkoutMode";
+import { WorkoutModeProvider } from "@/src/context/useWorkoutMode";
 
 // supabase client
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
