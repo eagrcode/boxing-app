@@ -1,7 +1,5 @@
-"use client";
-
 // styles
-import styles from "./WorkoutTimer.module.scss";
+import styles from "./Timer.module.scss";
 
 // react
 import { useState, useEffect } from "react";
@@ -10,37 +8,44 @@ import { useState, useEffect } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 // components
-import ComboCard from "@/src/components/ComboCard/ComboCard";
+import ComboCard from "../../ui/ComboCard/ComboCard";
 
 // context
-import { useWorkoutMode } from "@/src/context/useWorkoutMode";
+import { useFightData } from "@/src/context/useFightData";
 
-const WorkoutTimer = () => {
+// utils
+import getRandomCombo from "@/src//lib/services/getRandomCombo";
+
+const Timer = ({ setIsTimerActive, randomCombo, setRandomCombo }) => {
   // destructure context
   const {
-    setIsWorkoutMode,
-    selectedWorkout,
-    workoutRounds,
-    workoutRoundTime,
-    workoutRestTime,
-    workoutWarmupTime,
-  } = useWorkoutMode();
-
-  console.log(selectedWorkout);
+    difficulty,
+    rounds,
+    setRounds,
+    setRoundTime,
+    roundTime,
+    restTime,
+    setRestTime,
+    warmupTime,
+    setWarmupTime,
+    DEFAULT_ROUNDS,
+    DEFAULT_ROUND_TIME,
+    DEFAULT_REST_TIME,
+    DEFAULT_WARMUP_TIME,
+  } = useFightData();
 
   // init state
   const [currentRound, setCurrentRound] = useState(1);
-  const [currentDuration, setCurrentDuration] = useState(workoutWarmupTime);
+  const [currentDuration, setCurrentDuration] = useState(warmupTime);
   const [isFinished, setIsFinished] = useState(false);
   const [isCountingDown, setIsCountingDown] = useState(true);
   const [displayRound, setDisplayRound] = useState(1);
-  const [currentCombo, setCurrentCombo] = useState(0);
 
   // calculate total rounds & format round types
-  const totalRounds = workoutRestTime ? workoutRounds * 2 : workoutRounds;
+  const totalRounds = restTime ? rounds * 2 : rounds;
   const isWarmupRound = currentRound === 1;
   const isFightRound = currentRound > 1 && currentRound % 2 === 0;
-  const isRestRound = workoutRestTime && currentRound > 1 && currentRound % 2 !== 0;
+  const isRestRound = restTime && currentRound > 1 && currentRound % 2 !== 0;
 
   // logs
   console.log("current round: ", currentRound);
@@ -93,20 +98,26 @@ const WorkoutTimer = () => {
   // format button text
   const buttonText = isCountingDown ? "Pause" : "Resume";
 
+  // fetch random combo after each new round
+  useEffect(() => {
+    const fetchRandomCombo = async () => {
+      const combo = await getRandomCombo(difficulty);
+      setRandomCombo(combo);
+    };
+
+    if (Object.keys(randomCombo).length > 0 && isRestRound) {
+      fetchRandomCombo();
+    }
+  }, [isRestRound, difficulty, setRandomCombo]);
+
   // change duration based on round type
   useEffect(() => {
     if (isFightRound) {
-      setCurrentDuration(workoutRoundTime);
+      setCurrentDuration(roundTime);
     } else if (isRestRound) {
-      setCurrentDuration(workoutRestTime);
+      setCurrentDuration(restTime);
     }
-  }, [isFightRound, isRestRound, setCurrentDuration, workoutRoundTime, workoutRestTime]);
-
-  useEffect(() => {
-    if (isRestRound) {
-      setCurrentCombo((prev) => prev + 1);
-    }
-  }, [isRestRound, setCurrentCombo]);
+  }, [isFightRound, isRestRound, setCurrentDuration, roundTime, restTime]);
 
   // increment display round from second round onwards
   useEffect(() => {
@@ -129,9 +140,13 @@ const WorkoutTimer = () => {
 
   // reset state to defaults and render form components again
   const handleCancel = () => {
-    setIsCountingDown(false);
+    setRounds(DEFAULT_ROUNDS);
+    setRoundTime(DEFAULT_ROUND_TIME);
+    setRestTime(DEFAULT_REST_TIME);
+    setWarmupTime(DEFAULT_WARMUP_TIME);
     setCurrentRound(1);
-    setIsWorkoutMode(false);
+    setRandomCombo({});
+    setIsTimerActive(false);
   };
 
   return (
@@ -140,7 +155,7 @@ const WorkoutTimer = () => {
         <h1>WARMUP</h1>
       ) : (
         <h1>
-          Round {displayRound} / {workoutRounds}
+          Round {displayRound} / {rounds}
         </h1>
       )}
       <CountdownCircleTimer
@@ -169,9 +184,16 @@ const WorkoutTimer = () => {
         </button>
       </div>
 
-      <ComboCard sequence={selectedWorkout.round_info[currentCombo].sequence} />
+      {randomCombo && (
+        <ComboCard
+          id={randomCombo._id}
+          name={randomCombo.name}
+          sequence={randomCombo.sequence}
+          difficulty={randomCombo.difficulty}
+        />
+      )}
     </div>
   );
 };
 
-export default WorkoutTimer;
+export default Timer;

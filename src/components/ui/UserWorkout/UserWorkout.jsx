@@ -23,10 +23,10 @@ import { GiHighPunch } from "react-icons/gi";
 import { useWorkoutMode } from "@/src/context/useWorkoutMode";
 
 // components
-import WorkoutForm from "@/src/components/WorkoutForm/WorkoutForm";
-import WorkoutTimer from "@/src/components/WorkoutTimer/WorkoutTimer";
-import LikeButton from "@/src/components/WorkoutCard/LikeButton/LikeButton";
-import LikesDisplay from "@/src/components/WorkoutCard/LikesDisplay/LikesDisplay";
+import WorkoutForm from "@/src/components/forms/CreateEditWorkout/CreateEditWorkout";
+import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
+import LikeButton from "@/src/components/buttons/LikeButton/LikeButton";
+import LikesDisplay from "@/src/components/ui/LikesDisplay/LikesDisplay";
 
 export default function UserWorkout({
   id,

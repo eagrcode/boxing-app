@@ -17,7 +17,7 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 // components
-import LogoutButton from "../buttons/LogoutButton/LogoutButton";
+import LogoutButton from "../../buttons/LogoutButton/LogoutButton";
 import Hamburger from "./Hamburger/Hamburger";
 
 // icons

@@ -1,7 +1,7 @@
 "use client";
 
 // styles
-import styles from "./WorkoutForm.module.scss";
+import styles from "./CreateEditWorkout.module.scss";
 
 // react
 import { useState } from "react";
@@ -16,7 +16,7 @@ import { usePathname, useRouter } from "next/navigation";
 import editUserWorkout from "@/src/lib/actions/editUserWorkout";
 import createUserWorkout from "@/src/lib/actions/createUserWorkout";
 
-const WorkoutForm = ({ mode, workoutID, setIsEditMode }) => {
+const CreateEditWorkout = ({ mode, workoutID, setIsEditMode }) => {
   // init state
   const [title, setTitle] = useState("");
   const [rounds, setRounds] = useState(1);
@@ -182,4 +182,4 @@ const WorkoutForm = ({ mode, workoutID, setIsEditMode }) => {
   );
 };
 
-export default WorkoutForm;
+export default CreateEditWorkout;

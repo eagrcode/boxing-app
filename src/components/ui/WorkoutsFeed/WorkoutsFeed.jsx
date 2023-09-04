@@ -2,7 +2,7 @@
 import styles from "./WorkoutsFeed.module.scss";
 
 // components
-import WorkoutCard from "@/src/components/WorkoutCard/WorkoutCard.jsx";
+import WorkoutCard from "@/src/components/ui/WorkoutCard/WorkoutCard.jsx";
 
 // utils
 import getWorkouts from "@/src/lib/services/getWorkouts";

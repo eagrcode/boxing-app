@@ -7,7 +7,7 @@ import "./globals.css";
 import styles from "./page.module.scss";
 
 // components
-import WorkoutsFeed from "@/src/components/WorkoutsFeed/WorkoutsFeed";
+import WorkoutsFeed from "@/src/components/ui/WorkoutsFeed/WorkoutsFeed";
 
 export const dynamic = "force-dynamic";
 

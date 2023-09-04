@@ -2,7 +2,7 @@
 import styles from "./UserSavedWorkouts.module.scss";
 
 // components
-import WorkoutCard from "@/src/components/WorkoutCard/WorkoutCard";
+import WorkoutCard from "@/src/components/ui/WorkoutCard/WorkoutCard";
 
 // utils
 

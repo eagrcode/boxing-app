@@ -1,7 +1,7 @@
 "use client";
 
 // styles
-import styles from "./WorkoutForm.module.scss";
+import styles from "./CreateEditWorkout.module.scss";
 
 // loader
 import { Watch } from "react-loader-spinner";

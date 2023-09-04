@@ -4,7 +4,7 @@ import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
 import isWorkoutSaved from "@/src/lib/services/isWorkoutSaved";
 
 // components
-import Workout from "@/src/components/Workout/Workout";
+import Workout from "@/src/components/ui/Workout/Workout";
 
 // supabase client
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";

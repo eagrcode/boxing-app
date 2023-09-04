@@ -5,7 +5,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 // components
-import UserSavedWorkouts from "../components/UserSavedWorkouts/UserSavedWorkouts";
+import UserSavedWorkouts from "../../../../components/ui/UserSavedWorkouts/UserSavedWorkouts";
 
 // services
 import getUserSavedWorkouts from "@/src/lib/services/getUserSavedWorkouts";

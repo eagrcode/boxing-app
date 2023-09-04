@@ -8,10 +8,8 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import getUserSavedWorkouts from "@/src/lib/services/getUserSavedWorkouts";
-
 // components
-import UserWorkoutList from "./components/UserWorkoutList/UserWorkoutList";
+import UserWorkoutList from "@/src/components/ui/UserWorkoutList/UserWorkoutList";
 
 export default async function AccountPage() {
   const supabase = createServerComponentClient({ cookies });

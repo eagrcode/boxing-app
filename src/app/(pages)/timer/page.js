@@ -7,10 +7,10 @@ import styles from "./page.module.scss";
 import { useState, useCallback } from "react";
 
 // components
-import ComboCard from "@/src/components/ComboCard/ComboCard";
-import Timer from "@/src/components/Timer/Timer";
-import InitiateTimerForm from "./components/InitiateTimerForm/InitiateTimerForm";
-import GenerateComboForm from "./components/GenerateComboForm/GenerateComboForm";
+import ComboCard from "@/src/components/ui/ComboCard/ComboCard";
+import Timer from "@/src/components/timers/Timer/Timer";
+import InitiateTimerForm from "@/src/components/forms/InitiateTimerForm/InitiateTimerForm";
+import GenerateComboForm from "@/src/components/forms/GenerateComboForm/GenerateComboForm";
 
 export default function TimerPage() {
   // init state

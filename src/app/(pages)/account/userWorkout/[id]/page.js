@@ -8,7 +8,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 // components
-import UserWorkout from "./components/UserWorkout/UserWorkout";
+import UserWorkout from "@/src/components/ui/UserWorkout/UserWorkout";
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
 
 export default async function UserWorkoutPage({ params }) {

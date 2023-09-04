@@ -2,7 +2,7 @@
 import styles from "./page.module.scss";
 
 // components
-import UserAccountNav from "@/src/components/UserAccountNav/UserAccountNav";
+import UserAccountNav from "@/src/components/ui/UserAccountNav/UserAccountNav";
 import LogoutButton from "@/src/components/buttons/LogoutButton/LogoutButton";
 
 // supabase client

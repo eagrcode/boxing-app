@@ -3,8 +3,8 @@ import "./globals.css";
 import "./variables.css";
 
 // components
-import Navbar from "@/src/components/Navbar/Navbar";
-import LeftSidebar from "@/src/components/LeftSidebar/LeftSidebar";
+
+import LeftSidebar from "@/src/components/ui/LeftSidebar/LeftSidebar";
 
 // context
 import { FightDataProvider } from "@/src/context/useFightData";

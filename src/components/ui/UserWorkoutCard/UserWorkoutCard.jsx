@@ -1,69 +1,55 @@
 // styles
-import styles from "./WorkoutCard.module.scss";
+import styles from "./UserWorkoutCard.module.scss";
 
-// next
-import Link from "next/link";
-
-// react
-
-// supabase client
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+// components
+import LikeButton from "@/src/components/buttons/LikeButton/LikeButton";
+import LikesDisplay from "@/src/components/ui/LikesDisplay/LikesDisplay";
 
 // utils
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
-import isWorkoutSaved from "@/src/lib/services/isWorkoutSaved";
+import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 
-// components
-import LikeButton from "./LikeButton/LikeButton";
-import SaveButton from "./SaveButton/SaveButton";
-import LikesDisplay from "./LikesDisplay/LikesDisplay";
+// supabase client
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
+// next
+import Link from "next/link";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 // icons
 import { RiTimerLine } from "react-icons/ri";
 import { GiHighPunch } from "react-icons/gi";
 
-export default async function WorkoutCard({
+export default async function UserWorkoutCard({
   id,
   title,
   workoutRounds,
   workoutWarmupTime,
   workoutRoundTime,
   workoutRestTime,
-  createdBy,
   createdAt,
 }) {
   // init supabase client
   const supabase = createServerComponentClient({ cookies });
 
-  // get session data
+  // get user details
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  const user = session?.user;
-
-  // format created_at response from db
-  function formatDate(timestamp) {
-    const date = new Date(timestamp);
-    const day = ("0" + date.getDate()).slice(-2); // ensures 2 digits
-    const month = ("0" + (date.getMonth() + 1)).slice(-2); // ensures 2 digits, +1 because months are 0-indexed
-    const year = date.getFullYear();
-
-    return `${day}/${month}/${year}`;
-  }
+  // fetch likes for workout
+  const likes = await getWorkoutLikes(id);
 
   // call function and assign formatted value
-  createdAt = createdAt && formatDate(createdAt);
+  createdAt = formatTimeAgo(createdAt);
 
   // calc total workout time
   const totalTime = Math.floor(
     workoutWarmupTime + workoutRoundTime * workoutRounds + (workoutRestTime * workoutRounds) / 60
   );
 
-  // fetch workout likes
-  const likes = await getWorkoutLikes(id);
-  const saved = await isWorkoutSaved(id, user?.id);
+  // onClick={() => redirect(`/account/userWorkout/${id}`)}
 
   return (
     <div key={id} className={styles.card}>
@@ -75,7 +61,7 @@ export default async function WorkoutCard({
         <span>{createdAt}</span>
       </div>
       <h2>
-        <Link href={`/workout/${id}`}>{title}</Link>
+        <Link href={`/account/userWorkout/${id}`}>{title}</Link>
       </h2>
       <div className={styles.overview}>
         <h3>Info</h3>
@@ -96,7 +82,6 @@ export default async function WorkoutCard({
       </div> */}
       <div className={styles.socialBtnContainer}>
         <LikeButton id={id} userID={user?.id} likes={likes} />
-        <SaveButton id={id} saved={saved} />
       </div>
       <LikesDisplay id={id} userID={user?.id} likes={likes} />
     </div>

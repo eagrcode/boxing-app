@@ -9,9 +9,9 @@ import styles from "./Workout.module.scss";
 import { useWorkoutMode } from "@/src/context/useWorkoutMode";
 
 // components
-import WorkoutTimer from "@/src/components/WorkoutTimer/WorkoutTimer";
-import LikeButton from "@/src/components/WorkoutCard/LikeButton/LikeButton";
-import SaveButton from "@/src/components/WorkoutCard/SaveButton/SaveButton";
+import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
+import LikeButton from "@/src/components/buttons/LikeButton/LikeButton";
+import SaveButton from "@/src/components/buttons/SaveButton/SaveButton";
 
 export default function Workout({
   id,
