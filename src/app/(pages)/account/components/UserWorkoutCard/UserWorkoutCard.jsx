@@ -91,8 +91,8 @@ export default async function UserWorkoutCard({
       </div> */}
       <div className={styles.socialBtnContainer}>
         <LikeButton id={id} userID={user?.id} likes={likes} />
-        <LikesDisplay id={id} userID={user?.id} likes={likes} />
       </div>
+      <LikesDisplay id={id} userID={user?.id} likes={likes} />
     </div>
   );
 }

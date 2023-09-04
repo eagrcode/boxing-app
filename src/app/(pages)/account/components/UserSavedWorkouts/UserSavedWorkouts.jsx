@@ -21,7 +21,10 @@ export default async function UserSavedWorkouts({ savedWorkouts, userID }) {
               id={save.workouts.id}
               title={save.workouts.title}
               workoutRounds={save.workouts.number_of_rounds}
+              workoutWarmupTime={save.workouts.warmup_time}
               workoutRoundTime={save.workouts.round_time}
+              workoutRestTime={save.workouts.rest_time}
+              createdAt={save.workouts.created_at}
             />
           ))}
         </div>

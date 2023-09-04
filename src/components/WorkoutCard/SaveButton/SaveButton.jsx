@@ -11,7 +11,7 @@ import { revalidatePath } from "next/cache";
 import styles from "./SaveButton.module.scss";
 
 // icons
-import { FaRegStar } from "react-icons/fa";
+import { BsSave, BsSaveFill } from "react-icons/bs";
 
 import saveWorkout from "@/src/lib/actions/saveWorkout";
 
@@ -22,13 +22,8 @@ export default function SaveButton({ saved, id, userID }) {
 
   return (
     <form action={() => saveWorkout(isSaved, id, path)}>
-      <button
-        type="submit"
-        className={styles.saveBtn}
-        style={{ color: `${isSaved ? "yellow" : "var(--text-color-main)"}` }}
-      >
-        <FaRegStar size={20} />
-        {isSaved ? "Saved" : "Save"}
+      <button type="submit" className={styles.saveBtn} style={{ color: "var(--text-color-main)" }}>
+        {!isSaved ? <BsSave size={20} /> : <BsSaveFill size={20} />}
       </button>
     </form>
   );

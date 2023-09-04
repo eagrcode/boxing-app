@@ -6,8 +6,10 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  border-bottom: solid 1px hsla(0, 0%, 50%, 0.2);
+  padding: 1rem 0;
 
-  background-color: var(--accent-color-dark);
+  // background-color: var(--accent-color-dark);
   color: var(--text-color-main);
 
   gap: 1rem;
@@ -16,15 +18,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1rem 0 1rem;
 
-    .titleContainer {
+    .usernameContainer {
       display: flex;
       gap: 5px;
-
-      h2 {
-        font-size: 1.2rem;
-      }
 
       p {
         display: flex;
@@ -35,10 +32,22 @@
     }
   }
 
+  h2 {
+    font-size: 1rem;
+
+    a {
+      color: var(--header-color-main);
+    }
+  }
+
+  .overview {
+    display: flex;
+    flex-direction: column;
+  }
+
   .btnContainer {
     display: flex;
     gap: 1rem;
-    padding: 0 1rem;
 
     .btnStart {
       color: var(--accent-color-red);
@@ -58,23 +67,9 @@
     }
   }
 
-  .createdByContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
-
-    .createdBy {
-      font-size: 10px;
-    }
-  }
-
   .socialBtnContainer {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 3rem;
-    border-top: solid 1px hsla(0, 0%, 30%, 0.2);
-    padding: 0.5rem;
+    gap: 5px;
   }
 }
