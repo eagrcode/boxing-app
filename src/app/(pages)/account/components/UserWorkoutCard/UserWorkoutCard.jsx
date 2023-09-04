@@ -63,14 +63,17 @@ export default async function UserWorkoutCard({
   return (
     <div key={id} className={styles.card}>
       <div className={styles.cardTop}>
-        <div className={styles.titleContainer}>
+        <div className={styles.usernameContainer}>
           <GiHighPunch size={20} />
           <p>eagrobinson</p>
         </div>
         <span>{createdAt}</span>
       </div>
-      <h2>{title}</h2>
+      <h2>
+        <Link href={`/account/userWorkout/${id}`}>{title}</Link>
+      </h2>
       <div className={styles.overview}>
+        <h3>Info</h3>
         <span>
           <RiTimerLine />
           {totalTime} mins

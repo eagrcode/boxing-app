@@ -16,6 +16,10 @@ export default function LikeButton({ id, userID, likes }) {
   // check if user has already liked this workout - convert to bool
   const isLiked = !!likes?.find((like) => like.user_id === userID);
 
+  console.log(userID);
+  console.log(likes);
+  console.log(isLiked);
+
   const path = usePathname();
 
   return (
