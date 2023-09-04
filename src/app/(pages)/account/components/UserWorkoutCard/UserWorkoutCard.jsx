@@ -41,17 +41,37 @@ export default async function UserWorkoutCard({
   const likes = await getWorkoutLikes(id);
 
   // format created_at response from db
-  function formatDate(timestamp) {
+  function timeAgo(timestamp) {
     const date = new Date(timestamp);
-    const day = ("0" + date.getDate()).slice(-2); // ensures 2 digits
-    const month = ("0" + (date.getMonth() + 1)).slice(-2); // ensures 2 digits, +1 because months are 0-indexed
-    const year = date.getFullYear();
+    const now = new Date();
+    const diffInSeconds = Math.floor((now - date) / 1000);
 
-    return `${day}/${month}/${year}`;
+    const minute = 60;
+    const hour = minute * 60;
+    const day = hour * 24;
+    const week = day * 7;
+    const month = day * 30; // Approximation
+    const year = day * 365; // Approximation
+
+    if (diffInSeconds < minute) {
+      return `${diffInSeconds} seconds ago`;
+    } else if (diffInSeconds < hour) {
+      return `${Math.floor(diffInSeconds / minute)} m`;
+    } else if (diffInSeconds < day) {
+      return `${Math.floor(diffInSeconds / hour)} hr`;
+    } else if (diffInSeconds < week) {
+      return `${Math.floor(diffInSeconds / day)} d`;
+    } else if (diffInSeconds < month) {
+      return `${Math.floor(diffInSeconds / week)} weeks ago`;
+    } else if (diffInSeconds < year) {
+      return `${Math.floor(diffInSeconds / month)} months ago`;
+    } else {
+      return `${Math.floor(diffInSeconds / year)} years ago`;
+    }
   }
 
   // call function and assign formatted value
-  createdAt = createdAt && formatDate(createdAt);
+  createdAt = createdAt && timeAgo(createdAt);
 
   // calc total workout time
   const totalTime = Math.floor(
