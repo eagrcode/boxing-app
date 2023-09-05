@@ -29,7 +29,7 @@
 
         &:hover {
           color: hsl(0, 0, 90%);
-          background-color: hsla(240, 50%, 80%, 0.1);
+          background-color: var(--accent-color-dark);
         }
       }
     }
