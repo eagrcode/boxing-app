@@ -1,10 +1,10 @@
 // styles
-import "./globals.css";
+import "./globals.scss";
 import "./variables.css";
 
 // components
-
 import LeftSidebar from "@/src/components/ui/LeftSidebar/LeftSidebar";
+import BottomNav from "@/src/components/ui/BottomNav/BottomNav";
 
 // context
 import { FightDataProvider } from "@/src/context/useFightData";
@@ -41,11 +41,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <WorkoutModeProvider>
           <FightDataProvider>
-            {/* <Navbar session={session} /> */}
             {user ? (
               <div className="app-wrapper-user">
                 <LeftSidebar />
                 <main>{children}</main>
+                <BottomNav />
               </div>
             ) : (
               <div className="app-wrapper">

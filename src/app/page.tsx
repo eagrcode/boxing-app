@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 
 // styles
-import "./globals.css";
 import styles from "./page.module.scss";
 
 // components

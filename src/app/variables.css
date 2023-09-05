@@ -1,5 +1,6 @@
 :root {
-  --bg-color-main: hsl(240, 15%, 3%);
+  /* --bg-color-main: hsl(240, 10%, 7%); */
+  --bg-color-main: hsl(240, 5%, 6%);
   --text-color-main: hsl(240, 15%, 80%);
   --header-color-main: hsl(240, 15%, 95%);
   --accent-color-white: hsl(0, 20%, 95%);
