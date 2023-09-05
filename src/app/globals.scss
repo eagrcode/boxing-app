@@ -36,6 +36,7 @@ main {
   gap: 1rem;
   padding: 1rem;
   width: 100%;
+  min-height: calc(100dvh - 62px);
 
   @media (min-width: 768px) {
     padding: 0;

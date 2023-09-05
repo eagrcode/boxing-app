@@ -13,6 +13,7 @@ import { cookies } from "next/headers";
 // utils
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
 import isWorkoutSaved from "@/src/lib/services/isWorkoutSaved";
+import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 
 // components
 import LikeButton from "@/src/components/buttons/LikeButton/LikeButton";
@@ -43,18 +44,8 @@ export default async function WorkoutCard({
 
   const user = session?.user;
 
-  // format created_at response from db
-  function formatDate(timestamp) {
-    const date = new Date(timestamp);
-    const day = ("0" + date.getDate()).slice(-2); // ensures 2 digits
-    const month = ("0" + (date.getMonth() + 1)).slice(-2); // ensures 2 digits, +1 because months are 0-indexed
-    const year = date.getFullYear();
-
-    return `${day}/${month}/${year}`;
-  }
-
   // call function and assign formatted value
-  createdAt = createdAt && formatDate(createdAt);
+  createdAt = formatTimeAgo(createdAt);
 
   // calc total workout time
   const totalTime = Math.floor(

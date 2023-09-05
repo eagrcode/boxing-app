@@ -21,6 +21,7 @@ export default async function WorkoutsFeed() {
           workoutRounds={workout.number_of_rounds}
           workoutRoundTime={workout.round_time}
           createdBy={workout.profiles.email}
+          createdAt={workout.created_at}
         />
       ))}
     </div>
