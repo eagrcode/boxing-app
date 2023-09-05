@@ -5,7 +5,11 @@ export default async function getUserWorkouts(id) {
   const supabase = createServerComponentClient({ cookies });
 
   try {
-    const { data, error } = await supabase.from("workouts").select().eq("user_id", id);
+    const { data, error } = await supabase
+      .from("workouts")
+      .select()
+      .eq("user_id", id)
+      .order("created_at", { ascending: false });
 
     if (error) {
       console.log("DB error: ", error.message);

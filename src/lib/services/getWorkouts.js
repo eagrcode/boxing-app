@@ -24,7 +24,8 @@ const getWorkouts = async () => {
         profiles: user_id (email)
       `
       )
-      .eq("is_public", true);
+      .eq("is_public", true)
+      .order("created_at", { ascending: false });
 
     if (error) {
       console.log("DB error: ", error.message);
