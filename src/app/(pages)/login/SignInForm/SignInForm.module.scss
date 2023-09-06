@@ -1,18 +1,43 @@
-.form {
-  width: 100%;
+.formWrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
   gap: 1rem;
 
   button {
     font-weight: bold;
     font-size: 1rem;
-    padding: 5px;
+    padding: 8px;
+    background-color: hsla(230, 20%, 20%, 0.8);
+    border: solid 1px hsla(230, 20%, 50%, 0.8);
+    color: var(--header-color-main);
+    border-radius: 5px;
+    width: 100%;
+
+    &:hover {
+      background-color: hsla(230, 20%, 30%, 0.8);
+    }
   }
 
   p {
     text-align: center;
   }
+
+  a {
+    color: var(--header-color-main);
+
+    &:hover {
+      color: hsl(240, 15%, 80%);
+    }
+  }
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
   .inputRow {
     width: 100%;
@@ -22,7 +47,28 @@
 
     input {
       font-size: 1rem;
-      padding: 3px;
+      padding: 8px;
+      border-radius: 5px;
+      background-color: hsla(230, 20%, 20%, 0.8);
+      color: var(--text-color-main);
+      border: solid 1px transparent;
+
+      &:hover {
+        border: solid 1px var(--accent-color-blue);
+      }
+
+      &:focus {
+        outline: solid 1px var(--accent-color-blue);
+      }
+    }
+  }
+
+  .signInBtn {
+    border: transparent;
+    background-color: var(--accent-color-blue);
+
+    &:hover {
+      background-color: hsl(205, 90%, 35%);
     }
   }
 }
