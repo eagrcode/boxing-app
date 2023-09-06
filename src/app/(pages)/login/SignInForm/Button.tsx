@@ -4,15 +4,26 @@
 import styles from "./SignInForm.module.scss";
 
 // loader
+import ClockLoader from "react-spinners/ClockLoader";
 
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+type ButtonProps = {
+  isLoading: boolean;
+};
 
-export default function Button() {
-  const { pending } = useFormStatus();
-
+export default function Button({ isLoading }: boolean) {
   return (
-    <button disabled={pending} type="submit" className={styles.signInBtn}>
-      {pending ? "Loading..." : "Sign In"}
+    <button disabled={isLoading} type="submit" className={styles.signInBtn}>
+      {isLoading ? (
+        <ClockLoader
+          loading={isLoading}
+          size={20}
+          color="#fff"
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      ) : (
+        "Sign In"
+      )}
     </button>
   );
 }
