@@ -44,12 +44,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             {user ? (
               <div className="app-wrapper-user">
                 <LeftSidebar />
-                <main>{children}</main>
+                <main className="main-user">{children}</main>
                 <BottomNav />
               </div>
             ) : (
               <div className="app-wrapper">
-                <main>{children}</main>
+                <main className="main-no-user">{children}</main>
               </div>
             )}
           </FightDataProvider>
