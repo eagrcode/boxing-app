@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 // react
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 // styles
 import styles from "./SignUpForm.module.scss";
@@ -15,6 +15,8 @@ import Button from "./Button";
 
 // utils
 import signUpEmail from "@/src/lib/actions/signUpEmail";
+
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function SignUpForm() {
   // init state
@@ -28,11 +30,44 @@ export default function SignUpForm() {
   // init hooks
   const router = useRouter();
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
+  // handle user sign up
+  // async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   await signUpEmail(email, password, username, firstName, lastName);
+  //   setIsLoading(false);
+  //   router.push("/");
+  // }
+
+  const supabase = createClientComponentClient();
+
+  async function handleSignUp(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
-    await signUpEmail(email, password, username, firstName, lastName);
-    router.refresh();
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            first_name: firstName,
+            last_name: lastName,
+            username: username,
+          },
+          emailRedirectTo: `http://localhost:3000/auth/callback`,
+        },
+      });
+
+      if (error) {
+        console.log("DB SIGN UP ERROR: ", error);
+      } else {
+        console.log(data);
+        setIsLoading(false);
+        router.push("/");
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
   }
 
   return (
@@ -40,7 +75,7 @@ export default function SignUpForm() {
       <h1>Get Started</h1>
       <p style={{ color: "var(--tetx-color-main)" }}>Create a new account</p>
 
-      <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
+      <form onSubmit={(e) => handleSignUp(e)} className={styles.form}>
         <div className={styles.inputRow}>
           <label htmlFor="firstName">First Name</label>
           <input
@@ -97,7 +132,6 @@ export default function SignUpForm() {
           />
         </div>
         <Button isLoading={isLoading} />
-        {/* <button formAction="/auth/sign-up">Sign Up</button> */}
       </form>
 
       <p>

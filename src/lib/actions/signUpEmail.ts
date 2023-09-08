@@ -17,14 +17,12 @@ export default async function signUpEmail(
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
-
       options: {
         data: {
           first_name: firstName,
           last_name: lastName,
           username: username,
         },
-        emailRedirectTo: "http://localhost:3000/auth/callback",
       },
     });
 
