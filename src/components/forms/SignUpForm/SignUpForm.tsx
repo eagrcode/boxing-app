@@ -31,51 +31,51 @@ export default function SignUpForm() {
   const router = useRouter();
 
   // handle user sign up
-  // async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
-  //   e.preventDefault();
-  //   setIsLoading(true);
-  //   await signUpEmail(email, password, username, firstName, lastName);
-  //   setIsLoading(false);
-  //   router.push("/");
-  // }
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
+    e.preventDefault();
+    setIsLoading(true);
+    await signUpEmail(email, password, username, firstName, lastName);
+    setIsLoading(false);
+    router.push("/");
+  }
 
   const supabase = createClientComponentClient();
 
-  async function handleSignUp(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-        options: {
-          data: {
-            first_name: firstName,
-            last_name: lastName,
-            username: username,
-          },
-          emailRedirectTo: `http://localhost:3000/auth/callback`,
-        },
-      });
+  // async function handleSignUp(e: FormEvent<HTMLFormElement>) {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   try {
+  //     const { data, error } = await supabase.auth.signUp({
+  //       email: email,
+  //       password: password,
+  //       options: {
+  //         data: {
+  //           first_name: firstName,
+  //           last_name: lastName,
+  //           username: username,
+  //         },
+  //         emailRedirectTo: `http://localhost:3000/auth/callback`,
+  //       },
+  //     });
 
-      if (error) {
-        console.log("DB SIGN UP ERROR: ", error);
-      } else {
-        console.log(data);
-        setIsLoading(false);
-        router.push("/");
-      }
-    } catch (error: any) {
-      console.log(error);
-    }
-  }
+  //     if (error) {
+  //       console.log("DB SIGN UP ERROR: ", error);
+  //     } else {
+  //       console.log(data);
+  //       setIsLoading(false);
+  //       router.push("/");
+  //     }
+  //   } catch (error: any) {
+  //     console.log(error);
+  //   }
+  // }
 
   return (
     <div className={styles.formWrapper}>
       <h1>Get Started</h1>
       <p style={{ color: "var(--tetx-color-main)" }}>Create a new account</p>
 
-      <form onSubmit={(e) => handleSignUp(e)} className={styles.form}>
+      <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
         <div className={styles.inputRow}>
           <label htmlFor="firstName">First Name</label>
           <input

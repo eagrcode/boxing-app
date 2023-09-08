@@ -23,6 +23,7 @@ export default async function signUpEmail(
           last_name: lastName,
           username: username,
         },
+        emailRedirectTo: `${location.origin}/auth/callback`,
       },
     });
 
