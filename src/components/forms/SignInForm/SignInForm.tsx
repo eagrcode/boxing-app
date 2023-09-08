@@ -22,6 +22,8 @@ export default function SignInForm() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // init hooks
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
@@ -35,7 +37,7 @@ export default function SignInForm() {
   return (
     <div className={styles.formWrapper}>
       <h1>Welcome back</h1>
-      <p style={{ color: "var(--accent-color-dark)" }}>Sign in to your account</p>
+      <p style={{ color: "var(--text-color-main)" }}>Sign in to your account</p>
       <button>Guest User</button>
       <p>or</p>
       <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
@@ -65,7 +67,7 @@ export default function SignInForm() {
       </form>
 
       <p>
-        Don't have an account? <Link href="/">Sign Up Now</Link>
+        Don't have an account? <Link href="/signUp">Sign Up Now</Link>
       </p>
     </div>
   );

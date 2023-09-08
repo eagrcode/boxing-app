@@ -2,27 +2,29 @@
 import styles from "./page.module.scss";
 
 // comonents
-import SignInForm from "@/src/components/forms/SignInForm/SignInForm";
+import SignUpForm from "@/src/components/forms/SignUpForm/SignUpForm";
 
+// next
 import { redirect } from "next/navigation";
-
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-export default async function LoginPage() {
+// supabase
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
+export default async function SignUpPage() {
   const supabase = createServerComponentClient({ cookies });
 
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (session) {
+  if (user) {
     redirect("/");
   }
 
   return (
     <div className={styles.wrapper}>
-      <SignInForm />
+      <SignUpForm />
     </div>
   );
 }
