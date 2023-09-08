@@ -15,10 +15,10 @@ export default async function SignUpPage() {
   const supabase = createServerComponentClient({ cookies });
 
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  if (user) {
+  if (session?.user) {
     redirect("/");
   }
 

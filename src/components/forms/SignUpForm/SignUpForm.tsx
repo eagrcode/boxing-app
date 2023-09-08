@@ -36,39 +36,10 @@ export default function SignUpForm() {
     setIsLoading(true);
     await signUpEmail(email, password, username, firstName, lastName);
     setIsLoading(false);
-    router.push("/");
+    router.push("/signUp/success");
   }
 
   const supabase = createClientComponentClient();
-
-  // async function handleSignUp(e: FormEvent<HTMLFormElement>) {
-  //   e.preventDefault();
-  //   setIsLoading(true);
-  //   try {
-  //     const { data, error } = await supabase.auth.signUp({
-  //       email: email,
-  //       password: password,
-  //       options: {
-  //         data: {
-  //           first_name: firstName,
-  //           last_name: lastName,
-  //           username: username,
-  //         },
-  //         emailRedirectTo: `http://localhost:3000/auth/callback`,
-  //       },
-  //     });
-
-  //     if (error) {
-  //       console.log("DB SIGN UP ERROR: ", error);
-  //     } else {
-  //       console.log(data);
-  //       setIsLoading(false);
-  //       router.push("/");
-  //     }
-  //   } catch (error: any) {
-  //     console.log(error);
-  //   }
-  // }
 
   return (
     <div className={styles.formWrapper}>
