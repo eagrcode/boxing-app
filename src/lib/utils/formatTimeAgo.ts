@@ -1,16 +1,16 @@
 // format created_at response from db
-export default function timeAgo(timestamp: string) {
-  const date = new Date(timestamp);
-  const now = new Date();
+export default function timeAgo(timestamp: string): string {
+  const date: Date = new Date(timestamp);
+  const now: Date = new Date();
 
-  const diffInSeconds = Math.floor((now - date) / 1000);
+  const diffInSeconds: number = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-  const minute = 60;
-  const hour = minute * 60;
-  const day = hour * 24;
-  const week = day * 7;
-  const month = day * 30; // Approximation
-  const year = day * 365; // Approximation
+  const minute: number = 60;
+  const hour: number = minute * 60;
+  const day: number = hour * 24;
+  const week: number = day * 7;
+  const month: number = day * 30; // Approximation
+  const year: number = day * 365; // Approximation
 
   if (diffInSeconds < minute) {
     return `${diffInSeconds} seconds ago`;
