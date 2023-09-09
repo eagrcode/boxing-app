@@ -16,8 +16,6 @@ import Button from "./Button";
 // utils
 import signUpEmail from "@/src/lib/actions/signUpEmail";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-
 export default function SignUpForm() {
   // init state
   const [firstName, setFirstName] = useState<string>("");
@@ -39,12 +37,10 @@ export default function SignUpForm() {
     router.push("/signUp/success");
   }
 
-  const supabase = createClientComponentClient();
-
   return (
     <div className={styles.formWrapper}>
       <h1>Get Started</h1>
-      <p style={{ color: "var(--tetx-color-main)" }}>Create a new account</p>
+      <p style={{ color: "var(--text-color-main)" }}>Create a new account</p>
 
       <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
         <div className={styles.inputRow}>

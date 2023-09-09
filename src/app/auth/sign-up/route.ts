@@ -9,21 +9,33 @@ export async function POST(request: Request) {
   const formData = await request.formData();
   const email = String(formData.get("email"));
   const password = String(formData.get("password"));
+  const firstName = String(formData.get("firstName"));
+  const lastName = String(formData.get("lastName"));
+  const username = String(formData.get("username"));
   const supabase = createRouteHandlerClient({ cookies });
 
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: `${requestUrl.origin}/auth/callback`,
-    },
-  });
-
-  if (error) {
-    return NextResponse.redirect(`${requestUrl.origin}/login?error=Could not authenticate user`, {
-      // a 301 status is required to redirect from a POST to a GET route
-      status: 301,
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          first_name: firstName,
+          last_name: lastName,
+          username: username,
+        },
+        emailRedirectTo: `http://localhost:3000/auth/callback`,
+      },
     });
+
+    if (error) {
+      return NextResponse.redirect(`${requestUrl.origin}/login?error=Could not authenticate user`, {
+        // a 301 status is required to redirect from a POST to a GET route
+        status: 301,
+      });
+    }
+  } catch (error: any) {
+    console.log(error);
   }
 
   return NextResponse.redirect(

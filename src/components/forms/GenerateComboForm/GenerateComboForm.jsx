@@ -6,7 +6,7 @@ import { useFightData } from "@/src/context/useFightData";
 // utils
 import getRandomCombo from "@/src/lib/services/getRandomCombo";
 
-const GenerateComboForm = ({ setRandomCombo }) => {
+export default function GenerateComboForm({ setRandomCombo }) {
   // destructure context
   const { difficulty, setDifficulty } = useFightData();
 
@@ -39,6 +39,4 @@ const GenerateComboForm = ({ setRandomCombo }) => {
       <button type="submit">Generate</button>
     </form>
   );
-};
-
-export default GenerateComboForm;
+}

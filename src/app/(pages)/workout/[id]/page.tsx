@@ -12,6 +12,8 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 // next
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 export default async function WorkoutPage({ params }: any) {
   // init supabase client
   const supabase = createServerComponentClient({ cookies });

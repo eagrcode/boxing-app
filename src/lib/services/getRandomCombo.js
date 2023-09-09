@@ -1,16 +1,22 @@
-// fetch random combo from db
-const getRandomCombo = async (difficulty) => {
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+
+export default async function getRandomCombo(difficulty) {
+  const supabase = createClientComponentClient();
+
   try {
-    const res = await fetch(`${location.origin}/api/combos?difficulty=${difficulty}`);
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+    const { data, error } = await supabase
+      .from("random_combination")
+      .select()
+      .eq("difficulty", difficulty)
+      .limit(1)
+      .single();
+
+    if (error) {
+      console.log(error);
     }
-    const data = await res.json();
-    console.log(data);
+
     return data;
   } catch (error) {
-    console.log(`Fetch error: ${error.message}`);
+    console.error(error);
   }
-};
-
-export default getRandomCombo;
+}

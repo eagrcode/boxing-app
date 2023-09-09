@@ -27,6 +27,8 @@ const RobotoFlex = Roboto_Flex({
   display: "swap",
 });
 
+export const dynamic = "force-dynamic";
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // init supabase client
   const supabase = createServerComponentClient({ cookies });

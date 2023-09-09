@@ -10,6 +10,8 @@ import UserSavedWorkouts from "../../../../components/ui/UserSavedWorkouts/UserS
 // services
 import getUserSavedWorkouts from "@/src/lib/services/getUserSavedWorkouts";
 
+export const dynamic = "force-dynamic";
+
 export default async function SavedWorkoutsPage() {
   const supabase = createServerComponentClient({ cookies });
 

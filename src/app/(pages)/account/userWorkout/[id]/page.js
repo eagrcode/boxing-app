@@ -11,6 +11,8 @@ import { cookies } from "next/headers";
 import UserWorkout from "@/src/components/ui/UserWorkout/UserWorkout";
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
 
+export const dynamic = "force-dynamic";
+
 export default async function UserWorkoutPage({ params }) {
   // init supabase client
   const supabase = createServerComponentClient({ cookies });
