@@ -13,7 +13,7 @@ export default function Button() {
 
   return (
     <button disabled={pending} type="submit" className={styles.fightBtn}>
-      {pending ? "Loading..." : "Submit"}
+      {pending ? "Loading..." : "Post"}
     </button>
   );
 }

@@ -152,52 +152,6 @@ export default function UserWorkout({
           <LikesDisplay id={id} userID={userID} likes={likes} />
         </div>
       </div>
-      // <div className={styles.wrapper}>
-      //   <div className={styles.topContainer}>
-      //     <div className={styles.titleContainer}>
-      //       <h1>{title}</h1>
-      //       <button onClick={() => handleEditMode()} aria-label="edit">
-      //         <AiTwotoneEdit size={30} />
-      //       </button>
-      //       {/* <p>{isPublic ? "public" : "private"}</p> */}
-      //     </div>
-      //     <div className={styles.iconContainer}>
-      //       <button onClick={() => handleDeleteWorkout(id)} aria-label="delete">
-      //         <TiDelete size={30} />
-      //       </button>
-      //     </div>
-      //   </div>
-
-      //   {!isEditMode ? (
-      //     <>
-      //       <div className={styles.container}>
-      //         <h2>Info</h2>
-      //         <div>
-      //           <p>Total {numberOfRounds * roundTime} min</p>
-      //           <p>{numberOfRounds} rounds</p>
-      //           <p>{warmupTime} sec / warmup</p>
-      //           <p>{roundTime} min / round</p>
-      //           <p>{restTime} sec / rest</p>
-      //         </div>
-      //       </div>
-      //       <div className={styles.container}>
-      //         <h2>Combos</h2>
-      //         {roundInfo.map((round, index) => (
-      //           <div key={index}>
-      //             <p>
-      //               Round {round.round} - {round.sequence.map((seq) => `${seq} `)}
-      //             </p>
-      //           </div>
-      //         ))}
-      //       </div>
-      //       <button onClick={handleStart} className={styles.startBtn}>
-      //         Start
-      //       </button>
-      //     </>
-      //   ) : (
-      //     <WorkoutForm mode={"edit"} workoutID={id} setIsEditMode={setIsEditMode} />
-      //   )}
-      // </div>
     );
   }
 

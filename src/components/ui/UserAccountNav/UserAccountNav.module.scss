@@ -6,19 +6,19 @@
   gap: 3rem;
 
   .link {
-    color: hsl(0, 0, 60%);
+    color: var(--text-color-accent);
     text-decoration: none;
     padding: 8px;
     border-radius: 5px;
 
     &.active {
-      color: hsl(0, 0, 90%);
+      color: var(--accent-color-white);
       // border-bottom: solid 1px hsl(0, 0, 90%);
       background-color: var(--accent-color-dark);
     }
 
     &:hover {
-      color: white;
+      color: var(--accent-color-white);
       background-color: var(--accent-color-dark);
     }
   }
