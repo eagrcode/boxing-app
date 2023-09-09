@@ -15,7 +15,7 @@ import Button from "./Button";
 
 // utils
 import signInEmail from "@/src/lib/actions/signInEmail";
-import signIn from "@/src/lib/signIn";
+import signInGuest from "@/src/lib/actions/signInGuest";
 
 export default function SignInForm() {
   // init state
@@ -34,11 +34,18 @@ export default function SignInForm() {
     router.refresh();
   }
 
+  async function handleGuestSubmit(e: React.MouseEvent<HTMLButtonElement>): Promise<void> {
+    e.preventDefault();
+    setIsLoading(true);
+    await signInGuest();
+    router.refresh();
+  }
+
   return (
     <div className={styles.formWrapper}>
       <h1>Welcome back</h1>
       <p style={{ color: "var(--text-color-main)" }}>Sign in to your account</p>
-      <button>Guest User</button>
+      <button onClick={(e) => handleGuestSubmit(e)}>Guest User</button>
       <p>or</p>
       <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
         <div className={styles.inputRow}>
