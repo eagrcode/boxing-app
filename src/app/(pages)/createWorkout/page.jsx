@@ -5,5 +5,10 @@ import styles from "./page.module.scss";
 import WorkoutForm from "@/src/components/forms/CreateEditWorkout/CreateEditWorkout";
 
 export default function CreateWorkoutPage() {
-  return <WorkoutForm mode={"create"} />;
+  return (
+    <>
+      <header>New Workout</header>
+      <WorkoutForm mode={"create"} />
+    </>
+  );
 }

@@ -33,16 +33,17 @@ export default async function AccountLayout({ children }: { children: React.Reac
 
   return (
     <div className={styles.wrapper}>
+      <header>Account</header>
       <div className={styles.layoutTop}>
         <div className={styles.topLeft}>
           <h1>
-            {profileData.first_name} {profileData.last_name}
+            {profileData?.first_name} {profileData?.last_name}
           </h1>
-          <p>{profileData.username}</p>
+          <p>{profileData?.username}</p>
         </div>
         <div className={styles.avatar}>
-          {profileData.first_name.charAt(0)}
-          {profileData.last_name.charAt(0)}
+          {profileData?.first_name.charAt(0)}
+          {profileData?.last_name.charAt(0)}
         </div>
       </div>
       <LogoutButton />

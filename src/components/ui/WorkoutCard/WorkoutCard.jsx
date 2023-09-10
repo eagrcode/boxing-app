@@ -27,6 +27,7 @@ import { GiHighPunch } from "react-icons/gi";
 export default async function WorkoutCard({
   id,
   title,
+  description,
   workoutRounds,
   workoutWarmupTime,
   workoutRoundTime,
@@ -49,8 +50,10 @@ export default async function WorkoutCard({
 
   // calc total workout time
   const totalTime = Math.floor(
-    workoutWarmupTime + workoutRoundTime * workoutRounds + (workoutRestTime * workoutRounds) / 60
+    workoutWarmupTime + workoutRoundTime * workoutRounds + workoutRestTime * (workoutRounds - 1)
   );
+
+  console.log("TOTAL TIME: ", totalTime);
 
   // fetch workout likes
   const likes = await getWorkoutLikes(id);
@@ -61,7 +64,7 @@ export default async function WorkoutCard({
       <div className={styles.cardTop}>
         <div className={styles.usernameContainer}>
           <GiHighPunch size={20} />
-          <p>eagrobinson</p>
+          <p>{createdBy}</p>
         </div>
         <span>{createdAt}</span>
       </div>
@@ -69,27 +72,27 @@ export default async function WorkoutCard({
         <Link href={`/workout/${id}`}>{title}</Link>
       </h2>
       <div className={styles.overview}>
-        <h3>Info</h3>
-        <span>
-          <RiTimerLine />
-          {totalTime} mins
-        </span>
+        <p>{description}</p>
+      </div>
+      <div className={styles.info}>
+        <span>{totalTime}mins</span>
         <span>
           {workoutRounds} round{workoutRounds > 1 && "s"}
         </span>
-        <span>{workoutWarmupTime} sec / warmup</span>
-        <span>{workoutRoundTime} sec / round</span>
-        <span></span>
+        {/* <span>{workoutWarmupTime} sec / warmup</span> */}
+        <span>{workoutRoundTime}sec / round</span>
       </div>
-      {/* <div className={styles.btnContainer}>
-        <button className={styles.btnStart}>START</button>
-        
-      </div> */}
+
       <div className={styles.socialBtnContainer}>
         <LikeButton id={id} userID={user?.id} likes={likes} />
         <SaveButton id={id} saved={saved} />
       </div>
       <LikesDisplay id={id} userID={user?.id} likes={likes} />
+
+      {/* <div className={styles.btnContainer}>
+        <button className={styles.btnStart}>START</button>
+        
+      </div> */}
     </div>
   );
 }

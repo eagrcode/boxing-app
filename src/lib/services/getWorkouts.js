@@ -21,7 +21,7 @@ const getWorkouts = async () => {
       .select(
         `
         *,
-        profiles: user_id (email)
+        profiles: user_id (username)
       `
       )
       .eq("is_public", true)

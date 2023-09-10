@@ -4,6 +4,9 @@ import styles from "./InitiateTimerForm.module.scss";
 // context
 import { useFightData } from "@/src/context/useFightData";
 
+// icons
+import { FaPlay } from "react-icons/fa";
+
 const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
   // destructure context
   const {
@@ -50,16 +53,11 @@ const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <div className={styles.topContainer}>
-        <div className={styles.labelContainer}>
-          <label htmlFor="rounds">Rounds {rounds}</label>
-          <label htmlFor="roundTime">Round / {formatTime(roundTime)}</label>
-          <label htmlFor="restTime">Rest {formatTime(restTime)}</label>
-          <label htmlFor="warmup">Warmup {formatTime(warmupTime)}</label>
-        </div>
-        <div className={styles.inputContainer}>
-          <div>
+    <div className={styles.formWrapper}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.rangeContainer}>
+          <div className={styles.row}>
+            <label htmlFor="rounds">Rounds {rounds}</label>
             <input
               type="range"
               id="rounds"
@@ -71,7 +69,8 @@ const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
               value={rounds}
             />
           </div>
-          <div>
+          <div className={styles.row}>
+            <label htmlFor="roundTime">Round / {formatTime(roundTime)}</label>
             <input
               type="range"
               id="roundTime"
@@ -83,7 +82,8 @@ const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
               value={roundTime}
             />
           </div>
-          <div>
+          <div className={styles.row}>
+            <label htmlFor="restTime">Rest {formatTime(restTime)}</label>
             <input
               type="range"
               id="restTime"
@@ -95,7 +95,8 @@ const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
               value={restTime}
             />
           </div>
-          <div>
+          <div className={styles.row}>
+            <label htmlFor="warmup">Warmup {formatTime(warmupTime)}</label>
             <input
               type="range"
               id="warmup"
@@ -108,11 +109,21 @@ const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
             />
           </div>
         </div>
-      </div>
-      <button type="submit" className={styles.fightBtn}>
-        START
-      </button>
-    </form>
+        <button type="submit">
+          <FaPlay size={50} />
+        </button>
+        {/* <div className={styles.row}>
+    <label htmlFor="public">Set workout as public</label>
+    <input
+      type="checkbox"
+      id="public"
+      name="public"
+      onChange={() => setIsPublic((prev) => !prev)}
+      checked={isPublic}
+    />
+  </div> */}
+      </form>
+    </div>
   );
 };
 

@@ -23,24 +23,27 @@ export default async function WorkoutPage({ params }: any) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  const user = session && session.user;
+  const user = session?.user;
 
   // fetch data
   const likes = await getWorkoutLikes(params.id);
   const saved = await isWorkoutSaved(params.id, user?.id);
   const workoutData = await getWorkoutById(params.id);
 
-  console.log("workout page likes:", likes);
+  console.log("WORKOUT DATA PAGE: ", workoutData);
 
   return (
     <Workout
       id={workoutData.id}
+      createdBy={workoutData.profiles.username}
       title={workoutData.title}
-      numberOfRounds={workoutData.number_of_rounds}
-      roundTime={workoutData.round_time}
-      restTime={workoutData.rest_time}
-      warmupTime={workoutData.warmup_time}
+      description={workoutData.description}
+      workoutRounds={workoutData.number_of_rounds}
+      workoutRoundTime={workoutData.round_time}
+      workoutRestTime={workoutData.rest_time}
+      workoutWarmupTime={workoutData.warmup_time}
       roundInfo={workoutData.round_info}
+      createdAt={workoutData.created_at}
       data={workoutData}
       likes={likes}
       saved={saved}

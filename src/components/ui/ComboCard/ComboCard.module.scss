@@ -3,12 +3,21 @@
   align-items: center;
   list-style: none;
   gap: 5px;
-
   flex-wrap: wrap;
   li {
-    border: solid 1px white;
-    padding: 5px;
+    // background-color: black;
+    // color: var(--text-color-main);
+    // border: solid 1px hsla(230, 20%, 50%, 0.8);
+
     border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .arrow {
+    display: flex;
+    align-items: center;
+
     font-size: 1.2rem;
   }
 

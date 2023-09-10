@@ -24,17 +24,17 @@
           gap: 1rem;
           padding: 1rem;
           text-decoration: none;
-          color: hsl(0, 0%, 60%);
+          color: var(--text-color-accent);
           font-size: 1.2rem;
           width: fit-content;
           border-radius: 5px;
 
           &.active {
-            color: hsl(0, 0, 90%);
+            color: var(--accent-color-white);
           }
 
           &:hover {
-            color: hsl(0, 0, 90%);
+            color: var(--accent-color-white);
             background-color: var(--accent-color-dark);
           }
         }

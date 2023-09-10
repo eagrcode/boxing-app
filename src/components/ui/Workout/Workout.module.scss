@@ -45,6 +45,15 @@
     flex-direction: column;
   }
 
+  .info {
+    display: flex;
+    gap: 1rem;
+    color: var(--text-color-accent);
+
+    span {
+    }
+  }
+
   .exerciseContainer {
     display: flex;
     flex-direction: column;

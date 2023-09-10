@@ -7,18 +7,24 @@
   select {
     padding: 5px;
     border-radius: 5px;
+    background-color: var(--accent-color-dark);
+    color: var(--accent-color-white);
+    font-weight: bold;
+    border: solid 1px hsla(230, 20%, 50%, 0.8);
     font-size: 1rem;
-    border: transparent;
-    font-family: sans-serif;
+    height: 50px;
+    width: 150px;
   }
 
   button {
     padding: 5px;
     border-radius: 5px;
-    background-color: blue;
-    color: white;
+    background-color: var(--accent-color-dark);
+    color: var(--accent-color-white);
     font-weight: bold;
-    border: transparent;
+    border: solid 1px hsla(230, 20%, 50%, 0.8);
     font-size: 1rem;
+    height: 50px;
+    width: 150px;
   }
 }

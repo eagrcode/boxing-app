@@ -49,5 +49,10 @@ export default async function Index() {
     );
   }
 
-  return <WorkoutsFeed />;
+  return (
+    <>
+      <header>Feed</header>
+      <WorkoutsFeed />
+    </>
+  );
 }

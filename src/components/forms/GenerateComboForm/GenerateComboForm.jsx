@@ -30,7 +30,7 @@ export default function GenerateComboForm({ setRandomCombo }) {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <label htmlFor="difficulty">Difficulty</label>
+      {/* <label htmlFor="difficulty">Difficulty</label> */}
       <select id="difficulty" name="difficulty" onChange={handleInputChange} value={difficulty}>
         <option value="Beginner">Beginner</option>
         <option value="Amateur">Amateur</option>

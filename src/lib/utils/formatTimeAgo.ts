@@ -13,18 +13,18 @@ export default function timeAgo(timestamp: string): string {
   const year: number = day * 365; // Approximation
 
   if (diffInSeconds < minute) {
-    return `${diffInSeconds} seconds ago`;
+    return `${diffInSeconds}s`;
   } else if (diffInSeconds < hour) {
-    return `${Math.floor(diffInSeconds / minute)} m`;
+    return `${Math.floor(diffInSeconds / minute)}m`;
   } else if (diffInSeconds < day) {
-    return `${Math.floor(diffInSeconds / hour)} hr`;
+    return `${Math.floor(diffInSeconds / hour)}h`;
   } else if (diffInSeconds < week) {
-    return `${Math.floor(diffInSeconds / day)} d`;
+    return `${Math.floor(diffInSeconds / day)}d`;
   } else if (diffInSeconds < month) {
-    return `${Math.floor(diffInSeconds / week)} weeks ago`;
+    return `${Math.floor(diffInSeconds / week)}w`;
   } else if (diffInSeconds < year) {
-    return `${Math.floor(diffInSeconds / month)} months ago`;
+    return `${Math.floor(diffInSeconds / month)}m`;
   } else {
-    return `${Math.floor(diffInSeconds / year)} years ago`;
+    return `${Math.floor(diffInSeconds / year)}y`;
   }
 }

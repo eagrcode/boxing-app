@@ -18,9 +18,12 @@ export default async function WorkoutsFeed() {
           key={workout.id}
           id={workout.id}
           title={workout.title}
+          description={workout.description}
           workoutRounds={workout.number_of_rounds}
+          workoutWarmupTime={workout.warmup_time}
           workoutRoundTime={workout.round_time}
-          createdBy={workout.profiles.email}
+          workoutRestTime={workout.rest_time}
+          createdBy={workout.profiles.username}
           createdAt={workout.created_at}
         />
       ))}

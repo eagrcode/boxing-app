@@ -12,6 +12,7 @@ import styles from "./SaveButton.module.scss";
 
 // icons
 import { BsSave, BsSaveFill } from "react-icons/bs";
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
 import saveWorkout from "@/src/lib/actions/saveWorkout";
 
@@ -23,7 +24,7 @@ export default function SaveButton({ saved, id, userID }) {
   return (
     <form action={() => saveWorkout(isSaved, id, path)}>
       <button type="submit" className={styles.saveBtn} style={{ color: "var(--text-color-main)" }}>
-        {!isSaved ? <BsSave size={20} /> : <BsSaveFill size={20} />}
+        {!isSaved ? <AiOutlineStar size={25} /> : <AiFillStar size={25} />}
       </button>
     </form>
   );

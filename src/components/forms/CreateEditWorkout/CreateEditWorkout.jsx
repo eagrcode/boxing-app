@@ -92,7 +92,6 @@ const CreateEditWorkout = ({ mode, workoutID, setIsEditMode }) => {
 
   return (
     <div className={styles.formWrapper}>
-      <h1>New workout</h1>
       <form action={() => handleAction(mode)} className={styles.form}>
         <div className={styles.titleContainer}>
           <input
