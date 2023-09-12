@@ -1,0 +1,35 @@
+"use client";
+
+// react
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { revalidatePath } from "next/cache";
+
+// supabase
+
+// styles
+import styles from "./SaveButton.module.scss";
+
+// icons
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
+
+import saveWorkout from "@/src/lib/actions/saveWorkout";
+
+interface SaveButtonPropTypes {
+  saved: { created_at: string; id: string; user_id: string | null; workout_id: string }[];
+  id: string;
+}
+
+export default function SaveButton({ saved, id }: SaveButtonPropTypes) {
+  const isSaved = saved.length > 0;
+
+  const path = usePathname();
+
+  return (
+    <form action={() => saveWorkout(isSaved, id, path)}>
+      <button type="submit" className={styles.saveBtn} style={{ color: "var(--text-color-main)" }}>
+        {!isSaved ? <AiOutlineStar size={25} /> : <AiFillStar size={25} />}
+      </button>
+    </form>
+  );
+}

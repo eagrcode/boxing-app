@@ -1,0 +1,24 @@
+.ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 5px;
+  flex-wrap: wrap;
+  height: 100%;
+  li {
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .arrow {
+    display: flex;
+    align-items: center;
+
+    font-size: 1.2rem;
+  }
+
+  .arrow:last-child {
+    display: none;
+  }
+}

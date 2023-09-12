@@ -1,46 +1,59 @@
-"use client";
-
 // styles
-import styles from "./WorkoutTimer.module.scss";
+import styles from "./Timer.module.scss";
 
 // react
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 
 // libraries
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 // components
-import ComboCard from "@/src/app/(pages)/timer/ComboCard/ComboCard";
+import ComboCard from "../ComboCard/ComboCard";
 
 // context
-import { useWorkoutMode } from "@/src/context/useWorkoutMode";
+import { useTimerDataContext } from "@/src/context/TimerData.context";
 
-const WorkoutTimer = () => {
+// utils
+import getRandomCombo from "../getRandomCombo";
+
+interface TimerProps {
+  setIsTimerActive: Dispatch<SetStateAction<boolean>>;
+  sequence: string[];
+  setRandomCombo: Dispatch<SetStateAction<string[]>>;
+}
+
+export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: TimerProps) {
+  console.log(sequence);
+
   // destructure context
   const {
-    setIsWorkoutMode,
-    selectedWorkout,
-    workoutRounds,
-    workoutRoundTime,
-    workoutRestTime,
-    workoutWarmupTime,
-  } = useWorkoutMode();
-
-  console.log(selectedWorkout);
+    difficulty,
+    rounds,
+    setRounds,
+    setRoundTime,
+    roundTime,
+    restTime,
+    setRestTime,
+    warmupTime,
+    setWarmupTime,
+    DEFAULT_ROUNDS,
+    DEFAULT_ROUND_TIME,
+    DEFAULT_REST_TIME,
+    DEFAULT_WARMUP_TIME,
+  } = useTimerDataContext();
 
   // init state
-  const [currentRound, setCurrentRound] = useState(1);
-  const [currentDuration, setCurrentDuration] = useState(workoutWarmupTime);
-  const [isFinished, setIsFinished] = useState(false);
-  const [isCountingDown, setIsCountingDown] = useState(true);
-  const [displayRound, setDisplayRound] = useState(1);
-  const [currentCombo, setCurrentCombo] = useState(0);
+  const [currentRound, setCurrentRound] = useState<number>(1);
+  const [currentDuration, setCurrentDuration] = useState<number>(warmupTime);
+  const [isFinished, setIsFinished] = useState<boolean>(false);
+  const [isCountingDown, setIsCountingDown] = useState<boolean>(true);
+  const [displayRound, setDisplayRound] = useState<number>(1);
 
   // calculate total rounds & format round types
-  const totalRounds = workoutRestTime ? workoutRounds * 2 : workoutRounds;
+  const totalRounds = restTime ? rounds * 2 : rounds;
   const isWarmupRound = currentRound === 1;
   const isFightRound = currentRound > 1 && currentRound % 2 === 0;
-  const isRestRound = workoutRestTime && currentRound > 1 && currentRound % 2 !== 0;
+  const isRestRound = restTime && currentRound > 1 && currentRound % 2 !== 0;
 
   // logs
   console.log("current round: ", currentRound);
@@ -50,7 +63,7 @@ const WorkoutTimer = () => {
   console.log("Rest: ", isRestRound);
 
   // format display based on round type
-  const renderTimerText = (remainingTime) => {
+  const renderTimerText = (remainingTime: number) => {
     switch (true) {
       case isWarmupRound:
         return (
@@ -79,34 +92,40 @@ const WorkoutTimer = () => {
   };
 
   // format remaining time to 00:00
-  const formatRemainingTime = (remainingTime) => {
+  const formatRemainingTime = (remainingTime: number) => {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   // format timer colors based on round type
-  const timerColors = !isFightRound
-    ? ["#050778", "#050778", "#050778"]
-    : ["#cfa227", "#cfa227", "#cfa227"];
+  const timerColors: any = !isFightRound
+    ? [["#050778"], ["#050778"], ["#050778"]]
+    : [["#cfa227"], ["#cfa227"], ["#cfa227"]];
 
   // format button text
   const buttonText = isCountingDown ? "Pause" : "Resume";
 
+  // fetch random combo after each new round
+  useEffect(() => {
+    const fetchRandomCombo = async () => {
+      const combo = await getRandomCombo(difficulty);
+      setRandomCombo(combo);
+    };
+
+    if (sequence.length > 0 && isRestRound) {
+      fetchRandomCombo();
+    }
+  }, [isRestRound, difficulty, setRandomCombo]);
+
   // change duration based on round type
   useEffect(() => {
     if (isFightRound) {
-      setCurrentDuration(workoutRoundTime);
+      setCurrentDuration(roundTime);
     } else if (isRestRound) {
-      setCurrentDuration(workoutRestTime);
+      setCurrentDuration(restTime);
     }
-  }, [isFightRound, isRestRound, setCurrentDuration, workoutRoundTime, workoutRestTime]);
-
-  useEffect(() => {
-    if (isRestRound) {
-      setCurrentCombo((prev) => prev + 1);
-    }
-  }, [isRestRound, setCurrentCombo]);
+  }, [isFightRound, isRestRound, setCurrentDuration, roundTime, restTime]);
 
   // increment display round from second round onwards
   useEffect(() => {
@@ -129,9 +148,13 @@ const WorkoutTimer = () => {
 
   // reset state to defaults and render form components again
   const handleCancel = () => {
-    setIsCountingDown(false);
+    setRounds(DEFAULT_ROUNDS);
+    setRoundTime(DEFAULT_ROUND_TIME);
+    setRestTime(DEFAULT_REST_TIME);
+    setWarmupTime(DEFAULT_WARMUP_TIME);
     setCurrentRound(1);
-    setIsWorkoutMode(false);
+    setRandomCombo([]);
+    setIsTimerActive(false);
   };
 
   return (
@@ -140,7 +163,7 @@ const WorkoutTimer = () => {
         <h1>WARMUP</h1>
       ) : (
         <h1>
-          Round {displayRound} / {workoutRounds}
+          Round {displayRound} / {rounds}
         </h1>
       )}
       <CountdownCircleTimer
@@ -169,9 +192,7 @@ const WorkoutTimer = () => {
         </button>
       </div>
 
-      <ComboCard sequence={selectedWorkout.round_info[currentCombo].sequence} />
+      {sequence && <ComboCard sequence={sequence} />}
     </div>
   );
-};
-
-export default WorkoutTimer;
+}

@@ -1,5 +1,5 @@
 // styles
-import styles from "./UserWorkoutCard.module.scss";
+import styles from "./WorkoutPost.module.scss";
 
 // next
 import Link from "next/link";
@@ -21,11 +21,15 @@ import SaveButton from "@/src/components/buttons/SaveButton/SaveButton";
 import LikesDisplay from "@/src/components/ui/LikesDisplay/LikesDisplay";
 
 // icons
-import { RiTimerLine } from "react-icons/ri";
 import { GiHighPunch } from "react-icons/gi";
 
-export default async function WorkoutCard({
+// types
+import type { WorkoutPostPropTypes } from "./workoutPost.types";
+
+export default async function WorkoutPost({
+  variant,
   id,
+  userID,
   title,
   description,
   workoutRounds,
@@ -34,17 +38,8 @@ export default async function WorkoutCard({
   workoutRestTime,
   createdBy,
   createdAt,
-}) {
-  // init supabase client
-  const supabase = createServerComponentClient({ cookies });
-
-  // get session data
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  const user = session?.user;
-
+}: WorkoutPostPropTypes) {
+  console.log("POST: ", id, userID);
   // call function and assign formatted value
   createdAt = formatTimeAgo(createdAt);
 
@@ -57,7 +52,7 @@ export default async function WorkoutCard({
 
   // fetch workout likes
   const likes = await getWorkoutLikes(id);
-  const saved = await isWorkoutSaved(id, user?.id);
+  const saved = await isWorkoutSaved(id, userID);
 
   return (
     <div key={id} className={styles.card}>
@@ -69,7 +64,9 @@ export default async function WorkoutCard({
         <span>{createdAt}</span>
       </div>
       <h2>
-        <Link href={`/workout/${id}`}>{title}</Link>
+        <Link href={variant === "home" ? `/workout/${id}` : `account/userWorkout/${id}`}>
+          {title}
+        </Link>
       </h2>
       <div className={styles.overview}>
         <p>{description}</p>
@@ -84,10 +81,10 @@ export default async function WorkoutCard({
       </div>
 
       <div className={styles.socialBtnContainer}>
-        <LikeButton id={id} userID={user?.id} likes={likes} />
+        <LikeButton id={id} userID={userID} likes={likes} />
         <SaveButton id={id} saved={saved} />
       </div>
-      <LikesDisplay id={id} userID={user?.id} likes={likes} />
+      <LikesDisplay likes={likes} />
 
       {/* <div className={styles.btnContainer}>
         <button className={styles.btnStart}>START</button>

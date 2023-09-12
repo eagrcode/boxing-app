@@ -1,13 +1,13 @@
 // styles
-import "./globals.scss";
-import "./variables.css";
+import "@/src/styles/globals.scss";
+import "@/src/styles/variables.css";
 
 // components
 import LeftSidebar from "@/src/components/ui/LeftSidebar/LeftSidebar";
 import BottomNav from "@/src/components/ui/BottomNav/BottomNav";
 
 // context
-import { FightDataProvider } from "@/src/context/useFightData";
+import { FightDataProvider } from "@/src/context/TimerData.context";
 import { WorkoutModeProvider } from "@/src/context/useWorkoutMode";
 
 // supabase client
