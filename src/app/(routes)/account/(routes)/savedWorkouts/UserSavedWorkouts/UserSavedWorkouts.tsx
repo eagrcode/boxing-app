@@ -20,7 +20,7 @@ export default async function UserSavedWorkouts({ userID }: { userID: string }) 
         <div className={styles.container}>
           {savedWorkouts?.map((save) => (
             <WorkoutPost
-              variant={"account"}
+              variant={"/workout/"}
               key={save.id}
               userID={userID}
               id={save.workouts.id}

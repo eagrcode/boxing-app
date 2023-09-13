@@ -17,6 +17,28 @@
   width: 100%;
   gap: 1rem;
 
+  textarea {
+    font-size: 1rem;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: transparent;
+    color: var(--text-color-main);
+    outline: transparent;
+    border: solid 1px hsla(230, 20%, 20%, 0.8);
+    width: 100%;
+    resize: none;
+
+    font-family: "Roboto Flex", sans-serif;
+
+    &:hover {
+      border: solid 1px var(--accent-color-blue);
+    }
+
+    &:focus {
+      border: solid 1px var(--accent-color-blue);
+    }
+  }
+
   input[type="text"] {
     font-size: 1rem;
     padding: 8px;
@@ -56,12 +78,72 @@
     flex-direction: column;
     width: 100%;
     gap: 2rem;
-    margin-bottom: 8px;
+    margin-bottom: 1rem;
 
     div {
       display: flex;
       flex-direction: column;
       gap: 15px;
+    }
+  }
+
+  .comboContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px;
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1px hsla(230, 20%, 50%, 0.5);
+
+    // &:not(:last-child) {
+    //   border-bottom: solid 1px hsla(230, 20%, 50%, 0.5);
+    // }
+
+    .comboSelect {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      color: var(--text-color-accent);
+
+      select {
+        padding: 5px;
+        border-radius: 5px;
+        background-color: var(--accent-color-dark);
+        color: var(--header-color-main);
+        border: solid 1px hsla(230, 20%, 50%, 0.8);
+        font-size: 1rem;
+
+        select:not(:focus) option:first-child {
+          display: none;
+        }
+
+        option {
+          div {
+            background-color: red;
+          }
+        }
+      }
+    }
+
+    .comboDisplay {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+      font-size: 1.2rem;
+      font-weight: bold;
+
+      .arrow {
+        display: flex;
+        align-items: center;
+        color: var(--text-color-accent);
+      }
+
+      .arrow:last-child {
+        display: none;
+      }
     }
   }
 

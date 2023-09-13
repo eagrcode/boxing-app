@@ -5,8 +5,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
-export default async function createWorkout(workoutData: any, workoutID: string, path: string) {
-  console.log("SERVER ACTION - Create workout: ", workoutData, workoutID, path);
+export default async function createWorkout(workoutData: any, path: string) {
+  console.log("SERVER ACTION - Create workout: ", workoutData, path);
 
   const supabase = createServerComponentClient({ cookies });
 

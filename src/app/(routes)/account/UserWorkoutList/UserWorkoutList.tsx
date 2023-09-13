@@ -22,7 +22,7 @@ export default async function UserWorkoutList({ userID }: { userID: string }) {
         <div className={styles.container}>
           {userWorkouts.map((workout) => (
             <WorkoutPost
-              variant={"account"}
+              variant={"/account/userWorkout/"}
               key={workout.id}
               id={workout.id}
               userID={userID}

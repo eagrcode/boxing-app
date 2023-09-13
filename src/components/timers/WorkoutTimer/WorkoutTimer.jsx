@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 // components
-import ComboCard from "@/src/app/(pages)/timer/ComboCard/ComboCard";
+import ComboCard from "@/src/app/(routes)/timer/ComboCard/ComboCard";
 
 // context
 import { useWorkoutMode } from "@/src/context/useWorkoutMode";

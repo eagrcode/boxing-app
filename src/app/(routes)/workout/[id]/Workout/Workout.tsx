@@ -3,8 +3,8 @@
 // styles
 import styles from "./Workout.module.scss";
 
-// next
-import Link from "next/link";
+// react
+import React from "react";
 
 // context
 import { useWorkoutMode } from "@/src/context/useWorkoutMode";
@@ -17,37 +17,20 @@ import SaveButton from "@/src/components/buttons/SaveButton/SaveButton";
 
 // icons
 import { GiHighPunch } from "react-icons/gi";
+import { HiArrowSmRight } from "react-icons/hi";
 
 // utils
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 
+// db types
 import type { Database } from "@/src/lib/database.types";
 
-interface Like {
-  id: number;
-  created_at: string;
-  workout_id: string;
-  user_id: string;
-}
-
-interface Saved {
-  id: number;
-  created_at: string;
-  user_id: string;
-  workout_id: string;
-}
-
-interface Round {
-  round: number;
-  sequence: string[];
-}
-
-interface WorkoutProps {
+interface WorkoutPropTypes {
   id: string;
   userID: string;
   title: string;
   description: string;
-  roundInfo: Round[];
+  roundInfo: { round: number; sequence: string[] }[];
   workoutRounds: number;
   workoutWarmupTime: number;
   workoutRoundTime: number;
@@ -55,8 +38,13 @@ interface WorkoutProps {
   createdAt: string;
   createdBy: string;
   data: Database["public"]["Tables"]["workouts"]["WithProfile"];
-  saved: Database["public"]["Tables"]["user_saved_workouts"]["Row"];
-  likes: Database["public"]["Tables"]["likes"]["Row"][];
+  saved: { created_at: string; id: string; user_id: string | null; workout_id: string }[];
+  likes: {
+    created_at: string;
+    id: number;
+    user_id: string | null;
+    workout_id: string | null;
+  }[];
 }
 
 export default function Workout({
@@ -74,7 +62,7 @@ export default function Workout({
   data,
   saved,
   likes,
-}: WorkoutProps) {
+}: WorkoutPropTypes) {
   // destructure context
   const {
     isWorkoutMode,
@@ -114,9 +102,7 @@ export default function Workout({
           </div>
           <span>{createdAt}</span>
         </div>
-        <h2>
-          <Link href={`/account/userWorkout/${id}`}>{title}</Link>
-        </h2>
+        <h1>{title}</h1>
         <div className={styles.overview}>
           <p>{description}</p>
         </div>
@@ -128,17 +114,24 @@ export default function Workout({
           {/* <span>{workoutWarmupTime} sec / warmup</span> */}
           <span>{workoutRoundTime}sec / round</span>
         </div>
-        <div className={styles.exerciseContainer}>
-          <h3>Combo's</h3>
-          <div className={styles.comboContainer}>
-            {roundInfo.map((round, index) => (
-              <span key={index}>
-                Round {round.round} :{" "}
-                {round.sequence.map((seq) => (seq.length > 1 ? `${seq} > ` : seq))}
-              </span>
-            ))}
-          </div>
+        <div className={styles.comboContainer}>
+          {roundInfo.map((round, index) => (
+            <div className={styles.row} key={index}>
+              <h2>Round {round.round}</h2>
+              <ul className={styles.ul}>
+                {round.sequence.map((punch, index) => (
+                  <React.Fragment key={index}>
+                    <li className={styles.punchTag}>{punch}</li>{" "}
+                    <div className={styles.arrow}>
+                      <HiArrowSmRight />
+                    </div>
+                  </React.Fragment>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
+
         {/* <div className={styles.btnContainer}>
         <button className={styles.btnStart}>START</button>
         
@@ -147,7 +140,7 @@ export default function Workout({
           <LikeButton id={id} userID={userID} likes={likes} />
           <SaveButton id={id} saved={saved} />
         </div>
-        <LikesDisplay id={id} userID={userID} likes={likes} />
+        <LikesDisplay likes={likes} />
       </div>
     );
   }

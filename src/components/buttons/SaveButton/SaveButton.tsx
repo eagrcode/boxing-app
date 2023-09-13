@@ -1,11 +1,7 @@
 "use client";
 
 // react
-import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { revalidatePath } from "next/cache";
-
-// supabase
 
 // styles
 import styles from "./SaveButton.module.scss";
@@ -13,7 +9,8 @@ import styles from "./SaveButton.module.scss";
 // icons
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
-import saveWorkout from "@/src/lib/actions/saveWorkout";
+// utils
+import saveWorkout from "./saveWorkout";
 
 interface SaveButtonPropTypes {
   saved: { created_at: string; id: string; user_id: string | null; workout_id: string }[];

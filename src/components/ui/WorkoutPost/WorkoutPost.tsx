@@ -12,7 +12,7 @@ import { cookies } from "next/headers";
 
 // utils
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
-import isWorkoutSaved from "@/src/lib/services/isWorkoutSaved";
+import getWorkoutSaves from "@/src/lib/services/getWorkoutSaves";
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 
 // components
@@ -52,7 +52,7 @@ export default async function WorkoutPost({
 
   // fetch workout likes
   const likes = await getWorkoutLikes(id);
-  const saved = await isWorkoutSaved(id, userID);
+  const saved = await getWorkoutSaves(id, userID);
 
   return (
     <div key={id} className={styles.card}>
@@ -64,9 +64,7 @@ export default async function WorkoutPost({
         <span>{createdAt}</span>
       </div>
       <h2>
-        <Link href={variant === "home" ? `/workout/${id}` : `account/userWorkout/${id}`}>
-          {title}
-        </Link>
+        <Link href={`${variant}${id}`}>{title}</Link>
       </h2>
       <div className={styles.overview}>
         <p>{description}</p>

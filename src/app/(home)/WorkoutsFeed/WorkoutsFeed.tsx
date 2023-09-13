@@ -15,7 +15,7 @@ export default async function WorkoutsFeed({ userID }: { userID: string }) {
     <div className={styles.container}>
       {workouts?.map((workout) => (
         <WorkoutPost
-          variant={"home"}
+          variant={"/workout/"}
           key={workout.id}
           id={workout.id}
           userID={userID}
