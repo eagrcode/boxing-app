@@ -13,6 +13,9 @@ import { IoTimerOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
 
+// components
+import BackButton from "../../buttons/BackButton/BackButton";
+
 export default function BottomNav() {
   const path = usePathname();
 
@@ -44,14 +47,35 @@ export default function BottomNav() {
     },
   ];
 
+  // Define a function to determine if the link should have active styles
+  const shouldHaveActiveStyles = (path: string, linkUrl: string) => {
+    return (
+      path === linkUrl ||
+      (path.startsWith(linkUrl) && (linkUrl !== "/" || path.startsWith("/workout/")))
+    );
+  };
+
+  // Conditionally render the BackButton based on the path
+  const renderBackButton = () => {
+    if (
+      path.startsWith("/workout/") ||
+      path.startsWith("/account/userWorkout/") ||
+      path.startsWith("/account/savedWorkouts/")
+    ) {
+      return <BackButton />;
+    }
+    return null;
+  };
+
   return (
     <nav className={styles.nav}>
+      {renderBackButton()}
       <ul className={styles.menu}>
         {authLinks.map((link, index) => (
           <li key={index} className={styles.item}>
             <Link
               className={
-                path === link.url || (path !== "/" && path.startsWith(link.url + "/"))
+                shouldHaveActiveStyles(path, link.url)
                   ? `${styles.link} ${styles.active}`
                   : styles.link
               }

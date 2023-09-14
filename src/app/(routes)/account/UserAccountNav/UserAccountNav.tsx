@@ -7,9 +7,6 @@ import styles from "./UserAccountNav.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// components
-import BackButton from "@/src/components/buttons/BackButton/BackButton";
-
 export default function UserAccountNav() {
   // init links
   const links = [
@@ -38,7 +35,6 @@ export default function UserAccountNav() {
           {link.title}
         </Link>
       ))}
-      {path.startsWith("/account/userWorkout/") && <BackButton />}
     </div>
   );
 }
