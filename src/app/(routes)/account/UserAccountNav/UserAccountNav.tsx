@@ -25,11 +25,21 @@ export default function UserAccountNav() {
   // init hooks
   const path = usePathname();
 
+  function shouldHaveActiveStyles(path: string, linkUrl: string) {
+    return (
+      path === linkUrl ||
+      (path.startsWith("/account/userWorkout/") && linkUrl === "/account") ||
+      (path === "/account/savedWorkouts" && linkUrl === "/account/savedWorkouts")
+    );
+  }
+
   return (
     <div className={styles.linkContainer}>
       {links.map((link) => (
         <Link
-          className={path === link.url ? `${styles.link} ${styles.active}` : styles.link}
+          className={
+            shouldHaveActiveStyles(path, link.url) ? `${styles.link} ${styles.active}` : styles.link
+          }
           href={link.url}
         >
           {link.title}
