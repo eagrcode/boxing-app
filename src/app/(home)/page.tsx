@@ -56,9 +56,9 @@ export default async function Index() {
   }
 
   return (
-    <>
+    <div className={styles.pageWrapperUser}>
       <header>Feed</header>
       <WorkoutsFeed userID={userID} />
-    </>
+    </div>
   );
 }

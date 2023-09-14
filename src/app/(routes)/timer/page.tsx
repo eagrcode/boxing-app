@@ -23,8 +23,8 @@ export default function TimerPage() {
   if (!isTimerActive) {
     return (
       <>
-        <header>Timer</header>
         <div className={styles.wrapper}>
+          <header>Timer</header>
           <div className={styles.pageTop}>
             <div className={styles.pageTopTextContainer}>
               <p>
@@ -50,10 +50,12 @@ export default function TimerPage() {
 
   // Show Timer
   return (
-    <Timer
-      setIsTimerActive={setIsTimerActive}
-      sequence={randomCombo}
-      setRandomCombo={setRandomCombo}
-    />
+    <div className={styles.wrapper}>
+      <Timer
+        setIsTimerActive={setIsTimerActive}
+        sequence={randomCombo}
+        setRandomCombo={setRandomCombo}
+      />
+    </div>
   );
 }

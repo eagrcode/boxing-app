@@ -53,8 +53,7 @@ body {
   width: 100%;
   max-width: 500px;
   // height: calc(100dvh - 62px);
-  min-height: calc(100dvh - 62px);
-  padding: 1rem;
+  // height: calc(100dvh - 62px);
 
   @media (min-width: 768px) {
     padding: 0;
