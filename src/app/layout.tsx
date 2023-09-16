@@ -9,6 +9,7 @@ import BottomNav from "@/src/components/ui/BottomNav/BottomNav";
 // context
 import { FightDataProvider } from "@/src/context/TimerData.context";
 import { WorkoutModeProvider } from "@/src/context/useWorkoutMode";
+import { LogoutModalContextProvider } from "@/src/context/LogoutModal.context";
 
 // supabase client
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -41,21 +42,23 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className={RobotoFlex.className}>
       <body>
-        <WorkoutModeProvider>
-          <FightDataProvider>
-            {user ? (
-              <div className="app-wrapper-user">
-                <LeftSidebar />
-                <main className="main-user">{children}</main>
-                <BottomNav />
-              </div>
-            ) : (
-              <div className="app-wrapper">
-                <main className="main-no-user">{children}</main>
-              </div>
-            )}
-          </FightDataProvider>
-        </WorkoutModeProvider>
+        <LogoutModalContextProvider>
+          <WorkoutModeProvider>
+            <FightDataProvider>
+              {user ? (
+                <div className="app-wrapper-user">
+                  <LeftSidebar />
+                  <main className="main-user">{children}</main>
+                  <BottomNav />
+                </div>
+              ) : (
+                <div className="app-wrapper">
+                  <main className="main-no-user">{children}</main>
+                </div>
+              )}
+            </FightDataProvider>
+          </WorkoutModeProvider>
+        </LogoutModalContextProvider>
       </body>
     </html>
   );

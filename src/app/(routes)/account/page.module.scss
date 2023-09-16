@@ -9,19 +9,35 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: solid 2px hsla(230, 20%, 50%, 0.3);
+
+    padding-bottom: 1rem;
 
     .topLeft {
       display: flex;
       flex-direction: column;
+
+      gap: 8px;
+
+      div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
     }
 
     .avatar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       font-size: 2rem;
       font-weight: bold;
-      background-color: var(--accent-color-white);
-      color: var(--bg-color-main);
-      border-radius: 5px;
-      padding: 8px;
+      background-color: var(--accent-color-dark);
+      color: var(--text-color-main);
+      border: solid 2px hsla(230, 20%, 50%, 0.8);
+      border-radius: 50%;
+      height: 65px;
+      width: 65px;
     }
   }
 }
