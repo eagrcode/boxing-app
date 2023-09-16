@@ -64,12 +64,13 @@
     }
   }
 
-  .signInBtn {
+  .signUpBtn {
     display: flex;
     align-items: center;
     justify-content: center;
     border: transparent;
     background-color: var(--accent-color-blue);
+    height: 36px;
 
     &:hover {
       background-color: hsl(205, 90%, 35%);

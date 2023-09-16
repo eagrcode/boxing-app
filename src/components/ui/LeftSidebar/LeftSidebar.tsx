@@ -15,6 +15,7 @@ import { IoCreateOutline } from "react-icons/io5";
 
 // components
 import BackButton from "../../buttons/BackButton/BackButton";
+import Logo from "../Logo/Logo";
 
 export default function LeftSidebar() {
   const path = usePathname();
@@ -66,6 +67,7 @@ export default function LeftSidebar() {
 
   return (
     <nav className={styles.nav}>
+      <Logo variant={"nav"} />
       <ul className={styles.menu}>
         {authLinks.map((link, index) => (
           <li key={index} className={styles.item}>
@@ -78,7 +80,7 @@ export default function LeftSidebar() {
               href={link.url}
             >
               {link.icon}
-              {link.title}
+              {/* {link.title} */}
             </Link>
           </li>
         ))}

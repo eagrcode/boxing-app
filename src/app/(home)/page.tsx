@@ -7,6 +7,7 @@ import styles from "./page.module.scss";
 
 // components
 import WorkoutsFeed from "./WorkoutsFeed/WorkoutsFeed";
+import Logo from "@/src/components/ui/Logo/Logo";
 
 export const dynamic = "force-dynamic";
 
@@ -57,7 +58,7 @@ export default async function Index() {
 
   return (
     <div className={styles.pageWrapperUser}>
-      <header>Feed</header>
+      <Logo variant={"home"} />
       <WorkoutsFeed userID={userID} />
     </div>
   );

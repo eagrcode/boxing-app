@@ -29,7 +29,6 @@ export default function SignInForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault();
     setIsLoading(true);
-    console.log(email, password);
     await signInEmail(email, password);
     router.refresh();
   }

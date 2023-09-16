@@ -4,19 +4,23 @@
 
 @media (min-width: 768px) {
   .nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     position: sticky;
     top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    backdrop-filter: blur(25px);
+    z-index: 999;
 
     .menu {
       display: flex;
+      justify-content: center;
       list-style: none;
-      flex-direction: column;
       width: 100%;
       font-size: 1rem;
       text-align: center;
+      width: 600px;
 
       .item {
         .link {
@@ -24,7 +28,7 @@
           align-items: center;
           justify-content: flex-start;
           gap: 1rem;
-          padding: 1rem;
+          padding: 1rem 2rem;
           text-decoration: none;
           color: var(--text-color-accent);
           font-size: 1.2rem;

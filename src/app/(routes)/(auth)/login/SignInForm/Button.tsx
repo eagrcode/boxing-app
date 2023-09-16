@@ -4,7 +4,7 @@
 import styles from "./SignInForm.module.scss";
 
 // loader
-import ClockLoader from "react-spinners/ClockLoader";
+import PulseLoader from "react-spinners/PulseLoader";
 
 type ButtonProps = {
   isLoading: boolean;
@@ -14,12 +14,12 @@ export default function Button({ isLoading }: ButtonProps) {
   return (
     <button disabled={isLoading} type="submit" className={styles.signInBtn}>
       {isLoading ? (
-        <ClockLoader
+        <PulseLoader
           loading={isLoading}
-          size={20}
-          color="#fff"
+          color="var(--header-color-main)"
           aria-label="Loading Spinner"
           data-testid="loader"
+          size={8}
         />
       ) : (
         "Sign In"
