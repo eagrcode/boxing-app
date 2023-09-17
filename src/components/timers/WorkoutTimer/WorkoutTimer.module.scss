@@ -1,4 +1,6 @@
 .timer {
+  height: 100%;
+
   h1 {
     font-size: 2rem;
     font-weight: 500;
@@ -11,8 +13,16 @@
   height: 100%;
 
   .timeText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-size: 4rem;
     font-weight: 200;
+
+    p {
+      justify-self: flex-end;
+      font-size: 1.2rem;
+    }
   }
 
   .controls {
@@ -45,9 +55,5 @@
         font-size: 1rem;
       }
     }
-  }
-
-  ul {
-    height: 100%;
   }
 }

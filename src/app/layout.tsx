@@ -8,7 +8,7 @@ import BottomNav from "@/src/components/ui/BottomNav/BottomNav";
 
 // context
 import { FightDataProvider } from "@/src/context/TimerData.context";
-import { WorkoutModeProvider } from "@/src/context/useWorkoutMode";
+import { WorkoutModeProvider } from "@/src/context/WorkoutTimerData.context";
 import { LogoutModalContextProvider } from "@/src/context/LogoutModal.context";
 
 // supabase client

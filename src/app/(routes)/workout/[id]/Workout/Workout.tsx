@@ -5,9 +5,10 @@ import styles from "./Workout.module.scss";
 
 // react
 import React from "react";
+import { useState } from "react";
 
 // context
-import { useWorkoutMode } from "@/src/context/useWorkoutMode";
+import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 
 // components
 import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
@@ -37,7 +38,6 @@ interface WorkoutPropTypes {
   workoutRestTime: number;
   createdAt: string;
   createdBy: string;
-  data: Database["public"]["Tables"]["workouts"]["WithProfile"];
   saved: { created_at: string; id: string; user_id: string | null; workout_id: string }[];
   likes: {
     created_at: string;
@@ -59,20 +59,20 @@ export default function Workout({
   workoutRestTime,
   createdAt,
   createdBy,
-  data,
   saved,
   likes,
 }: WorkoutPropTypes) {
+  // init state
+  const [isWorkoutMode, setIsWorkoutMode] = useState(false);
+
   // destructure context
   const {
-    isWorkoutMode,
-    setIsWorkoutMode,
     setWorkoutRounds,
     setWorkoutRoundTime,
     setWorkoutRestTime,
     setWorkoutWarmupTime,
-    setSelectedWorkout,
-  } = useWorkoutMode();
+    setRoundInfo,
+  } = useWorkoutTimerDataContext();
 
   // call function and assign formatted value
   createdAt = formatTimeAgo(createdAt);
@@ -83,14 +83,14 @@ export default function Workout({
   );
 
   // handle workout timer start
-  // const handleStart = () => {
-  //   setSelectedWorkout(data);
-  //   setWorkoutRounds(numberOfRounds);
-  //   setWorkoutRoundTime(roundTime);
-  //   setWorkoutRestTime(restTime);
-  //   setWorkoutWarmupTime(warmupTime);
-  //   setIsWorkoutMode(true);
-  // };
+  const handleStart = () => {
+    setRoundInfo({ round_info: roundInfo });
+    setWorkoutRounds(workoutRounds);
+    setWorkoutRoundTime(workoutRoundTime);
+    setWorkoutRestTime(workoutRestTime);
+    setWorkoutWarmupTime(workoutWarmupTime);
+    setIsWorkoutMode(true);
+  };
 
   if (!isWorkoutMode) {
     return (
@@ -132,20 +132,23 @@ export default function Workout({
           ))}
         </div>
 
-        {/* <div className={styles.btnContainer}>
-        <button className={styles.btnStart}>START</button>
-        
-      </div> */}
         <div className={styles.socialBtnContainer}>
           <LikeButton id={id} userID={userID} likes={likes} />
           <SaveButton id={id} saved={saved} />
         </div>
-        <LikesDisplay likes={likes} />
+        <div className={styles.workoutBottom}>
+          <LikesDisplay likes={likes} />
+          <div className={styles.btnContainer}>
+            <button onClick={handleStart} className={styles.btnStart}>
+              START
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
 
   if (isWorkoutMode) {
-    return <WorkoutTimer />;
+    return <WorkoutTimer setIsWorkoutMode={setIsWorkoutMode} />;
   }
 }

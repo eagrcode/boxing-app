@@ -13,7 +13,7 @@ import { HiArrowSmRight } from "react-icons/hi";
 import { HiOutlineEllipsisHorizontal } from "react-icons/hi2";
 
 // context
-import { useWorkoutMode } from "@/src/context/useWorkoutMode";
+import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 
 // utils
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
@@ -41,7 +41,6 @@ interface UserWorkoutPropTypes {
   workoutRestTime: number;
   createdAt: string;
   createdBy: string;
-  data: Database["public"]["Tables"]["workouts"]["WithProfile"];
   saved: { created_at: string; id: string; user_id: string | null; workout_id: string }[];
   likes: {
     created_at: string;
@@ -63,24 +62,21 @@ export default function UserWorkout({
   workoutRestTime,
   createdAt,
   createdBy,
-  data,
   saved,
   likes,
 }: UserWorkoutPropTypes) {
   // init state
-  // const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isWorkoutMode, setIsWorkoutMode] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
   // destructure context
   const {
-    isWorkoutMode,
-    setIsWorkoutMode,
     setWorkoutRounds,
     setWorkoutRoundTime,
     setWorkoutRestTime,
     setWorkoutWarmupTime,
-    setSelectedWorkout,
-  } = useWorkoutMode();
+    setRoundInfo,
+  } = useWorkoutTimerDataContext();
 
   // call function and assign formatted value
   createdAt = formatTimeAgo(createdAt);
@@ -95,14 +91,14 @@ export default function UserWorkout({
   // };
 
   // handle workout timer start
-  // const handleStart = () => {
-  //   setSelectedWorkout(workoutData);
-  //   setWorkoutRounds(numberOfRounds);
-  //   setWorkoutRoundTime(roundTime);
-  //   setWorkoutRestTime(restTime);
-  //   setWorkoutWarmupTime(warmupTime);
-  //   setIsWorkoutMode(true);
-  // };
+  const handleStart = () => {
+    setRoundInfo({ round_info: roundInfo });
+    setWorkoutRounds(workoutRounds);
+    setWorkoutRoundTime(workoutRoundTime);
+    setWorkoutRestTime(workoutRestTime);
+    setWorkoutWarmupTime(workoutWarmupTime);
+    setIsWorkoutMode(true);
+  };
 
   if (!isWorkoutMode) {
     return (
@@ -151,16 +147,18 @@ export default function UserWorkout({
               </div>
             ))}
           </div>
-
-          {/* <div className={styles.btnContainer}>
-      <button className={styles.btnStart}>START</button>
-      
-    </div> */}
           <div className={styles.socialBtnContainer}>
             <LikeButton id={id} userID={userID} likes={likes} />
             <SaveButton id={id} saved={saved} />
           </div>
-          <LikesDisplay likes={likes} />
+          <div className={styles.workoutBottom}>
+            <LikesDisplay likes={likes} />
+            <div className={styles.btnContainer}>
+              <button onClick={handleStart} className={styles.btnStart}>
+                START
+              </button>
+            </div>
+          </div>
 
           {showDeleteModal && <DeleteModal id={id} setShowDeleteModal={setShowDeleteModal} />}
         </div>
@@ -169,6 +167,6 @@ export default function UserWorkout({
   }
 
   if (isWorkoutMode) {
-    return <WorkoutTimer />;
+    return <WorkoutTimer setIsWorkoutMode={setIsWorkoutMode} />;
   }
 }

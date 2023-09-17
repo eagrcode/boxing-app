@@ -61,7 +61,6 @@ export default async function WorkoutPage({ params }: WorkoutPageProps) {
         workoutWarmupTime={workoutData?.warmup_time}
         roundInfo={workoutData?.round_info}
         createdAt={workoutData?.created_at}
-        data={workoutData}
         likes={likes}
         saved={saved}
         userID={userID || ""}

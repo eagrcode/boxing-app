@@ -13,20 +13,16 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import ComboCard from "@/src/app/(routes)/timer/ComboCard/ComboCard";
 
 // context
-import { useWorkoutMode } from "@/src/context/useWorkoutMode";
+import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 
-const WorkoutTimer = () => {
+const WorkoutTimer = ({
+  setIsWorkoutMode,
+}: {
+  setIsWorkoutMode: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   // destructure context
-  const {
-    setIsWorkoutMode,
-    selectedWorkout,
-    workoutRounds,
-    workoutRoundTime,
-    workoutRestTime,
-    workoutWarmupTime,
-  } = useWorkoutMode();
-
-  console.log(selectedWorkout);
+  const { roundInfo, workoutRounds, workoutRoundTime, workoutRestTime, workoutWarmupTime } =
+    useWorkoutTimerDataContext();
 
   // init state
   const [currentRound, setCurrentRound] = useState(1);
@@ -34,10 +30,10 @@ const WorkoutTimer = () => {
   const [isFinished, setIsFinished] = useState(false);
   const [isCountingDown, setIsCountingDown] = useState(true);
   const [displayRound, setDisplayRound] = useState(1);
-  const [currentCombo, setCurrentCombo] = useState(0);
+  const [currentCombo, setCurrentCombo] = useState<number>(0);
 
   // calculate total rounds & format round types
-  const totalRounds = workoutRestTime ? workoutRounds * 2 : workoutRounds;
+  const totalRounds = workoutRestTime && workoutRounds ? workoutRounds * 2 : workoutRounds;
   const isWarmupRound = currentRound === 1;
   const isFightRound = currentRound > 1 && currentRound % 2 === 0;
   const isRestRound = workoutRestTime && currentRound > 1 && currentRound % 2 !== 0;
@@ -50,7 +46,7 @@ const WorkoutTimer = () => {
   console.log("Rest: ", isRestRound);
 
   // format display based on round type
-  const renderTimerText = (remainingTime) => {
+  const renderTimerText = (remainingTime: number) => {
     switch (true) {
       case isWarmupRound:
         return (
@@ -79,16 +75,16 @@ const WorkoutTimer = () => {
   };
 
   // format remaining time to 00:00
-  const formatRemainingTime = (remainingTime) => {
+  const formatRemainingTime = (remainingTime: number) => {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   // format timer colors based on round type
-  const timerColors = !isFightRound
-    ? ["#050778", "#050778", "#050778"]
-    : ["#cfa227", "#cfa227", "#cfa227"];
+  const timerColors: any = !isFightRound
+    ? [["#050778"], ["#050778"], ["#050778"]]
+    : [["#cfa227"], ["#cfa227"], ["#cfa227"]];
 
   // format button text
   const buttonText = isCountingDown ? "Pause" : "Resume";
@@ -169,7 +165,7 @@ const WorkoutTimer = () => {
         </button>
       </div>
 
-      <ComboCard sequence={selectedWorkout.round_info[currentCombo].sequence} />
+      <ComboCard sequence={roundInfo.round_info[currentCombo].sequence} />
     </div>
   );
 };

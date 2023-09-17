@@ -83,11 +83,6 @@ export default async function WorkoutPost({
         <SaveButton id={id} saved={saved} />
       </div>
       <LikesDisplay likes={likes} />
-
-      {/* <div className={styles.btnContainer}>
-        <button className={styles.btnStart}>START</button>
-        
-      </div> */}
     </div>
   );
 }

@@ -83,31 +83,25 @@
     }
   }
 
-  .btnContainer {
-    display: flex;
-    gap: 1rem;
-
-    .btnStart {
-      color: var(--accent-color-red);
-      border: solid 1px var(--accent-color-red);
-      border-radius: 2px;
-    }
-
-    button {
-      font-weight: bold;
-      font-size: 1rem;
-      background-color: transparent;
-      border: transparent;
-      outline: transparent;
-
-      color: var(--text-color-main);
-      padding: 5px;
-    }
-  }
-
   .socialBtnContainer {
     display: flex;
     align-items: center;
     gap: 5px;
+  }
+
+  .workoutBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .btnStart {
+      font-size: 1rem;
+      font-weight: bold;
+      background-color: var(--accent-color-dark);
+      border: solid 1.5px hsla(230, 20%, 50%, 0.8);
+      padding: 8px;
+      border-radius: 5px;
+      color: var(--header-color-main);
+    }
   }
 }
