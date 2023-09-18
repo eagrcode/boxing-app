@@ -4,7 +4,8 @@
 import styles from "./CreateEditWorkout.module.scss";
 
 // react
-import { useState } from "react";
+import { useState, useRef } from "react";
+import React from "react";
 
 // components
 import Button from "./Button";
@@ -18,7 +19,7 @@ import createUserWorkout from "@/src/lib/actions/createUserWorkout";
 
 // icons
 import { HiArrowSmRight } from "react-icons/hi";
-import { CgSelect } from "react-icons/cg";
+import { FaDeleteLeft } from "react-icons/fa6";
 
 const CreateEditWorkout = ({ mode }: { mode: string }) => {
   // init state
@@ -29,9 +30,10 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
   const [restTime, setRestTime] = useState<number>(5);
   const [warmupTime, setWarmupTime] = useState<number>(5);
   const [selectedCombos, setSelectedCombos] = useState<string[][]>([[]]);
-  // const [sequences, setSequences] = useState<string[]>([]);
-
   const [isPublic, setIsPublic] = useState<boolean>(true);
+  const [comboErrors, setComboErrors] = useState<boolean[]>(
+    Array.from({ length: rounds }, () => false)
+  );
 
   // init hooks
   const path = usePathname();
@@ -72,6 +74,13 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
     }
   };
 
+  // Function to clear selections for a specific round
+  const handleClearRound = (roundIndex: number) => {
+    const updatedSelectedCombos = [...selectedCombos];
+    updatedSelectedCombos[roundIndex] = [];
+    setSelectedCombos(updatedSelectedCombos);
+  };
+
   // assign selected combos and update state
   const handleComboSelection = (roundIndex: number, selectedCombo: string) => {
     const updatedSelectedCombos = [...selectedCombos];
@@ -97,20 +106,35 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
     is_public: isPublic,
   };
 
+  const selected = workoutData.round_info.map((round, index) => round.sequence);
+  const allSelected = selected.length === rounds && selected.some((sub) => sub.length > 0);
+  console.log(allSelected);
+  console.log(selectedCombos);
+
+  console.log(comboErrors);
   // check mode type then handle server action
   function handleAction(mode: string) {
-    // if (mode === "edit") {
-    //   editUserWorkout(workoutData, workoutID, path);
-    // } else if (mode === "create") {
-    //   createUserWorkout(workoutData, path);
-    // }
+    if (!allSelected) {
+      // Update the comboErrors state for each round
+      const updatedErrors = selectedCombos.map((subArray) => subArray.length === 0);
+      setComboErrors(updatedErrors);
+    } else {
+      // Clear selectError for all rounds
+      setComboErrors(Array.from({ length: rounds }, () => false));
 
-    createUserWorkout(workoutData, path);
+      // Perform the action (e.g., create or edit workout)
+      createUserWorkout(workoutData, path);
+    }
   }
 
   return (
     <div className={styles.formWrapper}>
-      <form action={() => handleAction(mode)} className={styles.form}>
+      <form
+        action={() => {
+          handleAction(mode);
+        }}
+        className={styles.form}
+      >
         <div className={styles.titleContainer}>
           <input
             className={styles.titleInput}
@@ -120,6 +144,9 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
             onChange={handleInputChange}
             placeholder="Title"
             autoFocus
+            required
+            minLength={5}
+            value={title}
           />
         </div>
         <div className={styles.row}>
@@ -130,6 +157,8 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
             onChange={handleInputChange}
             placeholder="Describe your workout"
             rows={5}
+            required
+            value={description}
           />
         </div>
         <div className={styles.rangeContainer}>
@@ -187,33 +216,57 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
           </div>
         </div>
         {Array.from({ length: rounds }).map((_, roundIndex) => (
-          <div key={roundIndex} className={styles.comboContainer}>
+          <div
+            key={roundIndex}
+            className={
+              comboErrors[roundIndex]
+                ? `${styles.comboContainer} ${styles.selectError}`
+                : styles.comboContainer
+            }
+          >
             <div className={styles.comboSelect}>
-              <label>Round {roundIndex + 1} combo</label>
-              <select value="" onChange={(e) => handleComboSelection(roundIndex, e.target.value)}>
-                <option value="" disabled hidden>
-                  Select
-                </option>
+              <div className={styles.comboSelectLeft}>
+                <label>Round {roundIndex + 1} combo</label>
+                {selectedCombos[roundIndex]?.length > 0 && (
+                  <FaDeleteLeft
+                    size={20}
+                    style={{ color: "var(--accent-color-red)", cursor: "pointer" }}
+                    onClick={() => handleClearRound(roundIndex)}
+                  />
+                )}
+              </div>
+              <select
+                value={selectedCombos[roundIndex] ? selectedCombos[roundIndex][0] : ""}
+                onChange={(e) => handleComboSelection(roundIndex, e.target.value)}
+              >
+                <option value="">Select</option>
                 <option value="Jab">Jab</option>
                 <option value="Cross">Cross</option>
                 <option value="Hook-L">Hook-L</option>
-                {/* Add more combo options as needed */}
+                <option value="Hook-R">Hook-R</option>
+                <option value="Uppercut-L">Uppercut-L</option>
+                <option value="Uppercut-R">Uppercut-R</option>
+                <option value="Slip-L">Slip-L</option>
+                <option value="Slip-R">Slip-R</option>
+                <option value="Roll-L">Roll-L</option>
+                <option value="Roll-R">Roll-R</option>
               </select>
             </div>
-            {selectedCombos[0].length > 0 && (
+            {selectedCombos[roundIndex]?.length > 0 && (
               <div className={styles.comboDisplay}>
                 {selectedCombos[roundIndex]?.map((combo, comboIndex) => (
-                  <>
-                    <span key={comboIndex}>{combo}</span>
+                  <React.Fragment key={comboIndex}>
+                    <span>{combo}</span>
                     <div className={styles.arrow}>
                       <HiArrowSmRight />
                     </div>
-                  </>
+                  </React.Fragment>
                 ))}
               </div>
             )}
           </div>
         ))}
+
         <Button />
       </form>
     </div>

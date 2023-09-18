@@ -96,9 +96,9 @@
     border-radius: 5px;
     border: solid 1px hsla(230, 20%, 50%, 0.5);
 
-    // &:not(:last-child) {
-    //   border-bottom: solid 1px hsla(230, 20%, 50%, 0.5);
-    // }
+    &.selectError {
+      border-color: var(--accent-color-red);
+    }
 
     .comboSelect {
       display: flex;
@@ -106,6 +106,16 @@
       gap: 1rem;
       align-items: center;
       color: var(--text-color-accent);
+
+      .comboSelectLeft {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .errorText {
+          font-size: 0.8rem;
+        }
+      }
 
       select {
         padding: 5px;
@@ -117,12 +127,6 @@
 
         select:not(:focus) option:first-child {
           display: none;
-        }
-
-        option {
-          div {
-            background-color: red;
-          }
         }
       }
     }
@@ -147,18 +151,18 @@
     }
   }
 
-  button {
+  .submitBtn {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 100px;
-    font-size: 1.2rem;
-    padding: 5px 10px;
+
+    font-size: 1rem;
+    padding: 8px 10px;
     border-radius: 5px;
     background-color: var(--accent-color-blue);
     color: var(--accent-color-white);
-    border: transparent;
+    border: solid 1px var(--accent-color-blue);
     font-weight: bold;
   }
 

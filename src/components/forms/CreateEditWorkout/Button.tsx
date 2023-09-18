@@ -9,7 +9,7 @@ export default function Button() {
   const { pending } = useFormStatus();
 
   return (
-    <button disabled={pending} type="submit" className={styles.fightBtn}>
+    <button disabled={pending} type="submit" className={styles.submitBtn}>
       {pending ? "Loading..." : "Post"}
     </button>
   );

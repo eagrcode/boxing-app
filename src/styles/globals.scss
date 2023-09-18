@@ -87,4 +87,9 @@ p {
 
 button {
   cursor: pointer;
+  background: transparent;
+  border: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
