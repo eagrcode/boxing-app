@@ -31,9 +31,6 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
   const [warmupTime, setWarmupTime] = useState<number>(5);
   const [selectedCombos, setSelectedCombos] = useState<string[][]>([[]]);
   const [isPublic, setIsPublic] = useState<boolean>(true);
-  const [comboErrors, setComboErrors] = useState<boolean[]>(
-    Array.from({ length: rounds }, () => false)
-  );
 
   // init hooks
   const path = usePathname();
@@ -89,6 +86,8 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
     }
     updatedSelectedCombos[roundIndex].push(selectedCombo);
     setSelectedCombos(updatedSelectedCombos);
+
+    console.log(updatedSelectedCombos);
   };
 
   // define data structure for db entry
@@ -108,21 +107,12 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
 
   const selected = workoutData.round_info.map((round, index) => round.sequence);
   const allSelected = selected.length === rounds && selected.some((sub) => sub.length > 0);
-  console.log(allSelected);
-  console.log(selectedCombos);
 
-  console.log(comboErrors);
   // check mode type then handle server action
   function handleAction(mode: string) {
     if (!allSelected) {
-      // Update the comboErrors state for each round
-      const updatedErrors = selectedCombos.map((subArray) => subArray.length === 0);
-      setComboErrors(updatedErrors);
+      return;
     } else {
-      // Clear selectError for all rounds
-      setComboErrors(Array.from({ length: rounds }, () => false));
-
-      // Perform the action (e.g., create or edit workout)
       createUserWorkout(workoutData, path);
     }
   }
@@ -216,30 +206,22 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
           </div>
         </div>
         {Array.from({ length: rounds }).map((_, roundIndex) => (
-          <div
-            key={roundIndex}
-            className={
-              comboErrors[roundIndex]
-                ? `${styles.comboContainer} ${styles.selectError}`
-                : styles.comboContainer
-            }
-          >
+          <div key={roundIndex} className={styles.comboContainer}>
             <div className={styles.comboSelect}>
               <div className={styles.comboSelectLeft}>
                 <label>Round {roundIndex + 1} combo</label>
                 {selectedCombos[roundIndex]?.length > 0 && (
                   <FaDeleteLeft
                     size={20}
-                    style={{ color: "var(--accent-color-red)", cursor: "pointer" }}
+                    style={{ color: "var(--text-color-accent)", cursor: "pointer" }}
                     onClick={() => handleClearRound(roundIndex)}
                   />
                 )}
               </div>
-              <select
-                value={selectedCombos[roundIndex] ? selectedCombos[roundIndex][0] : ""}
-                onChange={(e) => handleComboSelection(roundIndex, e.target.value)}
-              >
-                <option value="">Select</option>
+              <select value="" onChange={(e) => handleComboSelection(roundIndex, e.target.value)}>
+                <option value="" disabled>
+                  Select
+                </option>
                 <option value="Jab">Jab</option>
                 <option value="Cross">Cross</option>
                 <option value="Hook-L">Hook-L</option>
@@ -266,7 +248,6 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
             )}
           </div>
         ))}
-
         <Button />
       </form>
     </div>
