@@ -7,6 +7,7 @@
   color: var(--text-color-main);
   border-radius: 5px;
   width: fit-content;
+  padding: 0.5rem;
 
   position: absolute;
   left: 1rem;
@@ -14,10 +15,7 @@
   bottom: 0;
 
   &.sidebar {
-    position: relative;
     left: 0;
-    right: 0;
-    padding: 0.5rem;
 
     &:hover {
       color: var(--accent-color-white);

@@ -84,8 +84,8 @@ export default function LeftSidebar() {
             </Link>
           </li>
         ))}
+        {renderBackButton()}
       </ul>
-      {renderBackButton()}
     </nav>
   );
 }
