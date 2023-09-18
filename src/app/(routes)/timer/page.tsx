@@ -26,17 +26,10 @@ export default function TimerPage() {
         <div className={styles.wrapper}>
           <header>Timer</header>
           <div className={styles.pageTop}>
-            <div className={styles.pageTopTextContainer}>
-              <p>
-                Start by generating a random combo, each rest round will automatically generate a
-                new combo for you!
-              </p>
-              <p>Or simply press play to begin without automatic combo generation</p>
-            </div>
             <div className={styles.formCardContainer}>
               <GenerateComboForm setRandomCombo={setRandomCombo} />
               {randomCombo?.length === 0 ? (
-                <div className={styles.comboSkeleton}>?</div>
+                <div className={styles.comboSkeleton}></div>
               ) : (
                 <ComboCard sequence={randomCombo} />
               )}
