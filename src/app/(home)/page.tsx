@@ -8,8 +8,7 @@ import styles from "./page.module.scss";
 // components
 import WorkoutsFeed from "./WorkoutsFeed/WorkoutsFeed";
 import Logo from "@/src/components/ui/Logo/Logo";
-
-export const dynamic = "force-dynamic";
+import PostSkeleton from "@/src/components/ui/PostSkeleton/PostSkeleton";
 
 export default async function Index() {
   const supabase = createServerComponentClient({ cookies });
@@ -59,6 +58,7 @@ export default async function Index() {
   return (
     <div className={styles.pageWrapperUser}>
       <Logo variant={"home"} />
+      {/* <PostSkeleton /> */}
       <WorkoutsFeed userID={userID} />
     </div>
   );

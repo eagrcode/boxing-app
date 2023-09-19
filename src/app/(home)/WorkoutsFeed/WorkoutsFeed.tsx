@@ -7,6 +7,16 @@ import WorkoutPost from "@/src/components/ui/WorkoutPost/WorkoutPost";
 // utils
 import getWorkouts from "../getWorkouts";
 
+import dynamic from "next/dynamic";
+import PostSkeleton from "@/src/components/ui/PostSkeleton/PostSkeleton";
+
+// const WithCustomLoading = dynamic(
+//   () => import('@/src/components/ui/WorkoutPost/WorkoutPost'),
+//   {
+//     loading: () => <PostSkeleton />,
+//   }
+// )
+
 export default async function WorkoutsFeed({ userID }: { userID: string }) {
   // fetch workouts data
   const workouts = await getWorkouts();
