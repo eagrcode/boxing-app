@@ -2,10 +2,11 @@
   /* --bg-color-main: hsl(240, 10%, 7%); */
   --bg-color-main: hsl(240, 5%, 6%);
   --text-color-main: hsl(0, 0%, 80%);
-  --text-color-accent: hsl(0, 0%, 50%);
+  --text-color-accent: hsl(0, 0%, 45%);
   --header-color-main: hsl(240, 15%, 95%);
   --accent-color-white: hsl(0, 0%, 95%);
   --accent-color-dark: hsla(230, 20%, 12%);
+  --accent-color-outline: hsla(230, 20%, 20%);
   --accent-color-dark-blue: hsl(230, 80%, 10%);
   --accent-color-red: hsla(0, 70%, 50%, 0.5);
   --accent-color-blue: hsl(205, 90%, 45%);

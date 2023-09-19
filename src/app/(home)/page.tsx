@@ -41,7 +41,7 @@ export default async function Index() {
         <div className={styles.featureContainer}>
           <div className={styles.featureCard}>
             <h2>Timer</h2>
-            <p>Do stuff with the timer and get sweaty</p>
+            <p>Generate random combinations every round</p>
           </div>
           <div className={styles.featureCard}>
             <h2>Feed</h2>
