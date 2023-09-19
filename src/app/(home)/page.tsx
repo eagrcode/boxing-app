@@ -58,7 +58,7 @@ export default async function Index() {
   return (
     <div className={styles.pageWrapperUser}>
       <Logo variant={"home"} />
-      {/* <PostSkeleton /> */}
+
       <WorkoutsFeed userID={userID} />
     </div>
   );
