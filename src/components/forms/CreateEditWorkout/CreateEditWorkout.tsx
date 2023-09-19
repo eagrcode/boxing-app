@@ -16,6 +16,7 @@ import { usePathname, useRouter } from "next/navigation";
 // utils
 import editUserWorkout from "@/src/lib/actions/editUserWorkout";
 import createUserWorkout from "@/src/lib/actions/createUserWorkout";
+import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 
 // icons
 import { HiArrowSmRight } from "react-icons/hi";
@@ -34,13 +35,6 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
 
   // init hooks
   const path = usePathname();
-
-  // format the time in "00:00" format
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
-  };
 
   // handle input onChange values
   const handleInputChange = (e: { target: { name: string; value: string | number } }) => {
@@ -166,7 +160,7 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
             />
           </div>
           <div className={styles.row}>
-            <label htmlFor="roundTime">Round / {formatTime(roundTime)}</label>
+            <label htmlFor="roundTime">Round / {formatTimeDisplay(roundTime)}</label>
             <input
               type="range"
               id="roundTime"
@@ -179,7 +173,7 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
             />
           </div>
           <div className={styles.row}>
-            <label htmlFor="restTime">Rest {formatTime(restTime)}</label>
+            <label htmlFor="restTime">Rest {formatTimeDisplay(restTime)}</label>
             <input
               type="range"
               id="restTime"
@@ -192,7 +186,7 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
             />
           </div>
           <div className={styles.row}>
-            <label htmlFor="warmup">Warmup {formatTime(warmupTime)}</label>
+            <label htmlFor="warmup">Warmup {formatTimeDisplay(warmupTime)}</label>
             <input
               type="range"
               id="warmup"
