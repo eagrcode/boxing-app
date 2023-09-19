@@ -11,15 +11,17 @@ import React from "react";
 import { GiHighPunch } from "react-icons/gi";
 import { HiArrowSmRight } from "react-icons/hi";
 import { HiOutlineEllipsisHorizontal } from "react-icons/hi2";
+import { MdOutlineTimer } from "react-icons/md";
+import { BsLightningCharge, BsHourglassTop } from "react-icons/bs";
 
 // context
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 
 // utils
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
+import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 
 // components
-// import WorkoutForm from "@/src/components/forms/CreateEditWorkout/CreateEditWorkout";
 import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
 import LikeButton from "@/src/components/buttons/LikeButton/LikeButton";
 import LikesDisplay from "@/src/components/ui/LikesDisplay/LikesDisplay";
@@ -78,9 +80,6 @@ export default function UserWorkout({
     setRoundInfo,
   } = useWorkoutTimerDataContext();
 
-  // call function and assign formatted value
-  createdAt = formatTimeAgo(createdAt);
-
   // calc total workout time
   const totalTime = Math.floor(
     workoutWarmupTime + workoutRoundTime * workoutRounds + workoutRestTime * (workoutRounds - 1)
@@ -110,7 +109,7 @@ export default function UserWorkout({
               <p>{createdBy}</p>
             </div>
             <div className={styles.cardTopRight}>
-              <span>{createdAt}</span>
+              <span>{formatTimeAgo(createdAt)}</span>
               <HiOutlineEllipsisHorizontal
                 size={25}
                 onClick={() => setShowDeleteModal((prev) => !prev)}
@@ -123,12 +122,21 @@ export default function UserWorkout({
             <p>{description}</p>
           </div>
           <div className={styles.info}>
-            <span>{totalTime}mins</span>
-            <span>
-              {workoutRounds} round{workoutRounds > 1 && "s"}
-            </span>
+            <div className={styles.infoDisplay}>
+              <MdOutlineTimer size={20} />
+              <span>{formatTimeDisplay(totalTime)}</span>
+            </div>
+            <div className={styles.infoDisplay}>
+              <BsLightningCharge size={20} />
+              <span>
+                {workoutRounds} round{workoutRounds > 1 && "s"}
+              </span>
+            </div>
+            <div className={styles.infoDisplay}>
+              <BsHourglassTop size={20} />
+              <span>{formatTimeDisplay(workoutRoundTime)} / round</span>
+            </div>
             {/* <span>{workoutWarmupTime} sec / warmup</span> */}
-            <span>{workoutRoundTime}sec / round</span>
           </div>
           <div className={styles.comboContainer}>
             {roundInfo.map((round, index) => (

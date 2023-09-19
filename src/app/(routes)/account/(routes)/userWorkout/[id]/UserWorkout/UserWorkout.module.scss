@@ -52,6 +52,12 @@
     display: flex;
     gap: 1rem;
     color: var(--text-color-accent);
+
+    .infoDisplay {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
   }
 
   .comboContainer {
@@ -123,6 +129,7 @@
     justify-content: center;
     text-align: center;
     width: 70%;
+    max-width: 250px;
 
     background-color: hsl(0, 0%, 12%);
     border-radius: 5px;
