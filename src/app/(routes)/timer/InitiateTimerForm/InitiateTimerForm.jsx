@@ -20,6 +20,8 @@ const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
     setWarmupTime,
   } = useTimerDataContext();
 
+  console.log(roundTime);
+
   // Function to format the time in "00:00" format
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -63,7 +65,7 @@ const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
               id="rounds"
               name="rounds"
               min="1"
-              max="30"
+              max="20"
               step="1"
               onChange={handleInputChange}
               value={rounds}
@@ -75,7 +77,7 @@ const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
               type="range"
               id="roundTime"
               name="roundTime"
-              min="5"
+              min="60"
               max="300"
               step="10"
               onChange={handleInputChange}
@@ -88,7 +90,7 @@ const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
               type="range"
               id="restTime"
               name="restTime"
-              min="0"
+              min="30"
               max="60"
               step="5"
               onChange={handleInputChange}
@@ -101,9 +103,9 @@ const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
               type="range"
               id="warmup"
               name="warmup"
-              min="10"
-              max="30"
-              step="5"
+              min="15"
+              max="60"
+              step="15"
               onChange={handleInputChange}
               value={warmupTime}
             />

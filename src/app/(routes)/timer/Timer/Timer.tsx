@@ -42,6 +42,8 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
     DEFAULT_WARMUP_TIME,
   } = useTimerDataContext();
 
+  console.log(roundTime);
+
   // init state
   const [currentRound, setCurrentRound] = useState<number>(1);
   const [currentDuration, setCurrentDuration] = useState<number>(warmupTime);

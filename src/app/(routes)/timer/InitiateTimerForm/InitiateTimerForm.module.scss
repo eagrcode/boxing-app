@@ -4,10 +4,6 @@
   align-items: center;
   gap: 1rem;
   width: 100%;
-
-  h1 {
-    font-size: 1rem;
-  }
 }
 
 .form {
@@ -17,25 +13,6 @@
   align-items: center;
   width: 100%;
   gap: 1rem;
-
-  input[type="text"] {
-    font-size: 1rem;
-    padding: 8px;
-    border-radius: 5px;
-    background-color: transparent;
-    color: var(--text-color-main);
-    outline: transparent;
-    border: solid 1px hsla(230, 20%, 20%, 0.8);
-    width: 100%;
-
-    &:hover {
-      border: solid 1px var(--accent-color-blue);
-    }
-
-    &:focus {
-      border: solid 1px var(--accent-color-blue);
-    }
-  }
 
   .row {
     width: 100%;
@@ -62,7 +39,7 @@
     div {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 1rem;
     }
   }
 

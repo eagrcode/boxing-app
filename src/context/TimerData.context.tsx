@@ -31,9 +31,9 @@ export const useTimerDataContext = (): FightDataContextType => {
 
 const DEFAULT_DIFFICULTY = "Beginner";
 const DEFAULT_ROUNDS = 1;
-const DEFAULT_ROUND_TIME = 3;
-const DEFAULT_REST_TIME = 3;
-const DEFAULT_WARMUP_TIME = 3;
+const DEFAULT_ROUND_TIME = 60;
+const DEFAULT_REST_TIME = 30;
+const DEFAULT_WARMUP_TIME = 15;
 
 export const FightDataProvider = ({ children }: { children: React.ReactNode }) => {
   // init state
