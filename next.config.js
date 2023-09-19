@@ -6,6 +6,9 @@ const nextConfig = {
   async headers() {
     return [
       {
+        compiler: {
+          removeConsole: process.env.NODE_ENV === "production",
+        },
         // matching all API routes
         source: "/api/:path*",
         headers: [
