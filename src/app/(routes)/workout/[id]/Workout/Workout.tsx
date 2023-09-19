@@ -18,10 +18,13 @@ import SaveButton from "@/src/components/buttons/SaveButton/SaveButton";
 
 // icons
 import { GiHighPunch } from "react-icons/gi";
+import { MdOutlineTimer } from "react-icons/md";
+import { BsLightningCharge, BsHourglassTop } from "react-icons/bs";
 import { HiArrowSmRight } from "react-icons/hi";
 
 // utils
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
+import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 
 // db types
 import type { Database } from "@/src/lib/database.types";
@@ -74,9 +77,6 @@ export default function Workout({
     setRoundInfo,
   } = useWorkoutTimerDataContext();
 
-  // call function and assign formatted value
-  createdAt = formatTimeAgo(createdAt);
-
   // calc total workout time
   const totalTime = Math.floor(
     workoutWarmupTime + workoutRoundTime * workoutRounds + workoutRestTime * (workoutRounds - 1)
@@ -100,19 +100,28 @@ export default function Workout({
             <GiHighPunch size={20} />
             <p>{createdBy}</p>
           </div>
-          <span>{createdAt}</span>
+          <span>{formatTimeAgo(createdAt)}</span>
         </div>
         <h1>{title}</h1>
         <div className={styles.overview}>
           <p>{description}</p>
         </div>
         <div className={styles.info}>
-          <span>{totalTime}mins</span>
-          <span>
-            {workoutRounds} round{workoutRounds > 1 && "s"}
-          </span>
+          <div className={styles.infoDisplay}>
+            <MdOutlineTimer size={20} />
+            <span>{formatTimeDisplay(totalTime)}</span>
+          </div>
+          <div className={styles.infoDisplay}>
+            <BsLightningCharge size={20} />
+            <span>
+              {workoutRounds} round{workoutRounds > 1 && "s"}
+            </span>
+          </div>
+          <div className={styles.infoDisplay}>
+            <BsHourglassTop size={20} />
+            <span>{formatTimeDisplay(workoutRoundTime)} / round</span>
+          </div>
           {/* <span>{workoutWarmupTime} sec / warmup</span> */}
-          <span>{workoutRoundTime}sec / round</span>
         </div>
         <div className={styles.comboContainer}>
           {roundInfo.map((round, index) => (
