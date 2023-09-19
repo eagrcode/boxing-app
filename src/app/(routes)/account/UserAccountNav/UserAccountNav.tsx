@@ -35,8 +35,9 @@ export default function UserAccountNav() {
 
   return (
     <div className={styles.linkContainer}>
-      {links.map((link) => (
+      {links.map((link, index) => (
         <Link
+          key={index}
           className={
             shouldHaveActiveStyles(path, link.url) ? `${styles.link} ${styles.active}` : styles.link
           }
