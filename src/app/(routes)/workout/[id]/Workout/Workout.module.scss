@@ -46,6 +46,12 @@
     display: flex;
     gap: 1rem;
     color: var(--text-color-accent);
+
+    .infoDisplay {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
   }
 
   .comboContainer {
