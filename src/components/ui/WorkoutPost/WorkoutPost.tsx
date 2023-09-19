@@ -4,12 +4,6 @@ import styles from "./WorkoutPost.module.scss";
 // next
 import Link from "next/link";
 
-// react
-
-// supabase client
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-
 // utils
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
 import getWorkoutSaves from "@/src/lib/services/getWorkoutSaves";
@@ -22,6 +16,8 @@ import LikesDisplay from "@/src/components/ui/LikesDisplay/LikesDisplay";
 
 // icons
 import { GiHighPunch } from "react-icons/gi";
+import { MdOutlineTimer } from "react-icons/md";
+import { BsLightningCharge, BsHourglassTop } from "react-icons/bs";
 
 // types
 import type { WorkoutPostPropTypes } from "./workoutPost.types";
@@ -39,7 +35,6 @@ export default async function WorkoutPost({
   createdBy,
   createdAt,
 }: WorkoutPostPropTypes) {
-  console.log("POST: ", id, userID);
   // call function and assign formatted value
   createdAt = formatTimeAgo(createdAt);
 
@@ -48,7 +43,14 @@ export default async function WorkoutPost({
     workoutWarmupTime + workoutRoundTime * workoutRounds + workoutRestTime * (workoutRounds - 1)
   );
 
-  console.log("TOTAL TIME: ", totalTime);
+  // format the time in "00:00" format
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+  };
+
+  console.log(workoutRounds, workoutRoundTime, workoutRestTime, workoutWarmupTime);
 
   // fetch workout likes
   const likes = await getWorkoutLikes(id);
@@ -70,12 +72,21 @@ export default async function WorkoutPost({
         <p>{description}</p>
       </div>
       <div className={styles.info}>
-        <span>{totalTime}mins</span>
-        <span>
-          {workoutRounds} round{workoutRounds > 1 && "s"}
-        </span>
+        <div className={styles.infoDisplay}>
+          <MdOutlineTimer size={20} />
+          <span>{formatTime(totalTime)}</span>
+        </div>
+        <div className={styles.infoDisplay}>
+          <BsLightningCharge size={20} />
+          <span>
+            {workoutRounds} round{workoutRounds > 1 && "s"}
+          </span>
+        </div>
+        <div className={styles.infoDisplay}>
+          <BsHourglassTop size={20} />
+          <span>{formatTime(workoutRoundTime)} / round</span>
+        </div>
         {/* <span>{workoutWarmupTime} sec / warmup</span> */}
-        <span>{workoutRoundTime}sec / round</span>
       </div>
 
       <div className={styles.socialBtnContainer}>

@@ -26,9 +26,9 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [rounds, setRounds] = useState<number>(1);
-  const [roundTime, setRoundTime] = useState<number>(5);
-  const [restTime, setRestTime] = useState<number>(5);
-  const [warmupTime, setWarmupTime] = useState<number>(5);
+  const [roundTime, setRoundTime] = useState<number>(60);
+  const [restTime, setRestTime] = useState<number>(30);
+  const [warmupTime, setWarmupTime] = useState<number>(15);
   const [selectedCombos, setSelectedCombos] = useState<string[][]>([[]]);
   const [isPublic, setIsPublic] = useState<boolean>(true);
 
@@ -159,7 +159,7 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
               id="rounds"
               name="rounds"
               min="1"
-              max="30"
+              max="20"
               step="1"
               onChange={handleInputChange}
               value={rounds}
@@ -171,7 +171,7 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
               type="range"
               id="roundTime"
               name="roundTime"
-              min="5"
+              min="60"
               max="300"
               step="10"
               onChange={handleInputChange}
@@ -184,7 +184,7 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
               type="range"
               id="restTime"
               name="restTime"
-              min="0"
+              min="30"
               max="60"
               step="5"
               onChange={handleInputChange}
@@ -197,9 +197,9 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
               type="range"
               id="warmup"
               name="warmup"
-              min="10"
-              max="30"
-              step="5"
+              min="15"
+              max="60"
+              step="15"
               onChange={handleInputChange}
               value={warmupTime}
             />

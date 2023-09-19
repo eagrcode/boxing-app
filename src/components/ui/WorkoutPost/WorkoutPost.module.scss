@@ -48,7 +48,10 @@
     gap: 1rem;
     color: var(--text-color-accent);
 
-    span {
+    .infoDisplay {
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
   }
 
