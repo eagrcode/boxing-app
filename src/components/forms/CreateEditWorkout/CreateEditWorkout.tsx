@@ -226,6 +226,9 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
                 <option value="Slip-R">Slip-R</option>
                 <option value="Roll-L">Roll-L</option>
                 <option value="Roll-R">Roll-R</option>
+                <option value="Step-Back">Step-Back</option>
+                <option value="Pivot-L">Pivot-L</option>
+                <option value="Pivot-R">Pivot-R</option>
               </select>
             </div>
             {selectedCombos[roundIndex]?.length > 0 && (
