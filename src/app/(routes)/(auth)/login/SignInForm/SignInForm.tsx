@@ -16,12 +16,14 @@ import Button from "./Button";
 // utils
 import signInEmail from "../signInEmail";
 import signInGuest from "../signInGuest";
+import { AuthError } from "@supabase/supabase-js";
 
 export default function SignInForm() {
   // init state
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
   // init hooks
   const router = useRouter();
@@ -29,7 +31,20 @@ export default function SignInForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault();
     setIsLoading(true);
-    await signInEmail(email, password);
+    const errorResponse = await signInEmail(email, password);
+
+    if (errorResponse) {
+      if (errorResponse.errorType === "auth") {
+        // Handle authentication error
+        console.log(errorResponse.error.message);
+        setErrorMsg(errorResponse.error.message);
+      } else if (errorResponse.errorType === "unexpected") {
+        // Handle unexpected error
+        console.log(errorResponse.error.message);
+        setErrorMsg(errorResponse.error.message);
+      }
+    }
+    setIsLoading(false);
     router.refresh();
   }
 
@@ -37,6 +52,7 @@ export default function SignInForm() {
     e.preventDefault();
     setIsLoading(true);
     await signInGuest();
+    setIsLoading(false);
     router.refresh();
   }
 
@@ -70,6 +86,7 @@ export default function SignInForm() {
         </div>
         <Button isLoading={isLoading} />
       </form>
+      {errorMsg && <p style={{ color: "var(--accent-color-red)" }}>{errorMsg}</p>}
 
       <p>
         Don't have an account? <Link href="/signUp">Sign Up Now</Link>
