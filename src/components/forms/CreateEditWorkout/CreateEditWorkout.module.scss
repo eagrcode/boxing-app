@@ -156,14 +156,18 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-
     font-size: 1rem;
     padding: 8px 10px;
     border-radius: 5px;
     background-color: var(--accent-color-blue);
     color: var(--accent-color-white);
-    border: solid 1px var(--accent-color-blue);
+    border: transparent;
     font-weight: bold;
+    height: 36px;
+
+    &:hover {
+      background-color: hsl(205, 90%, 35%);
+    }
   }
 
   input[type="range"] {
