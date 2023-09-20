@@ -18,8 +18,9 @@ import { cookies } from "next/headers";
 import { Roboto_Flex } from "next/font/google";
 
 export const metadata = {
-  title: "RoundX",
-  description: "Boxing-app",
+  title: "FightX    ",
+  description:
+    "A social media inspired Boxing focused workout application, designed to help beginners and experienced users alike improve their skillset by leveraging FightX' unique feature set, such as random combo generation.",
 };
 
 const RobotoFlex = Roboto_Flex({
