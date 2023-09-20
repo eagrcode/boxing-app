@@ -1,48 +1,41 @@
-# Supabase Starter
+# FightX
 
-This starter configures Supabase Auth to use cookies, making the user's session available throughout the entire Next.js app - Client Components, Server Components, Route Handlers, Server Actions and Middleware.
+## Table of Contents
 
-## Deploy your own
+- [Introduction](#introduction)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Contact](#contact)
 
-The Vercel deployment will guide you through creating a Supabase account and project. After installation of the Supabase integration, all relevant environment variables will be set up so that the project is usable immediately after deployment 🚀
+## Introduction
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&integration-ids=oac_jUduyjQgOyzev1fjrW83NYOv)
+FightX is a solution to a problem I was having in the gym. When practicing my daily heavy bag workouts, I found myself getting stuck doing the same moves over and over again. I needed a solution that could take away the guess work and provide me with a quick and structured way to perform my workouts.
 
-## How to use
+## Technologies Used
 
-1. Create a [new Supabase project](https://database.new)
-1. Run `npx create-next-app -e with-supabase` to create a Next.js app using the Supabase Starter template
-1. Use `cd` to change into the app's directory
-1. Run `npm install` to install dependencies
-1. Rename `.env.local.example` to `.env.local` and update the values for `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` from [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
-1. Run `npm run dev` to start the local development server
+In this portfolio, I've utilized various technologies and tools, including:
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+- HTML5
+- CSS3
+- Sass
+- JavaScript
+- TypeScript
+- React
+- Next.js
+- Supabase
+- Vercel
 
-### Create a Supabase client
+## Features
 
-Check out the [`/app/_examples`](./app/_examples/) folder for an example of creating a Supabase client in:
+The **FightX** app showcases the following features:
 
-- [Client Components](./app/_examples/client-component/page.tsx)
-- [Server Components](./app/_examples/server-component/page.tsx)
-- [Route Handlers](./app/_examples/route-handler/route.ts)
-- [Server Actions](./app/_examples/server-action/page.tsx)
+- Interval timer featuring automatic random combo generation.
+- Live feed of workouts posted by other users.
+- Run users workouts
+- Social media interactions.
+- Create and share you own workouts for others to try.
+- Responsive design (mobile version recommended).
 
-### Create `todo` table and seed with data (optional)
+## Contact
 
-Navigate to [your project's SQL Editor](https://app.supabase.com/project/_/sql), click `New query`, paste the contents of the [init.sql](./supabase/migrations/20230618024722_init.sql) file and click `RUN`.
-
-This will create a basic `todos` table, enable Row Level Security (RLS), and write RLS policies enabling `select` and `insert` actions for `authenticated` users.
-
-To seed your `todos` table with some dummy data, run the contents of the [seed.sql](./supabase/seed.sql) file.
-
-## Feedback and issues
-
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
-
-## More Supabase examples
-
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
-- [Next.js Auth Helpers Docs](https://supabase.com/docs/guides/auth/auth-helpers/nextjs)
+For any inquiries or suggestions, feel free to reach out to me at elliot.robinson92@hotmail.com. You can also connect with me on [LinkedIn](https://www.linkedin.com/in/elliot-robinson) or visit my [website](https://www.eagrcode.dev).
