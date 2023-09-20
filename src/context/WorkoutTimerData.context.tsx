@@ -21,6 +21,8 @@ interface WorkoutTimerDataContextType {
   setWorkoutWarmupTime: React.Dispatch<React.SetStateAction<number>>;
   roundInfo: SelectedWorkoutType;
   setRoundInfo: React.Dispatch<React.SetStateAction<SelectedWorkoutType>>;
+  isWorkoutMode: boolean;
+  setIsWorkoutMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const WorkoutTimerDataContext = createContext<WorkoutTimerDataContextType | undefined>(undefined);
@@ -40,6 +42,7 @@ export const WorkoutModeProvider = ({ children }: { children: React.ReactNode })
   const [workoutRestTime, setWorkoutRestTime] = useState(0);
   const [workoutWarmupTime, setWorkoutWarmupTime] = useState(0);
   const [roundInfo, setRoundInfo] = useState<SelectedWorkoutType>({ round_info: [] });
+  const [isWorkoutMode, setIsWorkoutMode] = useState<boolean>(false);
 
   return (
     <WorkoutTimerDataContext.Provider
@@ -54,6 +57,8 @@ export const WorkoutModeProvider = ({ children }: { children: React.ReactNode })
         setWorkoutWarmupTime,
         roundInfo,
         setRoundInfo,
+        isWorkoutMode,
+        setIsWorkoutMode,
       }}
     >
       {children}

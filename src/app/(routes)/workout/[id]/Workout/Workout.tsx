@@ -65,9 +65,6 @@ export default function Workout({
   saved,
   likes,
 }: WorkoutPropTypes) {
-  // init state
-  const [isWorkoutMode, setIsWorkoutMode] = useState(false);
-
   // destructure context
   const {
     setWorkoutRounds,
@@ -75,6 +72,8 @@ export default function Workout({
     setWorkoutRestTime,
     setWorkoutWarmupTime,
     setRoundInfo,
+    isWorkoutMode,
+    setIsWorkoutMode,
   } = useWorkoutTimerDataContext();
 
   // calc total workout time
