@@ -38,9 +38,7 @@ const WorkoutTimer = ({
   console.log("rest time: ", workoutRestTime);
 
   // calculate total rounds & format round types
-  const totalRounds = useMemo(() => {
-    return workoutRestTime ? workoutRounds * 2 : workoutRounds;
-  }, [workoutRestTime, workoutRounds]);
+  const totalRounds = useMemo(() => workoutRounds * 2, [workoutRounds]);
   const isWarmupRound = useMemo(() => currentRound === 1, [currentRound]);
   const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
   const isRestRound = useMemo(() => currentRound > 1 && currentRound % 2 !== 0, [currentRound]);

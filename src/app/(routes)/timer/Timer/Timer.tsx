@@ -53,15 +53,13 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
   console.log("rest time: ", restTime);
 
   // calculate total rounds & format round types
-  const totalRounds = useMemo(() => {
-    return restTime ? rounds * 2 : rounds;
-  }, [restTime, rounds]);
+  const totalRounds = useMemo(() => rounds * 2, [currentRound]);
   const isWarmupRound = useMemo(() => currentRound === 1, [currentRound]);
   const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
   const isRestRound = useMemo(() => currentRound > 1 && currentRound % 2 !== 0, [currentRound]);
 
   // logs
-  console.log(sequence);
+  console.log("total rounds: ", totalRounds);
   console.log("current round: ", currentRound);
   console.log("display round: ", displayRound);
   console.log("Warmup: ", isWarmupRound);
@@ -99,7 +97,6 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
 
   // format remaining time to 00:00
   const formatRemainingTime = (remainingTime: number) => {
-    // console.log(remainingTime);
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
@@ -112,18 +109,6 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
 
   // format button text
   const buttonText = isCountingDown ? "Pause" : "Resume";
-
-  // fetch random combo after each new round
-  useEffect(() => {
-    const fetchRandomCombo = async () => {
-      const combo = await getRandomCombo(difficulty);
-      setRandomCombo(combo);
-    };
-
-    if (sequence.length > 0 && isRestRound) {
-      fetchRandomCombo();
-    }
-  }, [isRestRound, difficulty, sequence.length, setRandomCombo]);
 
   // change duration based on round type
   useEffect(() => {
@@ -140,6 +125,18 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
       setDisplayRound((prev) => prev + 1);
     }
   }, [currentRound, isFightRound, setDisplayRound]);
+
+  // fetch random combo after each new round
+  useEffect(() => {
+    const fetchRandomCombo = async () => {
+      const combo = await getRandomCombo(difficulty);
+      setRandomCombo(combo);
+    };
+
+    if (sequence.length > 0 && isRestRound) {
+      fetchRandomCombo();
+    }
+  }, [isRestRound, difficulty, sequence.length, setRandomCombo]);
 
   // logic for end of rounds/workout
   const handleOnComplete = () => {
