@@ -4,7 +4,7 @@
 import styles from "./WorkoutTimer.module.scss";
 
 // react
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 
 // libraries
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
@@ -32,18 +32,23 @@ const WorkoutTimer = ({
   const [displayRound, setDisplayRound] = useState(1);
   const [currentCombo, setCurrentCombo] = useState<number>(0);
 
+  console.log("current duration: ", currentDuration);
+  console.log("warmup time: ", workoutWarmupTime);
+  console.log("round time: ", workoutRoundTime);
+  console.log("rest time: ", workoutRestTime);
+
   // calculate total rounds & format round types
   const totalRounds = useMemo(() => {
     return workoutRestTime ? workoutRounds * 2 : workoutRounds;
   }, [workoutRestTime, workoutRounds]);
   const isWarmupRound = useMemo(() => currentRound === 1, [currentRound]);
   const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
-  const isRestRound = useMemo(
-    () => workoutRestTime && currentRound > 1 && currentRound % 2 !== 0,
-    [currentRound, workoutRestTime]
-  );
+  const isRestRound = useMemo(() => currentRound > 1 && currentRound % 2 !== 0, [currentRound]);
+
+  console.log(totalRounds);
 
   // logs
+  console.log(currentCombo);
   console.log("current round: ", currentRound);
   console.log("display round: ", displayRound);
   console.log("Warmup: ", isWarmupRound);
@@ -97,11 +102,11 @@ const WorkoutTimer = ({
   // change duration based on round type
   useEffect(() => {
     if (isFightRound) {
-      setCurrentDuration(workoutRoundTime);
+      setCurrentDuration((prev) => prev + workoutRoundTime - prev);
     } else if (isRestRound) {
-      setCurrentDuration(workoutRestTime);
+      setCurrentDuration((prev) => prev + workoutRestTime - prev);
     }
-  }, [isFightRound, isRestRound, setCurrentDuration, workoutRoundTime, workoutRestTime]);
+  }, [isFightRound, isRestRound, workoutRoundTime, workoutRestTime, setCurrentDuration]);
 
   useEffect(() => {
     if (isRestRound) {

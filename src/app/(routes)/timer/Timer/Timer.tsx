@@ -41,8 +41,8 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
   } = useTimerDataContext();
 
   // init state
-  const [currentRound, setCurrentRound] = useState<number>(1);
   const [currentDuration, setCurrentDuration] = useState<number>(warmupTime);
+  const [currentRound, setCurrentRound] = useState<number>(1);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [isCountingDown, setIsCountingDown] = useState<boolean>(true);
   const [displayRound, setDisplayRound] = useState<number>(1);
@@ -58,10 +58,7 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
   }, [restTime, rounds]);
   const isWarmupRound = useMemo(() => currentRound === 1, [currentRound]);
   const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
-  const isRestRound = useMemo(
-    () => restTime && currentRound > 1 && currentRound % 2 !== 0,
-    [currentRound, restTime]
-  );
+  const isRestRound = useMemo(() => currentRound > 1 && currentRound % 2 !== 0, [currentRound]);
 
   // logs
   console.log(sequence);
@@ -102,6 +99,7 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
 
   // format remaining time to 00:00
   const formatRemainingTime = (remainingTime: number) => {
+    // console.log(remainingTime);
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
@@ -125,14 +123,14 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
     if (sequence.length > 0 && isRestRound) {
       fetchRandomCombo();
     }
-  }, [isRestRound, difficulty, setRandomCombo]);
+  }, [isRestRound, difficulty, sequence.length, setRandomCombo]);
 
   // change duration based on round type
   useEffect(() => {
     if (isFightRound) {
-      setCurrentDuration(roundTime);
+      setCurrentDuration((prev) => prev + roundTime - prev);
     } else if (isRestRound) {
-      setCurrentDuration(restTime);
+      setCurrentDuration((prev) => prev + restTime - prev);
     }
   }, [isFightRound, isRestRound, setCurrentDuration, roundTime, restTime]);
 
