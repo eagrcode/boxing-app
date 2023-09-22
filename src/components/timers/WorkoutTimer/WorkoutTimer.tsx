@@ -4,7 +4,7 @@
 import styles from "./WorkoutTimer.module.scss";
 
 // react
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 // libraries
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
@@ -33,10 +33,15 @@ const WorkoutTimer = ({
   const [currentCombo, setCurrentCombo] = useState<number>(0);
 
   // calculate total rounds & format round types
-  const totalRounds = workoutRestTime && workoutRounds ? workoutRounds * 2 : workoutRounds;
-  const isWarmupRound = currentRound === 1;
-  const isFightRound = currentRound > 1 && currentRound % 2 === 0;
-  const isRestRound = workoutRestTime && currentRound > 1 && currentRound % 2 !== 0;
+  const totalRounds = useMemo(() => {
+    return workoutRestTime ? workoutRounds * 2 : workoutRounds;
+  }, [workoutRestTime, workoutRounds]);
+  const isWarmupRound = useMemo(() => currentRound === 1, [currentRound]);
+  const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
+  const isRestRound = useMemo(
+    () => workoutRestTime && currentRound > 1 && currentRound % 2 !== 0,
+    [currentRound, workoutRestTime]
+  );
 
   // logs
   console.log("current round: ", currentRound);

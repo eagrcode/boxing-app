@@ -2,7 +2,7 @@
 import styles from "./Timer.module.scss";
 
 // react
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useState, useEffect, Dispatch, SetStateAction, useMemo } from "react";
 
 // libraries
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
@@ -23,8 +23,6 @@ interface TimerProps {
 }
 
 export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: TimerProps) {
-  console.log(sequence);
-
   // destructure context
   const {
     difficulty,
@@ -42,8 +40,6 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
     DEFAULT_WARMUP_TIME,
   } = useTimerDataContext();
 
-  console.log(roundTime);
-
   // init state
   const [currentRound, setCurrentRound] = useState<number>(1);
   const [currentDuration, setCurrentDuration] = useState<number>(warmupTime);
@@ -51,13 +47,24 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
   const [isCountingDown, setIsCountingDown] = useState<boolean>(true);
   const [displayRound, setDisplayRound] = useState<number>(1);
 
+  console.log("current duration: ", currentDuration);
+  console.log("warmup time: ", warmupTime);
+  console.log("round time: ", roundTime);
+  console.log("rest time: ", restTime);
+
   // calculate total rounds & format round types
-  const totalRounds = restTime ? rounds * 2 : rounds;
-  const isWarmupRound = currentRound === 1;
-  const isFightRound = currentRound > 1 && currentRound % 2 === 0;
-  const isRestRound = restTime && currentRound > 1 && currentRound % 2 !== 0;
+  const totalRounds = useMemo(() => {
+    return restTime ? rounds * 2 : rounds;
+  }, [restTime, rounds]);
+  const isWarmupRound = useMemo(() => currentRound === 1, [currentRound]);
+  const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
+  const isRestRound = useMemo(
+    () => restTime && currentRound > 1 && currentRound % 2 !== 0,
+    [currentRound, restTime]
+  );
 
   // logs
+  console.log(sequence);
   console.log("current round: ", currentRound);
   console.log("display round: ", displayRound);
   console.log("Warmup: ", isWarmupRound);
