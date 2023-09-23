@@ -2,7 +2,7 @@
 import styles from "./Timer.module.scss";
 
 // react
-import { useState, useEffect, Dispatch, SetStateAction, useMemo } from "react";
+import { useState, useEffect, Dispatch, SetStateAction, useMemo, useCallback } from "react";
 
 // libraries
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
@@ -46,6 +46,7 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [isCountingDown, setIsCountingDown] = useState<boolean>(true);
   const [displayRound, setDisplayRound] = useState<number>(1);
+  const [timerKey, setTimerKey] = useState<number>(0);
 
   console.log("current duration: ", currentDuration);
   console.log("warmup time: ", warmupTime);
@@ -53,7 +54,7 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
   console.log("rest time: ", restTime);
 
   // calculate total rounds & format round types
-  const totalRounds = useMemo(() => rounds * 2, [currentRound]);
+  const totalRounds = useMemo(() => rounds * 2, [rounds]);
   const isWarmupRound = useMemo(() => currentRound === 1, [currentRound]);
   const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
   const isRestRound = useMemo(() => currentRound > 1 && currentRound % 2 !== 0, [currentRound]);
@@ -113,9 +114,9 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
   // change duration based on round type
   useEffect(() => {
     if (isFightRound) {
-      setCurrentDuration((prev) => prev + roundTime - prev);
+      setCurrentDuration(roundTime);
     } else if (isRestRound) {
-      setCurrentDuration((prev) => prev + restTime - prev);
+      setCurrentDuration(restTime);
     }
   }, [isFightRound, isRestRound, setCurrentDuration, roundTime, restTime]);
 
@@ -139,19 +140,22 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
   }, [isRestRound, difficulty, sequence.length, setRandomCombo]);
 
   // logic for end of rounds/workout
-  const handleOnComplete = () => {
+  const handleOnComplete = useCallback(() => {
+    console.log("HANDLE COMPLETE rendered");
+
     if (currentRound < totalRounds) {
       setCurrentRound((prev) => prev + 1);
+      setTimerKey((prev) => prev + 1);
       return { shouldRepeat: true, delay: 0 };
     } else {
       setIsCountingDown(false);
       setIsFinished(true);
       return { shouldRepeat: false };
     }
-  };
+  }, [currentRound, totalRounds]);
 
   // reset state to defaults and render form components again
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     setRounds(DEFAULT_ROUNDS);
     setRoundTime(DEFAULT_ROUND_TIME);
     setRestTime(DEFAULT_REST_TIME);
@@ -159,7 +163,19 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
     setCurrentRound(1);
     setRandomCombo([]);
     setIsTimerActive(false);
-  };
+  }, [
+    setRounds,
+    setRoundTime,
+    setRestTime,
+    setWarmupTime,
+    setCurrentRound,
+    setRandomCombo,
+    setIsTimerActive,
+    DEFAULT_ROUNDS,
+    DEFAULT_ROUND_TIME,
+    DEFAULT_REST_TIME,
+    DEFAULT_WARMUP_TIME,
+  ]);
 
   return (
     <div className={styles.timer} aria-label="Timer">
@@ -171,6 +187,7 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
         </h1>
       )}
       <CountdownCircleTimer
+        key={timerKey}
         isPlaying={isCountingDown}
         duration={currentDuration}
         colors={timerColors}
