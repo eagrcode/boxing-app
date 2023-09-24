@@ -5,7 +5,8 @@
 - [Introduction](#introduction)
 - [Technologies Used](#technologies-used)
 - [Features](#features)
-- [Contact](#contact)
+- [Issues](#Issues)
+
 
 ## Introduction
 
@@ -36,6 +37,12 @@ The **FightX** app showcases the following features:
 - Create and share you own workouts for others to try.
 - Responsive design (mobile version recommended).
 
-## Contact
+## Issues
 
-For any inquiries or suggestions, feel free to reach out to me at elliot.robinson92@hotmail.com. You can also connect with me on [LinkedIn](https://www.linkedin.com/in/elliot-robinson) or visit my [website](https://www.eagrcode.dev).
+- Auth sign-up flow isn't behaving as expected. The auth/callback is supposed to do a code exchange and authenticate the user, but the redirect times out. Upon checking logs in the callback file I noticed the code isn't being recieved. After some research I discovered many others are also having the same issue specifically with Next.js app router and the supabase callback code exchange. 
+
+## My Considerations
+
+Overall, I am happy with how the foundations of this project turned out, with the exception of a few things.
+
+- Server actions for social media interactions. The response time is too slow, users need to see the result of their interactions instantly. The issue with this particular example was due to supabase limitations. It is my understanding that supabase doesn't currently support multiple realtime subscriptions to the same table. 
