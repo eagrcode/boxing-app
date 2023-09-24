@@ -35,16 +35,15 @@ export default function SignInForm() {
 
     if (errorResponse) {
       if (errorResponse.errorType === "auth") {
-        // Handle authentication error
+        setIsLoading(false);
         console.log(errorResponse.error.message);
         setErrorMsg(errorResponse.error.message);
       } else if (errorResponse.errorType === "unexpected") {
-        // Handle unexpected error
+        setIsLoading(false);
         console.log(errorResponse.error.message);
         setErrorMsg(errorResponse.error.message);
       }
     }
-    setIsLoading(false);
     router.refresh();
   }
 
@@ -52,7 +51,6 @@ export default function SignInForm() {
     e.preventDefault();
     setIsLoading(true);
     await signInGuest();
-    setIsLoading(false);
     router.refresh();
   }
 

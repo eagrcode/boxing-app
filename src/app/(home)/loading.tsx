@@ -9,6 +9,11 @@ export default function Loading() {
       <PostSkeleton />
       <PostSkeleton />
       <PostSkeleton />
+      <PostSkeleton />
+      <PostSkeleton />
+      <PostSkeleton />
+      <PostSkeleton />
+      <PostSkeleton />
     </div>
   );
 }
