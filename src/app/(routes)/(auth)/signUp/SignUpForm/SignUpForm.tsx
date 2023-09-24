@@ -33,7 +33,6 @@ export default function SignUpForm() {
     e.preventDefault();
     setIsLoading(true);
     await signUpEmail(email, password, username, firstName, lastName);
-    setIsLoading(false);
     router.push("/signUp/success");
   }
 
