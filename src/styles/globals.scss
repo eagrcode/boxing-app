@@ -8,6 +8,9 @@ body {
   background-color: var(--bg-color-main);
   color: var(--text-color-main);
   font-family: "Roboto Flex", sans-serif;
+
+  background: var(--bg-color-main);
+  background: linear-gradient(330deg, hsl(240, 5%, 5%) 40%, hsl(250, 15%, 8%) 100%);
 }
 
 .app-wrapper {
