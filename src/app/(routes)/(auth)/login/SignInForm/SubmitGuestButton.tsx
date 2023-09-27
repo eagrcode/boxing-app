@@ -12,7 +12,7 @@ type ButtonProps = {
 
 export default function SubmitGuestButton({ isLoadingGuest }: ButtonProps) {
   return (
-    <button disabled={isLoadingGuest} type="submit" className={styles.signInBtn}>
+    <button disabled={isLoadingGuest} type="submit" className={styles.signInBtnGuest}>
       {isLoadingGuest ? (
         <PulseLoader
           loading={isLoadingGuest}
@@ -22,7 +22,7 @@ export default function SubmitGuestButton({ isLoadingGuest }: ButtonProps) {
           size={8}
         />
       ) : (
-        "Sign In"
+        "Continue as guest"
       )}
     </button>
   );

@@ -60,11 +60,13 @@ export default function SignInForm() {
     <div className={styles.formWrapper}>
       <h1>Welcome back</h1>
       <p style={{ color: "var(--text-color-main)" }}>Sign in to your account</p>
-      <form onSubmit={(e) => handleGuestSubmit(e)}>
+
+      <form onSubmit={(e) => handleGuestSubmit(e)} className={styles.form}>
         <SubmitGuestButton isLoadingGuest={isLoadingGuest} />
       </form>
 
       <p>or</p>
+
       <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
         <div className={styles.inputRow}>
           <label htmlFor="email">Email</label>
