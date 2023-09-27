@@ -24,13 +24,7 @@ interface LikesDisplayPropTypes {
 }
 
 export default function LikeButton({ id, userID, likes }: LikesDisplayPropTypes) {
-  // check if user has already liked this workout - convert to bool
   const isLiked = !!likes?.find((like) => like.user_id === userID);
-
-  console.log(userID);
-  console.log(likes);
-  console.log(isLiked);
-
   const path = usePathname();
 
   return (
