@@ -11,7 +11,8 @@ import { useState } from "react";
 import styles from "./SignInForm.module.scss";
 
 // components
-import Button from "./Button";
+import SubmitEmailButton from "./SubmitEmailButton";
+import SubmitGuestButton from "./SubmitGuestButton";
 
 // utils
 import signInEmail from "../signInEmail";
@@ -23,6 +24,7 @@ export default function SignInForm() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingGuest, setIsLoadingGuest] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>("");
 
   // init hooks
@@ -47,9 +49,9 @@ export default function SignInForm() {
     router.refresh();
   }
 
-  async function handleGuestSubmit(e: React.MouseEvent<HTMLButtonElement>): Promise<void> {
+  async function handleGuestSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault();
-    setIsLoading(true);
+    setIsLoadingGuest(true);
     await signInGuest();
     router.refresh();
   }
@@ -58,7 +60,10 @@ export default function SignInForm() {
     <div className={styles.formWrapper}>
       <h1>Welcome back</h1>
       <p style={{ color: "var(--text-color-main)" }}>Sign in to your account</p>
-      <button onClick={(e) => handleGuestSubmit(e)}>Guest User</button>
+      <form onSubmit={(e) => handleGuestSubmit(e)}>
+        <SubmitGuestButton isLoadingGuest={isLoadingGuest} />
+      </form>
+
       <p>or</p>
       <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
         <div className={styles.inputRow}>
@@ -82,7 +87,7 @@ export default function SignInForm() {
             required
           />
         </div>
-        <Button isLoading={isLoading} />
+        <SubmitEmailButton isLoading={isLoading} />
       </form>
       {errorMsg && <p style={{ color: "var(--accent-color-red)" }}>{errorMsg}</p>}
 
