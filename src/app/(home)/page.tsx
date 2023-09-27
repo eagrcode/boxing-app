@@ -31,7 +31,7 @@ export default async function Index() {
             Welcome to <span style={{ color: "white" }}>Fight</span>
             <span style={{ color: "var(--accent-color-blue)" }}>X</span>
           </h1>
-          <p>the fastest way to a smoother boxing experience!</p>
+          <p>The fastest way to a smoother boxing experience!</p>
           <Link href="/login">
             <button>Get Started</button>
           </Link>
@@ -58,7 +58,6 @@ export default async function Index() {
   return (
     <div className={styles.pageWrapperUser}>
       <Logo variant={"home"} />
-
       <WorkoutsFeed userID={userID} />
     </div>
   );
