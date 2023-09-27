@@ -13,6 +13,7 @@ import InitiateTimerForm from "./InitiateTimerForm/InitiateTimerForm";
 import GenerateComboForm from "./GenerateComboForm/GenerateComboForm";
 
 // icons
+import { MdInfoOutline } from "react-icons/md";
 
 export default function TimerPage() {
   // init state
@@ -22,22 +23,23 @@ export default function TimerPage() {
   // Show form to initialise settings for Timer component
   if (!isTimerActive) {
     return (
-      <>
-        <div className={styles.wrapper}>
-          <header>Timer</header>
-          <div className={styles.pageTop}>
-            <div className={styles.formCardContainer}>
-              <GenerateComboForm setRandomCombo={setRandomCombo} />
-              {randomCombo?.length === 0 ? (
-                <div className={styles.comboSkeleton}></div>
-              ) : (
-                <ComboCard sequence={randomCombo} />
-              )}
-            </div>
+      <div className={styles.wrapper}>
+        {/* <div className={styles.infoIcon}>
+          <MdInfoOutline size={25} />
+        </div> */}
+        <header>Timer</header>
+        <div className={styles.pageTop}>
+          <div className={styles.formCardContainer}>
+            <GenerateComboForm setRandomCombo={setRandomCombo} />
+            {randomCombo?.length === 0 ? (
+              <div className={styles.comboSkeleton}></div>
+            ) : (
+              <ComboCard sequence={randomCombo} />
+            )}
           </div>
-          <InitiateTimerForm setIsTimerActive={setIsTimerActive} randomCombo={randomCombo} />
         </div>
-      </>
+        <InitiateTimerForm setIsTimerActive={setIsTimerActive} randomCombo={randomCombo} />
+      </div>
     );
   }
 

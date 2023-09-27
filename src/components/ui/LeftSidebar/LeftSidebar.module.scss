@@ -10,7 +10,8 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-
+    padding: 0.5rem;
+    background-color: var(--bg-color-main);
     z-index: 999;
 
     .menu {
