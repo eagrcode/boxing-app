@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 
 export default async function handleLikePost(
-  isLiked: boolean,
+  isLiked: boolean | null,
   id: string,
   userID: string,
   path: string

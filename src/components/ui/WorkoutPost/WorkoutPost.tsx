@@ -7,6 +7,7 @@ import Link from "next/link";
 // utils
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
 import getWorkoutSaves from "@/src/lib/services/getWorkoutSaves";
+import isLikedByUser from "@/src/lib/services/isLikedByUser";
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 
@@ -43,6 +44,7 @@ export default async function WorkoutPost({
 
   // fetch workout likes
   const likes = await getWorkoutLikes(id);
+  const isLiked = await isLikedByUser(id, userID);
   const saved = await getWorkoutSaves(id, userID);
 
   return (
@@ -79,7 +81,7 @@ export default async function WorkoutPost({
       </div>
 
       <div className={styles.socialBtnContainer}>
-        <LikeButton id={id} userID={userID} likes={likes} />
+        <LikeButton id={id} userID={userID} isLiked={isLiked} />
         <SaveButton id={id} saved={saved} />
       </div>
       <LikesDisplay likes={likes} />
