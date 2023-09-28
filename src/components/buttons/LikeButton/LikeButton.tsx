@@ -15,22 +15,10 @@ import { GiPunchBlast } from "react-icons/gi";
 interface LikesDisplayPropTypes {
   id: string;
   userID: string;
-  likes: {
-    created_at: string;
-    id: number;
-    user_id: string | null;
-    workout_id: string | null;
-  }[];
+  isLiked: boolean | null;
 }
 
-export default function LikeButton({ id, userID, likes }: LikesDisplayPropTypes) {
-  // check if user has already liked this workout - convert to bool
-  const isLiked = !!likes?.find((like) => like.user_id === userID);
-
-  console.log(userID);
-  console.log(likes);
-  console.log(isLiked);
-
+export default function LikeButton({ id, userID, isLiked }: LikesDisplayPropTypes) {
   const path = usePathname();
 
   return (

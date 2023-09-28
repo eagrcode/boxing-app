@@ -4,8 +4,6 @@ import type { Database } from "../database.types";
 export default async function isWorkoutSaved(id: string, userID: string) {
   const supabase = createClientComponentClient<Database>();
 
-  console.log("IS SAVED: ", id, userID);
-
   try {
     const { data, error } = await supabase
       .from("user_saved_workouts")

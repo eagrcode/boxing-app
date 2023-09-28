@@ -2,6 +2,7 @@
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
 import getWorkoutById from "@/src/lib/services/getWorkoutById";
 import getWorkoutSaves from "@/src/lib/services/getWorkoutSaves";
+import isLikedByUser from "@/src/lib/services/isLikedByUser";
 
 // supabase client
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -37,6 +38,7 @@ export default async function UserWorkoutPage({ params }: WorkoutPageProps) {
 
   // fetch data
   const likes = (await getWorkoutLikes(params.id)) || [];
+  const isLiked = await isLikedByUser(params.id, userID);
   const saved = await getWorkoutSaves(params.id, userID);
   const workoutData = await getWorkoutById(params.id);
 
@@ -54,6 +56,7 @@ export default async function UserWorkoutPage({ params }: WorkoutPageProps) {
         roundInfo={workoutData?.round_info}
         createdAt={workoutData?.created_at}
         likes={likes}
+        isLiked={isLiked}
         saved={saved}
         userID={userID || ""}
       />

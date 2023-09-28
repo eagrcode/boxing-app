@@ -48,6 +48,7 @@ interface WorkoutPropTypes {
     user_id: string | null;
     workout_id: string | null;
   }[];
+  isLiked: boolean | null;
 }
 
 export default function Workout({
@@ -64,6 +65,7 @@ export default function Workout({
   createdBy,
   saved,
   likes,
+  isLiked,
 }: WorkoutPropTypes) {
   // destructure context
   const {
@@ -141,7 +143,7 @@ export default function Workout({
         </div>
 
         <div className={styles.socialBtnContainer}>
-          <LikeButton id={id} userID={userID} likes={likes} />
+          <LikeButton id={id} userID={userID} isLiked={isLiked} />
           <SaveButton id={id} saved={saved} />
         </div>
         <div className={styles.workoutBottom}>

@@ -5,17 +5,22 @@
   background: transparent;
   border: transparent;
   color: var(--text-color-main);
-  border-radius: 5px;
-  width: fit-content;
-  padding: 0.5rem;
+  border-radius: 50%;
+
+  width: 50px;
+  height: 50px;
+
+  // padding: 0.5rem;
 
   position: absolute;
   left: 1rem;
   top: 0;
   bottom: 0;
+  margin: auto 0;
 
   &.sidebar {
-    left: 0;
+    left: unset;
+    right: 1rem;
 
     &:hover {
       color: var(--accent-color-white);

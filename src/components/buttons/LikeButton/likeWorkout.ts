@@ -5,18 +5,17 @@ import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 
 export default async function handleLikePost(
-  isLiked: boolean,
+  isLiked: boolean | null,
   id: string,
   userID: string,
   path: string
 ) {
-  console.log("SERVER ACTION: Like workout", isLiked, id, userID, path);
   const supabase = createServerComponentClient({ cookies });
 
   if (!isLiked) {
     const { data, error } = await supabase
       .from("likes")
-      .insert([{ workout_id: id, user_id: userID }])
+      .upsert([{ workout_id: id, user_id: userID }])
       .select();
 
     if (error) {

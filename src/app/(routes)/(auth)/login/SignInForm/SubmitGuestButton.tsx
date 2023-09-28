@@ -7,22 +7,22 @@ import styles from "./SignInForm.module.scss";
 import PulseLoader from "react-spinners/PulseLoader";
 
 type ButtonProps = {
-  isLoading: boolean;
+  isLoadingGuest: boolean;
 };
 
-export default function Button({ isLoading }: ButtonProps) {
+export default function SubmitGuestButton({ isLoadingGuest }: ButtonProps) {
   return (
-    <button disabled={isLoading} type="submit" className={styles.signInBtn}>
-      {isLoading ? (
+    <button disabled={isLoadingGuest} type="submit" className={styles.signInBtnGuest}>
+      {isLoadingGuest ? (
         <PulseLoader
-          loading={isLoading}
+          loading={isLoadingGuest}
           color="var(--header-color-main)"
           aria-label="Loading Spinner"
           data-testid="loader"
           size={8}
         />
       ) : (
-        "Sign In"
+        "Continue as guest"
       )}
     </button>
   );

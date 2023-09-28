@@ -10,7 +10,8 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    backdrop-filter: blur(25px);
+    padding: 0.5rem;
+    background-color: var(--bg-color-main);
     z-index: 999;
 
     .menu {
@@ -21,7 +22,6 @@
       width: 100%;
       font-size: 1rem;
       text-align: center;
-      width: 600px;
 
       .item {
         .link {

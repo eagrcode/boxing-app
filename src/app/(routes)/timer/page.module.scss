@@ -1,15 +1,21 @@
 .wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  justify-content: center;
   width: 100%;
-  height: calc(100dvh - 62px);
+  height: calc(100dvh - 78px);
   gap: 1rem;
+  padding: 1rem;
+
+  header {
+    position: absolute;
+    top: 1rem;
+  }
 
   .pageTop {
     display: flex;
-    // flex-grow: 1;
     gap: 1rem;
     flex-direction: column;
     align-items: center;
@@ -27,4 +33,10 @@
       }
     }
   }
+}
+
+.infoIcon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
