@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // styles
 import styles from "./page.module.scss";
 
@@ -16,8 +18,6 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 // next
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
-export const dynamic = "force-dynamic";
 
 interface WorkoutPageProps {
   params: {

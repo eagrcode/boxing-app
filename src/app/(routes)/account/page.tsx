@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // styles
 import styles from "./page.module.scss";
 
@@ -10,8 +12,6 @@ import { redirect } from "next/navigation";
 
 // components
 import UserWorkoutList from "./UserWorkoutList/UserWorkoutList";
-
-export const dynamic = "force-dynamic";
 
 export default async function AccountPage() {
   const supabase = createServerComponentClient({ cookies });

@@ -13,6 +13,8 @@ import Logo from "@/src/components/ui/Logo/Logo";
 import FistLeft from "@/public/assets/images/fist-left.png";
 import FistRight from "@/public/assets/images/fist-right.png";
 
+export const dynamic = "force-dynamic";
+
 export default async function Index() {
   const supabase = createServerComponentClient({ cookies });
 
