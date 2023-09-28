@@ -53,6 +53,7 @@ interface UserWorkoutPropTypes {
     user_id: string | null;
     workout_id: string | null;
   }[];
+  isLiked: boolean | null;
 }
 
 export default function UserWorkout({
@@ -69,6 +70,7 @@ export default function UserWorkout({
   createdBy,
   saved,
   likes,
+  isLiked,
 }: UserWorkoutPropTypes) {
   // init state
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -162,7 +164,7 @@ export default function UserWorkout({
           ))}
         </div>
         <div className={styles.socialBtnContainer}>
-          <LikeButton id={id} userID={userID} likes={likes} />
+          <LikeButton id={id} userID={userID} isLiked={isLiked} />;
           <SaveButton id={id} saved={saved} />
         </div>
         <div className={styles.workoutBottom}>
