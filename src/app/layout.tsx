@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // styles
 import "@/src/styles/globals.scss";
 import "@/src/styles/variables.css";
@@ -27,8 +29,6 @@ const RobotoFlex = Roboto_Flex({
   subsets: ["latin"],
   display: "swap",
 });
-
-export const dynamic = "force-dynamic";
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // init supabase client

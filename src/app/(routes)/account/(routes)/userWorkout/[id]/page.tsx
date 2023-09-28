@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // utils
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
 import getWorkoutById from "@/src/lib/services/getWorkoutById";
@@ -12,8 +14,6 @@ import { cookies } from "next/headers";
 
 // components
 import UserWorkout from "./UserWorkout/UserWorkout";
-
-export const dynamic = "force-dynamic";
 
 interface WorkoutPageProps {
   params: {

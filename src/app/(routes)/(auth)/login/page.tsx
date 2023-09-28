@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // styles
 import styles from "./page.module.scss";
 

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // styles
 import styles from "./page.module.scss";
 
@@ -13,8 +15,6 @@ import { cookies } from "next/headers";
 
 // utils
 import getProfileData from "@/src/lib/services/getProfileData";
-
-export const dynamic = "force-dynamic";
 
 export default async function AccountLayout({ children }: { children: React.ReactNode }) {
   // init supabase client

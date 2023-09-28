@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // styles
 import styles from "./page.module.scss";
 
@@ -10,8 +12,6 @@ import { cookies } from "next/headers";
 
 // supabase
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-
-export const dynamic = "force-dynamic";
 
 export default async function SignUpPage() {
   const supabase = createServerComponentClient({ cookies });

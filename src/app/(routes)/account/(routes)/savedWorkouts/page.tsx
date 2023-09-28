@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // supabase client
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
@@ -7,8 +9,6 @@ import { redirect } from "next/navigation";
 
 // components
 import UserSavedWorkouts from "./UserSavedWorkouts/UserSavedWorkouts";
-
-export const dynamic = "force-dynamic";
 
 export default async function SavedWorkoutsPage() {
   const supabase = createServerComponentClient({ cookies });
