@@ -5,6 +5,7 @@ import styles from "./page.module.scss";
 import getWorkoutById from "@/src/lib/services/getWorkoutById";
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
 import getWorkoutSaves from "@/src/lib/services/getWorkoutSaves";
+import isLikedByUser from "@/src/lib/services/isLikedByUser";
 
 // components
 import Workout from "./Workout/Workout";
@@ -45,6 +46,7 @@ export default async function WorkoutPage({ params }: WorkoutPageProps) {
 
   // fetch data
   const likes = (await getWorkoutLikes(params.id)) || [];
+  const isLiked = await isLikedByUser(params.id, userID);
   const saved = await getWorkoutSaves(params.id, userID);
   const workoutData = await getWorkoutById(params.id);
 
@@ -64,6 +66,7 @@ export default async function WorkoutPage({ params }: WorkoutPageProps) {
         likes={likes}
         saved={saved}
         userID={userID || ""}
+        isLiked={isLiked}
       />
     </div>
   );
