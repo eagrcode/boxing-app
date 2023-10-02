@@ -159,6 +159,6 @@ export default function Workout({
   }
 
   if (isWorkoutMode) {
-    return <WorkoutTimer setIsWorkoutMode={setIsWorkoutMode} />;
+    return <WorkoutTimer id={id} setIsWorkoutMode={setIsWorkoutMode} />;
   }
 }

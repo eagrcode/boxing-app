@@ -15,10 +15,15 @@ import ComboCard from "@/src/app/(routes)/timer/ComboCard/ComboCard";
 // context
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 
+// utils
+import incrementPlays from "@/src/lib/services/incrementPlays";
+
 const WorkoutTimer = ({
   setIsWorkoutMode,
+  id,
 }: {
   setIsWorkoutMode: React.Dispatch<React.SetStateAction<boolean>>;
+  id: string;
 }) => {
   // destructure context
   const { roundInfo, workoutRounds, workoutRoundTime, workoutRestTime, workoutWarmupTime } =
@@ -130,8 +135,22 @@ const WorkoutTimer = ({
       setIsCountingDown(false);
       setIsFinished(true);
       return { shouldRepeat: false };
+
+      // increment play of this workout by 1
+
+      // add to user history
     }
   }, [currentRound, totalRounds]);
+
+  useEffect(() => {
+    const incrementPlayCount = async () => {
+      if (isFinished) {
+        await incrementPlays(id, isFinished);
+      }
+    };
+
+    incrementPlayCount();
+  }, [isFinished]);
 
   // reset state to defaults and render form components again
   const handleCancel = useCallback(() => {
