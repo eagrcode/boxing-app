@@ -12,6 +12,7 @@
 
   a {
     color: var(--header-color-main);
+    text-decoration: underline;
 
     &:hover {
       color: hsl(240, 15%, 80%);
@@ -50,13 +51,15 @@
   }
 }
 
-.signInBtnGuest {
+.signInBtnGuest,
+.signInBtnGoogle {
   font-weight: bold;
   font-size: 1rem;
   padding: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
+
   border: transparent;
   background-color: var(--accent-color-dark);
   height: 36px;
@@ -70,6 +73,11 @@
   }
 }
 
+.icon {
+  margin-right: 8px;
+  margin-bottom: 2px;
+}
+
 .signInBtn {
   font-weight: bold;
   font-size: 1rem;
@@ -81,7 +89,7 @@
   background-color: var(--accent-color-blue);
   height: 36px;
   width: 100%;
-  color: var(--header-color-main);
+  color: var(--bg-color-main);
   border-radius: 5px;
 
   &:hover {

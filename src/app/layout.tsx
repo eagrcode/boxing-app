@@ -39,6 +39,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     data: { user },
   } = await supabase.auth.getUser();
 
+  console.log(user);
+
   return (
     <html lang="en" className={RobotoFlex.className}>
       <body>
