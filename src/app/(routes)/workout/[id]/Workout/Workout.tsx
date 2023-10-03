@@ -28,6 +28,7 @@ import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 
 // db types
 import type { Database } from "@/src/lib/database.types";
+import addToHistory from "@/src/lib/services/addToHistory";
 
 interface WorkoutPropTypes {
   id: string;
@@ -86,13 +87,14 @@ export default function Workout({
   );
 
   // handle workout timer start
-  const handleStart = () => {
+  const handleStart = async () => {
     setRoundInfo({ round_info: roundInfo });
     setWorkoutRounds(workoutRounds);
     setWorkoutRoundTime(workoutRoundTime);
     setWorkoutRestTime(workoutRestTime);
     setWorkoutWarmupTime(workoutWarmupTime);
     setIsWorkoutMode(true);
+    await addToHistory(id);
   };
 
   if (!isWorkoutMode) {
