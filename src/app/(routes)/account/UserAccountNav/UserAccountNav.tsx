@@ -20,6 +20,11 @@ export default function UserAccountNav() {
       title: "Saved Workouts",
       url: "/account/savedWorkouts",
     },
+    {
+      id: 3,
+      title: "History",
+      url: "/account/history",
+    },
   ];
 
   // init hooks
