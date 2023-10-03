@@ -38,7 +38,7 @@ export default async function AccountLayout({ children }: { children: React.Reac
             <h1>{profileData?.full_name}</h1>
             <LogoutButton />
           </div>
-          <p>{profileData?.username || profileData.email}</p>
+          <p>{profileData?.username || profileData?.email}</p>
         </div>
         <div className={styles.avatar}>
           <div>{profileData?.full_name.charAt(0)}</div>
