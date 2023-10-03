@@ -32,16 +32,24 @@ export default function SocialDataDisplay({
 }: LikesDisplayPropTypes) {
   return (
     <div className={styles.container}>
-      <div>
-        <LikeButton id={id} userID={userID} isLiked={isLiked} />
-        {/* {likes?.length > 0 && `${likes?.length} ${likes?.length > 1 ? "likes" : "like"}`} */}
-        {likes.length}
+      <div className={styles.tooltip}>
+        <div className={styles.hoverText}>
+          <LikeButton id={id} userID={userID} isLiked={isLiked} />
+          {likes.length}
+        </div>
+        <div className={styles["tooltip-text"]}>Like</div>
       </div>
-      <div>
-        <SaveButton saved={saved} id={id} />0
+      <div className={styles.tooltip}>
+        <div className={styles.hoverText}>
+          <SaveButton saved={saved} id={id} />0
+        </div>
+        <div className={styles["tooltip-text"]}>Save</div>
       </div>
-      <div>
-        <FiBarChart2 size={20} /> {plays}
+      <div className={styles.tooltip}>
+        <div className={styles.hoverText}>
+          <FiBarChart2 size={20} /> {plays}
+        </div>
+        <div className={styles["tooltip-text"]}>Plays</div>
       </div>
     </div>
   );
