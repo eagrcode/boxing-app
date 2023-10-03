@@ -141,6 +141,49 @@ export interface Database {
           }
         ];
       };
+      user_workout_history: {
+        Row: {
+          created_at: string;
+          id: string;
+          user_id: string | null;
+          workout_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          user_id?: string;
+          workout_id?: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          user_id?: string;
+          workout_id?: string;
+        };
+        WithProfile: {
+          created_at: string;
+          id: string;
+          user_id: string | null;
+          workout_id: string;
+          profiles: {
+            username: string;
+          };
+        };
+        Relationships: [
+          {
+            foreignKeyName: "user_workout_history_user_id_fkey";
+            columns: ["user_id"];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "user_workout_history_workout_id_fkey";
+            columns: ["workout_id"];
+            referencedRelation: "workouts";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
       workouts: {
         Row: {
           created_at: string;
