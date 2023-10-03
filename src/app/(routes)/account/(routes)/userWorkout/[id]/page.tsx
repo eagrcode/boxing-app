@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 // utils
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
 import getWorkoutById from "@/src/lib/services/getWorkoutById";
-import getWorkoutSaves from "@/src/lib/services/getWorkoutSaves";
+import isSavedByUser from "@/src/lib/services/isSavedByUser";
 import isLikedByUser from "@/src/lib/services/isLikedByUser";
 
 // supabase client
@@ -37,9 +37,9 @@ export default async function UserWorkoutPage({ params }: WorkoutPageProps) {
   }
 
   // fetch data
-  const likes = (await getWorkoutLikes(params.id)) || [];
+  const likes = await getWorkoutLikes(params.id);
   const isLiked = await isLikedByUser(params.id, userID);
-  const saved = await getWorkoutSaves(params.id, userID);
+  const saved = await isSavedByUser(params.id, userID);
   const workoutData = await getWorkoutById(params.id);
 
   return (

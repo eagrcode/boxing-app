@@ -6,15 +6,14 @@ import Link from "next/link";
 
 // utils
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
-import getWorkoutSaves from "@/src/lib/services/getWorkoutSaves";
+import isSavedByUser from "@/src/lib/services/isSavedByUser";
 import isLikedByUser from "@/src/lib/services/isLikedByUser";
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 
 // components
-import LikeButton from "@/src/components/buttons/LikeButton/LikeButton";
-import SaveButton from "@/src/components/buttons/SaveButton/SaveButton";
 import SocialDataDisplay from "@/src/components/ui/SocialDataDisplay/SocialDataDisplay";
+
 // icons
 import { GiHighPunch } from "react-icons/gi";
 import { MdOutlineTimer } from "react-icons/md";
@@ -45,7 +44,7 @@ export default async function WorkoutPost({
   // fetch workout likes
   const likes = await getWorkoutLikes(id);
   const isLiked = await isLikedByUser(id, userID);
-  const saved = await getWorkoutSaves(id, userID);
+  const saved = await isSavedByUser(id, userID);
 
   return (
     <div key={id} className={styles.card}>
@@ -77,13 +76,8 @@ export default async function WorkoutPost({
           <BsHourglassTop size={18} />
           <span>{formatTimeDisplay(workoutRoundTime)} / round</span>
         </div>
-        {/* <span>{workoutWarmupTime} sec / warmup</span> */}
       </div>
 
-      {/* <div className={styles.socialBtnContainer}>
-        <LikeButton id={id} userID={userID} isLiked={isLiked} />
-        <SaveButton id={id} saved={saved} />
-      </div> */}
       <SocialDataDisplay
         likes={likes}
         plays={plays}

@@ -42,13 +42,8 @@ interface WorkoutPropTypes {
   workoutRestTime: number;
   createdAt: string;
   createdBy: string;
-  saved: { created_at: string; id: string; user_id: string | null; workout_id: string }[];
-  likes: {
-    created_at: string;
-    id: number;
-    user_id: string | null;
-    workout_id: string | null;
-  }[];
+  saved: boolean | null;
+  likes: number;
   isLiked: boolean | null;
   plays: number;
 }

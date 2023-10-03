@@ -4,21 +4,11 @@ import styles from "./SocialDataDisplay.module.scss";
 import { FiBarChart2 } from "react-icons/fi";
 
 interface LikesDisplayPropTypes {
-  likes: {
-    created_at: string;
-    id: number;
-    user_id: string | null;
-    workout_id: string | null;
-  }[];
+  likes: number;
   plays: number;
   id: string;
   userID: string;
-  saved: {
-    created_at: string;
-    id: string;
-    user_id: string | null;
-    workout_id: string;
-  }[];
+  saved: boolean | null;
   isLiked: boolean | null;
 }
 
@@ -35,7 +25,7 @@ export default function SocialDataDisplay({
       <div className={styles.tooltip}>
         <div className={styles.hoverText}>
           <LikeButton id={id} userID={userID} isLiked={isLiked} />
-          {likes.length}
+          {likes}
         </div>
         <div className={styles["tooltip-text"]}>Like</div>
       </div>
