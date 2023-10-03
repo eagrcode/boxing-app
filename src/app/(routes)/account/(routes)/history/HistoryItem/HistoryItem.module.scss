@@ -1,0 +1,22 @@
+.item {
+  cursor: pointer;
+  padding: 0.5rem;
+  background-color: black;
+  border-radius: 5px;
+
+  border: solid 2px var(--accent-color-dark);
+
+  &:hover {
+    background-color: var(--accent-color-dark);
+
+    .itemLink {
+      color: var(--accent-color-white);
+    }
+  }
+}
+
+.itemLink {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-color-main);
+}
