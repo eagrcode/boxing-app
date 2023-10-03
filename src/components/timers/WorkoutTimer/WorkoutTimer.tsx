@@ -150,7 +150,7 @@ const WorkoutTimer = ({
     };
 
     incrementPlayCount();
-  }, [isFinished]);
+  }, [id, isFinished]);
 
   // reset state to defaults and render form components again
   const handleCancel = useCallback(() => {
