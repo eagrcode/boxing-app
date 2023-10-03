@@ -27,7 +27,7 @@ import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 // components
 import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
 import LikeButton from "@/src/components/buttons/LikeButton/LikeButton";
-import LikesDisplay from "@/src/components/ui/LikesDisplay/LikesDisplay";
+import LikesDisplay from "@/src/components/ui/SocialDataDisplay/SocialDataDisplay";
 import SaveButton from "@/src/components/buttons/SaveButton/SaveButton";
 import DeleteModal from "./DeleteModal";
 

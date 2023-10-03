@@ -33,7 +33,8 @@ export default async function UserWorkoutList({ userID }: { userID: string }) {
               workoutRoundTime={workout.round_time}
               workoutRestTime={workout.rest_time}
               createdAt={workout.created_at}
-              createdBy={workout.profiles.username}
+              createdBy={workout.profiles.username || workout.profiles.email}
+              plays={workout.plays}
             />
           ))}
         </div>

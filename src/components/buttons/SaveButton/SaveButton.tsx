@@ -25,7 +25,7 @@ export default function SaveButton({ saved, id }: SaveButtonPropTypes) {
   return (
     <form action={() => saveWorkout(isSaved, id, path)}>
       <button type="submit" className={styles.saveBtn} style={{ color: "var(--text-color-main)" }}>
-        {!isSaved ? <AiOutlineStar size={25} /> : <AiFillStar size={25} />}
+        {!isSaved ? <AiOutlineStar size={20} /> : <AiFillStar size={20} />}
       </button>
     </form>
   );

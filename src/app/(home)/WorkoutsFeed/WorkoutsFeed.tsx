@@ -32,8 +32,9 @@ export default async function WorkoutsFeed({ userID }: { userID: string }) {
           workoutWarmupTime={workout.warmup_time}
           workoutRoundTime={workout.round_time}
           workoutRestTime={workout.rest_time}
-          createdBy={workout.profiles.username}
+          createdBy={workout.profiles.username || workout.profiles.email}
           createdAt={workout.created_at}
+          plays={workout.plays}
         />
       ))}
     </div>

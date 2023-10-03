@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  gap: 1rem;
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}

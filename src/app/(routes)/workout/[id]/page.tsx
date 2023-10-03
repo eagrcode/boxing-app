@@ -54,7 +54,7 @@ export default async function WorkoutPage({ params }: WorkoutPageProps) {
     <div className={styles.wrapper}>
       <Workout
         id={workoutData?.id}
-        createdBy={workoutData?.profiles.username}
+        createdBy={workoutData?.profiles.username || workoutData?.profiles.email}
         title={workoutData?.title}
         description={workoutData?.description}
         workoutRounds={workoutData?.number_of_rounds}
@@ -67,6 +67,7 @@ export default async function WorkoutPage({ params }: WorkoutPageProps) {
         saved={saved}
         userID={userID || ""}
         isLiked={isLiked}
+        plays={workoutData?.plays}
       />
     </div>
   );

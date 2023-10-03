@@ -14,8 +14,7 @@ import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 // components
 import LikeButton from "@/src/components/buttons/LikeButton/LikeButton";
 import SaveButton from "@/src/components/buttons/SaveButton/SaveButton";
-import LikesDisplay from "@/src/components/ui/LikesDisplay/LikesDisplay";
-
+import SocialDataDisplay from "@/src/components/ui/SocialDataDisplay/SocialDataDisplay";
 // icons
 import { GiHighPunch } from "react-icons/gi";
 import { MdOutlineTimer } from "react-icons/md";
@@ -36,6 +35,7 @@ export default async function WorkoutPost({
   workoutRestTime,
   createdBy,
   createdAt,
+  plays,
 }: WorkoutPostPropTypes) {
   // calc total workout time
   const totalTime = Math.floor(
@@ -74,17 +74,24 @@ export default async function WorkoutPost({
           </span>
         </div>
         <div className={styles.infoDisplay}>
-          <BsHourglassTop size={20} />
+          <BsHourglassTop size={18} />
           <span>{formatTimeDisplay(workoutRoundTime)} / round</span>
         </div>
         {/* <span>{workoutWarmupTime} sec / warmup</span> */}
       </div>
 
-      <div className={styles.socialBtnContainer}>
+      {/* <div className={styles.socialBtnContainer}>
         <LikeButton id={id} userID={userID} isLiked={isLiked} />
         <SaveButton id={id} saved={saved} />
-      </div>
-      <LikesDisplay likes={likes} />
+      </div> */}
+      <SocialDataDisplay
+        likes={likes}
+        plays={plays}
+        id={id}
+        userID={userID}
+        saved={saved}
+        isLiked={isLiked}
+      />
     </div>
   );
 }

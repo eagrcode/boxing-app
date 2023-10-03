@@ -13,7 +13,7 @@ import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.conte
 // components
 import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
 import LikeButton from "@/src/components/buttons/LikeButton/LikeButton";
-import LikesDisplay from "../../../../../components/ui/LikesDisplay/LikesDisplay";
+import SocialDataDisplay from "@/src/components/ui/SocialDataDisplay/SocialDataDisplay";
 import SaveButton from "@/src/components/buttons/SaveButton/SaveButton";
 
 // icons
@@ -49,6 +49,7 @@ interface WorkoutPropTypes {
     workout_id: string | null;
   }[];
   isLiked: boolean | null;
+  plays: number;
 }
 
 export default function Workout({
@@ -66,6 +67,7 @@ export default function Workout({
   saved,
   likes,
   isLiked,
+  plays,
 }: WorkoutPropTypes) {
   // destructure context
   const {
@@ -142,12 +144,19 @@ export default function Workout({
           ))}
         </div>
 
-        <div className={styles.socialBtnContainer}>
+        {/* <div className={styles.socialBtnContainer}>
           <LikeButton id={id} userID={userID} isLiked={isLiked} />
           <SaveButton id={id} saved={saved} />
-        </div>
+        </div> */}
         <div className={styles.workoutBottom}>
-          <LikesDisplay likes={likes} />
+          <SocialDataDisplay
+            likes={likes}
+            plays={plays}
+            id={id}
+            userID={userID}
+            saved={saved}
+            isLiked={isLiked}
+          />
           <div className={styles.btnContainer}>
             <button onClick={handleStart} className={styles.btnStart}>
               START
