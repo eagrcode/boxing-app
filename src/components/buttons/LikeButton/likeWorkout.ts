@@ -13,24 +13,25 @@ export default async function handleLikePost(
   const supabase = createServerComponentClient({ cookies });
 
   if (!isLiked) {
-    const { data, error } = await supabase
-      .from("likes")
-      .upsert([{ workout_id: id, user_id: userID }])
-      .select();
+    const { error } = await supabase.from("likes").upsert([{ workout_id: id, user_id: userID }]);
 
     if (error) {
-      console.log(error.message);
-    } else {
-      console.log("Liked: ", data);
+      console.log("Error while liking: ", error.message);
+      return { success: false, message: "Error while liking" };
     }
   } else {
-    const { data, error } = await supabase.from("likes").delete().eq("workout_id", id);
+    const { error } = await supabase
+      .from("likes")
+      .delete()
+      .eq("workout_id", id)
+      .eq("user_id", userID); // ensure only the specific user's like is deleted
 
     if (error) {
-      console.log(error.message);
-    } else {
-      console.log("Unliked: ", data);
+      console.log("Error while unliking: ", error.message);
+      return { success: false, message: "Error while unliking" };
     }
   }
+
   revalidatePath(path);
+  return { success: true, message: isLiked ? "Unliked" : "Liked" };
 }

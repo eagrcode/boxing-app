@@ -13,19 +13,17 @@ import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import saveWorkout from "./saveWorkout";
 
 interface SaveButtonPropTypes {
-  saved: { created_at: string; id: string; user_id: string | null; workout_id: string }[];
+  saved: boolean | null;
   id: string;
 }
 
 export default function SaveButton({ saved, id }: SaveButtonPropTypes) {
-  const isSaved = saved.length > 0;
-
   const path = usePathname();
 
   return (
-    <form action={() => saveWorkout(isSaved, id, path)}>
+    <form action={() => saveWorkout(saved, id, path)}>
       <button type="submit" className={styles.saveBtn} style={{ color: "var(--text-color-main)" }}>
-        {!isSaved ? <AiOutlineStar size={25} /> : <AiFillStar size={25} />}
+        {!saved ? <AiOutlineStar size={20} /> : <AiFillStar size={20} />}
       </button>
     </form>
   );

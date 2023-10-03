@@ -1,10 +1,9 @@
 "use client";
 
-// styles
 import styles from "./SignInForm.module.scss";
-
-// loader
 import PulseLoader from "react-spinners/PulseLoader";
+import { FaUserSecret } from "react-icons/fa";
+import { AiFillEyeInvisible } from "react-icons/ai";
 
 type ButtonProps = {
   isLoadingGuest: boolean;
@@ -22,7 +21,9 @@ export default function SubmitGuestButton({ isLoadingGuest }: ButtonProps) {
           size={8}
         />
       ) : (
-        "Continue as guest"
+        <>
+          <AiFillEyeInvisible size={20} className={styles.icon} /> Sign in as guest
+        </>
       )}
     </button>
   );

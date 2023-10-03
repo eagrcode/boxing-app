@@ -10,4 +10,5 @@ export interface WorkoutPostPropTypes {
   workoutRestTime: number;
   createdAt: string;
   createdBy: string;
+  plays: number;
 }

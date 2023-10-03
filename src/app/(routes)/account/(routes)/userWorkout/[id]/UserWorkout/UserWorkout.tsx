@@ -25,14 +25,10 @@ import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 
 // components
-import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
-import LikeButton from "@/src/components/buttons/LikeButton/LikeButton";
-import LikesDisplay from "@/src/components/ui/LikesDisplay/LikesDisplay";
-import SaveButton from "@/src/components/buttons/SaveButton/SaveButton";
 import DeleteModal from "./DeleteModal";
+import SocialDataDisplay from "@/src/components/ui/SocialDataDisplay/SocialDataDisplay";
 
-// db types
-import type { Database } from "@/src/lib/database.types";
+import addToHistory from "@/src/lib/services/addToHistory";
 
 interface UserWorkoutPropTypes {
   id: string;
@@ -46,14 +42,10 @@ interface UserWorkoutPropTypes {
   workoutRestTime: number;
   createdAt: string;
   createdBy: string;
-  saved: { created_at: string; id: string; user_id: string | null; workout_id: string }[];
-  likes: {
-    created_at: string;
-    id: number;
-    user_id: string | null;
-    workout_id: string | null;
-  }[];
+  saved: boolean | null;
+  likes: number;
   isLiked: boolean | null;
+  plays: number;
 }
 
 export default function UserWorkout({
@@ -71,6 +63,7 @@ export default function UserWorkout({
   saved,
   likes,
   isLiked,
+  plays,
 }: UserWorkoutPropTypes) {
   // init state
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -98,7 +91,7 @@ export default function UserWorkout({
   // };
 
   // handle workout timer start
-  const handleStart = () => {
+  const handleStart = async () => {
     setRoundInfo({ round_info: roundInfo });
     setWorkoutRounds(workoutRounds);
     setWorkoutRoundTime(workoutRoundTime);
@@ -106,6 +99,7 @@ export default function UserWorkout({
     setWorkoutWarmupTime(workoutWarmupTime);
     setIsWorkoutMode(true);
     router.push(`/workout/${id}`);
+    await addToHistory(id);
   };
 
   return (
@@ -144,7 +138,6 @@ export default function UserWorkout({
             <BsHourglassTop size={20} />
             <span>{formatTimeDisplay(workoutRoundTime)} / round</span>
           </div>
-          {/* <span>{workoutWarmupTime} sec / warmup</span> */}
         </div>
         <div className={styles.comboContainer}>
           {roundInfo.map((round, index) => (
@@ -163,12 +156,16 @@ export default function UserWorkout({
             </div>
           ))}
         </div>
-        <div className={styles.socialBtnContainer}>
-          <LikeButton id={id} userID={userID} isLiked={isLiked} />;
-          <SaveButton id={id} saved={saved} />
-        </div>
+
         <div className={styles.workoutBottom}>
-          <LikesDisplay likes={likes} />
+          <SocialDataDisplay
+            likes={likes}
+            plays={plays}
+            id={id}
+            userID={userID}
+            saved={saved}
+            isLiked={isLiked}
+          />
           <div className={styles.btnContainer}>
             <button onClick={handleStart} className={styles.btnStart}>
               START

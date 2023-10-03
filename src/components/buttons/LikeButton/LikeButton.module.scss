@@ -2,11 +2,12 @@
   background-color: transparent;
   border: transparent;
   border-radius: 50%;
-  padding: 5px;
-
   position: relative;
 
-  &:hover {
-    background-color: hsla(240, 50%, 80%, 0.1);
+  @media (min-width: 768px) {
+    padding: 5px;
+    &:hover {
+      background-color: hsla(240, 50%, 80%, 0.1);
+    }
   }
 }

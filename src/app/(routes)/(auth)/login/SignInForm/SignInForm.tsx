@@ -13,11 +13,12 @@ import styles from "./SignInForm.module.scss";
 // components
 import SubmitEmailButton from "./SubmitEmailButton";
 import SubmitGuestButton from "./SubmitGuestButton";
+import SubmitGoogleButton from "./SubmitGoogleButton";
 
 // utils
 import signInEmail from "../signInEmail";
 import signInGuest from "../signInGuest";
-import { AuthError } from "@supabase/supabase-js";
+import signInGoogle from "@/src/lib/services/signInGoogle";
 
 export default function SignInForm() {
   // init state
@@ -25,6 +26,7 @@ export default function SignInForm() {
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingGuest, setIsLoadingGuest] = useState<boolean>(false);
+  const [isLoadingGoogle, setIsLoadingGoogle] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>("");
 
   // init hooks
@@ -56,6 +58,13 @@ export default function SignInForm() {
     router.refresh();
   }
 
+  async function handleGoogleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
+    e.preventDefault();
+    setIsLoadingGoogle(true);
+    await signInGoogle();
+    router.refresh();
+  }
+
   return (
     <div className={styles.formWrapper}>
       <h1>Welcome back</h1>
@@ -63,6 +72,10 @@ export default function SignInForm() {
 
       <form onSubmit={(e) => handleGuestSubmit(e)} className={styles.form}>
         <SubmitGuestButton isLoadingGuest={isLoadingGuest} />
+      </form>
+
+      <form onSubmit={(e) => handleGoogleSubmit(e)} className={styles.form}>
+        <SubmitGoogleButton isLoadingGoogle={isLoadingGoogle} />
       </form>
 
       <p>or</p>

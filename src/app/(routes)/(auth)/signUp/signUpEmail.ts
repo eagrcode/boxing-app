@@ -6,10 +6,9 @@ export default async function signUpEmail(
   email: string,
   password: string,
   username: string,
-  firstName: string,
-  lastName: string
+  fullName: string
 ) {
-  console.log(email, password, firstName, lastName, username);
+  console.log(email, password, fullName, username);
 
   const supabase = createClientComponentClient();
 
@@ -19,8 +18,8 @@ export default async function signUpEmail(
       password: password,
       options: {
         data: {
-          first_name: firstName,
-          last_name: lastName,
+          full_name: fullName,
+
           username: username,
         },
         emailRedirectTo: `${location.origin}/auth/callback`,

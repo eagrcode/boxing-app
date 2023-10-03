@@ -13,7 +13,7 @@ import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.conte
 // components
 import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
 import LikeButton from "@/src/components/buttons/LikeButton/LikeButton";
-import LikesDisplay from "../../../../../components/ui/LikesDisplay/LikesDisplay";
+import SocialDataDisplay from "@/src/components/ui/SocialDataDisplay/SocialDataDisplay";
 import SaveButton from "@/src/components/buttons/SaveButton/SaveButton";
 
 // icons
@@ -28,6 +28,7 @@ import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 
 // db types
 import type { Database } from "@/src/lib/database.types";
+import addToHistory from "@/src/lib/services/addToHistory";
 
 interface WorkoutPropTypes {
   id: string;
@@ -41,14 +42,10 @@ interface WorkoutPropTypes {
   workoutRestTime: number;
   createdAt: string;
   createdBy: string;
-  saved: { created_at: string; id: string; user_id: string | null; workout_id: string }[];
-  likes: {
-    created_at: string;
-    id: number;
-    user_id: string | null;
-    workout_id: string | null;
-  }[];
+  saved: boolean | null;
+  likes: number;
   isLiked: boolean | null;
+  plays: number;
 }
 
 export default function Workout({
@@ -66,6 +63,7 @@ export default function Workout({
   saved,
   likes,
   isLiked,
+  plays,
 }: WorkoutPropTypes) {
   // destructure context
   const {
@@ -84,13 +82,14 @@ export default function Workout({
   );
 
   // handle workout timer start
-  const handleStart = () => {
+  const handleStart = async () => {
     setRoundInfo({ round_info: roundInfo });
     setWorkoutRounds(workoutRounds);
     setWorkoutRoundTime(workoutRoundTime);
     setWorkoutRestTime(workoutRestTime);
     setWorkoutWarmupTime(workoutWarmupTime);
     setIsWorkoutMode(true);
+    await addToHistory(id);
   };
 
   if (!isWorkoutMode) {
@@ -142,12 +141,19 @@ export default function Workout({
           ))}
         </div>
 
-        <div className={styles.socialBtnContainer}>
+        {/* <div className={styles.socialBtnContainer}>
           <LikeButton id={id} userID={userID} isLiked={isLiked} />
           <SaveButton id={id} saved={saved} />
-        </div>
+        </div> */}
         <div className={styles.workoutBottom}>
-          <LikesDisplay likes={likes} />
+          <SocialDataDisplay
+            likes={likes}
+            plays={plays}
+            id={id}
+            userID={userID}
+            saved={saved}
+            isLiked={isLiked}
+          />
           <div className={styles.btnContainer}>
             <button onClick={handleStart} className={styles.btnStart}>
               START
@@ -159,6 +165,6 @@ export default function Workout({
   }
 
   if (isWorkoutMode) {
-    return <WorkoutTimer setIsWorkoutMode={setIsWorkoutMode} />;
+    return <WorkoutTimer id={id} setIsWorkoutMode={setIsWorkoutMode} />;
   }
 }

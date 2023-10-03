@@ -24,9 +24,5 @@ export default async function SavedWorkoutsPage() {
 
   const userID: string = session.user.id;
 
-  return (
-    <>
-      <UserSavedWorkouts userID={userID} />
-    </>
-  );
+  return <UserSavedWorkouts userID={userID} />;
 }

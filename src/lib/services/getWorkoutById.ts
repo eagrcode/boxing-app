@@ -14,7 +14,7 @@ const getWorkoutById = async (id: string) => {
     .select(
       `
       *,
-      profiles: user_id (username)
+      profiles: user_id (username, email)
     `
     )
     .eq("id", id)

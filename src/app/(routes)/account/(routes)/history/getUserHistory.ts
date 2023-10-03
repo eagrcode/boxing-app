@@ -1,19 +1,20 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import type { Database } from "@/src/lib/database.types";
+import { Database } from "@/src/lib/database.types";
 
-export default async function getUserWorkouts(id: string) {
+export default async function getUserHistory(id: string) {
   const supabase = createServerComponentClient<
-    Database["public"]["Tables"]["workouts"]["WithProfile"][]
+    Database["public"]["Tables"]["user_workout_history"]["WithProfile"][]
   >({ cookies });
 
   try {
     const { data, error } = await supabase
-      .from("workouts")
+      .from("user_workout_history")
       .select(
         `
         *,
-        profiles: user_id (username, email)
+        profiles: user_id (username, email),
+        workouts: workout_id (*)
       `
       )
       .eq("user_id", id)
@@ -24,7 +25,7 @@ export default async function getUserWorkouts(id: string) {
       return [];
     }
 
-    console.log("Fetch workouts: ", data);
+    console.log("Fetch user history: ", data);
     return data;
   } catch (error: any) {
     console.log("Fetch error: ", error.message);

@@ -15,6 +15,7 @@ import { cookies } from "next/headers";
 
 // utils
 import getProfileData from "@/src/lib/services/getProfileData";
+import Image from "next/image";
 
 export default async function AccountLayout({ children }: { children: React.ReactNode }) {
   // init supabase client
@@ -34,18 +35,20 @@ export default async function AccountLayout({ children }: { children: React.Reac
       <div className={styles.layoutTop}>
         <div className={styles.topLeft}>
           <div>
-            <h1>
-              {profileData?.first_name} {profileData?.last_name}
-            </h1>
+            <h1>{profileData?.full_name}</h1>
             <LogoutButton />
           </div>
-          <p>{profileData?.username}</p>
+          <p>{profileData?.username || profileData?.email}</p>
         </div>
         <div className={styles.avatar}>
-          <div>
-            {profileData?.first_name.charAt(0)}
-            {profileData?.last_name.charAt(0)}
-          </div>
+          <div>{profileData?.full_name.charAt(0)}</div>
+          {/* <Image
+            src={`${user?.user_metadata.avatar_url}`}
+            alt="User avatar"
+            style={{ height: "auto", width: "100%" }}
+            height={70}
+            width={70}
+          /> */}
         </div>
       </div>
       <UserAccountNav />

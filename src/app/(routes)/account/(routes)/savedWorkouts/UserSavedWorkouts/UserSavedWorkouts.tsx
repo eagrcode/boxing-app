@@ -31,7 +31,8 @@ export default async function UserSavedWorkouts({ userID }: { userID: string }) 
               workoutRoundTime={save.workouts.round_time}
               workoutRestTime={save.workouts.rest_time}
               createdAt={save.workouts.created_at}
-              createdBy={save.profiles.username}
+              createdBy={save.profiles.username || save.profiles.email}
+              plays={save.workouts.plays}
             />
           ))}
         </div>
