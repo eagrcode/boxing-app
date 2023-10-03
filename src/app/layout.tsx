@@ -36,17 +36,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   // get user data
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  console.log(user);
+    data: { session },
+  } = await supabase.auth.getSession();
 
   return (
     <html lang="en" className={RobotoFlex.className}>
       <body>
         <WorkoutModeProvider>
           <FightDataProvider>
-            {user ? (
+            {session ? (
               <div className="app-wrapper-user">
                 <LeftSidebar />
                 <main className="main-user">{children}</main>
