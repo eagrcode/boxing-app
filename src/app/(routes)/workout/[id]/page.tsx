@@ -18,6 +18,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 // next
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import getWorkoutSavesCount from "@/src/lib/services/getWorkoutSaves";
 
 interface WorkoutPageProps {
   params: {
@@ -49,6 +50,7 @@ export default async function WorkoutPage({ params }: WorkoutPageProps) {
   const isLiked = await isLikedByUser(params.id, userID);
   const saved = await isSavedByUser(params.id, userID);
   const workoutData = await getWorkoutById(params.id);
+  const savesCount = await getWorkoutSavesCount(params.id);
 
   return (
     <div className={styles.wrapper}>
@@ -68,6 +70,7 @@ export default async function WorkoutPage({ params }: WorkoutPageProps) {
         userID={userID || ""}
         isLiked={isLiked}
         plays={workoutData?.plays}
+        savesCount={savesCount}
       />
     </div>
   );
