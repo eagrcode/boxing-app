@@ -46,6 +46,7 @@ interface UserWorkoutPropTypes {
   likes: number;
   isLiked: boolean | null;
   plays: number;
+  savesCount: number;
 }
 
 export default function UserWorkout({
@@ -64,6 +65,7 @@ export default function UserWorkout({
   likes,
   isLiked,
   plays,
+  savesCount,
 }: UserWorkoutPropTypes) {
   // init state
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -165,6 +167,7 @@ export default function UserWorkout({
             userID={userID}
             saved={saved}
             isLiked={isLiked}
+            savesCount={savesCount}
           />
           <div className={styles.btnContainer}>
             <button onClick={handleStart} className={styles.btnStart}>

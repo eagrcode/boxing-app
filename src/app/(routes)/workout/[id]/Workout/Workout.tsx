@@ -46,6 +46,7 @@ interface WorkoutPropTypes {
   likes: number;
   isLiked: boolean | null;
   plays: number;
+  savesCount: number;
 }
 
 export default function Workout({
@@ -64,6 +65,7 @@ export default function Workout({
   likes,
   isLiked,
   plays,
+  savesCount,
 }: WorkoutPropTypes) {
   // destructure context
   const {
@@ -153,6 +155,7 @@ export default function Workout({
             userID={userID}
             saved={saved}
             isLiked={isLiked}
+            savesCount={savesCount}
           />
           <div className={styles.btnContainer}>
             <button onClick={handleStart} className={styles.btnStart}>
