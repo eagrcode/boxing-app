@@ -9,11 +9,11 @@ body {
   font-family: "Roboto Flex", sans-serif;
 }
 
-.app-wrapper {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-}
+// .app-wrapper {
+//   display: flex;
+//   justify-content: center;
+//   gap: 3rem;
+// }
 
 .app-wrapper-user {
   position: relative;
@@ -21,8 +21,7 @@ body {
   flex-direction: column;
   align-items: center;
   background-color: var(--bg-color-main);
-  min-height: 100vh;
-  overflow: auto;
+  height: auto;
 
   @media (min-width: 768px) {
     justify-content: center;

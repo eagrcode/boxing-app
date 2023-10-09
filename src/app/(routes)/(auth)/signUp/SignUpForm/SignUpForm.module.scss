@@ -27,6 +27,7 @@
 
   a {
     color: var(--header-color-main);
+    text-decoration: underline;
 
     &:hover {
       color: hsl(240, 15%, 80%);

@@ -1,7 +1,8 @@
+export const dynamic = "force-dynamic";
+
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
-import Image from "next/image";
 
 // styles
 import styles from "./page.module.scss";
@@ -12,8 +13,6 @@ import Logo from "@/src/components/ui/Logo/Logo";
 
 import FistLeft from "@/public/assets/images/fist-left.png";
 import FistRight from "@/public/assets/images/fist-right.png";
-
-export const dynamic = "force-dynamic";
 
 export default async function Index() {
   const supabase = createServerComponentClient({ cookies });

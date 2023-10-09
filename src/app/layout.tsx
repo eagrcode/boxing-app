@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 // styles
+import "@/src/styles/normalize.css";
 import "@/src/styles/globals.scss";
 import "@/src/styles/variables.css";
 
@@ -39,22 +40,28 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     data: { session },
   } = await supabase.auth.getSession();
 
+  if (!session) {
+    return (
+      <html lang="en" className={RobotoFlex.className}>
+        <body>
+          <div className="app-wrapper">
+            <main className="main-no-user">{children}</main>
+          </div>
+        </body>
+      </html>
+    );
+  }
+
   return (
     <WorkoutModeProvider>
       <FightDataProvider>
         <html lang="en" className={RobotoFlex.className}>
           <body>
-            {session ? (
-              <div className="app-wrapper-user">
-                <LeftSidebar />
-                <main className="main-user">{children}</main>
-                <BottomNav />
-              </div>
-            ) : (
-              <div className="app-wrapper">
-                <main className="main-no-user">{children}</main>
-              </div>
-            )}
+            <div className="app-wrapper-user">
+              <LeftSidebar />
+              <main className="main-user">{children}</main>
+              <BottomNav />
+            </div>
           </body>
         </html>
       </FightDataProvider>
