@@ -10,6 +10,7 @@ interface LikesDisplayPropTypes {
   userID: string;
   saved: boolean | null;
   isLiked: boolean | null;
+  savesCount: number;
 }
 
 export default function SocialDataDisplay({
@@ -19,6 +20,7 @@ export default function SocialDataDisplay({
   id,
   userID,
   isLiked,
+  savesCount,
 }: LikesDisplayPropTypes) {
   return (
     <div className={styles.container}>
@@ -31,7 +33,8 @@ export default function SocialDataDisplay({
       </div>
       <div className={styles.tooltip}>
         <div className={styles.hoverText}>
-          <SaveButton saved={saved} id={id} />0
+          <SaveButton saved={saved} id={id} />
+          {savesCount}
         </div>
         <div className={styles["tooltip-text"]}>Save</div>
       </div>
