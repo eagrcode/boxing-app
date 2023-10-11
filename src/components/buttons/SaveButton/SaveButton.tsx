@@ -9,22 +9,32 @@ import styles from "./SaveButton.module.scss";
 // icons
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
+import { experimental_useOptimistic as useOptimistic } from "react";
+import Button from "./Button";
+
 // utils
 import saveWorkout from "./saveWorkout";
 
 interface SaveButtonPropTypes {
   saved: boolean | null;
   id: string;
+  onToggleSave: (newState: any) => void;
 }
 
-export default function SaveButton({ saved, id }: SaveButtonPropTypes) {
+export default function SaveButton({ saved, id, onToggleSave }: SaveButtonPropTypes) {
   const path = usePathname();
 
+  const [optimisticSave, toggleOptimisticSave] = useOptimistic(saved, (state, _) => !state);
+
   return (
-    <form action={() => saveWorkout(saved, id, path)}>
-      <button type="submit" className={styles.saveBtn} style={{ color: "var(--text-color-main)" }}>
-        {!saved ? <AiOutlineStar size={20} /> : <AiFillStar size={20} />}
-      </button>
+    <form
+      action={async () => {
+        toggleOptimisticSave(saved);
+        onToggleSave(!saved);
+        await saveWorkout(saved, id, path);
+      }}
+    >
+      <Button optimisticSave={optimisticSave} />
     </form>
   );
 }
