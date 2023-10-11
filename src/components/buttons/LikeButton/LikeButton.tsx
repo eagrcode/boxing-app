@@ -9,29 +9,31 @@ import { usePathname } from "next/navigation";
 // utils
 import likeWorkout from "./likeWorkout";
 
-// icons
-import { GiPunchBlast } from "react-icons/gi";
+import Button from "./Button";
+
+import { experimental_useOptimistic as useOptimistic } from "react";
 
 interface LikesDisplayPropTypes {
   id: string;
   userID: string;
   isLiked: boolean | null;
+  onToggleLike: (isLiked: any) => void;
 }
 
-export default function LikeButton({ id, userID, isLiked }: LikesDisplayPropTypes) {
+export default function LikeButton({ id, userID, isLiked, onToggleLike }: LikesDisplayPropTypes) {
   const path = usePathname();
 
+  const [optimisticLike, toggleOptimisticLike] = useOptimistic(isLiked, (state, _) => !state);
+
   return (
-    <form action={() => likeWorkout(isLiked, id, userID, path)}>
-      <button
-        type="submit"
-        className={styles.likeBtn}
-        style={{
-          color: `${isLiked ? "var(--accent-color-blue)" : "var(--text-color-main)"}`,
-        }}
-      >
-        <GiPunchBlast size={20} />
-      </button>
+    <form
+      action={async () => {
+        toggleOptimisticLike(isLiked);
+        onToggleLike(!isLiked);
+        await likeWorkout(isLiked, id, userID, path);
+      }}
+    >
+      <Button optimisticLike={optimisticLike} />
     </form>
   );
 }
