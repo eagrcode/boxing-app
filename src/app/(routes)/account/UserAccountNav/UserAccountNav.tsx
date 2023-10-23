@@ -12,12 +12,12 @@ export default function UserAccountNav() {
   const links = [
     {
       id: 1,
-      title: "My Workouts",
+      title: "Posts",
       url: "/account",
     },
     {
       id: 2,
-      title: "Saved Workouts",
+      title: "Saved",
       url: "/account/savedWorkouts",
     },
     {
