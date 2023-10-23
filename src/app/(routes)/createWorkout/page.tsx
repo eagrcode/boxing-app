@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 // styles
 import styles from "./page.module.scss";
@@ -7,24 +7,24 @@ import styles from "./page.module.scss";
 import WorkoutForm from "@/src/components/forms/CreateEditWorkout/CreateEditWorkout";
 
 // supabase client
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+// import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 // next
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+// import { cookies } from "next/headers";
+// import { redirect } from "next/navigation";
 
-export default async function CreateWorkoutPage() {
+export default function CreateWorkoutPage() {
   // init supabase client
-  const supabase = createServerComponentClient({ cookies });
+  // const supabase = createServerComponentClient({ cookies });
 
   // get session data
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession();
 
-  if (!session) {
-    redirect("/login");
-  }
+  // if (!session) {
+  //   redirect("/login");
+  // }
 
   return (
     <div className={styles.wrapper}>
