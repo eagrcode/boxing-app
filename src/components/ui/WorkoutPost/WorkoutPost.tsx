@@ -76,7 +76,7 @@ export default async function WorkoutPost({
         </div>
         <div className={styles.infoDisplay}>
           <BsHourglassTop size={18} />
-          <span>{formatTimeDisplay(workoutRoundTime)} / round</span>
+          <span>{formatTimeDisplay(workoutRoundTime)}</span>
         </div>
       </div>
 

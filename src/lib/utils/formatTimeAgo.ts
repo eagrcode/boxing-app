@@ -1,30 +1,25 @@
-// format created_at response from db
-export default function timeAgo(timestamp: string): string {
-  const date: Date = new Date(timestamp);
-  const now: Date = new Date();
+import { differenceInMinutes, differenceInDays, differenceInWeeks } from "date-fns";
 
-  const diffInSeconds: number = Math.floor((now.getTime() - date.getTime()) / 1000);
+export default function formatTimeAgo(timestamp: string): string {
+  try {
+    // Parse the timestamp into a Date object (assuming it's in GMT)
+    const date = new Date(timestamp);
 
-  const minute: number = 60;
-  const hour: number = minute * 60;
-  const day: number = hour * 24;
-  const week: number = day * 7;
-  const month: number = day * 30; // Approximation
-  const year: number = day * 365; // Approximation
+    // Calculate the time difference in minutes, days, and weeks
+    const diffMinutes = differenceInMinutes(new Date(), date);
+    const diffDays = differenceInDays(new Date(), date);
+    const diffWeeks = differenceInWeeks(new Date(), date);
 
-  if (diffInSeconds < minute) {
-    return `${diffInSeconds}s`;
-  } else if (diffInSeconds < hour) {
-    return `${Math.floor(diffInSeconds / minute)}m`;
-  } else if (diffInSeconds < day) {
-    return `${Math.floor(diffInSeconds / hour)}h`;
-  } else if (diffInSeconds < week) {
-    return `${Math.floor(diffInSeconds / day)}d`;
-  } else if (diffInSeconds < month) {
-    return `${Math.floor(diffInSeconds / week)}w`;
-  } else if (diffInSeconds < year) {
-    return `${Math.floor(diffInSeconds / month)}m`;
-  } else {
-    return `${Math.floor(diffInSeconds / year)}y`;
+    // Choose the appropriate format based on the difference
+    if (diffMinutes < 60) {
+      return `${diffMinutes}m`;
+    } else if (diffDays < 7) {
+      return `${diffDays}d`;
+    } else {
+      return `${diffWeeks}w`;
+    }
+  } catch (error) {
+    console.error("Error formatting timestamp:", error);
+    return "Invalid Date";
   }
 }

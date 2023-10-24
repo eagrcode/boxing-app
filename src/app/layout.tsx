@@ -40,6 +40,25 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     data: { session },
   } = await supabase.auth.getSession();
 
+  console.log(session);
+
+  if (session)
+    return (
+      <WorkoutModeProvider>
+        <FightDataProvider>
+          <html lang="en" className={RobotoFlex.className}>
+            <body>
+              <div className="app-wrapper-user">
+                <LeftSidebar />
+                <main className="main-user">{children}</main>
+                <BottomNav />
+              </div>
+            </body>
+          </html>
+        </FightDataProvider>
+      </WorkoutModeProvider>
+    );
+
   if (!session) {
     return (
       <html lang="en" className={RobotoFlex.className}>
@@ -51,20 +70,4 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </html>
     );
   }
-
-  return (
-    <WorkoutModeProvider>
-      <FightDataProvider>
-        <html lang="en" className={RobotoFlex.className}>
-          <body>
-            <div className="app-wrapper-user">
-              <LeftSidebar />
-              <main className="main-user">{children}</main>
-              <BottomNav />
-            </div>
-          </body>
-        </html>
-      </FightDataProvider>
-    </WorkoutModeProvider>
-  );
 }
