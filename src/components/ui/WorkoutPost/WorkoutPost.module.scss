@@ -3,87 +3,99 @@
   display: flex;
   flex-direction: column;
   border-bottom: solid 1px hsla(0, 0%, 50%, 0.2);
-
   color: var(--text-color-main);
   padding: 0 1rem 1rem 1rem;
   gap: 1rem;
 
-  .cardTop {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .usernameContainer {
-      display: flex;
-      gap: 5px;
-
-      p {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        font-size: 1rem;
-      }
-    }
+  @media (min-width: 900px) {
+    padding: 0 0 1rem 0;
   }
+}
 
-  h2 {
-    font-size: 1rem;
+.linkWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  cursor: pointer;
+  color: var(--text-color-main);
 
-    a {
-      color: var(--header-color-main);
+  &:hover {
+    .title {
       text-decoration: underline;
     }
   }
+}
 
-  .overview {
-    display: flex;
-    flex-direction: column;
-  }
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  .info {
-    display: flex;
-    gap: 1rem;
+.usernameContainer {
+  display: flex;
+  gap: 5px;
 
-    width: fit-content;
-
-    border-radius: 5px;
-
-    .infoDisplay {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 5px;
-      border: solid 1px var(--accent-color-outline);
-      border-radius: 5px;
-      background-color: var(--accent-color-dark);
-    }
-  }
-
-  .btnContainer {
-    display: flex;
-    gap: 1rem;
-
-    .btnStart {
-      color: var(--accent-color-red);
-      border: solid 1px var(--accent-color-red);
-      border-radius: 2px;
-    }
-
-    button {
-      font-weight: bold;
-      font-size: 1rem;
-      background-color: transparent;
-      border: transparent;
-      outline: transparent;
-
-      color: var(--text-color-main);
-      padding: 5px;
-    }
-  }
-
-  .socialBtnContainer {
+  p {
     display: flex;
     align-items: center;
     gap: 5px;
+    font-size: 1rem;
   }
+}
+
+.title {
+  font-size: 1rem;
+}
+
+.overview {
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  display: flex;
+  gap: 1rem;
+
+  width: fit-content;
+
+  border-radius: 5px;
+}
+
+.infoDisplay {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  border: solid 1px var(--accent-color-outline);
+  border-radius: 5px;
+  background-color: var(--accent-color-dark);
+}
+
+.btnContainer {
+  display: flex;
+  gap: 1rem;
+
+  button {
+    font-weight: bold;
+    font-size: 1rem;
+    background-color: transparent;
+    border: transparent;
+    outline: transparent;
+
+    color: var(--text-color-main);
+    padding: 5px;
+  }
+}
+
+.btnStart {
+  color: var(--accent-color-red);
+  border: solid 1px var(--accent-color-red);
+  border-radius: 2px;
+}
+
+.socialBtnContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
