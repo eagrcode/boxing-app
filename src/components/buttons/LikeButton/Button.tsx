@@ -1,5 +1,5 @@
 import styles from "./LikeButton.module.scss";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import {useFormStatus } from "react-dom";
 import { GiPunchBlast } from "react-icons/gi";
 
 export default function Button({ optimisticLike }: { optimisticLike: boolean | null }) {

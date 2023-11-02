@@ -50,35 +50,37 @@ export default async function WorkoutPost({
 
   return (
     <div key={id} className={styles.card}>
-      <div className={styles.cardTop}>
-        <div className={styles.usernameContainer}>
-          <GiHighPunch size={20} />
-          <p>{createdBy}</p>
+      <Link className={styles.linkWrapper} href={`${variant}${id}`}>
+        <div className={styles.cardTop}>
+          <div className={styles.usernameContainer}>
+            <GiHighPunch size={20} />
+            <p>{createdBy}</p>
+          </div>
+          <span>{formatTimeAgo(createdAt)}</span>
         </div>
-        <span>{formatTimeAgo(createdAt)}</span>
-      </div>
-      <h2>
-        <Link href={`${variant}${id}`}>{title}</Link>
-      </h2>
-      <div className={styles.overview}>
-        <p>{description}</p>
-      </div>
-      <div className={styles.info}>
-        <div className={styles.infoDisplay}>
-          <MdOutlineTimer size={20} />
-          <span>{formatTimeDisplay(totalTime)}</span>
+
+        <h2 className={styles.title}>{title}</h2>
+
+        <div className={styles.overview}>
+          <p>{description}</p>
         </div>
-        <div className={styles.infoDisplay}>
-          <BsLightningCharge size={20} />
-          <span>
-            {workoutRounds} round{workoutRounds > 1 && "s"}
-          </span>
+        <div className={styles.info}>
+          <div className={styles.infoDisplay}>
+            <MdOutlineTimer size={20} />
+            <span>{formatTimeDisplay(totalTime)}</span>
+          </div>
+          <div className={styles.infoDisplay}>
+            <BsLightningCharge size={20} />
+            <span>
+              {workoutRounds} round{workoutRounds > 1 && "s"}
+            </span>
+          </div>
+          <div className={styles.infoDisplay}>
+            <BsHourglassTop size={18} />
+            <span>{formatTimeDisplay(workoutRoundTime)}</span>
+          </div>
         </div>
-        <div className={styles.infoDisplay}>
-          <BsHourglassTop size={18} />
-          <span>{formatTimeDisplay(workoutRoundTime)}</span>
-        </div>
-      </div>
+      </Link>
 
       <SocialDataDisplay
         likes={likes}

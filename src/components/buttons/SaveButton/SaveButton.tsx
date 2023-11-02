@@ -1,18 +1,11 @@
 "use client";
 
-// react
 import { usePathname } from "next/navigation";
-
-// styles
 import styles from "./SaveButton.module.scss";
-
-// icons
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
-
-import { experimental_useOptimistic as useOptimistic } from "react";
+import { useOptimistic } from "react";
 import Button from "./Button";
 
-// utils
 import saveWorkout from "./saveWorkout";
 
 interface SaveButtonPropTypes {

@@ -1,22 +1,24 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { SetStateAction, createContext, useContext, useState, Dispatch, ReactNode } from "react";
 
 interface FightDataContextType {
   difficulty: string;
-  setDifficulty: React.Dispatch<React.SetStateAction<string>>;
+  setDifficulty: Dispatch<SetStateAction<string>>;
   rounds: number;
-  setRounds: React.Dispatch<React.SetStateAction<number>>;
+  setRounds: Dispatch<SetStateAction<number>>;
   roundTime: number;
-  setRoundTime: React.Dispatch<React.SetStateAction<number>>;
+  setRoundTime: Dispatch<SetStateAction<number>>;
   restTime: number;
-  setRestTime: React.Dispatch<React.SetStateAction<number>>;
+  setRestTime: Dispatch<SetStateAction<number>>;
   warmupTime: number;
-  setWarmupTime: React.Dispatch<React.SetStateAction<number>>;
+  setWarmupTime: Dispatch<SetStateAction<number>>;
   DEFAULT_ROUNDS: number;
   DEFAULT_ROUND_TIME: number;
   DEFAULT_REST_TIME: number;
   DEFAULT_WARMUP_TIME: number;
+  isTimerActive: boolean;
+  setIsTimerActive: Dispatch<SetStateAction<boolean>>;
 }
 
 const FightDataContext = createContext<FightDataContextType | null>(null);
@@ -35,13 +37,14 @@ const DEFAULT_ROUND_TIME = 60;
 const DEFAULT_REST_TIME = 30;
 const DEFAULT_WARMUP_TIME = 15;
 
-export const FightDataProvider = ({ children }: { children: React.ReactNode }) => {
+export const FightDataProvider = ({ children }: { children: ReactNode }) => {
   // init state
   const [difficulty, setDifficulty] = useState(DEFAULT_DIFFICULTY);
   const [rounds, setRounds] = useState(DEFAULT_ROUNDS);
   const [roundTime, setRoundTime] = useState(DEFAULT_ROUND_TIME);
   const [restTime, setRestTime] = useState(DEFAULT_REST_TIME);
   const [warmupTime, setWarmupTime] = useState(DEFAULT_WARMUP_TIME);
+  const [isTimerActive, setIsTimerActive] = useState<boolean>(false);
 
   return (
     <FightDataContext.Provider
@@ -60,6 +63,8 @@ export const FightDataProvider = ({ children }: { children: React.ReactNode }) =
         DEFAULT_ROUND_TIME,
         DEFAULT_REST_TIME,
         DEFAULT_WARMUP_TIME,
+        isTimerActive,
+        setIsTimerActive,
       }}
     >
       {children}

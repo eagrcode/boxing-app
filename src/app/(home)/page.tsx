@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import Image from "next/image";
 
 // styles
 import styles from "./page.module.scss";
@@ -13,6 +14,15 @@ import Logo from "@/src/components/ui/Logo/Logo";
 
 import FistLeft from "@/public/assets/images/fist-left.png";
 import FistRight from "@/public/assets/images/fist-right.png";
+import HeroImg from "@/public/assets/images/fightx-hero-img.png";
+import MobileImg from "@/public/assets/images/mobile-img.png";
+import IphoneImg from "@/public/assets/images/iphone-img.png";
+import TimerImg from "@/public/assets/images/timer-img.png";
+import FeedImg from "@/public/assets/images/feed-img.png";
+import ComboGImg from "@/public/assets/images/combo-g-img.png";
+import MobileImg1 from "@/public/assets/images/4.png";
+import MobileImg2 from "@/public/assets/images/5.png";
+import MobileImg3 from "@/public/assets/images/6.png";
 
 export default async function Index() {
   const supabase = createServerComponentClient({ cookies });
@@ -31,50 +41,136 @@ export default async function Index() {
     return (
       <div className={styles.pageWrapper}>
         <div className={styles.hero}>
-          <h1>
-            Welcome to <span style={{ color: "var(--header-color-main)" }}>Fight</span>
-            <span style={{ color: "var(--accent-color-blue)" }}>X</span>
-          </h1>
-          <p>The fastest way to a smoother boxing experience!</p>
-          <Link href="/login">
-            <button>Get Started</button>
-          </Link>
-        </div>
-
-        <div className={styles.featuresWrapper}>
-          <div className={styles.featuresHeader}>
-            {/* <div className={styles.fistLeft}>
+          {/* <div className={styles.fistLeft}>
               <Image
                 src={FistLeft}
                 alt="Fist left"
                 style={{ height: "auto", width: "100%" }}
               ></Image>
-            </div> */}
-            <h2>Explore the features</h2>
-            {/* <div className={styles.fistRight}>
+            </div>
+
+            <div className={styles.fistRight}>
               <Image
                 src={FistRight}
                 alt="Fist right"
                 style={{ height: "auto", width: "100%" }}
               ></Image>
             </div> */}
+          <h1>
+            <span style={{ color: "white" }}>FIGHT</span>
+            <span
+              style={{
+                WebkitTextStroke: "3px var(--accent-color-blue)",
+                color: "transparent",
+                marginLeft: "3px",
+              }}
+            >
+              X
+            </span>
+          </h1>
+          <p>
+            Unlock your full potential, connect with fellow boxing enthusiasts, and take your
+            fitness journey to the next level with FightX. Join our community of fighters today!
+          </p>
+          <div className={styles.btnContainer}>
+            <Link href="/login">
+              <button className={styles.btnL}>Get Started</button>
+            </Link>
+            <a href="#features">
+              <button className={styles.btnR}>Explore</button>
+            </a>
           </div>
+        </div>
 
+        <div className={styles.featuresWrapper} id="features">
           <div className={styles.featureContainer}>
             <div className={styles.featureCard}>
-              <h2>Timer</h2>
-              <p>Generate random combinations every round</p>
+              <div className={styles.featureContent}>
+                <h2>Get Ready to Crush Your Goals</h2>
+                <p>
+                  Our app doubles as a powerful interval timer, helping you optimize your training
+                  sessions. Whether you're into high-intensity interval training or just need a
+                  structured workout routine, FightX has got you covered.
+                </p>
+              </div>
+              <div className={styles.featureImg}>
+                <Image
+                  src={TimerImg}
+                  alt="Mobile timer"
+                  style={{ height: "auto", width: "100%" }}
+                  quality={100}
+                  unoptimized
+                ></Image>
+              </div>
+            </div>
+            <div className={`${styles.featureCard} ${styles.rightAlignText}`}>
+              <div className={`${styles.featureContent} ${styles.rightAlignText}`}>
+                <h2>Connect and Inspire</h2>
+                <p>
+                  Join a thriving community of boxing enthusiasts who share your passion for the
+                  sweet science. Upload your own workouts, discover routines from fellow users, and
+                  interact with like-minded individuals. It's never been easier to find motivation
+                  and inspiration to keep pushing your limits.
+                </p>
+              </div>
+              <div className={styles.featureImg}>
+                <Image
+                  src={FeedImg}
+                  alt="Mobile timer"
+                  style={{ height: "auto", width: "100%" }}
+                  quality={100}
+                  unoptimized
+                ></Image>
+              </div>
             </div>
             <div className={styles.featureCard}>
-              <h2>Feed</h2>
-              <p>View workouts posted by other users</p>
-            </div>
-            <div className={styles.featureCard}>
-              <h2>Create & Save</h2>
-              <p>Post and save workouts for quick access</p>
+              <div className={styles.featureContent}>
+                <h2>Automatic Combo Generation</h2>
+                <p>
+                  New to boxing or just looking for some guidance? FightX offers an automatic combo
+                  generation mode that provides you with ready-made combinations to follow during
+                  your workouts. It's the perfect feature for beginners and anyone who wants a
+                  helping hand in the ring.
+                </p>
+              </div>
+              <div className={styles.featureImg}>
+                <Image
+                  src={ComboGImg}
+                  alt="Mobile timer"
+                  style={{ height: "auto", width: "100%" }}
+                ></Image>
+              </div>
             </div>
           </div>
         </div>
+        <section className={styles.mobileFeaturesWrapper}>
+          <div className={styles.mobileFeaturesContainer}>
+            <h2>Fully Mobile Responsive</h2>
+            <div className={styles.mobileImagesContainer}>
+              <div className={styles.featureImg}>
+                <Image
+                  src={MobileImg1}
+                  alt="Mobile timer"
+                  style={{ height: "auto", width: "100%" }}
+                ></Image>
+              </div>
+              <div className={styles.featureImg}>
+                <Image
+                  src={MobileImg2}
+                  alt="Mobile timer"
+                  style={{ height: "auto", width: "100%" }}
+                ></Image>
+              </div>
+              <div className={styles.featureImg}>
+                <Image
+                  src={MobileImg3}
+                  alt="Mobile timer"
+                  style={{ height: "auto", width: "100%" }}
+                ></Image>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     );
   }

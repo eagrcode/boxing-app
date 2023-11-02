@@ -4,21 +4,27 @@
   list-style: none;
   gap: 5px;
   flex-wrap: wrap;
-  height: 100%;
-  li {
-    border-radius: 5px;
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
+}
 
-  .arrow {
-    display: flex;
-    align-items: center;
+.punchTag {
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
 
-    font-size: 1.2rem;
+  @media (min-width: 900px) {
+    &.active {
+      font-size: 1.8rem;
+    }
   }
+}
 
-  .arrow:last-child {
-    display: none;
-  }
+.arrow {
+  display: flex;
+  align-items: center;
+
+  font-size: 1.2rem;
+}
+
+.arrow:last-child {
+  display: none;
 }

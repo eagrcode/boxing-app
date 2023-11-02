@@ -1,16 +1,14 @@
 .timer {
-  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
 
   h1 {
     font-size: 2rem;
     font-weight: 500;
   }
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 1rem;
-  height: 100%;
 
   .timeText {
     display: flex;

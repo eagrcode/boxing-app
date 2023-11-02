@@ -160,43 +160,44 @@ const WorkoutTimer = ({
   }, [setIsWorkoutMode, setCurrentRound, setIsCountingDown]);
 
   return (
-    <div className={styles.timer} aria-label="Timer">
-      {isWarmupRound ? (
-        <h1>WARMUP</h1>
-      ) : (
-        <h1>
-          Round {displayRound} / {workoutRounds}
-        </h1>
-      )}
-      <CountdownCircleTimer
-        key={timerKey}
-        isPlaying={isCountingDown}
-        duration={currentDuration}
-        colors={timerColors}
-        trailColor="#151515"
-        trailStrokeWidth={8}
-        rotation="counterclockwise"
-        strokeWidth={10}
-        size={318}
-        onComplete={handleOnComplete}
-      >
-        {({ remainingTime }) => (
-          <div role="timer" aria-live="assertive" className={styles.timeText}>
-            {renderTimerText(remainingTime)}
-          </div>
+    <>
+      <div className={styles.timer} aria-label="Timer">
+        {isWarmupRound ? (
+          <h1>WARMUP</h1>
+        ) : (
+          <h1>
+            Round {displayRound} / {workoutRounds}
+          </h1>
         )}
-      </CountdownCircleTimer>
-      <div className={styles.controls}>
-        <button onClick={handleCancel}>
-          <div>Cancel</div>
-        </button>
-        <button disabled={isFinished} onClick={() => setIsCountingDown((prev) => !prev)}>
-          <div>{buttonText}</div>
-        </button>
+        <CountdownCircleTimer
+          key={timerKey}
+          isPlaying={isCountingDown}
+          duration={currentDuration}
+          colors={timerColors}
+          trailColor="#151515"
+          trailStrokeWidth={8}
+          rotation="counterclockwise"
+          strokeWidth={10}
+          size={318}
+          onComplete={handleOnComplete}
+        >
+          {({ remainingTime }) => (
+            <div role="timer" aria-live="assertive" className={styles.timeText}>
+              {renderTimerText(remainingTime)}
+            </div>
+          )}
+        </CountdownCircleTimer>
+        <div className={styles.controls}>
+          <button onClick={handleCancel}>
+            <div>Cancel</div>
+          </button>
+          <button disabled={isFinished} onClick={() => setIsCountingDown((prev) => !prev)}>
+            <div>{buttonText}</div>
+          </button>
+        </div>
       </div>
-
       <ComboCard sequence={roundInfo.round_info[currentCombo].sequence} />
-    </div>
+    </>
   );
 };
 

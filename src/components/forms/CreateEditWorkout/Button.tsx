@@ -6,7 +6,7 @@ import styles from "./CreateEditWorkout.module.scss";
 // loader
 import PulseLoader from "react-spinners/PulseLoader";
 
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 
 export default function Button() {
   const { pending } = useFormStatus();
