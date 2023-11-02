@@ -168,6 +168,10 @@ export default function Workout({
   }
 
   if (isWorkoutMode) {
-    return <WorkoutTimer id={id} setIsWorkoutMode={setIsWorkoutMode} />;
+    return (
+      <div className={styles.timerWrapper}>
+        <WorkoutTimer id={id} setIsWorkoutMode={setIsWorkoutMode} />
+      </div>
+    );
   }
 }

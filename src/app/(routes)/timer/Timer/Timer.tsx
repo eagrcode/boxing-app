@@ -178,42 +178,43 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
   ]);
 
   return (
-    <div className={styles.timer} aria-label="Timer">
-      {isWarmupRound ? (
-        <h1>WARMUP</h1>
-      ) : (
-        <h1>
-          Round {displayRound} / {rounds}
-        </h1>
-      )}
-      <CountdownCircleTimer
-        key={timerKey}
-        isPlaying={isCountingDown}
-        duration={currentDuration}
-        colors={timerColors}
-        trailColor="#151515"
-        trailStrokeWidth={8}
-        rotation="counterclockwise"
-        strokeWidth={10}
-        size={318}
-        onComplete={handleOnComplete}
-      >
-        {({ remainingTime }) => (
-          <div role="timer" aria-live="assertive" className={styles.timeText}>
-            {renderTimerText(remainingTime)}
-          </div>
+    <>
+      <div className={styles.timer} aria-label="Timer">
+        {isWarmupRound ? (
+          <h1>WARMUP</h1>
+        ) : (
+          <h1>
+            Round {displayRound} / {rounds}
+          </h1>
         )}
-      </CountdownCircleTimer>
-      <div className={styles.controls}>
-        <button onClick={handleCancel}>
-          <div>Cancel</div>
-        </button>
-        <button disabled={isFinished} onClick={() => setIsCountingDown((prev) => !prev)}>
-          <div>{buttonText}</div>
-        </button>
+        <CountdownCircleTimer
+          key={timerKey}
+          isPlaying={isCountingDown}
+          duration={currentDuration}
+          colors={timerColors}
+          trailColor="#151515"
+          trailStrokeWidth={8}
+          rotation="counterclockwise"
+          strokeWidth={10}
+          size={318}
+          onComplete={handleOnComplete}
+        >
+          {({ remainingTime }) => (
+            <div role="timer" aria-live="assertive" className={styles.timeText}>
+              {renderTimerText(remainingTime)}
+            </div>
+          )}
+        </CountdownCircleTimer>
+        <div className={styles.controls}>
+          <button onClick={handleCancel}>
+            <div>Cancel</div>
+          </button>
+          <button disabled={isFinished} onClick={() => setIsCountingDown((prev) => !prev)}>
+            <div>{buttonText}</div>
+          </button>
+        </div>
       </div>
-
-      {sequence && <ComboCard sequence={sequence} />}
-    </div>
+      {sequence.length > 0 && <ComboCard sequence={sequence} />}
+    </>
   );
 }

@@ -14,11 +14,13 @@ import GenerateComboForm from "./GenerateComboForm/GenerateComboForm";
 
 // icons
 import { MdInfoOutline } from "react-icons/md";
+import { useTimerDataContext } from "@/src/context/TimerData.context";
 
 export default function TimerPage() {
   // init state
   const [randomCombo, setRandomCombo] = useState<string[]>([]);
-  const [isTimerActive, setIsTimerActive] = useState<boolean>(false);
+
+  const { isTimerActive, setIsTimerActive } = useTimerDataContext();
 
   // Show form to initialise settings for Timer component
   if (!isTimerActive) {
@@ -45,7 +47,7 @@ export default function TimerPage() {
 
   // Show Timer
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.timerWrapper}>
       <Timer
         setIsTimerActive={setIsTimerActive}
         sequence={randomCombo}

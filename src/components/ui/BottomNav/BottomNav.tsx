@@ -1,23 +1,24 @@
 "use client";
 
-// styles
 import styles from "./BottomNav.module.scss";
 
-// next
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// icons
 import { GoHome } from "react-icons/go";
 import { IoTimerOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
 
-// components
 import BackButton from "../../buttons/BackButton/BackButton";
+
+import { useTimerDataContext } from "@/src/context/TimerData.context";
+import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 
 export default function BottomNav() {
   const path = usePathname();
+  const { isTimerActive } = useTimerDataContext();
+  const { isWorkoutMode } = useWorkoutTimerDataContext();
 
   // init links view for authenticated users
   const authLinks = [
@@ -66,6 +67,12 @@ export default function BottomNav() {
     }
     return null;
   };
+
+  if (isTimerActive) {
+    return null;
+  } else if (isWorkoutMode) {
+    return null;
+  }
 
   return (
     <nav className={styles.nav}>
