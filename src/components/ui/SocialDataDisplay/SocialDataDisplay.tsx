@@ -4,7 +4,7 @@ import LikeButton from "../../buttons/LikeButton/LikeButton";
 import SaveButton from "../../buttons/SaveButton/SaveButton";
 import styles from "./SocialDataDisplay.module.scss";
 import { FiBarChart2 } from "react-icons/fi";
-import { experimental_useOptimistic as useOptimistic } from "react";
+import { useOptimistic } from "react";
 
 interface LikesDisplayPropTypes {
   likes: number;

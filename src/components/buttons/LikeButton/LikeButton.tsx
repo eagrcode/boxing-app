@@ -11,7 +11,7 @@ import likeWorkout from "./likeWorkout";
 
 import Button from "./Button";
 
-import { experimental_useOptimistic as useOptimistic } from "react";
+import { useOptimistic } from "react";
 
 interface LikesDisplayPropTypes {
   id: string;

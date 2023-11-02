@@ -1,5 +1,5 @@
 import styles from "./SaveButton.module.scss";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
 export default function Button({ optimisticSave }: { optimisticSave: boolean | null }) {
