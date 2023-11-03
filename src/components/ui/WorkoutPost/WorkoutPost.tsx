@@ -3,6 +3,8 @@ import styles from "./WorkoutPost.module.scss";
 
 // next
 import Link from "next/link";
+import Image from "next/image";
+import { cookies } from "next/headers";
 
 // utils
 import getWorkoutLikesCount from "@/src/lib/services/getWorkoutLikes";
@@ -23,6 +25,8 @@ import { BsLightningCharge, BsHourglassTop } from "react-icons/bs";
 // types
 import type { WorkoutPostPropTypes } from "./workoutPost.types";
 
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
 export default async function WorkoutPost({
   variant,
   id,
@@ -36,7 +40,16 @@ export default async function WorkoutPost({
   createdBy,
   createdAt,
   plays,
+  name,
 }: WorkoutPostPropTypes) {
+  // init supabase client
+  const supabase = createServerComponentClient({ cookies });
+
+  // get session data
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   // calc total workout time
   const totalTime = Math.floor(
     workoutWarmupTime + workoutRoundTime * workoutRounds + workoutRestTime * (workoutRounds - 1)
@@ -53,7 +66,10 @@ export default async function WorkoutPost({
       <Link className={styles.linkWrapper} href={`${variant}${id}`}>
         <div className={styles.cardTop}>
           <div className={styles.usernameContainer}>
-            <GiHighPunch size={20} />
+            {/* <GiHighPunch size={20} /> */}
+            <div className={styles.avatar}>
+              <div>{name?.charAt(0)}</div>
+            </div>
             <p>{createdBy}</p>
           </div>
           <span>{formatTimeAgo(createdAt)}</span>
@@ -66,17 +82,17 @@ export default async function WorkoutPost({
         </div>
         <div className={styles.info}>
           <div className={styles.infoDisplay}>
-            <MdOutlineTimer size={20} />
+            <MdOutlineTimer size={18} />
             <span>{formatTimeDisplay(totalTime)}</span>
           </div>
           <div className={styles.infoDisplay}>
-            <BsLightningCharge size={20} />
+            <BsLightningCharge size={18} />
             <span>
               {workoutRounds} round{workoutRounds > 1 && "s"}
             </span>
           </div>
           <div className={styles.infoDisplay}>
-            <BsHourglassTop size={18} />
+            <BsHourglassTop size={16} />
             <span>{formatTimeDisplay(workoutRoundTime)}</span>
           </div>
         </div>

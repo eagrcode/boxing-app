@@ -34,7 +34,8 @@
 
 .usernameContainer {
   display: flex;
-  gap: 5px;
+  align-items: center;
+  gap: 8px;
 
   p {
     display: flex;
@@ -42,6 +43,29 @@
     gap: 5px;
     font-size: 1rem;
   }
+}
+
+.googleAvatar {
+  height: 30px;
+  width: 30px;
+
+  img {
+    border-radius: 50%;
+  }
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+
+  background-color: var(--accent-color-dark);
+  color: var(--text-color-main);
+  border: solid 2px hsla(230, 20%, 50%, 0.8);
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
 }
 
 .title {
