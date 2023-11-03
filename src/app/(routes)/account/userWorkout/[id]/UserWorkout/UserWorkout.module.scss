@@ -169,3 +169,20 @@
     }
   }
 }
+
+.timerWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100dvh;
+  gap: 1rem;
+  padding: 1rem;
+
+  header {
+    position: absolute;
+    top: 1rem;
+  }
+}

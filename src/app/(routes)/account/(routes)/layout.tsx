@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 import styles from "./page.module.scss";
 
 // components
-import UserAccountNav from "./UserAccountNav/UserAccountNav";
+import UserAccountNav from "../UserAccountNav/UserAccountNav";
 import LogoutButton from "@/src/components/buttons/LogoutButton/LogoutButton";
 
 // supabase client

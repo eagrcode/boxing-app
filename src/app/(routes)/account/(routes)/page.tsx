@@ -11,7 +11,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 // components
-import UserWorkoutList from "./UserWorkoutList/UserWorkoutList";
+import UserWorkoutList from "../UserWorkoutList/UserWorkoutList";
 
 export default async function AccountPage() {
   const supabase = createServerComponentClient({ cookies });

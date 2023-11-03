@@ -8,7 +8,7 @@ import Link from "next/link";
 import WorkoutPost from "@/src/components/ui/WorkoutPost/WorkoutPost";
 
 // utils
-import getUserWorkouts from "../getUserWorkouts";
+import getUserWorkouts from "../(routes)/getUserWorkouts";
 
 export const revalidate = 0;
 
