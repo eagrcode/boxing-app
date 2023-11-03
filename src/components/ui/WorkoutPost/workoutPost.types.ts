@@ -11,4 +11,5 @@ export interface WorkoutPostPropTypes {
   createdAt: string;
   createdBy: string;
   plays: number;
+  name: string;
 }

@@ -13,7 +13,7 @@ export default async function getUserWorkouts(id: string) {
       .select(
         `
         *,
-        profiles: user_id (username, email)
+        profiles: user_id (username, email, full_name)
       `
       )
       .eq("user_id", id)
