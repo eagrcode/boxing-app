@@ -2,7 +2,7 @@
 import styles from "./WorkoutsFeed.module.scss";
 
 // components
-import WorkoutPost from "@/src/components/ui/WorkoutPost/WorkoutPost";
+// import WorkoutPost from "@/src/components/ui/WorkoutPost/WorkoutPost";
 
 // utils
 import getWorkouts from "../getWorkouts";
@@ -35,6 +35,7 @@ export default async function WorkoutsFeed({ userID }: { userID: string }) {
           createdBy={workout.profiles.username || workout.profiles.email}
           createdAt={workout.created_at}
           plays={workout.plays}
+          name={workout.profiles.full_name}
         />
       ))}
     </div>

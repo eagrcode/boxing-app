@@ -35,6 +35,7 @@ export default async function UserWorkoutList({ userID }: { userID: string }) {
               createdAt={workout.created_at}
               createdBy={workout.profiles.username || workout.profiles.email}
               plays={workout.plays}
+              name={workout.profiles.full_name}
             />
           ))}
         </div>
