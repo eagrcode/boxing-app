@@ -1,35 +1,22 @@
 "use client";
-
-// styles
 import styles from "./UserWorkout.module.scss";
-
-// react
 import { useState } from "react";
 import React from "react";
-
-// next
-import { useRouter } from "next/navigation";
-
-// icons
-import { GiHighPunch } from "react-icons/gi";
 import { HiArrowSmRight } from "react-icons/hi";
 import { HiOutlineEllipsisHorizontal } from "react-icons/hi2";
 import { MdOutlineTimer } from "react-icons/md";
 import { BsLightningCharge, BsHourglassTop } from "react-icons/bs";
-
-// context
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
-
-// utils
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
-
-// components
 import DeleteModal from "./DeleteModal";
 import SocialDataDisplay from "@/src/components/ui/SocialDataDisplay/SocialDataDisplay";
-
 import addToHistory from "@/src/lib/services/addToHistory";
+import incrementPlays from "@/src/lib/services/incrementPlays";
 import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
+import { usePathname } from "next/navigation";
+import { BsFillVolumeUpFill } from "react-icons/bs";
+import { BsFillVolumeMuteFill } from "react-icons/bs";
 
 interface UserWorkoutPropTypes {
   id: string;
@@ -70,9 +57,9 @@ export default function UserWorkout({
 }: UserWorkoutPropTypes) {
   // init state
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
 
-  // init hooks
-  const router = useRouter();
+  const path = usePathname();
 
   // destructure context
   const {
@@ -90,10 +77,6 @@ export default function UserWorkout({
     workoutWarmupTime + workoutRoundTime * workoutRounds + workoutRestTime * (workoutRounds - 1)
   );
 
-  // const handleEditMode = () => {
-  //   setIsEditMode((prev) => !prev);
-  // };
-
   // handle workout timer start
   const handleStart = async () => {
     setRoundInfo({ round_info: roundInfo });
@@ -102,8 +85,8 @@ export default function UserWorkout({
     setWorkoutRestTime(workoutRestTime);
     setWorkoutWarmupTime(workoutWarmupTime);
     setIsWorkoutMode(true);
-    // router.push(`/workout/${id}`);
     await addToHistory(id);
+    await incrementPlays(id, path);
   };
 
   if (!isWorkoutMode) {
@@ -112,7 +95,6 @@ export default function UserWorkout({
         <div key={id} className={styles.card}>
           <div className={styles.cardTop}>
             <div className={styles.usernameContainer}>
-              <GiHighPunch size={20} />
               <p>{createdBy}</p>
             </div>
             <div className={styles.cardTopRight}>
@@ -135,13 +117,11 @@ export default function UserWorkout({
             </div>
             <div className={styles.infoDisplay}>
               <BsLightningCharge size={20} />
-              <span>
-                {workoutRounds} round{workoutRounds > 1 && "s"}
-              </span>
+              <span>{workoutRounds}</span>
             </div>
             <div className={styles.infoDisplay}>
-              <BsHourglassTop size={20} />
-              <span>{formatTimeDisplay(workoutRoundTime)} / round</span>
+              <BsHourglassTop size={18} />
+              <span>{formatTimeDisplay(workoutRoundTime)}</span>
             </div>
           </div>
           <div className={styles.comboContainer}>
@@ -173,9 +153,9 @@ export default function UserWorkout({
               savesCount={savesCount}
             />
             <div className={styles.btnContainer}>
-              <button onClick={handleStart} className={styles.btnStart}>
-                START
-              </button>
+              <form action={() => handleStart()}>
+                <button className={styles.btnStart}>START</button>
+              </form>
             </div>
           </div>
 
@@ -187,7 +167,10 @@ export default function UserWorkout({
 
   return (
     <div className={styles.timerWrapper}>
-      <WorkoutTimer id={id} setIsWorkoutMode={setIsWorkoutMode} />
+      <WorkoutTimer id={id} setIsWorkoutMode={setIsWorkoutMode} isMuted={isMuted} />
+      <button onClick={() => setIsMuted((prev) => !prev)} className={styles.muteBtn}>
+        {isMuted ? <BsFillVolumeMuteFill size={25} /> : <BsFillVolumeUpFill size={25} />}
+      </button>
     </div>
   );
 }

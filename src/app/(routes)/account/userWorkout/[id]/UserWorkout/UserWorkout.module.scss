@@ -171,7 +171,6 @@
 }
 
 .timerWrapper {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -185,4 +184,11 @@
     position: absolute;
     top: 1rem;
   }
+}
+
+.muteBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: white;
 }

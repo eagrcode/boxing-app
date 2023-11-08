@@ -16,9 +16,9 @@ export default async function UserSavedWorkouts({ userID }: { userID: string }) 
 
   return (
     <div className={styles.wrapper}>
-      {savedWorkouts && (
-        <div className={styles.container}>
-          {savedWorkouts?.map((save) => (
+      <div className={styles.container}>
+        {savedWorkouts &&
+          savedWorkouts?.map((save) => (
             <WorkoutPost
               variant={"/workout/"}
               key={save.id}
@@ -33,10 +33,10 @@ export default async function UserSavedWorkouts({ userID }: { userID: string }) 
               createdAt={save.workouts.created_at}
               createdBy={save.profiles.username || save.profiles.email}
               plays={save.workouts.plays}
+              name={save.profiles.full_name}
             />
           ))}
-        </div>
-      )}
+      </div>
     </div>
   );
 }
