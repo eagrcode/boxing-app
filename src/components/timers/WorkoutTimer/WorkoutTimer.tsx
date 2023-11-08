@@ -1,29 +1,19 @@
 "use client";
 
-// styles
 import styles from "./WorkoutTimer.module.scss";
-
-// react
-import { useState, useEffect, useMemo, useCallback } from "react";
-
-// libraries
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-
-// components
 import ComboCard from "@/src/app/(routes)/timer/ComboCard/ComboCard";
-
-// context
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
-
-// utils
-import incrementPlays from "@/src/lib/services/incrementPlays";
 
 const WorkoutTimer = ({
   setIsWorkoutMode,
   id,
+  isMuted,
 }: {
   setIsWorkoutMode: React.Dispatch<React.SetStateAction<boolean>>;
   id: string;
+  isMuted: boolean;
 }) => {
   // destructure context
   const { roundInfo, workoutRounds, workoutRoundTime, workoutRestTime, workoutWarmupTime } =
@@ -38,26 +28,16 @@ const WorkoutTimer = ({
   const [currentCombo, setCurrentCombo] = useState<number>(0);
   const [timerKey, setTimerKey] = useState<number>(0);
 
-  console.log("current duration: ", currentDuration);
-  console.log("warmup time: ", workoutWarmupTime);
-  console.log("round time: ", workoutRoundTime);
-  console.log("rest time: ", workoutRestTime);
+  // refs
+  const audioRefBellSingle = useRef<HTMLAudioElement | null>(null);
+  const audioRefBell = useRef<HTMLAudioElement | null>(null);
+  const audioRef321 = useRef<HTMLAudioElement | null>(null);
 
   // calculate total rounds & format round types
   const totalRounds = useMemo(() => workoutRounds * 2, [workoutRounds]);
   const isWarmupRound = useMemo(() => currentRound === 1, [currentRound]);
   const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
   const isRestRound = useMemo(() => currentRound > 1 && currentRound % 2 !== 0, [currentRound]);
-
-  console.log(totalRounds);
-
-  // logs
-  console.log(currentCombo);
-  console.log("current round: ", currentRound);
-  console.log("display round: ", displayRound);
-  console.log("Warmup: ", isWarmupRound);
-  console.log("Fight: ", isFightRound);
-  console.log("Rest: ", isRestRound);
 
   // format display based on round type
   const renderTimerText = (remainingTime: number) => {
@@ -103,6 +83,13 @@ const WorkoutTimer = ({
   // format button text
   const buttonText = isCountingDown ? "Pause" : "Resume";
 
+  // Mute or unmute audio based on the isMuted prop
+  useEffect(() => {
+    audioRef321.current && (audioRef321.current.muted = isMuted);
+    audioRefBellSingle.current && (audioRefBellSingle.current.muted = isMuted);
+    audioRefBell.current && (audioRefBell.current.muted = isMuted);
+  }, [isMuted]);
+
   // change duration based on round type
   useEffect(() => {
     if (isFightRound) {
@@ -112,6 +99,7 @@ const WorkoutTimer = ({
     }
   }, [isFightRound, isRestRound, workoutRoundTime, workoutRestTime, setCurrentDuration]);
 
+  // change to next round combo when rest round
   useEffect(() => {
     if (isRestRound) {
       setCurrentCombo((prev) => prev + 1);
@@ -125,9 +113,14 @@ const WorkoutTimer = ({
     }
   }, [currentRound, isFightRound, setDisplayRound]);
 
-  // logic for end of rounds/workout
+  // end of rounds/workout
   const handleOnComplete = useCallback(() => {
     if (currentRound < totalRounds) {
+      if (currentRound % 2 === 0) {
+        audioRefBell.current?.play();
+      } else {
+        audioRefBellSingle.current?.play();
+      }
       setCurrentRound((prev) => prev + 1);
       setTimerKey((prev) => prev + 1);
       return { shouldRepeat: true, delay: 0 };
@@ -135,22 +128,8 @@ const WorkoutTimer = ({
       setIsCountingDown(false);
       setIsFinished(true);
       return { shouldRepeat: false };
-
-      // increment play of this workout by 1
-
-      // add to user history
     }
   }, [currentRound, totalRounds]);
-
-  useEffect(() => {
-    const incrementPlayCount = async () => {
-      if (isFinished) {
-        await incrementPlays(id, isFinished);
-      }
-    };
-
-    incrementPlayCount();
-  }, [id, isFinished]);
 
   // reset state to defaults and render form components again
   const handleCancel = useCallback(() => {
@@ -181,11 +160,17 @@ const WorkoutTimer = ({
           size={318}
           onComplete={handleOnComplete}
         >
-          {({ remainingTime }) => (
-            <div role="timer" aria-live="assertive" className={styles.timeText}>
-              {renderTimerText(remainingTime)}
-            </div>
-          )}
+          {({ remainingTime }) => {
+            setTimeout(() => {
+              remainingTime === 4 && audioRef321.current?.play();
+            }, 500);
+
+            return (
+              <div role="timer" aria-live="assertive" className={styles.timeText}>
+                {renderTimerText(remainingTime)}
+              </div>
+            );
+          }}
         </CountdownCircleTimer>
         <div className={styles.controls}>
           <button onClick={handleCancel}>
@@ -197,6 +182,9 @@ const WorkoutTimer = ({
         </div>
       </div>
       <ComboCard sequence={roundInfo.round_info[currentCombo].sequence} />
+      <audio preload="none" ref={audioRefBellSingle} src="/assets/audio/boxing-bell-single.mp3" />
+      <audio preload="none" ref={audioRefBell} src="/assets/audio/boxing-bell.mp3" />
+      <audio preload="none" ref={audioRef321} src="/assets/audio/321.mp3" />
     </>
   );
 };

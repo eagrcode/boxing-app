@@ -50,13 +50,6 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
   const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
   const isRestRound = useMemo(() => currentRound > 1 && currentRound % 2 !== 0, [currentRound]);
 
-  useEffect(() => {
-    // Mute or unmute audio based on the isMuted prop
-    audioRef321.current && (audioRef321.current.muted = isMuted);
-    audioRefBellSingle.current && (audioRefBellSingle.current.muted = isMuted);
-    audioRefBell.current && (audioRefBell.current.muted = isMuted);
-  }, [isMuted]);
-
   // format display based on round type
   const renderTimerText = (remainingTime: number) => {
     switch (true) {
@@ -100,6 +93,13 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
 
   // format button text
   const buttonText = isCountingDown ? "Pause" : "Resume";
+
+  // Mute or unmute audio based on the isMuted prop
+  useEffect(() => {
+    audioRef321.current && (audioRef321.current.muted = isMuted);
+    audioRefBellSingle.current && (audioRefBellSingle.current.muted = isMuted);
+    audioRefBell.current && (audioRefBell.current.muted = isMuted);
+  }, [isMuted]);
 
   // change duration based on round type
   useEffect(() => {
