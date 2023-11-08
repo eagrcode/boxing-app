@@ -1,9 +1,11 @@
-"use client";
+"use server";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 export default async function addToHistory(id: string) {
-  const supabase = createClientComponentClient();
+  const supabase = createServerComponentClient({ cookies });
 
   const { data, error } = await supabase.from("user_workout_history").upsert([{ workout_id: id }]);
 
@@ -12,4 +14,6 @@ export default async function addToHistory(id: string) {
   } else {
     console.log("Added to user history: ", data);
   }
+
+  revalidatePath("/account/history");
 }
