@@ -1,25 +1,22 @@
 "use client";
 
-// styles
 import styles from "./page.module.scss";
-
-// react
 import { useState } from "react";
-
-// components
 import ComboCard from "./ComboCard/ComboCard";
 import Timer from "./Timer/Timer";
 import InitiateTimerForm from "./InitiateTimerForm/InitiateTimerForm";
 import GenerateComboForm from "./GenerateComboForm/GenerateComboForm";
-
-// icons
 import { MdInfoOutline } from "react-icons/md";
+import { BsFillVolumeUpFill } from "react-icons/bs";
+import { BsFillVolumeMuteFill } from "react-icons/bs";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
 
 export default function TimerPage() {
   // init state
   const [randomCombo, setRandomCombo] = useState<string[]>([]);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
 
+  // context
   const { isTimerActive, setIsTimerActive } = useTimerDataContext();
 
   // Show form to initialise settings for Timer component
@@ -52,7 +49,11 @@ export default function TimerPage() {
         setIsTimerActive={setIsTimerActive}
         sequence={randomCombo}
         setRandomCombo={setRandomCombo}
+        isMuted={isMuted}
       />
+      <button onClick={() => setIsMuted((prev) => !prev)} className={styles.muteBtn}>
+        {isMuted ? <BsFillVolumeMuteFill size={25} /> : <BsFillVolumeUpFill size={25} />}
+      </button>
     </div>
   );
 }

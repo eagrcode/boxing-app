@@ -1,19 +1,20 @@
-"use client";
+"use server";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 
-export default async function incrementPlays(id: string, isFinished: boolean) {
-  const supabase = createClientComponentClient();
+export default async function incrementPlays(id: string, path: string) {
+  const supabase = createServerComponentClient({ cookies });
 
-  console.log("WORKOUT ID PLAYS", id);
+  console.log("WORKOUT ID PLAYS", id, path);
 
-  if (isFinished) {
-    const { data, error } = await supabase.rpc("increment_plays", { workout_id: id });
+  const { data, error } = await supabase.rpc("increment_plays", { workout_id: id });
 
-    if (error) {
-      console.log(error.message);
-    } else {
-      console.log("Play count + 1: ", data);
-    }
-  } else return;
+  if (error) {
+    console.log(error.message);
+  } else {
+    console.log("Play count + 1: ", data);
+  }
+  revalidatePath(path);
 }

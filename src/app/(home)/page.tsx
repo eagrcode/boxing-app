@@ -41,31 +41,14 @@ export default async function Index() {
     return (
       <div className={styles.pageWrapper}>
         <div className={styles.hero}>
-          {/* <div className={styles.fistLeft}>
-              <Image
-                src={FistLeft}
-                alt="Fist left"
-                style={{ height: "auto", width: "100%" }}
-              ></Image>
-            </div>
-
-            <div className={styles.fistRight}>
-              <Image
-                src={FistRight}
-                alt="Fist right"
-                style={{ height: "auto", width: "100%" }}
-              ></Image>
-            </div> */}
           <h1>
-            <span style={{ color: "white" }}>FIGHT</span>
+            <span style={{ color: "white" }}>BEAT</span>
             <span
               style={{
-                WebkitTextStroke: "3px var(--accent-color-blue)",
-                color: "transparent",
-                marginLeft: "3px",
+                color: "var(--accent-color-blue)",
               }}
             >
-              X
+              DOWN
             </span>
           </h1>
           <p>
@@ -86,7 +69,7 @@ export default async function Index() {
           <div className={styles.featureContainer}>
             <div className={styles.featureCard}>
               <div className={styles.featureContent}>
-                <h2>Get Ready to Crush Your Goals</h2>
+                <h2>Crush Your Goals</h2>
                 <p>
                   Our app doubles as a powerful interval timer, helping you optimize your training
                   sessions. Whether you're into high-intensity interval training or just need a

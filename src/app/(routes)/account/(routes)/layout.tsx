@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 import styles from "./page.module.scss";
 
 // components
-import UserAccountNav from "./UserAccountNav/UserAccountNav";
+import UserAccountNav from "../UserAccountNav/UserAccountNav";
 import LogoutButton from "@/src/components/buttons/LogoutButton/LogoutButton";
 
 // supabase client
@@ -40,16 +40,21 @@ export default async function AccountLayout({ children }: { children: React.Reac
           </div>
           <p>{profileData?.username || profileData?.email}</p>
         </div>
-        <div className={styles.avatar}>
-          <div>{profileData?.full_name.charAt(0)}</div>
-          {/* <Image
-            src={`${user?.user_metadata.avatar_url}`}
-            alt="User avatar"
-            style={{ height: "auto", width: "100%" }}
-            height={70}
-            width={70}
-          /> */}
-        </div>
+
+        {user?.user_metadata.avatar_url ? (
+          <div className={styles.googleAvatar}>
+            <Image
+              src={`${user?.user_metadata.avatar_url}`}
+              alt="User avatar"
+              height={65}
+              width={65}
+            />
+          </div>
+        ) : (
+          <div className={styles.avatar}>
+            <div>{profileData?.full_name.charAt(0)}</div>
+          </div>
+        )}
       </div>
       <UserAccountNav />
       {children}

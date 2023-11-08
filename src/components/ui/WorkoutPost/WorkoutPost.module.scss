@@ -7,7 +7,7 @@
   padding: 0 1rem 1rem 1rem;
   gap: 1rem;
 
-  @media (min-width: 900px) {
+  @media (min-width: 768px) {
     padding: 0 0 1rem 0;
   }
 }
@@ -34,7 +34,8 @@
 
 .usernameContainer {
   display: flex;
-  gap: 5px;
+  align-items: center;
+  gap: 8px;
 
   p {
     display: flex;
@@ -42,6 +43,34 @@
     gap: 5px;
     font-size: 1rem;
   }
+}
+
+.googleAvatar {
+  height: 30px;
+  width: 30px;
+
+  img {
+    border-radius: 50%;
+  }
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  background-color: var(--accent-color-dark);
+  color: var(--text-color-main);
+  border: solid 2px hsla(229, 84%, 82%, 0.8);
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+}
+
+.titleContainer {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .title {
@@ -56,9 +85,7 @@
 .info {
   display: flex;
   gap: 1rem;
-
   width: fit-content;
-
   border-radius: 5px;
 }
 
@@ -66,36 +93,5 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 5px;
-  border: solid 1px var(--accent-color-outline);
-  border-radius: 5px;
-  background-color: var(--accent-color-dark);
-}
-
-.btnContainer {
-  display: flex;
-  gap: 1rem;
-
-  button {
-    font-weight: bold;
-    font-size: 1rem;
-    background-color: transparent;
-    border: transparent;
-    outline: transparent;
-
-    color: var(--text-color-main);
-    padding: 5px;
-  }
-}
-
-.btnStart {
-  color: var(--accent-color-red);
-  border: solid 1px var(--accent-color-red);
-  border-radius: 2px;
-}
-
-.socialBtnContainer {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  color: var(--text-color-accent);
 }

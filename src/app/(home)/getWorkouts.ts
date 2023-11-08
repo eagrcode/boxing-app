@@ -13,7 +13,7 @@ export default async function getWorkouts() {
       .select(
         `
         *,
-        profiles: user_id (username, email)
+        profiles: user_id (username, email, full_name)
       `
       )
       .eq("is_public", true)

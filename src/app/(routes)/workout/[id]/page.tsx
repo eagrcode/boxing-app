@@ -71,6 +71,7 @@ export default async function WorkoutPage({ params }: WorkoutPageProps) {
         isLiked={isLiked}
         plays={workoutData?.plays}
         savesCount={savesCount}
+        name={workoutData.profiles.full_name}
       />
     </div>
   );

@@ -13,7 +13,7 @@ export default async function getUserSavedWorkouts(id: string) {
       .select(
         `
         *,
-        profiles: user_id (username, email),
+        profiles: user_id (username, email, full_name),
         workouts: workout_id (*)
       `
       )

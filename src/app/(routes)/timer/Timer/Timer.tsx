@@ -1,29 +1,20 @@
-// styles
 import styles from "./Timer.module.scss";
-
-// react
-import { useState, useEffect, Dispatch, SetStateAction, useMemo, useCallback } from "react";
-
-// libraries
+import { useState, useEffect, Dispatch, SetStateAction, useMemo, useCallback, useRef } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-
-// components
 import ComboCard from "../ComboCard/ComboCard";
-
-// context
 import { useTimerDataContext } from "@/src/context/TimerData.context";
-
-// utils
 import getRandomCombo from "../getRandomCombo";
+import React from "react";
 
 interface TimerProps {
   setIsTimerActive: Dispatch<SetStateAction<boolean>>;
   sequence: string[];
   setRandomCombo: Dispatch<SetStateAction<string[]>>;
+  isMuted: boolean;
 }
 
-export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: TimerProps) {
-  // destructure context
+export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMuted }: TimerProps) {
+  // context
   const {
     difficulty,
     rounds,
@@ -48,24 +39,16 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
   const [displayRound, setDisplayRound] = useState<number>(1);
   const [timerKey, setTimerKey] = useState<number>(0);
 
-  console.log("current duration: ", currentDuration);
-  console.log("warmup time: ", warmupTime);
-  console.log("round time: ", roundTime);
-  console.log("rest time: ", restTime);
+  // refs
+  const audioRefBellSingle = useRef<HTMLAudioElement | null>(null);
+  const audioRefBell = useRef<HTMLAudioElement | null>(null);
+  const audioRef321 = useRef<HTMLAudioElement | null>(null);
 
   // calculate total rounds & format round types
   const totalRounds = useMemo(() => rounds * 2, [rounds]);
   const isWarmupRound = useMemo(() => currentRound === 1, [currentRound]);
   const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
   const isRestRound = useMemo(() => currentRound > 1 && currentRound % 2 !== 0, [currentRound]);
-
-  // logs
-  console.log("total rounds: ", totalRounds);
-  console.log("current round: ", currentRound);
-  console.log("display round: ", displayRound);
-  console.log("Warmup: ", isWarmupRound);
-  console.log("Fight: ", isFightRound);
-  console.log("Rest: ", isRestRound);
 
   // format display based on round type
   const renderTimerText = (remainingTime: number) => {
@@ -111,6 +94,13 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
   // format button text
   const buttonText = isCountingDown ? "Pause" : "Resume";
 
+  // Mute or unmute audio based on the isMuted prop
+  useEffect(() => {
+    audioRef321.current && (audioRef321.current.muted = isMuted);
+    audioRefBellSingle.current && (audioRefBellSingle.current.muted = isMuted);
+    audioRefBell.current && (audioRefBell.current.muted = isMuted);
+  }, [isMuted]);
+
   // change duration based on round type
   useEffect(() => {
     if (isFightRound) {
@@ -119,6 +109,16 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
       setCurrentDuration(restTime);
     }
   }, [isFightRound, isRestRound, setCurrentDuration, roundTime, restTime]);
+
+  // play end of round countdown
+
+  // useEffect(() => {
+  //   if (remainingTimeRef.current === 3) {
+  //     if (audioRef321.current) {
+  //       audioRef321.current.play();
+  //     }
+  //   }
+  // }, [remainingTimeRef.current]);
 
   // increment display round from second round onwards
   useEffect(() => {
@@ -141,13 +141,19 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
 
   // logic for end of rounds/workout
   const handleOnComplete = useCallback(() => {
-    console.log("HANDLE COMPLETE rendered");
-
     if (currentRound < totalRounds) {
+      if (currentRound % 2 === 0) {
+        audioRefBell.current?.play();
+      } else {
+        audioRefBellSingle.current?.play();
+      }
+
       setCurrentRound((prev) => prev + 1);
       setTimerKey((prev) => prev + 1);
       return { shouldRepeat: true, delay: 0 };
     } else {
+      audioRefBell.current?.play();
+
       setIsCountingDown(false);
       setIsFinished(true);
       return { shouldRepeat: false };
@@ -199,11 +205,17 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
           size={318}
           onComplete={handleOnComplete}
         >
-          {({ remainingTime }) => (
-            <div role="timer" aria-live="assertive" className={styles.timeText}>
-              {renderTimerText(remainingTime)}
-            </div>
-          )}
+          {({ remainingTime }) => {
+            setTimeout(() => {
+              remainingTime === 4 && audioRef321.current?.play();
+            }, 500);
+
+            return (
+              <div role="timer" aria-live="assertive" className={styles.timeText}>
+                {renderTimerText(remainingTime)}
+              </div>
+            );
+          }}
         </CountdownCircleTimer>
         <div className={styles.controls}>
           <button onClick={handleCancel}>
@@ -215,6 +227,9 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo }: Ti
         </div>
       </div>
       {sequence.length > 0 && <ComboCard sequence={sequence} />}
+      <audio preload="none" ref={audioRefBellSingle} src="/assets/audio/boxing-bell-single.mp3" />
+      <audio preload="none" ref={audioRefBell} src="/assets/audio/boxing-bell.mp3" />
+      <audio preload="none" ref={audioRef321} src="/assets/audio/321.mp3" />
     </>
   );
 }

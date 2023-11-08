@@ -1,34 +1,21 @@
 "use client";
 
-// styles
 import styles from "./Workout.module.scss";
-
-// react
-import React from "react";
-import { useState } from "react";
-
-// context
+import React, { useState } from "react";
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
-
-// components
 import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
-import LikeButton from "@/src/components/buttons/LikeButton/LikeButton";
 import SocialDataDisplay from "@/src/components/ui/SocialDataDisplay/SocialDataDisplay";
-import SaveButton from "@/src/components/buttons/SaveButton/SaveButton";
-
-// icons
 import { GiHighPunch } from "react-icons/gi";
 import { MdOutlineTimer } from "react-icons/md";
 import { BsLightningCharge, BsHourglassTop } from "react-icons/bs";
 import { HiArrowSmRight } from "react-icons/hi";
-
-// utils
+import { BsFillVolumeUpFill } from "react-icons/bs";
+import { BsFillVolumeMuteFill } from "react-icons/bs";
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
-
-// db types
-import type { Database } from "@/src/lib/database.types";
 import addToHistory from "@/src/lib/services/addToHistory";
+import incrementPlays from "@/src/lib/services/incrementPlays";
+import { usePathname } from "next/navigation";
 
 interface WorkoutPropTypes {
   id: string;
@@ -47,6 +34,7 @@ interface WorkoutPropTypes {
   isLiked: boolean | null;
   plays: number;
   savesCount: number;
+  name: string;
 }
 
 export default function Workout({
@@ -66,7 +54,13 @@ export default function Workout({
   isLiked,
   plays,
   savesCount,
+  name,
 }: WorkoutPropTypes) {
+  // init state
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+
+  const path = usePathname();
+
   // destructure context
   const {
     setWorkoutRounds,
@@ -92,6 +86,7 @@ export default function Workout({
     setWorkoutWarmupTime(workoutWarmupTime);
     setIsWorkoutMode(true);
     await addToHistory(id);
+    await incrementPlays(id, path);
   };
 
   if (!isWorkoutMode) {
@@ -99,7 +94,9 @@ export default function Workout({
       <div key={id} className={styles.card}>
         <div className={styles.cardTop}>
           <div className={styles.usernameContainer}>
-            <GiHighPunch size={20} />
+            <div className={styles.avatar}>
+              <div>{name?.charAt(0)}</div>
+            </div>
             <p>{createdBy}</p>
           </div>
           <span>{formatTimeAgo(createdAt)}</span>
@@ -115,13 +112,11 @@ export default function Workout({
           </div>
           <div className={styles.infoDisplay}>
             <BsLightningCharge size={20} />
-            <span>
-              {workoutRounds} round{workoutRounds > 1 && "s"}
-            </span>
+            <span>{workoutRounds}</span>
           </div>
           <div className={styles.infoDisplay}>
-            <BsHourglassTop size={20} />
-            <span>{formatTimeDisplay(workoutRoundTime)} / round</span>
+            <BsHourglassTop size={18} />
+            <span>{formatTimeDisplay(workoutRoundTime)}</span>
           </div>
           {/* <span>{workoutWarmupTime} sec / warmup</span> */}
         </div>
@@ -158,9 +153,9 @@ export default function Workout({
             savesCount={savesCount}
           />
           <div className={styles.btnContainer}>
-            <button onClick={handleStart} className={styles.btnStart}>
-              START
-            </button>
+            <form action={() => handleStart()}>
+              <button className={styles.btnStart}>START</button>
+            </form>
           </div>
         </div>
       </div>
@@ -170,7 +165,10 @@ export default function Workout({
   if (isWorkoutMode) {
     return (
       <div className={styles.timerWrapper}>
-        <WorkoutTimer id={id} setIsWorkoutMode={setIsWorkoutMode} />
+        <WorkoutTimer id={id} setIsWorkoutMode={setIsWorkoutMode} isMuted={isMuted} />
+        <button onClick={() => setIsMuted((prev) => !prev)} className={styles.muteBtn}>
+          {isMuted ? <BsFillVolumeMuteFill size={25} /> : <BsFillVolumeUpFill size={25} />}
+        </button>
       </div>
     );
   }

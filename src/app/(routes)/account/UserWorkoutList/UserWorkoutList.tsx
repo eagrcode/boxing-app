@@ -8,7 +8,7 @@ import Link from "next/link";
 import WorkoutPost from "@/src/components/ui/WorkoutPost/WorkoutPost";
 
 // utils
-import getUserWorkouts from "../getUserWorkouts";
+import getUserWorkouts from "../(routes)/getUserWorkouts";
 
 export const revalidate = 0;
 
@@ -35,6 +35,7 @@ export default async function UserWorkoutList({ userID }: { userID: string }) {
               createdAt={workout.created_at}
               createdBy={workout.profiles.username || workout.profiles.email}
               plays={workout.plays}
+              name={workout.profiles.full_name}
             />
           ))}
         </div>
