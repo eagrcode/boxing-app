@@ -18,7 +18,7 @@
   cursor: pointer;
 
   .tooltip-text {
-    visibility: hidden;
+    display: none;
     background-color: var(--accent-color-dark);
     color: var(--text-color-main);
     border: solid 1px var(--accent-color-outline);
@@ -34,6 +34,6 @@
   }
 
   &:hover .tooltip-text {
-    visibility: visible;
+    display: block;
   }
 }

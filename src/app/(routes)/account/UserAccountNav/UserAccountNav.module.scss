@@ -6,6 +6,10 @@
   gap: 3rem;
   border-bottom: solid 1px var(--accent-color-outline);
 
+  @media (min-width: 600px) {
+    padding: 0 1rem;
+  }
+
   .link {
     color: var(--text-color-accent);
     text-decoration: none;

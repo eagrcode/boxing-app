@@ -9,9 +9,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    // border-bottom: solid 2px hsla(230, 20%, 50%, 0.3);
-
     padding: 0 1rem;
+
+    @media (min-width: 768px) {
+      padding: 0;
+    }
 
     .topLeft {
       display: flex;
