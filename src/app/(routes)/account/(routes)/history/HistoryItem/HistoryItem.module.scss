@@ -11,6 +11,9 @@
 
     .itemLink {
       color: var(--accent-color-white);
+      display: flex;
+      gap: 1rem;
+      align-items: center;
     }
   }
 }
