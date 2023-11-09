@@ -4,19 +4,9 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import Image from "next/image";
-
-// styles
 import styles from "./page.module.scss";
-
-// components
 import WorkoutsFeed from "./WorkoutsFeed/WorkoutsFeed";
 import Logo from "@/src/components/ui/Logo/Logo";
-
-import FistLeft from "@/public/assets/images/fist-left.png";
-import FistRight from "@/public/assets/images/fist-right.png";
-import HeroImg from "@/public/assets/images/fightx-hero-img.png";
-import MobileImg from "@/public/assets/images/mobile-img.png";
-import IphoneImg from "@/public/assets/images/iphone-img.png";
 import TimerImg from "@/public/assets/images/timer-img.png";
 import FeedImg from "@/public/assets/images/feed-img.png";
 import ComboGImg from "@/public/assets/images/combo-g-img.png";
@@ -53,7 +43,7 @@ export default async function Index() {
           </h1>
           <p>
             Unlock your full potential, connect with fellow boxing enthusiasts, and take your
-            fitness journey to the next level with FightX. Join our community of fighters today!
+            fitness journey to the next level with Beatdown. Join our community of fighters today!
           </p>
           <div className={styles.btnContainer}>
             <Link href="/login">
@@ -71,9 +61,9 @@ export default async function Index() {
               <div className={styles.featureContent}>
                 <h2>Crush Your Goals</h2>
                 <p>
-                  Our app doubles as a powerful interval timer, helping you optimize your training
+                  Our app doubles as a powerful interval timer, helping you optimise your training
                   sessions. Whether you're into high-intensity interval training or just need a
-                  structured workout routine, FightX has got you covered.
+                  structured workout routine, Beatdown has got you covered.
                 </p>
               </div>
               <div className={styles.featureImg}>
