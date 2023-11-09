@@ -17,6 +17,7 @@ import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
 import { usePathname } from "next/navigation";
 import { BsFillVolumeUpFill } from "react-icons/bs";
 import { BsFillVolumeMuteFill } from "react-icons/bs";
+import StartButton from "@/src/components/buttons/StartButton/StartButton";
 
 interface UserWorkoutPropTypes {
   id: string;
@@ -154,7 +155,7 @@ export default function UserWorkout({
             />
             <div className={styles.btnContainer}>
               <form action={() => handleStart()}>
-                <button className={styles.btnStart}>START</button>
+                <StartButton />
               </form>
             </div>
           </div>

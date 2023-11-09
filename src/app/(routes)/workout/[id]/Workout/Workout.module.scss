@@ -98,16 +98,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    .btnStart {
-      font-size: 1rem;
-      font-weight: bold;
-      background-color: var(--accent-color-dark);
-      border: solid 1.5px hsla(230, 20%, 50%, 0.8);
-      padding: 8px;
-      border-radius: 5px;
-      color: var(--header-color-main);
-    }
   }
 }
 
