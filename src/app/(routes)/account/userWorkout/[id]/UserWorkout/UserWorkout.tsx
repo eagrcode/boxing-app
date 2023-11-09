@@ -36,6 +36,7 @@ interface UserWorkoutPropTypes {
   isLiked: boolean | null;
   plays: number;
   savesCount: number;
+  name: string;
 }
 
 export default function UserWorkout({
@@ -55,6 +56,7 @@ export default function UserWorkout({
   isLiked,
   plays,
   savesCount,
+  name,
 }: UserWorkoutPropTypes) {
   // init state
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -96,6 +98,9 @@ export default function UserWorkout({
         <div key={id} className={styles.card}>
           <div className={styles.cardTop}>
             <div className={styles.usernameContainer}>
+              <div className={styles.avatar}>
+                <div>{name?.charAt(0)}</div>
+              </div>
               <p>{createdBy}</p>
             </div>
             <div className={styles.cardTopRight}>
