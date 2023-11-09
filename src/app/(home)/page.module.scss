@@ -154,10 +154,18 @@
 
   h2 {
     color: black;
+
+    @media (min-width: 768px) {
+      font-size: 2rem;
+    }
   }
 
   p {
     color: var(--bg-color-main);
+
+    @media (min-width: 768px) {
+      font-size: 18px;
+    }
   }
 }
 
