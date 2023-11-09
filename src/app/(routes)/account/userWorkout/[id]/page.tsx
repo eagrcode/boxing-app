@@ -63,6 +63,7 @@ export default async function UserWorkoutPage({ params }: WorkoutPageProps) {
         savesCount={savesCount}
         userID={userID || ""}
         plays={workoutData?.plays}
+        name={workoutData?.profiles.full_name}
       />
     </>
   );

@@ -16,6 +16,7 @@ import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 import addToHistory from "@/src/lib/services/addToHistory";
 import incrementPlays from "@/src/lib/services/incrementPlays";
 import { usePathname } from "next/navigation";
+import StartButton from "@/src/components/buttons/StartButton/StartButton";
 
 interface WorkoutPropTypes {
   id: string;
@@ -154,7 +155,7 @@ export default function Workout({
           />
           <div className={styles.btnContainer}>
             <form action={() => handleStart()}>
-              <button className={styles.btnStart}>START</button>
+              <StartButton />
             </form>
           </div>
         </div>

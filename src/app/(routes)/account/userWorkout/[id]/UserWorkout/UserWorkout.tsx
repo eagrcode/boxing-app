@@ -17,6 +17,7 @@ import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
 import { usePathname } from "next/navigation";
 import { BsFillVolumeUpFill } from "react-icons/bs";
 import { BsFillVolumeMuteFill } from "react-icons/bs";
+import StartButton from "@/src/components/buttons/StartButton/StartButton";
 
 interface UserWorkoutPropTypes {
   id: string;
@@ -35,6 +36,7 @@ interface UserWorkoutPropTypes {
   isLiked: boolean | null;
   plays: number;
   savesCount: number;
+  name: string;
 }
 
 export default function UserWorkout({
@@ -54,6 +56,7 @@ export default function UserWorkout({
   isLiked,
   plays,
   savesCount,
+  name,
 }: UserWorkoutPropTypes) {
   // init state
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -95,6 +98,9 @@ export default function UserWorkout({
         <div key={id} className={styles.card}>
           <div className={styles.cardTop}>
             <div className={styles.usernameContainer}>
+              <div className={styles.avatar}>
+                <div>{name?.charAt(0)}</div>
+              </div>
               <p>{createdBy}</p>
             </div>
             <div className={styles.cardTopRight}>
@@ -154,7 +160,7 @@ export default function UserWorkout({
             />
             <div className={styles.btnContainer}>
               <form action={() => handleStart()}>
-                <button className={styles.btnStart}>START</button>
+                <StartButton />
               </form>
             </div>
           </div>
