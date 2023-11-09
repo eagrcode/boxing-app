@@ -1,8 +1,10 @@
 .logo {
   text-decoration: none;
 
+  font-weight: bold;
+
   &.logoHome {
-    font-size: 1.5rem;
+    font-size: 1rem;
     text-align: center;
 
     @media (min-width: 768px) {
@@ -13,6 +15,10 @@
   &.logoNav {
     position: absolute;
     font-size: 2rem;
-    left: 1rem;
+    left: 3rem;
+
+    @media (max-width: 900px) {
+      left: 1rem;
+    }
   }
 }
