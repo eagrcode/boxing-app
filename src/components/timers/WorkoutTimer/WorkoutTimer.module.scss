@@ -38,20 +38,26 @@
       height: 80px;
       background-color: transparent;
       color: white;
-      border: solid 1px hsl(0, 0%, 20%);
       font-size: 1rem;
-
-      div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1rem;
-        border-radius: 50%;
-        width: 72px;
-        height: 72px;
-        background-color: hsl(0, 0%, 10%);
-        font-size: 1rem;
-      }
     }
   }
+}
+
+.btnCancel {
+  box-shadow: 0 0 5px 1px var(--accent-color-red);
+  color: white;
+}
+
+.btnCancelDisabled {
+  color: var(--text-color-accent);
+}
+
+.btnToggleBlue {
+  box-shadow: 0 0 5px 1px hsl(239, 90%, 50%);
+  color: white;
+}
+
+.btnToggleOrange {
+  box-shadow: 0 0 5px 1px hsl(44, 90%, 40%);
+  color: white;
 }

@@ -31,7 +31,6 @@ const WorkoutTimer = ({
   // refs
   const audioRefBellSingle = useRef<HTMLAudioElement | null>(null);
   const audioRefBell = useRef<HTMLAudioElement | null>(null);
-  const audioRef321 = useRef<HTMLAudioElement | null>(null);
 
   // calculate total rounds & format round types
   const totalRounds = useMemo(() => workoutRounds * 2, [workoutRounds]);
@@ -85,7 +84,6 @@ const WorkoutTimer = ({
 
   // Mute or unmute audio based on the isMuted prop
   useEffect(() => {
-    audioRef321.current && (audioRef321.current.muted = isMuted);
     audioRefBellSingle.current && (audioRefBellSingle.current.muted = isMuted);
     audioRefBell.current && (audioRefBell.current.muted = isMuted);
   }, [isMuted]);
@@ -162,8 +160,12 @@ const WorkoutTimer = ({
         >
           {({ remainingTime }) => {
             setTimeout(() => {
-              remainingTime === 4 && audioRef321.current?.play();
-            }, 500);
+              if (isFightRound && remainingTime === 4) {
+                audioRefBell.current?.play();
+              } else if (remainingTime === 4) {
+                audioRefBellSingle.current?.play();
+              }
+            }, 580);
 
             return (
               <div role="timer" aria-live="assertive" className={styles.timeText}>
@@ -173,18 +175,27 @@ const WorkoutTimer = ({
           }}
         </CountdownCircleTimer>
         <div className={styles.controls}>
-          <button onClick={handleCancel}>
-            <div>Cancel</div>
+          <button
+            className={`${styles.btnCancel} ${isCountingDown && styles.btnCancelDisabled}`}
+            disabled={isCountingDown}
+            onClick={handleCancel}
+          >
+            Cancel
           </button>
-          <button disabled={isFinished} onClick={() => setIsCountingDown((prev) => !prev)}>
-            <div>{buttonText}</div>
+          <button
+            className={
+              isWarmupRound || isRestRound ? `${styles.btnToggleBlue}` : `${styles.btnToggleOrange}`
+            }
+            disabled={isFinished}
+            onClick={() => setIsCountingDown((prev) => !prev)}
+          >
+            {buttonText}
           </button>
         </div>
       </div>
       <ComboCard sequence={roundInfo.round_info[currentCombo].sequence} />
-      <audio preload="none" ref={audioRefBellSingle} src="/assets/audio/boxing-bell-single.mp3" />
-      <audio preload="none" ref={audioRefBell} src="/assets/audio/boxing-bell.mp3" />
-      <audio preload="none" ref={audioRef321} src="/assets/audio/321.mp3" />
+      <audio preload="none" ref={audioRefBellSingle} src="/assets/audio/321bellSingle.mp3" />
+      <audio preload="none" ref={audioRefBell} src="/assets/audio/321bell.mp3" />
     </>
   );
 };
