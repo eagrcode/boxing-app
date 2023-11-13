@@ -100,10 +100,10 @@ export default async function Index() {
               <div className={styles.featureContent}>
                 <h2>Automatic Combo Generation</h2>
                 <p>
-                  New to boxing or just looking for some guidance? FightX offers an automatic combo
-                  generation mode that provides you with ready-made combinations to follow during
-                  your workouts. It's the perfect feature for beginners and anyone who wants a
-                  helping hand in the ring.
+                  New to boxing or just looking for some guidance? Beatdown offers an automatic
+                  combo generation mode that provides you with ready-made combinations to follow
+                  during your workouts. It's the perfect feature for beginners and anyone who wants
+                  a helping hand in the ring.
                 </p>
               </div>
               <div className={styles.featureImg}>
