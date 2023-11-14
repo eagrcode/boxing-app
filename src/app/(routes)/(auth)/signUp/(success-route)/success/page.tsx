@@ -1,24 +1,7 @@
-export const dynamic = "force-dynamic";
-
 import styles from "./page.module.scss";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import Logo from "@/src/components/ui/Logo/Logo";
+import Logo from "@/src/components/shared/Logo/Logo";
 
-export default async function SuccessPage() {
-  const supabase = createServerComponentClient({ cookies });
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  console.log(session);
-
-  // if (session?.user || !session) {
-  //   redirect("/");
-  // }
-
+export default function SuccessPage() {
   return (
     <div className={styles.pageWrapper}>
       <Logo variant={"home"} />

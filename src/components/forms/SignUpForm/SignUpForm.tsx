@@ -1,20 +1,10 @@
 "use client";
-
-// next
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-// react
 import { FormEvent, useState } from "react";
-
-// styles
 import styles from "./SignUpForm.module.scss";
-
-// components
 import Button from "./Button";
-
-// utils
-import signUpEmail from "../signUpEmail";
+import signUpEmail from "@/src/lib/auth/signUpEmail";
 
 export default function SignUpForm() {
   // init state

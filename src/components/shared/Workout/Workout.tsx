@@ -4,7 +4,7 @@ import styles from "./Workout.module.scss";
 import React, { useState } from "react";
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
-import SocialDataDisplay from "@/src/components/ui/SocialDataDisplay/SocialDataDisplay";
+import SocialDataDisplay from "../SocialDataDisplay/SocialDataDisplay";
 import { GiHighPunch } from "react-icons/gi";
 import { MdOutlineTimer } from "react-icons/md";
 import { BsLightningCharge, BsHourglassTop } from "react-icons/bs";

@@ -1,22 +1,17 @@
 "use client";
 
-import styles from "./LeftSidebar.module.scss";
-
+import styles from "./BottomNav.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
 import { GoHome } from "react-icons/go";
 import { IoTimerOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
-
 import BackButton from "../../buttons/BackButton/BackButton";
-import Logo from "../Logo/Logo";
-
 import { useTimerDataContext } from "@/src/context/TimerData.context";
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 
-export default function LeftSidebar() {
+export default function BottomNav() {
   const path = usePathname();
   const { isTimerActive } = useTimerDataContext();
   const { isWorkoutMode } = useWorkoutTimerDataContext();
@@ -37,8 +32,8 @@ export default function LeftSidebar() {
     },
     {
       id: 3,
-      title: "Create",
-      url: "/createWorkout",
+      title: "Post",
+      url: "/post",
       icon: <IoCreateOutline size={30} />,
     },
     {
@@ -51,7 +46,10 @@ export default function LeftSidebar() {
 
   // Define a function to determine if the link should have active styles
   const shouldHaveActiveStyles = (path: string, linkUrl: string) => {
-    return path === linkUrl || (path !== "/" && path.startsWith(linkUrl + "/"));
+    return (
+      path === linkUrl ||
+      (path.startsWith(linkUrl) && (linkUrl !== "/" || path.startsWith("/workout/")))
+    );
   };
 
   // Conditionally render the BackButton based on the path
@@ -61,7 +59,7 @@ export default function LeftSidebar() {
       path.startsWith("/account/userWorkout/") ||
       path.startsWith("/account/savedWorkouts/")
     ) {
-      return <BackButton variant={"sidebar"} />;
+      return <BackButton />;
     }
     return null;
   };
@@ -74,7 +72,7 @@ export default function LeftSidebar() {
 
   return (
     <nav className={styles.nav}>
-      <Logo variant={"nav"} />
+      {renderBackButton()}
       <ul className={styles.menu}>
         {authLinks.map((link, index) => (
           <li key={index} className={styles.item}>
@@ -87,11 +85,9 @@ export default function LeftSidebar() {
               href={link.url}
             >
               {link.icon}
-              {/* {link.title} */}
             </Link>
           </li>
         ))}
-        {renderBackButton()}
       </ul>
     </nav>
   );

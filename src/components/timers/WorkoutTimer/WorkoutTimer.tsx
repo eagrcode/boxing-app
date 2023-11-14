@@ -3,7 +3,7 @@
 import styles from "./WorkoutTimer.module.scss";
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import ComboCard from "@/src/app/(routes)/timer/ComboCard/ComboCard";
+import ComboCard from "../../shared/ComboCard/ComboCard";
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 
 const WorkoutTimer = ({

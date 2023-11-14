@@ -1,21 +1,11 @@
 export const dynamic = "force-dynamic";
-
-// styles
 import styles from "./page.module.scss";
-
-// utils
 import getWorkoutById from "@/src/lib/services/getWorkoutById";
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
 import isSavedByUser from "@/src/lib/services/isSavedByUser";
 import isLikedByUser from "@/src/lib/services/isLikedByUser";
-
-// components
-import Workout from "./Workout/Workout";
-
-// supabase client
+import Workout from "@/src/components/shared/Workout/Workout";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-
-// next
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import getWorkoutSavesCount from "@/src/lib/services/getWorkoutSaves";

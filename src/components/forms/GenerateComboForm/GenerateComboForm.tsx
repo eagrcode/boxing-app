@@ -1,11 +1,6 @@
 import styles from "./GenerateComboForm.module.scss";
-
-// context
 import { useTimerDataContext } from "@/src/context/TimerData.context";
-
-// utils
-import getRandomCombo from "../getRandomCombo";
-
+import getRandomCombo from "@/src/lib/services/getRandomCombo";
 import { Dispatch, SetStateAction } from "react";
 
 interface GenerateComboFormProps {

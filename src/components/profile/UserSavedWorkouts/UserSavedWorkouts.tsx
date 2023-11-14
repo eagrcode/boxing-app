@@ -1,18 +1,9 @@
-// styles
 import styles from "./UserSavedWorkouts.module.scss";
-
-// components
-import WorkoutPost from "@/src/components/ui/WorkoutPost/WorkoutPost";
-
-// services
-import getUserSavedWorkouts from "../getUserSavedWorkouts";
-
-// react
+import WorkoutPost from "../../shared/WorkoutPost/WorkoutPost";
+import getUserSavedWorkouts from "@/src/lib/services/getUserSavedWorkouts";
 
 export default async function UserSavedWorkouts({ userID }: { userID: string }) {
   const savedWorkouts = await getUserSavedWorkouts(userID);
-
-  console.log("component data: ", savedWorkouts);
 
   return (
     <div className={styles.wrapper}>

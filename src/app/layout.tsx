@@ -3,13 +3,13 @@ export const dynamic = "force-dynamic";
 import "@/src/styles/normalize.css";
 import "@/src/styles/globals.scss";
 import "@/src/styles/variables.css";
-import LeftSidebar from "@/src/components/ui/LeftSidebar/LeftSidebar";
-import BottomNav from "@/src/components/ui/BottomNav/BottomNav";
 import { FightDataProvider } from "@/src/context/TimerData.context";
 import { WorkoutModeProvider } from "@/src/context/WorkoutTimerData.context";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { Roboto_Flex } from "next/font/google";
+import BottomNav from "../components/navigation/BottomNav/BottomNav";
+import LeftSidebar from "../components/navigation/LeftSidebar/LeftSidebar";
 
 export const metadata = {
   title: "Beatdown",

@@ -1,9 +1,9 @@
 import styles from "./Timer.module.scss";
 import { useState, useEffect, Dispatch, SetStateAction, useMemo, useCallback, useRef } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import ComboCard from "../ComboCard/ComboCard";
+import ComboCard from "../../shared/ComboCard/ComboCard";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
-import getRandomCombo from "../getRandomCombo";
+import getRandomCombo from "@/src/lib/services/getRandomCombo";
 import React from "react";
 
 interface TimerProps {

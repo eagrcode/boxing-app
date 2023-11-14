@@ -1,21 +1,18 @@
 "use client";
 
-import styles from "./BottomNav.module.scss";
-
+import styles from "./LeftSidebar.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
 import { GoHome } from "react-icons/go";
 import { IoTimerOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
-
 import BackButton from "../../buttons/BackButton/BackButton";
-
+import Logo from "../../shared/Logo/Logo";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 
-export default function BottomNav() {
+export default function LeftSidebar() {
   const path = usePathname();
   const { isTimerActive } = useTimerDataContext();
   const { isWorkoutMode } = useWorkoutTimerDataContext();
@@ -36,8 +33,8 @@ export default function BottomNav() {
     },
     {
       id: 3,
-      title: "Create",
-      url: "/createWorkout",
+      title: "Post",
+      url: "/post",
       icon: <IoCreateOutline size={30} />,
     },
     {
@@ -50,10 +47,7 @@ export default function BottomNav() {
 
   // Define a function to determine if the link should have active styles
   const shouldHaveActiveStyles = (path: string, linkUrl: string) => {
-    return (
-      path === linkUrl ||
-      (path.startsWith(linkUrl) && (linkUrl !== "/" || path.startsWith("/workout/")))
-    );
+    return path === linkUrl || (path !== "/" && path.startsWith(linkUrl + "/"));
   };
 
   // Conditionally render the BackButton based on the path
@@ -63,7 +57,7 @@ export default function BottomNav() {
       path.startsWith("/account/userWorkout/") ||
       path.startsWith("/account/savedWorkouts/")
     ) {
-      return <BackButton />;
+      return <BackButton variant={"sidebar"} />;
     }
     return null;
   };
@@ -76,7 +70,7 @@ export default function BottomNav() {
 
   return (
     <nav className={styles.nav}>
-      {renderBackButton()}
+      <Logo variant={"nav"} />
       <ul className={styles.menu}>
         {authLinks.map((link, index) => (
           <li key={index} className={styles.item}>
@@ -89,9 +83,11 @@ export default function BottomNav() {
               href={link.url}
             >
               {link.icon}
+              {/* {link.title} */}
             </Link>
           </li>
         ))}
+        {renderBackButton()}
       </ul>
     </nav>
   );
