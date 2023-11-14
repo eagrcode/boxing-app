@@ -7,7 +7,7 @@ import isLikedByUser from "@/src/lib/services/isLikedByUser";
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 import getWorkoutSavesCount from "@/src/lib/services/getWorkoutSaves";
-import SocialDataDisplay from "@/src/components/ui/SocialDataDisplay/SocialDataDisplay";
+import SocialDataDisplay from "@/src/components/shared/SocialDataDisplay/SocialDataDisplay";
 import { MdOutlineTimer } from "react-icons/md";
 import { BsLightningCharge, BsHourglassTop } from "react-icons/bs";
 import type { WorkoutPostPropTypes } from "./workoutPost.types";

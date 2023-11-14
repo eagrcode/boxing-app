@@ -5,14 +5,14 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./page.module.scss";
-import WorkoutsFeed from "./WorkoutsFeed/WorkoutsFeed";
-import Logo from "@/src/components/ui/Logo/Logo";
 import TimerImg from "@/public/assets/images/timer-img.png";
 import FeedImg from "@/public/assets/images/feed-img.png";
 import ComboGImg from "@/public/assets/images/combo-g-img.png";
 import MobileImg1 from "@/public/assets/images/4.png";
 import MobileImg2 from "@/public/assets/images/5.png";
 import MobileImg3 from "@/public/assets/images/6.png";
+import Logo from "@/src/components/shared/Logo/Logo";
+import WorkoutsFeed from "@/src/components/shared/WorkoutsFeed/WorkoutsFeed";
 
 export default async function Index() {
   const supabase = createServerComponentClient({ cookies });

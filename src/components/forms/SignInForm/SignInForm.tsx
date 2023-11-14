@@ -1,24 +1,15 @@
 "use client";
 
-// next
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-// react
 import { useState } from "react";
-
-// styles
 import styles from "./SignInForm.module.scss";
-
-// components
 import SubmitEmailButton from "./SubmitEmailButton";
 import SubmitGuestButton from "./SubmitGuestButton";
 import SubmitGoogleButton from "./SubmitGoogleButton";
-
-// utils
-import signInEmail from "../signInEmail";
-import signInGuest from "../signInGuest";
-import signInGoogle from "@/src/lib/services/signInGoogle";
+import signInEmail from "@/src/lib/auth/signInEmail";
+import signInGuest from "@/src/lib/auth/signInGuest";
+import signInGoogle from "@/src/lib/auth/signInGoogle";
 
 export default function SignInForm() {
   // init state

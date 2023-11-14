@@ -1,9 +1,6 @@
 "use client";
 
-// styles
 import styles from "./UserAccountNav.module.scss";
-
-// next
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

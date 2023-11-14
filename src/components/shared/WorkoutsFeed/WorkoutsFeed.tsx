@@ -1,16 +1,9 @@
-// styles
 import styles from "./WorkoutsFeed.module.scss";
-
-// components
-// import WorkoutPost from "@/src/components/ui/WorkoutPost/WorkoutPost";
-
-// utils
-import getWorkouts from "../getWorkouts";
-
+import getWorkouts from "@/src/lib/services/getWorkouts";
 import dynamic from "next/dynamic";
-import PostSkeleton from "@/src/components/ui/PostSkeleton/PostSkeleton";
+import PostSkeleton from "@/src/components/shared/PostSkeleton/PostSkeleton";
 
-const WithCustomLoading = dynamic(() => import("@/src/components/ui/WorkoutPost/WorkoutPost"), {
+const WithCustomLoading = dynamic(() => import("@/src/components/shared/WorkoutPost/WorkoutPost"), {
   loading: () => <PostSkeleton />,
 });
 

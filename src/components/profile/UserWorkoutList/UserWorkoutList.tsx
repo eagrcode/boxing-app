@@ -1,16 +1,7 @@
-// styles
 import styles from "./UserWorkoutList.module.scss";
-
-// next
 import Link from "next/link";
-
-// components
-import WorkoutPost from "@/src/components/ui/WorkoutPost/WorkoutPost";
-
-// utils
-import getUserWorkouts from "../(routes)/getUserWorkouts";
-
-export const revalidate = 0;
+import WorkoutPost from "../../shared/WorkoutPost/WorkoutPost";
+import getUserWorkouts from "@/src/lib/services/getUserWorkouts";
 
 export default async function UserWorkoutList({ userID }: { userID: string }) {
   // get workouts

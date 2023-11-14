@@ -2,10 +2,10 @@
 
 import styles from "./page.module.scss";
 import { useState } from "react";
-import ComboCard from "./ComboCard/ComboCard";
-import Timer from "./Timer/Timer";
-import InitiateTimerForm from "./InitiateTimerForm/InitiateTimerForm";
-import GenerateComboForm from "./GenerateComboForm/GenerateComboForm";
+import ComboCard from "@/src/components/shared/ComboCard/ComboCard";
+import Timer from "@/src/components/timers/Timer/Timer";
+import InitiateTimerForm from "@/src/components/forms/InitiateTimerForm/InitiateTimerForm";
+import GenerateComboForm from "@/src/components/forms/GenerateComboForm/GenerateComboForm";
 import { MdInfoOutline } from "react-icons/md";
 import { BsFillVolumeUpFill } from "react-icons/bs";
 import { BsFillVolumeMuteFill } from "react-icons/bs";

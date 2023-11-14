@@ -1,20 +1,13 @@
 export const dynamic = "force-dynamic";
 
-// utils
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
 import getWorkoutById from "@/src/lib/services/getWorkoutById";
 import isSavedByUser from "@/src/lib/services/isSavedByUser";
 import isLikedByUser from "@/src/lib/services/isLikedByUser";
 import getWorkoutSavesCount from "@/src/lib/services/getWorkoutSaves";
-
-// supabase client
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-
-// next
 import { cookies } from "next/headers";
-
-// components
-import UserWorkout from "./UserWorkout/UserWorkout";
+import UserWorkout from "@/src/components/profile/UserWorkout/UserWorkout";
 
 interface WorkoutPageProps {
   params: {

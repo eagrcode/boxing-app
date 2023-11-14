@@ -1,10 +1,10 @@
 export const dynamic = "force-dynamic";
 
 import styles from "./page.module.scss";
-import getUserHistory from "./getUserHistory";
+import getUserHistory from "@/src/lib/services/getUserHistory";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import HistoryItem from "./HistoryItem/HistoryItem";
+import HistoryItem from "@/src/components/profile/HistoryItem/HistoryItem";
 
 export default async function page() {
   const supabase = createServerComponentClient({ cookies });

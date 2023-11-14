@@ -1,19 +1,10 @@
 export const dynamic = "force-dynamic";
 
-// styles
 import styles from "./page.module.scss";
-
-// components
-import UserAccountNav from "../UserAccountNav/UserAccountNav";
+import UserAccountNav from "@/src/components/profile/UserAccountNav/UserAccountNav";
 import LogoutButton from "@/src/components/buttons/LogoutButton/LogoutButton";
-
-// supabase client
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-
-// next
 import { cookies } from "next/headers";
-
-// utils
 import getProfileData from "@/src/lib/services/getProfileData";
 import Image from "next/image";
 

@@ -1,4 +1,5 @@
 "use client";
+
 import styles from "./UserWorkout.module.scss";
 import { useState } from "react";
 import React from "react";
@@ -10,7 +11,7 @@ import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.conte
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 import DeleteModal from "./DeleteModal";
-import SocialDataDisplay from "@/src/components/ui/SocialDataDisplay/SocialDataDisplay";
+import SocialDataDisplay from "../../shared/SocialDataDisplay/SocialDataDisplay";
 import addToHistory from "@/src/lib/services/addToHistory";
 import incrementPlays from "@/src/lib/services/incrementPlays";
 import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
