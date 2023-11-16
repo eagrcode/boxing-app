@@ -30,23 +30,25 @@ export default function DeleteModal({ id, setShowDeleteModal }: DeleteModalPropT
   };
 
   return (
-    <div className={styles.deleteModal}>
-      <div className={styles.modalTextContainer}>
-        <p style={{ color: "var(--header-color-main)" }}>Delete workout?</p>
-        <p style={{ color: "var(--text-color-accent)" }}>
-          if You delete this workout, you won't be able to recover it.
-        </p>
-      </div>
-      <div className={styles.modalButtonContainer}>
-        <form action={() => handleDeleteWorkout(id, path)}>
-          <DeleteButton />
-        </form>
-        <button
-          onClick={() => setShowDeleteModal(false)}
-          style={{ color: "var(--text-color-main)" }}
-        >
-          Cancel
-        </button>
+    <div className={styles.modalWrapper}>
+      <div className={styles.deleteModal}>
+        <div className={styles.modalTextContainer}>
+          <p style={{ color: "var(--header-color-main)" }}>Delete workout?</p>
+          <p style={{ color: "var(--text-color-accent)" }}>
+            if You delete this workout, you won't be able to recover it.
+          </p>
+        </div>
+        <div className={styles.modalButtonContainer}>
+          <form action={() => handleDeleteWorkout(id, path)}>
+            <DeleteButton />
+          </form>
+          <button
+            onClick={() => setShowDeleteModal(false)}
+            style={{ color: "var(--text-color-main)" }}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );
