@@ -13,15 +13,12 @@ export async function middleware(req: NextRequest) {
     req.nextUrl.pathname.startsWith(path)
   );
 
+  const supabase = createMiddlewareClient({ req, res: NextResponse.next() });
+  const session = await supabase.auth.getSession();
+
   if (requiresAuthentication) {
-    const supabase = createMiddlewareClient({ req, res: NextResponse.next() });
-
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-
     // Redirect to login if not authenticated
-    if (!session) {
+    if (!session.data.session) {
       return NextResponse.redirect(`${req.nextUrl.origin}/login`);
     }
   }
