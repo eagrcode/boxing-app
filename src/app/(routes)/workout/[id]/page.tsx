@@ -1,4 +1,5 @@
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
+
 import styles from "./page.module.scss";
 import getWorkoutById from "@/src/lib/services/getWorkoutById";
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
@@ -18,7 +19,8 @@ interface WorkoutPageProps {
 
 export default async function WorkoutPage({ params }: WorkoutPageProps) {
   // init supabase client
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
   // get user data
   const {

@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 import styles from "./page.module.scss";
 import UserAccountNav from "@/src/components/profile/UserAccountNav/UserAccountNav";
@@ -9,8 +9,8 @@ import getProfileData from "@/src/lib/services/getProfileData";
 import Image from "next/image";
 
 export default async function AccountLayout({ children }: { children: React.ReactNode }) {
-  // init supabase client
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
   // get session data
   const {

@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
@@ -15,7 +15,8 @@ import Logo from "@/src/components/shared/Logo/Logo";
 import WorkoutsFeed from "@/src/components/shared/WorkoutsFeed/WorkoutsFeed";
 
 export default async function Index() {
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
   const {
     data: { user },

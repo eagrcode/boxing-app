@@ -1,11 +1,11 @@
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
+import { Database } from "@/src/lib/database.types";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-  const supabase = createRouteHandlerClient({ cookies });
   const { searchParams } = new URL(req.url);
   const code = searchParams.get("code");
 
@@ -13,6 +13,8 @@ export async function GET(req: NextRequest) {
   console.log(req.url);
 
   if (code) {
+    const cookieStore = cookies();
+    const supabase = createRouteHandlerClient<Database>({ cookies: () => cookieStore });
     await supabase.auth.exchangeCodeForSession(code);
   }
 

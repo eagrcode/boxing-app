@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import "@/src/styles/normalize.css";
 import "@/src/styles/globals.scss";
 import "@/src/styles/variables.css";
@@ -24,7 +22,8 @@ const RobotoFlex = Roboto_Flex({
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // init supabase client
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
   // get user data
   const {

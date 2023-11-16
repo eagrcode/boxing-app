@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 import styles from "./page.module.scss";
 import getUserHistory from "@/src/lib/services/getUserHistory";
@@ -7,7 +7,8 @@ import { cookies } from "next/headers";
 import HistoryItem from "@/src/components/profile/HistoryItem/HistoryItem";
 
 export default async function page() {
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
   const {
     data: { user },
