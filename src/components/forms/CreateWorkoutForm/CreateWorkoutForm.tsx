@@ -1,28 +1,16 @@
 "use client";
 
-// styles
-import styles from "./CreateEditWorkout.module.scss";
-
-// react
+import styles from "./CreateWorkoutForm.module.scss";
 import { useState, useRef } from "react";
 import React from "react";
-
-// components
 import Button from "./Button";
-
-// next
 import { usePathname, useRouter } from "next/navigation";
-
-// utils
-import editUserWorkout from "@/src/lib/actions/editUserWorkout";
 import createUserWorkout from "@/src/lib/actions/createUserWorkout";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
-
-// icons
 import { HiArrowSmRight } from "react-icons/hi";
 import { FaDeleteLeft } from "react-icons/fa6";
 
-const CreateEditWorkout = ({ mode }: { mode: string }) => {
+const CreateWorkoutForm = ({ mode }: { mode: string }) => {
   // init state
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -65,7 +53,7 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
     }
   };
 
-  // Function to clear selections for a specific round
+  // clear selections for a specific round
   const handleClearRound = (roundIndex: number) => {
     const updatedSelectedCombos = [...selectedCombos];
     updatedSelectedCombos[roundIndex] = [];
@@ -251,4 +239,4 @@ const CreateEditWorkout = ({ mode }: { mode: string }) => {
   );
 };
 
-export default CreateEditWorkout;
+export default CreateWorkoutForm;

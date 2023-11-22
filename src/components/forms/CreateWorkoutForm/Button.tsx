@@ -1,11 +1,7 @@
 "use client";
 
-// styles
-import styles from "./CreateEditWorkout.module.scss";
-
-// loader
+import styles from "./CreateWorkoutForm.module.scss";
 import PulseLoader from "react-spinners/PulseLoader";
-
 import { useFormStatus } from "react-dom";
 
 export default function Button() {
