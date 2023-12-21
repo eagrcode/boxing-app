@@ -1,18 +1,10 @@
-// export const dynamic = "force-dynamic";
-
 import styles from "./page.module.scss";
 import SignInForm from "@/src/components/forms/SignInForm/SignInForm";
+import { getSupaUser } from "@/src/lib/utils/getSupaUser";
 import { redirect } from "next/navigation";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 
 export default async function LoginPage() {
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getSupaUser();
 
   if (user) {
     redirect("/");

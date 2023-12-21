@@ -66,10 +66,10 @@
   width: 100%;
   color: var(--header-color-main);
   border-radius: 5px;
-  border: solid 1px var(--accent-color-outline);
+  border: solid 1px var(--color-outline);
 
   &:hover {
-    background-color: var(--accent-color-outline);
+    background-color: var(--color-outline);
   }
 }
 

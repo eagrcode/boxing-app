@@ -1,29 +1,52 @@
 "use client";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import styles from "./SignUpForm.module.scss";
 import Button from "./Button";
 import signUpEmail from "@/src/lib/auth/signUpEmail";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const signInSchema = z.object({
+  fullName: z.string().min(1, "Name is required"),
+  username: z.string().min(3, "Minimum 3 characters"),
+  email: z.string().email("Valid email is required"),
+  password: z.string().min(6, "Minimum 6 characters"),
+});
+
+type TypeSignUpSchema = z.infer<typeof signInSchema>;
 
 export default function SignUpForm() {
   // init state
-  const [fullName, setFullName] = useState<string>("");
-
-  const [username, setUsername] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
   // init hooks
   const router = useRouter();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<TypeSignUpSchema>({
+    resolver: zodResolver(signInSchema),
+  });
+
   // handle user sign up
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
-    e.preventDefault();
-    setIsLoading(true);
-    await signUpEmail(email, password, username, fullName);
-    router.push("/signUp/success");
+  async function handleSignUp(data: TypeSignUpSchema) {
+    const { email, password, username, fullName } = data;
+    const res = await signUpEmail(email, password, username, fullName);
+
+    if (!res.success) {
+      setErrorMsg(res.message);
+    } else {
+      router.push("/signUp/success");
+    }
+
+    console.log(res);
   }
 
   return (
@@ -31,53 +54,61 @@ export default function SignUpForm() {
       <h1>Get Started</h1>
       <p style={{ color: "var(--text-color-main)" }}>Create a new account</p>
 
-      <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
+      <form onSubmit={handleSubmit(handleSignUp)} className={styles.form}>
         <div className={styles.inputRow}>
-          <label htmlFor="firstName">Full Name</label>
+          <div className={styles.labelContainer}>
+            <label htmlFor="fullName">Full Name</label>
+            {errors.fullName && <p className={styles.errorMsg}>{`${errors.fullName.message}`}</p>}
+          </div>
           <input
-            type="text"
+            className={`${errors.fullName && styles.error}`}
+            {...register("fullName")}
             name="fullName"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
             placeholder="John Doe"
-            required
           />
         </div>
         <div className={styles.inputRow}>
-          <label htmlFor="username">Username</label>
+          <div className={styles.labelContainer}>
+            <label htmlFor="username">Username</label>
+            {errors.username && <p className={styles.errorMsg}>{`${errors.username.message}`}</p>}
+          </div>
           <input
-            type="text"
+            className={`${errors.username && styles.error}`}
+            {...register("username")}
             name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
             placeholder="superuser123"
-            required
           />
         </div>
         <div className={styles.inputRow}>
-          <label htmlFor="email">Email</label>
+          <div className={styles.labelContainer}>
+            <label htmlFor="email">Email</label>
+            {errors.email && <p className={styles.errorMsg}>{`${errors.email.message}`}</p>}
+          </div>
           <input
-            type="email"
+            className={`${errors.email && styles.error}`}
+            {...register("email")}
             name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            required
           />
         </div>
         <div className={styles.inputRow}>
-          <label htmlFor="password">Password</label>
+          <div className={styles.labelContainer}>
+            <label htmlFor="password">Password</label>
+            {errors.password && <p className={styles.errorMsg}>{`${errors.password.message}`}</p>}
+          </div>
+
           <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            className={`${errors.password && styles.error}`}
+            {...register("password")}
             name="password"
             placeholder="••••••••"
-            required
+            type="password"
           />
         </div>
-        <Button isLoading={isLoading} />
+        <Button isSubmitting={isSubmitting} />
       </form>
+
+      {errorMsg && <p className={styles.errorMsg}>{errorMsg}</p>}
 
       <p>
         Already have an account? <Link href="/login">Log In Now</Link>
