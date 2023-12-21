@@ -3,11 +3,12 @@ import "@/src/styles/globals.scss";
 import "@/src/styles/variables.css";
 import { FightDataProvider } from "@/src/context/TimerData.context";
 import { WorkoutModeProvider } from "@/src/context/WorkoutTimerData.context";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import { Roboto_Flex } from "next/font/google";
 import BottomNav from "../components/navigation/BottomNav/BottomNav";
 import LeftSidebar from "../components/navigation/LeftSidebar/LeftSidebar";
+import Topbar from "../components/shared/Topbar/Topbar";
+import { getSupaUser } from "../lib/utils/getSupaUser";
+import StoreProvider from "../redux/StoreProvider";
 
 export const metadata = {
   title: "Beatdown",
@@ -21,32 +22,42 @@ const RobotoFlex = Roboto_Flex({
 });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  // init supabase client
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const user = await getSupaUser();
 
-  // get user data
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // console.log(user);
 
-  console.log(user);
+  // let userID = "";
+  // let fullName = "";
+  // let email = "";
+  // let avatarURL = "";
+
+  // if (user) {
+  //   userID = user.id;
+  //   fullName = user.user_metadata.full_name;
+  //   email = user.user_metadata.email;
+  //   avatarURL = user.user_metadata.avatar_url;
+  // }
 
   if (user)
     return (
-      <WorkoutModeProvider>
-        <FightDataProvider>
-          <html lang="en" className={RobotoFlex.className}>
-            <body>
-              <div className="app-wrapper-user">
-                <LeftSidebar />
-                <main className="main-user">{children}</main>
-                <BottomNav />
-              </div>
-            </body>
-          </html>
-        </FightDataProvider>
-      </WorkoutModeProvider>
+      <StoreProvider>
+        <WorkoutModeProvider>
+          <FightDataProvider>
+            <html lang="en" className={RobotoFlex.className}>
+              <body>
+                <div className="app-wrapper-user">
+                  <Topbar />
+                  <div className="mid-app-wrapper">
+                    <LeftSidebar />
+                    <main className="main-user">{children}</main>
+                  </div>
+                  <BottomNav />
+                </div>
+              </body>
+            </html>
+          </FightDataProvider>
+        </WorkoutModeProvider>
+      </StoreProvider>
     );
 
   return (

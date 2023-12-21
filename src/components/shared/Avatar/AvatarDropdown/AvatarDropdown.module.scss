@@ -1,0 +1,50 @@
+.dropdown {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  background-color: var(--avatar-dropdown-bg-color);
+  border: solid 2px var(--color-outline);
+  top: calc(100% + 1rem);
+  right: 2rem;
+  border-radius: 5px;
+  width: 250px;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.googleAvatar {
+  img {
+    border-radius: 50%;
+  }
+}
+
+.bdAvatar {
+  font-size: 3rem;
+  font-weight: bold;
+  background-color: var(--accent-color-blue);
+  color: var(--text-color-main);
+
+  height: 60px;
+  width: 60px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.email {
+  font-size: 14px;
+}

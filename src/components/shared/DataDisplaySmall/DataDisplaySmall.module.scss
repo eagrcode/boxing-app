@@ -1,0 +1,27 @@
+.dataDisplaySmall {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  gap: 1.5rem;
+  color: var(--text-color-main);
+  background-color: var(--nav-color-main);
+  border: solid 2px var(--color-outline);
+
+  padding: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--color-outline-hover);
+  }
+}
+
+.title {
+  font-size: 1rem;
+}
+
+.data {
+  font-size: 1.8rem;
+}

@@ -1,7 +1,3 @@
-// export const dynamic = "force-dynamic";
-
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./page.module.scss";
@@ -12,15 +8,19 @@ import MobileImg1 from "@/public/assets/images/4.png";
 import MobileImg2 from "@/public/assets/images/5.png";
 import MobileImg3 from "@/public/assets/images/6.png";
 import Logo from "@/src/components/shared/Logo/Logo";
-import WorkoutsFeed from "@/src/components/shared/WorkoutsFeed/WorkoutsFeed";
+import DataDisplaySmall from "@/src/components/shared/DataDisplaySmall/DataDisplaySmall";
+import DataDisplayGraph from "@/src/components/shared/DataDisplayGraph/DataDisplayGraph";
+import getUserCompletedWorkouts from "@/src/lib/services/getUserCompletedWorkouts";
+import getUserCompletedMins from "@/src/lib/services/getUserCompletedMins";
+import getUserCompletedRounds from "@/src/lib/services/getUserCompletedRounds";
+import { GiPunchingBag } from "react-icons/gi";
+import { GiPunch } from "react-icons/gi";
+import { MdTimer } from "react-icons/md";
+import { BsFillLightningChargeFill } from "react-icons/bs";
+import { getSupaUser } from "@/src/lib/utils/getSupaUser";
 
 export default async function Index() {
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getSupaUser();
 
   let userID = "";
 
@@ -149,10 +149,52 @@ export default async function Index() {
     );
   }
 
+  const completedWorkouts = await getUserCompletedWorkouts(userID);
+  const completedMins = await getUserCompletedMins(userID);
+  const completedRounds = await getUserCompletedRounds(userID);
+  const completedSomethingElse = 0;
+
+  const completedSeconds = Math.ceil(completedMins / 60);
+
+  const data = [
+    {
+      id: 1,
+      data: completedWorkouts,
+      title: "Completed workouts",
+      icon: <GiPunch size={25} />,
+    },
+    {
+      id: 2,
+      data: completedSeconds,
+      title: "Bag time (mins)",
+      icon: <MdTimer size={25} />,
+    },
+    {
+      id: 3,
+      data: completedRounds,
+      title: "Completed rounds",
+      icon: <BsFillLightningChargeFill size={25} />,
+    },
+    {
+      id: 4,
+      data: completedSomethingElse,
+      title: "Contributions",
+      icon: <GiPunchingBag size={25} />,
+    },
+  ];
+
   return (
     <div className={styles.pageWrapperUser}>
-      <Logo variant={"home"} />
-      <WorkoutsFeed userID={userID} />
+      {/* <Logo variant={"home"} /> */}
+      <div className={styles.dataDisplayGrid}>
+        {data.map((item, index) => (
+          <DataDisplaySmall key={index} data={item.data} title={item.title} icon={item.icon} />
+        ))}
+      </div>
+      {/* <div className={styles.dataDisplayGraphContainer}>
+        <DataDisplayGraph />
+      </div> */}
+      {/* <DataDisplaySmall /> */}
     </div>
   );
 }

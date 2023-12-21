@@ -1,0 +1,26 @@
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:hover {
+    outline: solid 5px var(--color-outline);
+  }
+}
+
+.googleAvatar {
+  img {
+    border-radius: 50%;
+  }
+}
+
+.bdAvatar {
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: var(--accent-color-blue);
+  color: var(--text-color-main);
+  height: 40px;
+  width: 40px;
+}
