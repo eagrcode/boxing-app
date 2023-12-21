@@ -16,15 +16,15 @@ type UserProps = {
   avatarURL: string;
 };
 
-export default function Topbar() {
-  // const dispatch = useAppDispatch();
+export default function Topbar({ userID, fullName, email, avatarURL }: UserProps) {
+  console.log("TOPBAR: ", userID, fullName, email, avatarURL);
+  const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   if (user) {
-  //     const { id, full_name, email, avatar_url } = user;
-  //     dispatch(setUserDetails({ id, full_name, email, avatar_url }));
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (userID && fullName && email && avatarURL) {
+      dispatch(setUserDetails({ userID, fullName, email, avatarURL }));
+    }
+  }, [userID, fullName, email, avatarURL]);
 
   const { isTimerActive } = useTimerDataContext();
   const { isWorkoutMode } = useWorkoutTimerDataContext();
@@ -40,7 +40,7 @@ export default function Topbar() {
   return (
     <div className={styles.topBar}>
       <Logo variant={"nav"} />
-      {/* <Avatar /> */}
+      <Avatar />
     </div>
   );
 }

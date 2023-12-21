@@ -24,19 +24,19 @@ const RobotoFlex = Roboto_Flex({
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const user = await getSupaUser();
 
-  // console.log(user);
+  console.log("LAYOUT: ", user);
 
-  // let userID = "";
-  // let fullName = "";
-  // let email = "";
-  // let avatarURL = "";
+  let userID = "";
+  let fullName = "";
+  let email = "";
+  let avatarURL = "";
 
-  // if (user) {
-  //   userID = user.id;
-  //   fullName = user.user_metadata.full_name;
-  //   email = user.user_metadata.email;
-  //   avatarURL = user.user_metadata.avatar_url;
-  // }
+  if (user) {
+    userID = user.id;
+    fullName = user.user_metadata.full_name;
+    email = user.user_metadata.email;
+    avatarURL = user.user_metadata.avatar_url;
+  }
 
   if (user)
     return (
@@ -46,7 +46,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <html lang="en" className={RobotoFlex.className}>
               <body>
                 <div className="app-wrapper-user">
-                  <Topbar />
+                  <Topbar userID={userID} fullName={fullName} email={email} avatarURL={avatarURL} />
                   <div className="mid-app-wrapper">
                     <LeftSidebar />
                     <main className="main-user">{children}</main>

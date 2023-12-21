@@ -15,37 +15,39 @@ type propTypes = {
 export default function Avatar() {
   const [showDropdown, setShowDropdown] = useState(false);
 
-  // // Inside your component
-  // const user = useSelector((state) => state.user);
+  // Inside your component
+  const user = useSelector((state) => state.auth);
 
-  // // Now you can access user details like:
-  // const { userID, fullName, email, avatarURL } = user;
+  console.log(user);
 
-  // return (
-  //   <>
-  //     {avatarURL ? (
-  //       <div
-  //         onClick={() => setShowDropdown((prev) => !prev)}
-  //         className={`${styles.avatar} ${styles.googleAvatar}`}
-  //       >
-  //         <Image src={`${avatarURL}`} alt="User avatar" height={40} width={40} />
-  //       </div>
-  //     ) : (
-  //       <div
-  //         onClick={() => setShowDropdown((prev) => !prev)}
-  //         className={`${styles.avatar} ${styles.bdAvatar}`}
-  //       >
-  //         <div>{fullName.charAt(0)}</div>
-  //       </div>
-  //     )}
-  //     {showDropdown && (
-  //       <AvatarDropdown
-  //         avatarURL={avatarURL}
-  //         setShowDropdown={setShowDropdown}
-  //         fullName={fullName}
-  //         email={email}
-  //       />
-  //     )}
-  //   </>
-  // );
+  // Now you can access user details like:
+  const { userID, fullName, email, avatarURL } = user;
+
+  return (
+    <>
+      {avatarURL ? (
+        <div
+          onClick={() => setShowDropdown((prev) => !prev)}
+          className={`${styles.avatar} ${styles.googleAvatar}`}
+        >
+          <Image src={`${avatarURL}`} alt="User avatar" height={40} width={40} />
+        </div>
+      ) : (
+        <div
+          onClick={() => setShowDropdown((prev) => !prev)}
+          className={`${styles.avatar} ${styles.bdAvatar}`}
+        >
+          <div>{fullName.charAt(0)}</div>
+        </div>
+      )}
+      {showDropdown && (
+        <AvatarDropdown
+          avatarURL={avatarURL}
+          setShowDropdown={setShowDropdown}
+          fullName={fullName}
+          email={email}
+        />
+      )}
+    </>
+  );
 }
