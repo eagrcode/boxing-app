@@ -7,7 +7,6 @@ import ComboGImg from "@/public/assets/images/combo-g-img.png";
 import MobileImg1 from "@/public/assets/images/4.png";
 import MobileImg2 from "@/public/assets/images/5.png";
 import MobileImg3 from "@/public/assets/images/6.png";
-import Logo from "@/src/components/shared/Logo/Logo";
 import DataDisplaySmall from "@/src/components/shared/DataDisplaySmall/DataDisplaySmall";
 import DataDisplayGraph from "@/src/components/shared/DataDisplayGraph/DataDisplayGraph";
 import getUserCompletedWorkouts from "@/src/lib/services/getUserCompletedWorkouts";
@@ -18,6 +17,7 @@ import { GiPunch } from "react-icons/gi";
 import { MdTimer } from "react-icons/md";
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { getSupaUser } from "@/src/lib/utils/getSupaUser";
+import get6MonthsData from "@/src/lib/services/get6monthsData";
 
 export default async function Index() {
   const user = await getSupaUser();
@@ -154,6 +154,11 @@ export default async function Index() {
   const completedRounds = await getUserCompletedRounds(userID);
   const completedSomethingElse = 0;
 
+  const sixMonthsCompletedWorkouts = await get6MonthsData(userID);
+  // sixMonthsCompletedMin
+  // sixMonthsCompletedRounds
+  // sixMonthsCompleted etc
+
   const completedSeconds = Math.ceil(completedMins / 60);
 
   const data = [
@@ -185,16 +190,18 @@ export default async function Index() {
 
   return (
     <div className={styles.pageWrapperUser}>
-      {/* <Logo variant={"home"} /> */}
       <div className={styles.dataDisplayGrid}>
         {data.map((item, index) => (
-          <DataDisplaySmall key={index} data={item.data} title={item.title} icon={item.icon} />
+          <DataDisplaySmall
+            key={index}
+            index={index}
+            data={item.data}
+            title={item.title}
+            icon={item.icon}
+          />
         ))}
       </div>
-      {/* <div className={styles.dataDisplayGraphContainer}>
-        <DataDisplayGraph />
-      </div> */}
-      {/* <DataDisplaySmall /> */}
+      <DataDisplayGraph sixMonthsCompletedWorkouts={sixMonthsCompletedWorkouts} />
     </div>
   );
 }
