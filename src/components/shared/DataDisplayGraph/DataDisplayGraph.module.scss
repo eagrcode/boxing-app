@@ -1,4 +1,4 @@
-.dataDisplayGraph {
+.graphContainer {
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -6,7 +6,8 @@
   width: 100%;
   color: var(--text-color-main);
   border: solid 1px var(--color-outline);
-  padding: 5rem;
+  background-color: var(--avatar-dropdown-bg-color);
+  padding: 1rem;
   border-radius: 8px;
 }
 
