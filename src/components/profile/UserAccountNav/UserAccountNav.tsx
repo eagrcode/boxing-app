@@ -10,17 +10,17 @@ export default function UserAccountNav() {
     {
       id: 1,
       title: "Posts",
-      url: "/account",
+      url: "/profile",
     },
     {
       id: 2,
       title: "Saved",
-      url: "/account/savedWorkouts",
+      url: "/profile/savedWorkouts",
     },
     {
       id: 3,
       title: "History",
-      url: "/account/history",
+      url: "/profile/history",
     },
   ];
 
