@@ -1,5 +1,4 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { count } from "console";
 import { cookies } from "next/headers";
 
 export default async function getUserCompletedWorkouts(id: string) {
