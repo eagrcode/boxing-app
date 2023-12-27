@@ -1,21 +1,14 @@
+"use client";
+
 import styles from "./page.module.scss";
 import UserAccountNav from "@/src/components/profile/UserAccountNav/UserAccountNav";
-import LogoutButton from "@/src/components/buttons/LogoutButton/LogoutButton";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import getProfileData from "@/src/lib/services/getProfileData";
 import Image from "next/image";
-import { getSupaUser } from "@/src/lib/utils/getSupaUser";
+import { useAppSelector } from "@/src/redux/hooks";
 
-export default async function AccountLayout({ children }: { children: React.ReactNode }) {
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+export default function AccountLayout({ children }: { children: React.ReactNode }) {
+  const user = useAppSelector((state) => state.auth);
 
-  // get session data
-  const user = await getSupaUser();
-
-  // get users profile data
-  const profileData = await getProfileData(user?.id);
+  const { userID, fullName, email, avatarURL } = user;
 
   return (
     <div className={styles.wrapper}>
@@ -23,24 +16,18 @@ export default async function AccountLayout({ children }: { children: React.Reac
       <div className={styles.layoutTop}>
         <div className={styles.topLeft}>
           <div>
-            <h1>{profileData?.full_name}</h1>
-            <LogoutButton />
+            <h1>{fullName}</h1>
           </div>
-          <p>{profileData?.username || profileData?.email}</p>
+          <p>{email}</p>
         </div>
 
-        {user?.user_metadata.avatar_url ? (
+        {avatarURL ? (
           <div className={styles.googleAvatar}>
-            <Image
-              src={`${user?.user_metadata.avatar_url}`}
-              alt="User avatar"
-              height={65}
-              width={65}
-            />
+            <Image src={`${avatarURL}`} alt="User avatar" height={65} width={65} />
           </div>
         ) : (
           <div className={styles.avatar}>
-            <div>{profileData?.full_name.charAt(0)}</div>
+            <div>{fullName.charAt(0)}</div>
           </div>
         )}
       </div>
