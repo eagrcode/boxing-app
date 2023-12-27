@@ -5,6 +5,8 @@ import ComboCard from "../../shared/ComboCard/ComboCard";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
 import getRandomCombo from "@/src/lib/services/getRandomCombo";
 import React from "react";
+import addToCompletedWorkouts from "@/src/lib/services/addToCompletedWorkouts";
+import updateCompletedMins from "@/src/lib/services/updateCompletedMins";
 
 interface TimerProps {
   setIsTimerActive: Dispatch<SetStateAction<boolean>>;
@@ -85,6 +87,9 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
+  // calc total workout time
+  const totalTime = Math.floor(warmupTime + roundTime * rounds + restTime * (rounds - 1));
+
   // format timer colors based on round type
   const timerColors: any = !isFightRound
     ? [["#050778"], ["#050778"], ["#050778"]]
@@ -127,6 +132,19 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
     }
   }, [isRestRound, difficulty, sequence.length, setRandomCombo]);
 
+  const addToUserCompletedWorkouts = async () => {
+    await addToCompletedWorkouts(null);
+  };
+
+  const updateUserCompletedMins = async () => {
+    await updateCompletedMins(totalTime);
+  };
+
+  useEffect(() => {
+    updateUserCompletedMins();
+    addToUserCompletedWorkouts();
+  }, []);
+
   // logic for end of rounds/workout
   const handleOnComplete = useCallback(() => {
     if (currentRound < totalRounds) {
@@ -141,9 +159,9 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
       return { shouldRepeat: true, delay: 0 };
     } else {
       audioRefBell.current?.play();
-
       setIsCountingDown(false);
       setIsFinished(true);
+      addToUserCompletedWorkouts();
       return { shouldRepeat: false };
     }
   }, [currentRound, totalRounds]);
