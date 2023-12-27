@@ -1,15 +1,12 @@
-// export const dynamic = "force-dynamic";
-
 import styles from "./page.module.scss";
 import getWorkoutById from "@/src/lib/services/getWorkoutById";
 import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
 import isSavedByUser from "@/src/lib/services/isSavedByUser";
 import isLikedByUser from "@/src/lib/services/isLikedByUser";
 import Workout from "@/src/components/shared/Workout/Workout";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import getWorkoutSavesCount from "@/src/lib/services/getWorkoutSaves";
+import { getSupaUser } from "@/src/lib/utils/getSupaUser";
 
 interface WorkoutPageProps {
   params: {
@@ -18,14 +15,7 @@ interface WorkoutPageProps {
 }
 
 export default async function WorkoutPage({ params }: WorkoutPageProps) {
-  // init supabase client
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
-
-  // get user data
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getSupaUser();
 
   if (!user) {
     redirect("/login");
