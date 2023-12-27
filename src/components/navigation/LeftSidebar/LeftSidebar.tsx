@@ -3,12 +3,12 @@
 import styles from "./LeftSidebar.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GoHome } from "react-icons/go";
+import { LuLayoutDashboard } from "react-icons/lu";
 import { IoTimerOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
+import { TbListSearch } from "react-icons/tb";
 import BackButton from "../../buttons/BackButton/BackButton";
-import Logo from "../../shared/Logo/Logo";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 
@@ -21,9 +21,9 @@ export default function LeftSidebar() {
   const authLinks = [
     {
       id: 1,
-      title: "Home",
+      title: "Dashboard",
       url: "/",
-      icon: <GoHome size={30} />,
+      icon: <LuLayoutDashboard size={30} />,
     },
     {
       id: 2,
@@ -33,14 +33,20 @@ export default function LeftSidebar() {
     },
     {
       id: 3,
-      title: "Post",
-      url: "/post",
+      title: "Create",
+      url: "/create",
       icon: <IoCreateOutline size={30} />,
     },
     {
       id: 4,
-      title: "Account",
-      url: "/account",
+      title: "Discover",
+      url: "/discover",
+      icon: <TbListSearch size={30} />,
+    },
+    {
+      id: 5,
+      title: "Profile",
+      url: "/profile",
       icon: <RiAccountCircleLine size={30} />,
     },
   ];
@@ -70,7 +76,7 @@ export default function LeftSidebar() {
 
   return (
     <nav className={styles.nav}>
-      <Logo variant={"nav"} />
+      {/* <Logo variant={"nav"} /> */}
       <ul className={styles.menu}>
         {authLinks.map((link, index) => (
           <li key={index} className={styles.item}>
@@ -83,7 +89,7 @@ export default function LeftSidebar() {
               href={link.url}
             >
               {link.icon}
-              {/* {link.title} */}
+              <p className={styles.title}> {link.title}</p>
             </Link>
           </li>
         ))}
