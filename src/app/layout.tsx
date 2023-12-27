@@ -40,13 +40,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   if (user)
     return (
-      <StoreProvider>
+      <StoreProvider userID={userID} fullName={fullName} email={email} avatarURL={avatarURL}>
         <WorkoutModeProvider>
           <FightDataProvider>
             <html lang="en" className={RobotoFlex.className}>
               <body>
                 <div className="app-wrapper-user">
-                  <Topbar userID={userID} fullName={fullName} email={email} avatarURL={avatarURL} />
+                  <Topbar />
                   <div className="mid-app-wrapper">
                     <LeftSidebar />
                     <main className="main-user">{children}</main>
