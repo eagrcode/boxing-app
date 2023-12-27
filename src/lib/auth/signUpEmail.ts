@@ -1,37 +1,62 @@
-"use client";
-
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+
+type SignUpResponse = {
+  success: boolean;
+  message: string;
+};
 
 export default async function signUpEmail(
   email: string,
   password: string,
   username: string,
   fullName: string
-) {
-  console.log(email, password, fullName, username);
-
+): Promise<SignUpResponse> {
   const supabase = createClientComponentClient();
 
   try {
-    const { data, error } = await supabase.auth.signUp({
+    // Check if the email already exists in the profiles table
+    const { data: profiles, error } = await supabase
+      .from("profiles")
+      .select("email")
+      .eq("email", email);
+
+    if (error) {
+      console.error("Error checking email existence:", error.message);
+      return { success: false, message: "Unexpected error checking email existence" };
+    }
+
+    if (profiles.length > 0) {
+      console.log("Email already exists in profiles table.");
+
+      return {
+        success: false,
+        message: "Email already exists. Please use a different email address.",
+      };
+    }
+
+    // Email doesn't exist, proceed with sign-up
+    const { data, error: signUpError } = await supabase.auth.signUp({
       email: email,
       password: password,
       options: {
         data: {
           full_name: fullName,
-
           username: username,
         },
+
         emailRedirectTo: `${location.origin}/auth/callback`,
       },
     });
 
-    if (error) {
-      console.log("DB SIGN UP ERROR: ", error);
-    } else {
-      console.log(data);
+    if (signUpError) {
+      console.error("Error during sign up:", signUpError.message);
+      return { success: false, message: "Username elready exists" };
     }
+
+    console.log("User created successfully. ID:", data);
+    return { success: true, message: "User created successfully!" };
   } catch (error: any) {
-    console.log(error);
+    console.error("Unexpected error during sign up:", error.message);
+    return { success: false, message: error.message };
   }
 }
