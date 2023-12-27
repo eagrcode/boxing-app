@@ -3,13 +3,14 @@
 import styles from "./BottomNav.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GoHome } from "react-icons/go";
 import { IoTimerOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
 import BackButton from "../../buttons/BackButton/BackButton";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { TbListSearch } from "react-icons/tb";
 
 export default function BottomNav() {
   const path = usePathname();
@@ -20,27 +21,33 @@ export default function BottomNav() {
   const authLinks = [
     {
       id: 1,
-      title: "Home",
+      title: "Dashboard",
       url: "/",
-      icon: <GoHome size={30} />,
+      icon: <LuLayoutDashboard size={25} />,
     },
     {
       id: 2,
       title: "Timer",
       url: "/timer",
-      icon: <IoTimerOutline size={30} />,
+      icon: <IoTimerOutline size={25} />,
     },
     {
       id: 3,
-      title: "Post",
-      url: "/post",
-      icon: <IoCreateOutline size={30} />,
+      title: "Create",
+      url: "/create",
+      icon: <IoCreateOutline size={25} />,
     },
     {
       id: 4,
-      title: "Account",
-      url: "/account",
-      icon: <RiAccountCircleLine size={30} />,
+      title: "Discover",
+      url: "/discover",
+      icon: <TbListSearch size={25} />,
+    },
+    {
+      id: 5,
+      title: "Profile",
+      url: "/profile",
+      icon: <RiAccountCircleLine size={25} />,
     },
   ];
 
@@ -75,18 +82,22 @@ export default function BottomNav() {
       {renderBackButton()}
       <ul className={styles.menu}>
         {authLinks.map((link, index) => (
-          <li key={index} className={styles.item}>
-            <Link
-              className={
-                shouldHaveActiveStyles(path, link.url)
-                  ? `${styles.link} ${styles.active}`
-                  : styles.link
-              }
-              href={link.url}
-            >
-              {link.icon}
-            </Link>
-          </li>
+          <>
+            {" "}
+            <li key={index} className={styles.item}>
+              <Link
+                className={
+                  shouldHaveActiveStyles(path, link.url)
+                    ? `${styles.link} ${styles.active}`
+                    : styles.link
+                }
+                href={link.url}
+              >
+                {link.icon}
+              </Link>
+            </li>
+            {/* <Avatar avatarURL={""} fullName={""} /> */}
+          </>
         ))}
       </ul>
     </nav>

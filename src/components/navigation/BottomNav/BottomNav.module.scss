@@ -5,14 +5,14 @@
   position: sticky;
   bottom: 0;
   width: 100%;
-  padding: 0.5rem;
   z-index: 999;
-
-  background-color: var(--bg-color-main);
+  border-top: solid 1px var(--color-outline);
+  background-color: var(--nav-color-main);
 
   .menu {
     display: flex;
     justify-content: center;
+    align-items: center;
     list-style: none;
     width: 100%;
     font-size: 1rem;
@@ -22,13 +22,10 @@
       .link {
         display: flex;
         align-items: center;
-        justify-content: flex-start;
         gap: 1rem;
         padding: 1rem;
         text-decoration: none;
         color: var(--text-color-accent);
-        width: fit-content;
-        border-radius: 5px;
 
         &.active {
           color: var(--accent-color-white);
