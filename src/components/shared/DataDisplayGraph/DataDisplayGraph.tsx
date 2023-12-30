@@ -21,6 +21,7 @@ type SixMonthsData = {
 
 type GraphTypes = {
   sixMonthsCompletedWorkouts: SixMonthsData[];
+  currentQuery: string;
 };
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -30,7 +31,7 @@ export const options = {
     y: {
       ticks: {
         color: "white",
-        stepSize: 1,
+        stepSize: 10,
       },
     },
     x: {
@@ -42,21 +43,19 @@ export const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: "top" as const,
+      display: false,
     },
     title: {
-      display: true,
-      text: "Completed workouts",
+      display: false,
     },
   },
 };
 
-export default function DataDisplayGraph({ sixMonthsCompletedWorkouts }: GraphTypes) {
+export default function DataDisplayGraph({ sixMonthsCompletedWorkouts, currentQuery }: GraphTypes) {
   const data = {
     labels: sixMonthsCompletedWorkouts.map((entry) => formatGraphLabels(entry.month)),
     datasets: [
       {
-        label: "Previous 6 months",
         data: sixMonthsCompletedWorkouts.map((entry) => entry.entry_count),
         backgroundColor: "#0b84da",
         borderColor: "#0b84da99",
@@ -64,8 +63,22 @@ export default function DataDisplayGraph({ sixMonthsCompletedWorkouts }: GraphTy
     ],
   };
 
+  function formatTitle(currentQuery: string) {
+    switch (currentQuery) {
+      case "get_completed_workouts":
+        return "Workouts";
+      case "get_completed_rounds":
+        return "Rounds";
+      case "get_completed_time":
+        return "Minutes";
+      default:
+        return "Workouts";
+    }
+  }
+
   return (
     <div className={styles.graphContainer}>
+      <h1 className={styles.title}>{formatTitle(currentQuery)}</h1>
       <Line options={options} data={data} />
     </div>
   );
