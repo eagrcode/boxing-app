@@ -7,7 +7,7 @@
   min-height: calc(100svh - 57px);
 
   @media (min-width: 768px) {
-    padding: 2rem;
+    padding: 2rem 4rem;
   }
 
   @media (min-width: 900px) {
@@ -22,9 +22,16 @@
   gap: 1rem;
 
   @media (min-width: 900px) {
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    justify-content: space-between;
   }
 }
+
+// .graphWrapper {
+//   display: flex;
+//   justify-content: space-between;
+//   gap: 5rem;
+// }
 
 // no user or session
 .pageWrapper {

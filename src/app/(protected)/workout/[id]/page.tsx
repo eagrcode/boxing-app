@@ -17,10 +17,6 @@ interface WorkoutPageProps {
 export default async function WorkoutPage({ params }: WorkoutPageProps) {
   const user = await getSupaUser();
 
-  if (!user) {
-    redirect("/login");
-  }
-
   let userID = "";
 
   if (user) {
