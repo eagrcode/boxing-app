@@ -1,10 +1,8 @@
-import "@/src/styles/normalize.css";
-import "@/src/styles/globals.scss";
+import "@/src/styles/globals.css";
+import styles from "./layout.module.scss";
 import "@/src/styles/variables.css";
 
 import { Roboto_Flex } from "next/font/google";
-import { getSupaUser } from "../../lib/utils/getSupaUser";
-import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Beatdown",
@@ -17,18 +15,12 @@ const RobotoFlex = Roboto_Flex({
   display: "swap",
 });
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const user = await getSupaUser();
-
-  if (user) {
-    redirect("/dashboard");
-  }
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={RobotoFlex.className}>
       <body>
-        <div className="app-wrapper">
-          <main className="main-no-user">{children}</main>
+        <div className={styles.appWrapper}>
+          <main className={styles.main}>{children}</main>
         </div>
       </body>
     </html>
