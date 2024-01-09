@@ -1,10 +1,10 @@
 import styles from "./page.module.scss";
 import Logo from "@/src/components/shared/Logo/Logo";
 import WorkoutsFeed from "@/src/components/shared/WorkoutsFeed/WorkoutsFeed";
-import { getSupaUser } from "@/src/lib/utils/getSupaUser";
+import { getUser } from "@/src/lib/services/getUser";
 
 export default async function DiscoverPage() {
-  const user = await getSupaUser();
+  const user = await getUser();
 
   let userID = "";
 

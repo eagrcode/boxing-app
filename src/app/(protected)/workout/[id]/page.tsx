@@ -6,7 +6,7 @@ import isLikedByUser from "@/src/lib/services/isLikedByUser";
 import Workout from "@/src/components/shared/Workout/Workout";
 import { redirect } from "next/navigation";
 import getWorkoutSavesCount from "@/src/lib/services/getWorkoutSaves";
-import { getSupaUser } from "@/src/lib/utils/getSupaUser";
+import { getUser } from "@/src/lib/services/getUser";
 
 interface WorkoutPageProps {
   params: {
@@ -15,7 +15,7 @@ interface WorkoutPageProps {
 }
 
 export default async function WorkoutPage({ params }: WorkoutPageProps) {
-  const user = await getSupaUser();
+  const user = await getUser();
 
   let userID = "";
 

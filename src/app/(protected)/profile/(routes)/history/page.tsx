@@ -3,10 +3,10 @@
 import styles from "./page.module.scss";
 import getUserHistory from "@/src/lib/services/getUserHistory";
 import HistoryItem from "@/src/components/profile/HistoryItem/HistoryItem";
-import { getSupaUser } from "@/src/lib/utils/getSupaUser";
+import { getUser } from "@/src/lib/services/getUser";
 
 export default async function page() {
-  const user = await getSupaUser();
+  const user = await getUser();
 
   let userID = "";
 
