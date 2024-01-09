@@ -1,5 +1,5 @@
-import "@/src/styles/normalize.css";
-import "@/src/styles/globals.scss";
+import "@/src/styles/globals.css";
+import styles from "./layout.module.scss";
 import "@/src/styles/variables.css";
 import { FightDataProvider } from "@/src/context/TimerData.context";
 import { WorkoutModeProvider } from "@/src/context/WorkoutTimerData.context";
@@ -8,9 +8,7 @@ import BottomNav from "../../components/navigation/BottomNav/BottomNav";
 import LeftSidebar from "../../components/navigation/LeftSidebar/LeftSidebar";
 import Topbar from "../../components/shared/Topbar/Topbar";
 import StoreProvider from "../../redux/StoreProvider";
-import { getSupabaseData } from "@/src/lib/utils/getSupabaseData";
-import { cookies } from "next/headers";
-import { apiRoutes } from "@/src/lib/dbAPI/apiRoutes";
+import { getUser } from "@/src/lib/services/getUser";
 
 export const metadata = {
   title: "Beatdown",
@@ -24,20 +22,7 @@ const RobotoFlex = Roboto_Flex({
 });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  // const user = await getSupaUser();
-
-  let supabaseToken = cookies().get("sb-qaohjtcwvtqnnmzvhzty-auth-token")?.value;
-  let accessToken = "";
-
-  if (supabaseToken) {
-    accessToken = JSON.parse(supabaseToken)[0];
-  }
-
-  console.log("API KEY: ", accessToken);
-
-  const user = await getSupabaseData(apiRoutes.getUser);
-
-  console.log("CACHE DATA: ", user);
+  const user = await getUser();
 
   let userID = "";
   let fullName = "";
@@ -57,11 +42,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <FightDataProvider>
           <html lang="en" className={RobotoFlex.className}>
             <body>
-              <div className="app-wrapper-user">
+              <div className={styles.appWrapper}>
                 <Topbar />
-                <div className="mid-app-wrapper">
+                <div className={styles.midAppWrapper}>
                   <LeftSidebar />
-                  <main className="main-user">{children}</main>
+                  <main className={styles.main}>{children}</main>
                 </div>
                 <BottomNav />
               </div>
