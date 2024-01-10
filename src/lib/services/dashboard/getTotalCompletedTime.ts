@@ -1,12 +1,12 @@
 "use server";
 
-import { setApiHeaders } from "./setApiHeaders";
+import { setApiHeaders } from "../../utils/setApiHeaders";
 
 type PropType = {
-  rounds: number;
+  time: number;
 };
 
-export const getTotalCompletedRounds = async (query: string): Promise<number> => {
+export const getTotalCompletedTime = async (query: string): Promise<number> => {
   try {
     const headers = setApiHeaders();
 
@@ -18,12 +18,14 @@ export const getTotalCompletedRounds = async (query: string): Promise<number> =>
     const data: PropType[] = await res.json();
 
     const summedData: number = data?.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue.rounds;
+      return accumulator + currentValue.time;
     }, 0);
 
-    console.log("FETCHED DATA: ", summedData);
+    const summedMinutes: number = Math.ceil(summedData / 60);
 
-    return summedData;
+    console.log("FETCHED DATA: ", summedMinutes);
+
+    return summedMinutes;
   } catch (error: any) {
     console.error("Function error: ", error.message);
     throw error;

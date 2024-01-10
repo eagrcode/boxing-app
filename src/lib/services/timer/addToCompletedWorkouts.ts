@@ -20,5 +20,5 @@ export default async function addToCompletedWorkouts(id: string | null) {
     console.log("Added to user completed workouts: ", data);
   }
 
-  revalidatePath("/");
+  revalidatePath("/dashboard");
 }

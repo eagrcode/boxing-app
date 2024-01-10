@@ -1,6 +1,6 @@
 "use server";
 
-import { setApiHeaders } from "./setApiHeaders";
+import { setApiHeaders } from "../../utils/setApiHeaders";
 
 type PropType = {
   created_at: string;

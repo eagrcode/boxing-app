@@ -1,6 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { Database } from "../database.types";
+import { Database } from "../../database.types";
 
 export default async function isLikedByUser(id: string, userID: string) {
   const supabase = createServerComponentClient<Database>({ cookies });

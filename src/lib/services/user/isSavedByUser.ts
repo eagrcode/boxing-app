@@ -1,5 +1,5 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import type { Database } from "../database.types";
+import type { Database } from "../../database.types";
 
 export default async function isWorkoutSaved(id: string, userID: string) {
   const supabase = createClientComponentClient<Database>();

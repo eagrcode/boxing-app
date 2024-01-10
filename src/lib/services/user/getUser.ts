@@ -1,7 +1,7 @@
 "use server";
 
-import { apiRoutes } from "../dbAPI/apiRoutes";
-import { setApiHeaders } from "../utils/setApiHeaders";
+import { apiRoutes } from "../../dbAPI/apiRoutes";
+import { setApiHeaders } from "../../utils/setApiHeaders";
 
 export const getUser = async () => {
   try {
