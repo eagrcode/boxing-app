@@ -1,6 +1,7 @@
 "use client";
 
 import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import formatGraphLabels from "@/src/lib/utils/formatGraphLabels";
 import {
   Chart as ChartJS,
@@ -11,6 +12,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  BarElement,
 } from "chart.js";
 import styles from "./DataDisplayGraph.module.scss";
 
@@ -20,18 +22,27 @@ type SixMonthsData = {
 };
 
 type GraphTypes = {
-  sixMonthsCompletedWorkouts: SixMonthsData[];
+  sixMonthsData: SixMonthsData[];
   currentQuery: string;
 };
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export const options = {
   scales: {
     y: {
       ticks: {
         color: "white",
-        stepSize: 10,
+        stepSize: 5,
       },
     },
     x: {
@@ -51,12 +62,14 @@ export const options = {
   },
 };
 
-export default function DataDisplayGraph({ sixMonthsCompletedWorkouts, currentQuery }: GraphTypes) {
+export default function DataDisplayGraph({ sixMonthsData, currentQuery }: GraphTypes) {
+  console.log(sixMonthsData);
+
   const data = {
-    labels: sixMonthsCompletedWorkouts.map((entry) => formatGraphLabels(entry.month)),
+    labels: sixMonthsData.map((entry) => formatGraphLabels(entry.month)),
     datasets: [
       {
-        data: sixMonthsCompletedWorkouts.map((entry) => entry.entry_count),
+        data: sixMonthsData.map((entry) => entry.entry_count),
         backgroundColor: "#0b84da",
         borderColor: "#0b84da99",
       },
@@ -79,7 +92,7 @@ export default function DataDisplayGraph({ sixMonthsCompletedWorkouts, currentQu
   return (
     <div className={styles.graphContainer}>
       <h1 className={styles.title}>{formatTitle(currentQuery)}</h1>
-      <Line options={options} data={data} />
+      <Bar options={options} data={data} />
     </div>
   );
 }
