@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  flex: 1;
   gap: 0.5rem;
   color: var(--text-color-main);
   background-color: var(--nav-color-main);
-  border: solid 2px var(--color-outline);
+  border: solid 1px var(--color-outline);
 
   padding: 1rem;
   border-radius: 5px;
@@ -14,10 +14,13 @@
 
   &.isActive {
     border-color: var(--color-outline-hover);
+    // background-color: hsl(0, 0%, 5%);
+    background-color: var(--avatar-dropdown-bg-color);
   }
 
   &:hover {
     border-color: var(--color-outline-hover);
+    background-color: var(--avatar-dropdown-bg-color);
   }
 }
 

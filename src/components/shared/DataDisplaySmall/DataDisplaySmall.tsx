@@ -8,6 +8,7 @@ export default function DataDisplaySmall({
   data,
   title,
   icon,
+  text,
   queryParam,
   isActive,
   currentQuery,
@@ -16,6 +17,7 @@ export default function DataDisplaySmall({
   data: number;
   title: string;
   icon: JSX.Element;
+  text: string;
   queryParam: string;
   isActive: boolean;
   currentQuery: string;
@@ -45,7 +47,7 @@ export default function DataDisplaySmall({
       </div>
       <div className={styles.bottom}>
         <p className={styles.data}>{data}</p>
-        <p className={styles.completed}>completed</p>
+        <p className={styles.completed}>{text}</p>
       </div>
     </div>
   );
