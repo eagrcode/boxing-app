@@ -1,7 +1,7 @@
 import styles from "./page.module.scss";
 import Logo from "@/src/components/shared/Logo/Logo";
 import WorkoutsFeed from "@/src/components/shared/WorkoutsFeed/WorkoutsFeed";
-import { getUser } from "@/src/lib/services/getUser";
+import { getUser } from "@/src/lib/services/user/getUser";
 
 export default async function DiscoverPage() {
   const user = await getUser();

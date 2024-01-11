@@ -1,9 +1,9 @@
 // export const dynamic = "force-dynamic";
 
 import styles from "./page.module.scss";
-import getUserHistory from "@/src/lib/services/getUserHistory";
+import getUserHistory from "@/src/lib/services/profile/getUserHistory";
 import HistoryItem from "@/src/components/profile/HistoryItem/HistoryItem";
-import { getUser } from "@/src/lib/services/getUser";
+import { getUser } from "@/src/lib/services/user/getUser";
 
 export default async function page() {
   const user = await getUser();

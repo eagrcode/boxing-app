@@ -1,12 +1,12 @@
 import styles from "./page.module.scss";
-import getWorkoutById from "@/src/lib/services/getWorkoutById";
-import getWorkoutLikes from "@/src/lib/services/getWorkoutLikes";
-import isSavedByUser from "@/src/lib/services/isSavedByUser";
-import isLikedByUser from "@/src/lib/services/isLikedByUser";
+import getWorkoutById from "@/src/lib/services/workout/getWorkoutById";
+import getWorkoutLikes from "@/src/lib/services/workout/getWorkoutLikes";
+import isSavedByUser from "@/src/lib/services/user/isSavedByUser";
+import isLikedByUser from "@/src/lib/services/user/isLikedByUser";
 import Workout from "@/src/components/shared/Workout/Workout";
 import { redirect } from "next/navigation";
-import getWorkoutSavesCount from "@/src/lib/services/getWorkoutSaves";
-import { getUser } from "@/src/lib/services/getUser";
+import getWorkoutSavesCount from "@/src/lib/services/workout/getWorkoutSaves";
+import { getUser } from "@/src/lib/services/user/getUser";
 
 interface WorkoutPageProps {
   params: {

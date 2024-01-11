@@ -1,4 +1,4 @@
-import { getUser } from "@/src/lib/services/getUser";
+import { getUser } from "@/src/lib/services/user/getUser";
 import styles from "./page.module.scss";
 import UserWorkoutList from "@/src/components/profile/UserWorkoutList/UserWorkoutList";
 
