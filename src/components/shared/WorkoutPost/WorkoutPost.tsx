@@ -1,17 +1,15 @@
 import styles from "./WorkoutPost.module.scss";
 import Link from "next/link";
-import { cookies } from "next/headers";
-import getWorkoutLikesCount from "@/src/lib/services/getWorkoutLikes";
-import isSavedByUser from "@/src/lib/services/isSavedByUser";
-import isLikedByUser from "@/src/lib/services/isLikedByUser";
+import getWorkoutLikesCount from "@/src/lib/services/workout/getWorkoutLikes";
+import isSavedByUser from "@/src/lib/services/user/isSavedByUser";
+import isLikedByUser from "@/src/lib/services/user/isLikedByUser";
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
-import getWorkoutSavesCount from "@/src/lib/services/getWorkoutSaves";
+import getWorkoutSavesCount from "@/src/lib/services/workout/getWorkoutSaves";
 import SocialDataDisplay from "@/src/components/shared/SocialDataDisplay/SocialDataDisplay";
 import { MdOutlineTimer } from "react-icons/md";
 import { BsLightningCharge, BsHourglassTop } from "react-icons/bs";
 import type { WorkoutPostPropTypes } from "./workoutPost.types";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default async function WorkoutPost({
   variant,
@@ -28,15 +26,11 @@ export default async function WorkoutPost({
   plays,
   name,
 }: WorkoutPostPropTypes) {
-  // init supabase client
-  const supabase = createServerComponentClient({ cookies });
-
   // calc total workout time
   const totalTime = Math.floor(
     workoutWarmupTime + workoutRoundTime * workoutRounds + workoutRestTime * (workoutRounds - 1)
   );
 
-  // fetch workout likes
   const likes = await getWorkoutLikesCount(id);
   const isLiked = await isLikedByUser(id, userID);
   const saved = await isSavedByUser(id, userID);

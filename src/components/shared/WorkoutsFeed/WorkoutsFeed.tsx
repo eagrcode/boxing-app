@@ -1,5 +1,5 @@
 import styles from "./WorkoutsFeed.module.scss";
-import getWorkouts from "@/src/lib/services/getWorkouts";
+import getWorkouts from "@/src/lib/services/workout/getWorkouts";
 import dynamic from "next/dynamic";
 import PostSkeleton from "@/src/components/shared/PostSkeleton/PostSkeleton";
 

@@ -13,8 +13,8 @@ import { BsFillVolumeUpFill } from "react-icons/bs";
 import { BsFillVolumeMuteFill } from "react-icons/bs";
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
-import addToHistory from "@/src/lib/services/addToHistory";
-import incrementPlays from "@/src/lib/services/incrementPlays";
+import addToHistory from "@/src/lib/services/timer/addToHistory";
+import incrementPlays from "@/src/lib/services/timer/incrementPlays";
 import { usePathname } from "next/navigation";
 import StartButton from "@/src/components/buttons/StartButton/StartButton";
 
