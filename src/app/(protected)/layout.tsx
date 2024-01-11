@@ -8,7 +8,7 @@ import BottomNav from "../../components/navigation/BottomNav/BottomNav";
 import LeftSidebar from "../../components/navigation/LeftSidebar/LeftSidebar";
 import Topbar from "../../components/shared/Topbar/Topbar";
 import StoreProvider from "../../redux/StoreProvider";
-import { getUser } from "@/src/lib/services/getUser";
+import { getUser } from "@/src/lib/services/user/getUser";
 
 export const metadata = {
   title: "Beatdown",
