@@ -4,23 +4,15 @@ import styles from "./Avatar.module.scss";
 import Image from "next/image";
 import { useState } from "react";
 import AvatarDropdown from "./AvatarDropdown/AvatarDropdown";
-import { useSelector } from "react-redux";
-
-type propTypes = {
-  avatarURL: string;
-  fullName: string;
-  email: string;
-};
+import { useAppSelector } from "@/src/redux/hooks";
 
 export default function Avatar() {
   const [showDropdown, setShowDropdown] = useState(false);
 
-  // Inside your component
-  const user = useSelector((state) => state.auth);
+  const user = useAppSelector((state) => state.auth);
 
   console.log(user);
 
-  // Now you can access user details like:
   const { userID, fullName, email, avatarURL } = user;
 
   return (
@@ -37,7 +29,7 @@ export default function Avatar() {
           onClick={() => setShowDropdown((prev) => !prev)}
           className={`${styles.avatar} ${styles.bdAvatar}`}
         >
-          <div>{fullName.charAt(0)}</div>
+          <div>{fullName && fullName.charAt(0)}</div>
         </div>
       )}
       {showDropdown && (
