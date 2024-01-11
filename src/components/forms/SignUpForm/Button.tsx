@@ -16,7 +16,7 @@ export default function Button({ isSubmitting }: ButtonProps) {
       {isSubmitting ? (
         <PulseLoader
           loading={isSubmitting}
-          color="var(--bg-color-main)"
+          color="var(--bg-black-0)"
           aria-label="Loading Spinner"
           data-testid="loader"
           size={8}

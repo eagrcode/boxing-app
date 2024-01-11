@@ -6,8 +6,8 @@
   bottom: 0;
   width: 100%;
   z-index: 999;
-  border-top: solid 1px var(--color-outline);
-  background-color: var(--nav-color-main);
+  border-top: solid 1px var(--border-color);
+  background-color: var(--bg-black-0);
 
   .menu {
     display: flex;
