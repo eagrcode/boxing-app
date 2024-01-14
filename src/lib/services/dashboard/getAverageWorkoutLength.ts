@@ -17,6 +17,10 @@ export const getAverageWorkoutLength = async (query: string): Promise<number> =>
 
     const data: PropType[] = await res.json();
 
+    if (!data.length) {
+      return 0;
+    }
+
     const summedData: number = data?.reduce((accumulator, currentValue) => {
       return accumulator + currentValue.time;
     }, 0);

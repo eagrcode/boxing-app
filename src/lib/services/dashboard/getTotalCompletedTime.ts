@@ -17,13 +17,17 @@ export const getTotalCompletedTime = async (query: string): Promise<number> => {
 
     const data: PropType[] = await res.json();
 
+    if (!data.length) {
+      return 0;
+    }
+
     const summedData: number = data?.reduce((accumulator, currentValue) => {
       return accumulator + currentValue.time;
     }, 0);
 
     const summedMinutes: number = Math.ceil(summedData / 60);
 
-    console.log("FETCHED DATA: ", summedMinutes);
+    console.log("COMPLETED TIME: ", summedMinutes);
 
     return summedMinutes;
   } catch (error: any) {

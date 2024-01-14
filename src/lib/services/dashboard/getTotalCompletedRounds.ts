@@ -17,11 +17,15 @@ export const getTotalCompletedRounds = async (query: string): Promise<number> =>
 
     const data: PropType[] = await res.json();
 
+    if (!data.length) {
+      return 0;
+    }
+
     const summedData: number = data?.reduce((accumulator, currentValue) => {
       return accumulator + currentValue.rounds;
     }, 0);
 
-    console.log("FETCHED DATA: ", summedData);
+    console.log("COMPLETED ROUNDS: ", summedData);
 
     return summedData;
   } catch (error: any) {

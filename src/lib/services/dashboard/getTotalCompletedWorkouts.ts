@@ -17,9 +17,13 @@ export const getTotalCompletedWorkouts = async (query: string): Promise<number> 
 
     const data: PropType[] = await res.json();
 
+    if (!data.length) {
+      return 0;
+    }
+
     const dataCount: number = data.length;
 
-    console.log("FETCHED DATA: ", dataCount);
+    console.log("COMPLETED WORKOUTS: ", dataCount);
 
     return dataCount;
   } catch (error: any) {
