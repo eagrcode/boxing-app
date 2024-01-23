@@ -1,8 +1,8 @@
 .dataDisplaySmall {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
+  justify-content: space-evenly;
+
   gap: 0.5rem;
   color: var(--text-color-main);
   background-color: var(--bg-black-0);
@@ -35,6 +35,7 @@
 .bottom {
   display: flex;
   align-items: last baseline;
+  // flex-direction: column;
   gap: 8px;
 }
 

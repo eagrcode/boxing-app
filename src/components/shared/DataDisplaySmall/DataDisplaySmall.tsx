@@ -4,14 +4,12 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import styles from "./DataDisplaySmall.module.scss";
 
 export default function DataDisplaySmall({
-  index,
   data,
   title,
   icon,
   text,
   queryParam,
   isActive,
-  currentQuery,
 }: {
   index: number;
   data: number;

@@ -2,6 +2,7 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 1rem;
   width: 100%;
   color: var(--text-color-main);
@@ -9,8 +10,24 @@
   background-color: var(--bg-black-4);
   padding: 1rem;
   border-radius: 8px;
+  flex: 3;
 }
 
-.data {
-  font-size: 2rem;
+.topContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 1rem;
+
+  @media (min-width: 900px) {
+    font-size: 1.5rem;
+  }
+}
+
+.filterContainer {
+  display: flex;
+  gap: 5px;
 }

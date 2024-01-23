@@ -3,7 +3,7 @@
 import { setApiHeaders } from "../../utils/setApiHeaders";
 
 interface GraphData {
-  month: string;
+  date: string;
   entry_count: number;
 }
 

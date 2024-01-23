@@ -13,6 +13,23 @@ import { getTotalCompletedTime } from "@/src/lib/services/dashboard/getTotalComp
 import { getTotalCompletedRounds } from "@/src/lib/services/dashboard/getTotalCompletedRounds";
 import { getAverageWorkoutLength } from "@/src/lib/services/dashboard/getAverageWorkoutLength";
 
+const FILTER_6_MONTHS = "_6_months";
+const FILTER_1_MONTH = "_1_month";
+const FILTER_7_DAYS = "_7_days";
+
+const ARR_LENGTH_6_MONTHS = 6;
+const ARR_LENGTH_1_MONTH = 4;
+const ARR_LENGTH_7_DAYS = 7;
+
+const TEXT_6_MONTHS = "6 Months";
+const TEXT_1_MONTH = "1 Month";
+const TEXT_7_DAYS = "7 Days";
+
+const BASE_PARAM_COMPLETED_WORKOUTS = "get_completed_workouts";
+const BASE_PARAM_COMPLETED_TIME = "get_completed_time";
+const BASE_PARAM_COMPLETED_ROUNDS = "get_completed_rounds";
+const BASE_PARAM_AVERAGE_WORKOUT = "get_average_workout";
+
 export default async function Index({
   searchParams,
 }: {
@@ -35,7 +52,30 @@ export default async function Index({
     getAverageWorkoutLength(apiRoutes.getTotalCompletedTime(user.id)),
   ]);
 
-  const sixMonthsData = await getGraphData(apiRoutes.getGraphData(query), user.id);
+  const timeSeriesData = await getGraphData(apiRoutes.getGraphData(query), user.id);
+
+  const filterButtons = [
+    {
+      filter: FILTER_6_MONTHS,
+      arrLength: ARR_LENGTH_6_MONTHS,
+      text: TEXT_6_MONTHS,
+      isActive: !query || query.endsWith(FILTER_6_MONTHS),
+    },
+    {
+      filter: FILTER_1_MONTH,
+      arrLength: ARR_LENGTH_1_MONTH,
+      text: TEXT_1_MONTH,
+      isActive: query.endsWith(FILTER_1_MONTH),
+    },
+    {
+      filter: FILTER_7_DAYS,
+      arrLength: ARR_LENGTH_7_DAYS,
+      text: TEXT_7_DAYS,
+      isActive: query.endsWith(FILTER_7_DAYS),
+    },
+  ];
+
+  const activeFilterParam = filterButtons.find((btn) => btn.isActive)?.filter || FILTER_6_MONTHS;
 
   const tiles = [
     {
@@ -44,8 +84,9 @@ export default async function Index({
       title: "Workouts",
       icon: <GiPunch size={25} />,
       text: "completed",
-      queryParam: "get_completed_workouts",
-      isActive: query === "" || query === "get_completed_workouts",
+      baseParam: BASE_PARAM_COMPLETED_WORKOUTS,
+      queryParam: BASE_PARAM_COMPLETED_WORKOUTS + activeFilterParam,
+      isActive: query === "" || query === BASE_PARAM_COMPLETED_WORKOUTS + activeFilterParam,
     },
     {
       id: 2,
@@ -53,8 +94,9 @@ export default async function Index({
       title: "Bag Time",
       icon: <MdTimer size={25} />,
       text: "mins",
-      queryParam: "get_completed_time",
-      isActive: query === "get_completed_time",
+      baseParam: BASE_PARAM_COMPLETED_TIME,
+      queryParam: BASE_PARAM_COMPLETED_TIME + activeFilterParam,
+      isActive: query === BASE_PARAM_COMPLETED_TIME + activeFilterParam,
     },
     {
       id: 3,
@@ -62,8 +104,9 @@ export default async function Index({
       title: "Rounds",
       icon: <BsFillLightningChargeFill size={25} />,
       text: "completed",
-      queryParam: "get_completed_rounds",
-      isActive: query === "get_completed_rounds",
+      baseParam: BASE_PARAM_COMPLETED_ROUNDS,
+      queryParam: BASE_PARAM_COMPLETED_ROUNDS + activeFilterParam,
+      isActive: query === BASE_PARAM_COMPLETED_ROUNDS + activeFilterParam,
     },
     {
       id: 4,
@@ -71,30 +114,42 @@ export default async function Index({
       title: "Avg Workout",
       icon: <GiPunchingBag size={25} />,
       text: "mins",
-      queryParam: "get_average_workout",
-      isActive: query === "get_average_workout",
+      baseParam: BASE_PARAM_AVERAGE_WORKOUT,
+      queryParam: BASE_PARAM_AVERAGE_WORKOUT + activeFilterParam,
+      isActive: query === BASE_PARAM_AVERAGE_WORKOUT + activeFilterParam,
     },
   ];
 
+  const activeTileParam = tiles.find((tile) => tile.isActive)?.baseParam || "";
+
   return (
     <div className={styles.pageWrapperUser}>
-      <div className={styles.dataDisplayGrid}>
-        {tiles.map((item, index) => (
-          <DataDisplaySmall
-            key={index}
-            index={index}
-            data={item.data}
-            title={item.title}
-            icon={item.icon}
-            text={item.text}
-            queryParam={item.queryParam}
-            isActive={item.isActive}
-            currentQuery={query}
-          />
-        ))}
-      </div>
-      <div className={styles.graphWrapper}>
-        <DataDisplayGraph sixMonthsData={sixMonthsData} currentQuery={query} />
+      <h1 className={styles.welcomeText}>
+        Welcome back, {user.user_metadata.full_name.split(" ")[0]}
+      </h1>
+      <p className={styles.tag}>Monitor your progress to date</p>
+      <div className={styles.timeSeriesWrapper}>
+        <div className={styles.dataDisplayGrid}>
+          {tiles.map((item, index) => (
+            <DataDisplaySmall
+              key={index}
+              index={index}
+              data={item.data}
+              title={item.title}
+              icon={item.icon}
+              text={item.text}
+              queryParam={item.queryParam}
+              isActive={item.isActive}
+              currentQuery={query}
+            />
+          ))}
+        </div>
+        <DataDisplayGraph
+          timeSeriesData={timeSeriesData}
+          filterButtons={filterButtons}
+          activeTileParam={activeTileParam}
+          activeFilterParam={activeFilterParam}
+        />
       </div>
     </div>
   );
