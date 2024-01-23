@@ -11,6 +11,7 @@ import { useTimerDataContext } from "@/src/context/TimerData.context";
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { TbListSearch } from "react-icons/tb";
+import Avatar from "../../shared/Avatar/Avatar";
 
 export default function BottomNav() {
   const path = usePathname();
@@ -22,7 +23,7 @@ export default function BottomNav() {
     {
       id: 1,
       title: "Dashboard",
-      url: "/",
+      url: "/dashboard",
       icon: <LuLayoutDashboard size={25} />,
     },
     {
@@ -82,24 +83,22 @@ export default function BottomNav() {
       {renderBackButton()}
       <ul className={styles.menu}>
         {authLinks.map((link, index) => (
-          <>
-            {" "}
-            <li key={index} className={styles.item}>
-              <Link
-                className={
-                  shouldHaveActiveStyles(path, link.url)
-                    ? `${styles.link} ${styles.active}`
-                    : styles.link
-                }
-                href={link.url}
-              >
-                {link.icon}
-              </Link>
-            </li>
-            {/* <Avatar avatarURL={""} fullName={""} /> */}
-          </>
+          <li key={index} className={styles.item}>
+            <Link
+              className={
+                shouldHaveActiveStyles(path, link.url)
+                  ? `${styles.link} ${styles.active}`
+                  : styles.link
+              }
+              href={link.url}
+              prefetch={true}
+            >
+              {link.icon}
+            </Link>
+          </li>
         ))}
       </ul>
+      <Avatar position={"bottomNav"} />
     </nav>
   );
 }

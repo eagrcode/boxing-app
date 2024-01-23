@@ -10,11 +10,18 @@ type propTypes = {
   fullName: string;
   email: string;
   setShowDropdown: Dispatch<SetStateAction<boolean>>;
+  position: string;
 };
 
-export default function AvatarDropdown({ avatarURL, fullName, email, setShowDropdown }: propTypes) {
+export default function AvatarDropdown({
+  avatarURL,
+  fullName,
+  email,
+  setShowDropdown,
+  position,
+}: propTypes) {
   return (
-    <div className={styles.dropdown}>
+    <div className={`${styles.dropdown} ${position === "bottomNav" && styles.bottomNav}`}>
       {avatarURL ? (
         <>
           <div

@@ -6,7 +6,11 @@ import { useState } from "react";
 import AvatarDropdown from "./AvatarDropdown/AvatarDropdown";
 import { useAppSelector } from "@/src/redux/hooks";
 
-export default function Avatar() {
+type AvatarTypes = {
+  position: string;
+};
+
+export default function Avatar({ position }: AvatarTypes) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const user = useAppSelector((state) => state.auth);
@@ -27,7 +31,9 @@ export default function Avatar() {
       ) : (
         <div
           onClick={() => setShowDropdown((prev) => !prev)}
-          className={`${styles.avatar} ${styles.bdAvatar}`}
+          className={`${styles.avatar} ${styles.bdAvatar}  ${
+            position === "bottomNav" && styles.bottomNav
+          }`}
         >
           <div>{fullName && fullName.charAt(0)}</div>
         </div>
@@ -38,6 +44,7 @@ export default function Avatar() {
           setShowDropdown={setShowDropdown}
           fullName={fullName}
           email={email}
+          position={position}
         />
       )}
     </>

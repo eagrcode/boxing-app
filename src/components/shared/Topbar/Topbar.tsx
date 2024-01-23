@@ -19,7 +19,7 @@ export default function Topbar() {
   return (
     <div className={styles.topBar}>
       <Logo variant={"nav"} />
-      <Avatar />
+      <Avatar position={"topBar"} />
     </div>
   );
 }
