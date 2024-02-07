@@ -1,20 +1,21 @@
+"use client";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import styles from "./WorkoutPost.module.scss";
-import Link from "next/link";
-import getWorkoutLikesCount from "@/src/lib/services/workout/getWorkoutLikes";
-import isSavedByUser from "@/src/lib/services/user/isSavedByUser";
-import isLikedByUser from "@/src/lib/services/user/isLikedByUser";
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
-import getWorkoutSavesCount from "@/src/lib/services/workout/getWorkoutSaves";
 import SocialDataDisplay from "@/src/components/shared/SocialDataDisplay/SocialDataDisplay";
 import { MdOutlineTimer } from "react-icons/md";
 import { BsLightningCharge, BsHourglassTop } from "react-icons/bs";
-import type { WorkoutPostPropTypes } from "./workoutPost.types";
+import type { WorkoutPost } from "@/src/lib/types/workout.types";
+import WorkoutAvatar from "../WorkoutAvatar/WorkoutAvatar";
+import { useAppDispatch } from "@/src/redux/hooks";
+import { setIsActive } from "@/src/redux/workoutSlice";
 
-export default async function WorkoutPost({
-  variant,
+export default function WorkoutPost({
+  index,
+  selectedIndex,
   id,
-  userID,
   title,
   description,
   workoutRounds,
@@ -25,25 +26,36 @@ export default async function WorkoutPost({
   createdAt,
   plays,
   name,
-}: WorkoutPostPropTypes) {
-  // calc total workout time
+  isLiked,
+  isSaved,
+  savesCount,
+  likesCount,
+}: WorkoutPost) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const dispatch = useAppDispatch();
+
   const totalTime = Math.floor(
     workoutWarmupTime + workoutRoundTime * workoutRounds + workoutRestTime * (workoutRounds - 1)
   );
 
-  const likes = await getWorkoutLikesCount(id);
-  const isLiked = await isLikedByUser(id, userID);
-  const saved = await isSavedByUser(id, userID);
-  const savesCount = await getWorkoutSavesCount(id);
+  function handleSelect(param: string) {
+    // if (isActive) return;
+
+    const params = new URLSearchParams(searchParams);
+    param ? params.set("query", param) : params.delete("query");
+    replace(`${pathname}?${params.toString()}`);
+
+    dispatch(setIsActive());
+  }
 
   return (
-    <div key={id} className={styles.card}>
-      <Link className={styles.linkWrapper} href={`${variant}${id}`}>
+    <div key={id} className={`${styles.card} ${index === selectedIndex && styles.isActive}`}>
+      <div className={styles.linkWrapper} onClick={() => handleSelect(id)}>
         <div className={styles.cardTop}>
           <div className={styles.usernameContainer}>
-            <div className={styles.avatar}>
-              <div>{name?.charAt(0)}</div>
-            </div>
+            <WorkoutAvatar fullName={name} avatarURL={""} />
             <p>{createdBy}</p>
           </div>
           <span>{formatTimeAgo(createdAt)}</span>
@@ -70,15 +82,13 @@ export default async function WorkoutPost({
             <span>{formatTimeDisplay(workoutRoundTime)}</span>
           </div>
         </div>
-      </Link>
-
+      </div>
       <SocialDataDisplay
-        likes={likes}
         plays={plays}
         id={id}
-        userID={userID}
-        saved={saved}
         isLiked={isLiked}
+        isSaved={isSaved}
+        likesCount={likesCount}
         savesCount={savesCount}
       />
     </div>
