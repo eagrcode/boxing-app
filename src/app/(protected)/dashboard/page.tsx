@@ -12,23 +12,25 @@ import { getUser } from "@/src/lib/services/user/getUser";
 import { getTotalCompletedTime } from "@/src/lib/services/dashboard/getTotalCompletedTime";
 import { getTotalCompletedRounds } from "@/src/lib/services/dashboard/getTotalCompletedRounds";
 import { getAverageWorkoutLength } from "@/src/lib/services/dashboard/getAverageWorkoutLength";
+import { Suspense } from "react";
+import PostSkeleton from "@/src/components/shared/PostSkeleton/PostSkeleton";
 
-const FILTER_6_MONTHS = "_6_months";
-const FILTER_1_MONTH = "_1_month";
-const FILTER_7_DAYS = "_7_days";
+const FILTER_6_MONTHS: string = "_6_months";
+const FILTER_1_MONTH: string = "_1_month";
+const FILTER_7_DAYS: string = "_7_days";
 
-const ARR_LENGTH_6_MONTHS = 6;
-const ARR_LENGTH_1_MONTH = 4;
-const ARR_LENGTH_7_DAYS = 7;
+const ARR_LENGTH_6_MONTHS: number = 6;
+const ARR_LENGTH_1_MONTH: number = 4;
+const ARR_LENGTH_7_DAYS: number = 7;
 
-const TEXT_6_MONTHS = "6 Months";
-const TEXT_1_MONTH = "1 Month";
-const TEXT_7_DAYS = "7 Days";
+const TEXT_6_MONTHS: string = "6 Months";
+const TEXT_1_MONTH: string = "1 Month";
+const TEXT_7_DAYS: string = "7 Days";
 
-const BASE_PARAM_COMPLETED_WORKOUTS = "get_completed_workouts";
-const BASE_PARAM_COMPLETED_TIME = "get_completed_time";
-const BASE_PARAM_COMPLETED_ROUNDS = "get_completed_rounds";
-const BASE_PARAM_AVERAGE_WORKOUT = "get_average_workout";
+const BASE_PARAM_COMPLETED_WORKOUTS: string = "get_completed_workouts";
+const BASE_PARAM_COMPLETED_TIME: string = "get_completed_time";
+const BASE_PARAM_COMPLETED_ROUNDS: string = "get_completed_rounds";
+const BASE_PARAM_AVERAGE_WORKOUT: string = "get_average_workout";
 
 export default async function Index({
   searchParams,
