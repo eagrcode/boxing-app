@@ -1,5 +1,5 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import type { Database } from "@/src/lib/database.types";
+import type { Database } from "@/src/lib/types/database.types";
 
 export default async function getRandomCombo(difficulty: string): Promise<string[]> {
   const supabase = createClientComponentClient<Database>();

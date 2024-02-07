@@ -1,6 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { Database } from "@/src/lib/database.types";
+import { Database } from "@/src/lib/types/database.types";
 
 export default async function getUserHistory(id: string) {
   const supabase = createServerComponentClient<
