@@ -1,0 +1,7 @@
+.btn {
+  color: var(--text-color-main);
+
+  @media (min-width: 900px) {
+    display: none;
+  }
+}
