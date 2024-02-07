@@ -13,12 +13,7 @@ type AvatarTypes = {
 export default function Avatar({ position }: AvatarTypes) {
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const user = useAppSelector((state) => state.auth);
-
-  console.log(user);
-
-  const { userID, fullName, email, avatarURL } = user;
-
+  const { fullName, email, avatarURL } = useAppSelector((state) => state.auth);
   return (
     <>
       {avatarURL ? (
