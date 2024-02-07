@@ -1,9 +1,11 @@
-import getWorkoutLikes from "@/src/lib/services/workout/getWorkoutLikes";
+import styles from "./page.module.scss";
 import getWorkoutById from "@/src/lib/services/workout/getWorkoutById";
+import getWorkoutLikes from "@/src/lib/services/workout/getWorkoutLikes";
 import isSavedByUser from "@/src/lib/services/user/isSavedByUser";
 import isLikedByUser from "@/src/lib/services/user/isLikedByUser";
+import Workout from "@/src/components/shared/Workout/Workout";
+import { redirect } from "next/navigation";
 import getWorkoutSavesCount from "@/src/lib/services/workout/getWorkoutSaves";
-import UserWorkout from "@/src/components/profile/UserWorkout/UserWorkout";
 import { getUser } from "@/src/lib/services/user/getUser";
 
 interface WorkoutPageProps {
@@ -12,8 +14,7 @@ interface WorkoutPageProps {
   };
 }
 
-export default async function UserWorkoutPage({ params }: WorkoutPageProps) {
-  // get user data
+export default async function WorkoutPage({ params }: WorkoutPageProps) {
   const user = await getUser();
 
   let userID = "";
@@ -26,14 +27,14 @@ export default async function UserWorkoutPage({ params }: WorkoutPageProps) {
   const likes = await getWorkoutLikes(params.id);
   const isLiked = await isLikedByUser(params.id, userID);
   const saved = await isSavedByUser(params.id, userID);
-  const workoutData = await getWorkoutById(params.id);
+  // const workoutData = await getWorkoutById(params.id);
   const savesCount = await getWorkoutSavesCount(params.id);
 
   return (
-    <>
-      <UserWorkout
+    <div className={styles.wrapper}>
+      {/* <Workout
         id={workoutData?.id}
-        createdBy={workoutData?.profiles.username || workoutData.profiles.email}
+        createdBy={workoutData?.profiles.username || workoutData?.profiles.email}
         title={workoutData?.title}
         description={workoutData?.description}
         workoutRounds={workoutData?.number_of_rounds}
@@ -43,13 +44,13 @@ export default async function UserWorkoutPage({ params }: WorkoutPageProps) {
         roundInfo={workoutData?.round_info}
         createdAt={workoutData?.created_at}
         likes={likes}
-        isLiked={isLiked}
         saved={saved}
-        savesCount={savesCount}
         userID={userID || ""}
+        isLiked={isLiked}
         plays={workoutData?.plays}
-        name={workoutData?.profiles.full_name}
-      />
-    </>
+        savesCount={savesCount}
+        name={workoutData.profiles.full_name}
+      /> */}
+    </div>
   );
 }
