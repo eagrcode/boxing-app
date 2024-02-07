@@ -3,6 +3,11 @@
   border: transparent;
   border-radius: 50%;
   position: relative;
+  color: var(--text-color-accent);
+
+  &.active {
+    color: var(--accent-color-blue);
+  }
 
   @media (min-width: 768px) {
     padding: 5px;
