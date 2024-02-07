@@ -6,31 +6,29 @@ import styles from "./SocialDataDisplay.module.scss";
 import { FiBarChart2 } from "react-icons/fi";
 import { useOptimistic } from "react";
 
-interface LikesDisplayPropTypes {
-  likes: number;
+interface SocialData {
+  likesCount: number;
   plays: number;
   id: string;
-  userID: string;
-  saved: boolean | null;
+  isSaved: boolean | null;
   isLiked: boolean | null;
   savesCount: number;
 }
 
 export default function SocialDataDisplay({
-  likes,
+  likesCount,
   plays,
-  saved,
+  isSaved,
   id,
-  userID,
   isLiked,
   savesCount,
-}: LikesDisplayPropTypes) {
+}: SocialData) {
   const [optimisticSavesCount, toggleOptimisticSavesCount] = useOptimistic(
     savesCount,
     (state, newState) => state + (newState as number)
   );
   const [optimisticLikesCount, toggleOptimisticLikesCount] = useOptimistic(
-    likes,
+    likesCount,
     (state, newState) => state + (newState as number)
   );
 
@@ -39,13 +37,12 @@ export default function SocialDataDisplay({
       <div className={styles.tooltip}>
         <div className={styles.hoverText}>
           <LikeButton
+            id={id}
+            isLiked={isLiked}
             onToggleLike={(isLiked) => {
               const newState = isLiked ? 1 : -1;
               toggleOptimisticLikesCount(newState);
             }}
-            id={id}
-            userID={userID}
-            isLiked={isLiked}
           />
           {optimisticLikesCount}
         </div>
@@ -54,10 +51,10 @@ export default function SocialDataDisplay({
       <div className={styles.tooltip}>
         <div className={styles.hoverText}>
           <SaveButton
-            saved={saved}
+            saved={isSaved}
             id={id}
-            onToggleSave={(saved) => {
-              const newState = saved ? 1 : -1;
+            onToggleSave={(isSaved) => {
+              const newState = isSaved ? 1 : -1;
               toggleOptimisticSavesCount(newState);
             }}
           />
