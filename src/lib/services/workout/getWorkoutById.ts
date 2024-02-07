@@ -1,32 +1,34 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import type { Database } from "@/src/lib/database.types";
+"use server";
 
-const getWorkoutById = async (id: string) => {
-  const supabase = createServerComponentClient<
-    Database["public"]["Tables"]["workouts"]["WithProfile"][]
-  >({ cookies });
+import { Workout } from "../../types/workout.types";
+import { setApiHeaders } from "../../utils/setApiHeaders";
 
-  console.log("params.id: ", id);
+const getWorkoutById = async (id: string, URL: string, workoutID: string): Promise<Workout> => {
+  console.log(id, URL, workoutID);
 
-  const { data, error } = await supabase
-    .from("workouts")
-    .select(
-      `
-      *,
-      profiles: user_id (username, email, full_name)
-    `
-    )
-    .eq("id", id)
-    .single();
+  try {
+    const headers = setApiHeaders();
 
-  if (error) {
-    console.log(error);
-  } else {
-    return data;
+    const res = await fetch(process.env.NEXT_PUBLIC_SUPABASE_URL + URL, {
+      method: "POST",
+      body: JSON.stringify({ requesting_user_id: id, target_workout_id: workoutID }),
+      headers: headers,
+      cache: "force-cache",
+    });
+
+    const data = await res.json();
+
+    if (!data) {
+      return {} as Workout;
+    }
+
+    console.log("WORKOUT BY ID DATA: ", data[0]);
+
+    return data[0];
+  } catch (error: any) {
+    console.error("Function error: ", error.message);
+    throw error;
   }
-
-  console.log("FETCH WORKOUT BY ID: ", data);
 };
 
 export default getWorkoutById;
