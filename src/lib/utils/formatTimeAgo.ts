@@ -1,22 +1,27 @@
-import { differenceInMinutes, differenceInDays, differenceInWeeks } from "date-fns";
+import {
+  differenceInMinutes,
+  differenceInHours,
+  differenceInDays,
+  differenceInWeeks,
+} from "date-fns";
 
 export default function formatTimeAgo(timestamp: string): string {
   try {
-    // Parse the timestamp into a Date object (assuming it's in GMT)
     const date = new Date(timestamp);
 
-    // Calculate the time difference in minutes, days, and weeks
     const diffMinutes = differenceInMinutes(new Date(), date);
+    const diffHours = differenceInHours(new Date(), date);
     const diffDays = differenceInDays(new Date(), date);
     const diffWeeks = differenceInWeeks(new Date(), date);
 
-    // Choose the appropriate format based on the difference
     if (diffMinutes < 60) {
-      return `${diffMinutes}m`;
+      return `${diffMinutes} min${diffMinutes > 1 ? "s" : ""} ago`;
+    } else if (diffHours < 24) {
+      return `${diffHours} hour${diffHours > 1 ? "s" : ""} ago`;
     } else if (diffDays < 7) {
-      return `${diffDays}d`;
+      return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
     } else {
-      return `${diffWeeks}w`;
+      return `${diffWeeks} week${diffWeeks > 1 ? "s" : ""} ago`;
     }
   } catch (error) {
     console.error("Error formatting timestamp:", error);
