@@ -7,7 +7,14 @@ export async function middleware(req: NextRequest) {
   const publicRoutes: string[] = ["/", "/login", "/signUp"];
   const isPublicRoute: boolean = publicRoutes.some((path) => req.nextUrl.pathname === path);
 
-  const protectedRoutes: string[] = ["/dashboard", "/timer", "/create", "/profile", "/workout"];
+  const protectedRoutes: string[] = [
+    "/dashboard",
+    "/timer",
+    "/create",
+    "/profile",
+    "/workout",
+    "/discover",
+  ];
   const isProtectedRoute: boolean = protectedRoutes.some((path) =>
     req.nextUrl.pathname.startsWith(path)
   );
