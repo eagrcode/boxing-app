@@ -21,8 +21,7 @@ export default function BottomNav() {
   const searchParams = useSearchParams();
   const timerMode = searchParams.get("timer_mode");
 
-  // init links view for authenticated users
-  const authLinks = [
+  const links = [
     {
       id: 1,
       title: "Dashboard",
@@ -55,7 +54,6 @@ export default function BottomNav() {
     },
   ];
 
-  // Define a function to determine if the link should have active styles
   const shouldHaveActiveStyles = (path: string, linkUrl: string) => {
     return (
       path === linkUrl ||
@@ -63,7 +61,6 @@ export default function BottomNav() {
     );
   };
 
-  // Conditionally render the BackButton based on the path
   const renderBackButton = () => {
     if (
       path.startsWith("/workout/") ||
@@ -83,7 +80,7 @@ export default function BottomNav() {
     <nav className={styles.nav}>
       {renderBackButton()}
       <ul className={styles.menu}>
-        {authLinks.map((link, index) => (
+        {links.map((link, index) => (
           <li key={index} className={styles.item}>
             <Link
               className={
