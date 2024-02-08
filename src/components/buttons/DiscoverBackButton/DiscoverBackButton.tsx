@@ -1,6 +1,6 @@
 "use client";
 
-import { IoChevronBack } from "react-icons/io5";
+import { IoChevronForward } from "react-icons/io5";
 import styles from "./DiscoverBackButton.module.scss";
 import { useAppDispatch } from "@/src/redux/hooks";
 import { setIsActive } from "@/src/redux/workoutSlice";
@@ -14,7 +14,7 @@ export default function DiscoverBackButton() {
 
   return (
     <button className={styles.btn} onClick={() => handleClick()}>
-      <IoChevronBack size={35} />
+      <IoChevronForward size={35} />
     </button>
   );
 }
