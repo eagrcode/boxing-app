@@ -2,7 +2,7 @@
 
 import styles from "./BottomNav.module.scss";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { IoTimerOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
@@ -17,6 +17,9 @@ export default function BottomNav() {
   const path = usePathname();
   const { isTimerActive } = useTimerDataContext();
   const { isWorkoutMode } = useWorkoutTimerDataContext();
+
+  const searchParams = useSearchParams();
+  const timerMode = searchParams.get("timer_mode");
 
   // init links view for authenticated users
   const authLinks = [
@@ -72,9 +75,7 @@ export default function BottomNav() {
     return null;
   };
 
-  if (isTimerActive) {
-    return null;
-  } else if (isWorkoutMode) {
+  if (timerMode === "active") {
     return null;
   }
 
