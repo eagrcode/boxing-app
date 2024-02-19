@@ -2,27 +2,26 @@
 
 import styles from "./LeftSidebar.module.scss";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { IoTimerOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
 import { TbListSearch } from "react-icons/tb";
 import BackButton from "../../buttons/BackButton/BackButton";
-import { useTimerDataContext } from "@/src/context/TimerData.context";
-import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 
 export default function LeftSidebar() {
-  const path = usePathname();
-  const { isTimerActive } = useTimerDataContext();
-  const { isWorkoutMode } = useWorkoutTimerDataContext();
+  console.log("RENDERED");
 
-  // init links view for authenticated users
-  const authLinks = [
+  const path = usePathname();
+  const searchParams = useSearchParams();
+  const timerMode = searchParams.get("timer_mode");
+
+  const links = [
     {
       id: 1,
       title: "Dashboard",
-      url: "/",
+      url: "/dashboard",
       icon: <LuLayoutDashboard size={30} />,
     },
     {
@@ -51,12 +50,10 @@ export default function LeftSidebar() {
     },
   ];
 
-  // Define a function to determine if the link should have active styles
   const shouldHaveActiveStyles = (path: string, linkUrl: string) => {
     return path === linkUrl || (path !== "/" && path.startsWith(linkUrl + "/"));
   };
 
-  // Conditionally render the BackButton based on the path
   const renderBackButton = () => {
     if (
       path.startsWith("/workout/") ||
@@ -68,17 +65,14 @@ export default function LeftSidebar() {
     return null;
   };
 
-  if (isTimerActive) {
-    return null;
-  } else if (isWorkoutMode) {
+  if (timerMode === "active") {
     return null;
   }
 
   return (
     <nav className={styles.nav}>
-      {/* <Logo variant={"nav"} /> */}
       <ul className={styles.menu}>
-        {authLinks.map((link, index) => (
+        {links.map((link, index) => (
           <li key={index} className={styles.item}>
             <Link
               className={
@@ -87,6 +81,7 @@ export default function LeftSidebar() {
                   : styles.link
               }
               href={link.url}
+              prefetch={true}
             >
               {link.icon}
               <p className={styles.title}> {link.title}</p>
