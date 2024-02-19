@@ -12,13 +12,13 @@ export default function WorkoutAvatar({
 }) {
   return (
     <>
-      {avatarURL ? (
-        <div className={`${styles.avatar} ${styles.googleAvatar}`}>
-          <Image src={`${avatarURL}`} alt="User avatar" height={40} width={40} />
-        </div>
-      ) : (
+      {avatarURL === "" ? (
         <div className={`${styles.avatar} ${styles.bdAvatar}  `}>
           <div>{fullName && fullName.charAt(0).toUpperCase()}</div>
+        </div>
+      ) : (
+        <div className={`${styles.avatar} ${styles.googleAvatar}`}>
+          <Image src={`${avatarURL}`} alt="User avatar" height={25} width={25} />
         </div>
       )}
     </>

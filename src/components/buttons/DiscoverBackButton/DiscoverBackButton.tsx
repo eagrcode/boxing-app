@@ -2,14 +2,13 @@
 
 import { IoChevronForward } from "react-icons/io5";
 import styles from "./DiscoverBackButton.module.scss";
-import { useAppDispatch } from "@/src/redux/hooks";
-import { setIsActive } from "@/src/redux/workoutSlice";
+import { useRouter } from "next/navigation";
 
 export default function DiscoverBackButton() {
-  const dispatch = useAppDispatch();
+  const { back } = useRouter();
 
   function handleClick() {
-    dispatch(setIsActive());
+    back();
   }
 
   return (

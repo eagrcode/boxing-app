@@ -30,6 +30,7 @@ export default function WorkoutsFeed({
           workoutRestTime={workout.workout_data.rest_time}
           createdBy={workout.profiles_data.username || workout.profiles_data.email}
           createdAt={workout.workout_data.created_at}
+          avatarURL={workout.profiles_data.avatar_url}
           plays={workout.workout_data.plays}
           name={workout.profiles_data.full_name}
           isLiked={workout.is_liked}

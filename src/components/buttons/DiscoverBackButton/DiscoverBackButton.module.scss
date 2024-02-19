@@ -1,4 +1,7 @@
 .btn {
+  position: sticky;
+  top: 1rem;
+  right: 1rem;
   color: var(--text-color-main);
 
   @media (min-width: 900px) {

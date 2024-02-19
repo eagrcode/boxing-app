@@ -8,11 +8,4 @@
   &.active {
     color: var(--accent-color-blue);
   }
-
-  @media (min-width: 768px) {
-    padding: 5px;
-    &:hover {
-      background-color: hsla(240, 50%, 80%, 0.1);
-    }
-  }
 }

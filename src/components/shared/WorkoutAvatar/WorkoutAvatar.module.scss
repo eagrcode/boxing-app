@@ -4,6 +4,7 @@
   align-items: center;
   border-radius: 50%;
   cursor: pointer;
+  color: var(--bg-black-0);
 }
 
 .googleAvatar {
@@ -16,7 +17,6 @@
   font-size: 1rem;
   font-weight: bold;
   background-color: var(--accent-color-blue);
-  color: var(--bg-black-0);
   height: 25px;
   width: 25px;
 }

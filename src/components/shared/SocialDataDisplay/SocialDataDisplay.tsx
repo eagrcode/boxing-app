@@ -44,7 +44,7 @@ export default function SocialDataDisplay({
               toggleOptimisticLikesCount(newState);
             }}
           />
-          {optimisticLikesCount}
+          {optimisticLikesCount} {optimisticLikesCount > 1 ? "likes" : "like"}
         </div>
         <div className={styles["tooltip-text"]}>Like</div>
       </div>
@@ -58,13 +58,13 @@ export default function SocialDataDisplay({
               toggleOptimisticSavesCount(newState);
             }}
           />
-          {optimisticSavesCount}
+          {optimisticSavesCount} {optimisticSavesCount > 1 ? "saves" : "save"}
         </div>
         <div className={styles["tooltip-text"]}>Save</div>
       </div>
       <div className={styles.tooltip}>
         <div className={styles.hoverText}>
-          <FiBarChart2 size={20} /> {plays}
+          <FiBarChart2 size={20} /> {plays} {plays > 1 ? "plays" : "play"}
         </div>
         <div className={styles["tooltip-text"]}>Plays</div>
       </div>

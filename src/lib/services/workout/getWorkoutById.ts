@@ -4,8 +4,6 @@ import { Workout } from "../../types/workout.types";
 import { setApiHeaders } from "../../utils/setApiHeaders";
 
 const getWorkoutById = async (id: string, URL: string, workoutID: string): Promise<Workout> => {
-  console.log(id, URL, workoutID);
-
   try {
     const headers = setApiHeaders();
 

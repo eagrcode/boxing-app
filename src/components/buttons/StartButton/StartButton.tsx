@@ -1,10 +1,12 @@
-import styles from "./StartButton.module.scss";
-import Button from "./Button";
+"use client";
 
-export default function StartButton({ handleStart }: { handleStart: () => Promise<void> }) {
+import styles from "./StartButton.module.scss";
+import { FaPlay } from "react-icons/fa";
+
+export default function StartButton({ handleStart }: { handleStart: () => void }) {
   return (
-    <form className={styles.form} action={handleStart}>
-      <Button />
-    </form>
+    <button onClick={handleStart} className={styles.btnStart}>
+      <FaPlay size={15} /> Start
+    </button>
   );
 }

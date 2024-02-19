@@ -1,20 +1,19 @@
 .pageWrapper {
   display: flex;
   flex-direction: column;
-  // gap: 1rem;
-  // padding: 1rem 0;
-  min-height: calc(100svh - 58px);
-
-  @media (min-width: 900px) {
-    min-height: calc(100vh - 64px);
-  }
 }
 
 .discoverWrapper {
   position: relative;
   display: flex;
   height: 100%;
-  overflow-x: hidden;
+
+  min-height: calc(100svh - 58px);
+
+  @media (min-width: 900px) {
+    min-height: auto;
+    height: calc(100vh - 64px);
+  }
 }
 
 .leftView {
@@ -22,26 +21,19 @@
 
   @media (min-width: 900px) {
     border-right: solid 1px var(--border-color);
+    overflow-y: auto;
   }
 }
 
 .rightView {
-  position: absolute;
-  flex: 1;
-  display: flex;
-  background-color: var(--bg-black-4);
-  height: 100%;
-  transform: translateX(100%);
-
-  transition: all ease-in 0.3s 0.2s;
-
-  &.isActive {
-    transform: translate(0);
-  }
+  display: none;
 
   @media (min-width: 900px) {
-    position: relative;
-    transform: translate(0);
+    flex: 1;
+    display: flex;
+    background-color: var(--bg-black-4);
+    width: 100%;
+    overflow-y: auto;
   }
 }
 
