@@ -7,17 +7,12 @@ import { IoTimerOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
 import BackButton from "../../buttons/BackButton/BackButton";
-import { useTimerDataContext } from "@/src/context/TimerData.context";
-import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { TbListSearch } from "react-icons/tb";
 import Avatar from "../../shared/Avatar/Avatar";
 
 export default function BottomNav() {
   const path = usePathname();
-  const { isTimerActive } = useTimerDataContext();
-  const { isWorkoutMode } = useWorkoutTimerDataContext();
-
   const searchParams = useSearchParams();
   const timerMode = searchParams.get("timer_mode");
 
@@ -61,24 +56,13 @@ export default function BottomNav() {
     );
   };
 
-  const renderBackButton = () => {
-    if (
-      path.startsWith("/workout/") ||
-      path.startsWith("/account/userWorkout/") ||
-      path.startsWith("/account/savedWorkouts/")
-    ) {
-      return <BackButton />;
-    }
-    return null;
-  };
-
   if (timerMode === "active") {
     return null;
   }
 
   return (
     <nav className={styles.nav}>
-      {renderBackButton()}
+      {/* {renderBackButton()} */}
       <ul className={styles.menu}>
         {links.map((link, index) => (
           <li key={index} className={styles.item}>
