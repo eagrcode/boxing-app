@@ -11,6 +11,7 @@ export default async function signUpEmail(
   username: string,
   fullName: string
 ): Promise<SignUpResponse> {
+  console.log(email, password, username, fullName);
   const supabase = createClientComponentClient();
 
   try {
@@ -42,6 +43,8 @@ export default async function signUpEmail(
         data: {
           full_name: fullName,
           username: username,
+          avatar_url: "",
+          email: email,
         },
 
         emailRedirectTo: `${location.origin}/auth/callback`,
@@ -50,7 +53,7 @@ export default async function signUpEmail(
 
     if (signUpError) {
       console.error("Error during sign up:", signUpError.message);
-      return { success: false, message: "Username elready exists" };
+      return { success: false, message: signUpError.message };
     }
 
     console.log("User created successfully. ID:", data);
