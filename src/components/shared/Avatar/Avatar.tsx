@@ -14,6 +14,7 @@ export default function Avatar({ position }: AvatarTypes) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const { fullName, email, avatarURL } = useAppSelector((state) => state.auth);
+
   return (
     <>
       {avatarURL ? (
