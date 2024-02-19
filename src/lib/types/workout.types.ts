@@ -51,6 +51,7 @@ export type WorkoutPost = {
   workoutRestTime: number;
   createdAt: string;
   createdBy: string;
+  avatarURL: string;
   plays: number;
   name: string;
   isSaved: boolean;
