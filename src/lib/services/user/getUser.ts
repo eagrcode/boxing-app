@@ -18,8 +18,6 @@ export const getUser = async () => {
 
     const data = await res.json();
 
-    console.log("GET USER: ", data);
-
     return data;
   } catch (error: any) {
     console.error("Unexpected error: ", error.message);
