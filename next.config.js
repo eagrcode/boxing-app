@@ -5,9 +5,14 @@ const nextConfig = {
       allowedOrigins: ["localhost:3000", "192.168.0.16:3000", "thebeatdown.co.uk"],
     },
   },
-  compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   },
+  // compiler: {
+  //   removeConsole: process.env.NODE_ENV === "production",
+  // },
   images: {
     remotePatterns: [
       {
