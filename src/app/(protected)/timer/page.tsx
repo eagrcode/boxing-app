@@ -10,50 +10,76 @@ import { MdInfoOutline } from "react-icons/md";
 import { BsFillVolumeUpFill } from "react-icons/bs";
 import { BsFillVolumeMuteFill } from "react-icons/bs";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
+import ModeView from "./ModeView/ModeView";
+import ComboView from "./ComboView/ComboView";
 
 export default function TimerPage() {
-  // init state
   const [randomCombo, setRandomCombo] = useState<string[]>([]);
   const [isMuted, setIsMuted] = useState<boolean>(false);
-
-  // context
+  const [isModeView, setIsModeView] = useState<boolean>(true);
+  const [isComboView, setIsComboView] = useState<boolean>(false);
+  const [isFormView, setIsFormView] = useState<boolean>(false);
   const { isTimerActive, setIsTimerActive } = useTimerDataContext();
 
-  // Show form to initialise settings for Timer component
-  if (!isTimerActive) {
+  const handleViewChange = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const { id } = e.currentTarget;
+
+    console.log(id);
+
+    switch (id) {
+      case "combo-view":
+        setIsModeView(false);
+        setIsComboView(true);
+        break;
+
+      case "form-view":
+        setIsModeView(false);
+        setIsComboView(false);
+        setIsFormView(true);
+        break;
+    }
+  };
+
+  // Show select mode view
+  if (isModeView) {
+    return <ModeView handleViewChange={handleViewChange} />;
+  }
+
+  // Show generate combo view
+  if (isComboView) {
+    return (
+      <ComboView
+        randomCombo={randomCombo}
+        setRandomCombo={setRandomCombo}
+        handleViewChange={handleViewChange}
+      />
+    );
+  }
+
+  // Show form view
+  if (isFormView) {
     return (
       <div className={styles.wrapper}>
-        {/* <div className={styles.infoIcon}>
-          <MdInfoOutline size={25} />
-        </div> */}
-        <header>Timer</header>
-        <div className={styles.pageTop}>
-          <div className={styles.formCardContainer}>
-            <GenerateComboForm setRandomCombo={setRandomCombo} />
-            {randomCombo?.length === 0 ? (
-              <div className={styles.comboSkeleton}></div>
-            ) : (
-              <ComboCard sequence={randomCombo} />
-            )}
-          </div>
-        </div>
-        <InitiateTimerForm setIsTimerActive={setIsTimerActive} randomCombo={randomCombo} />
+        <InitiateTimerForm setIsTimerActive={setIsTimerActive} setIsFormView={setIsFormView} />
       </div>
     );
   }
 
-  // Show Timer
-  return (
-    <div className={styles.timerWrapper}>
-      <Timer
-        setIsTimerActive={setIsTimerActive}
-        sequence={randomCombo}
-        setRandomCombo={setRandomCombo}
-        isMuted={isMuted}
-      />
-      <button onClick={() => setIsMuted((prev) => !prev)} className={styles.muteBtn}>
-        {isMuted ? <BsFillVolumeMuteFill size={25} /> : <BsFillVolumeUpFill size={25} />}
-      </button>
-    </div>
-  );
+  // Show timer view
+  if (isTimerActive) {
+    return (
+      <div className={styles.timerWrapper}>
+        <Timer
+          setIsTimerActive={setIsTimerActive}
+          sequence={randomCombo}
+          setRandomCombo={setRandomCombo}
+          isMuted={isMuted}
+          setIsModeView={setIsModeView}
+        />
+        <div onClick={() => setIsMuted((prev) => !prev)} className={styles.muteBtn}>
+          {isMuted ? <BsFillVolumeMuteFill size={25} /> : <BsFillVolumeUpFill size={25} />}
+        </div>
+      </div>
+    );
+  }
 }

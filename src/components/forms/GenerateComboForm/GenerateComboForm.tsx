@@ -1,7 +1,7 @@
 import styles from "./GenerateComboForm.module.scss";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
 import getRandomCombo from "@/src/lib/services/timer/getRandomCombo";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface GenerateComboFormProps {
   setRandomCombo: Dispatch<SetStateAction<string[]>>;
@@ -12,9 +12,10 @@ export default function GenerateComboForm({ setRandomCombo }: GenerateComboFormP
   const { difficulty, setDifficulty } = useTimerDataContext();
 
   // assign difficulty selection
-  const handleInputChange = (e: { target: { value: string } }) => {
-    const { value } = e.target;
-    setDifficulty(value);
+  const handleDifficultySelect = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const { id } = e.currentTarget;
+    console.log(id);
+    setDifficulty(id);
   };
 
   // get random combo from db on click
@@ -32,12 +33,29 @@ export default function GenerateComboForm({ setRandomCombo }: GenerateComboFormP
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      {/* <label htmlFor="difficulty">Difficulty</label> */}
-      <select id="difficulty" name="difficulty" onChange={handleInputChange} value={difficulty}>
-        <option value="Beginner">Beginner</option>
-        <option value="Amateur">Amateur</option>
-        <option value="Pro">Pro</option>
-      </select>
+      <div className={styles.difficultySelectContainer}>
+        <div
+          id="Beginner"
+          className={`${difficulty === "Beginner" && styles.active}`}
+          onClick={(e) => handleDifficultySelect(e)}
+        >
+          Beginner
+        </div>
+        <div
+          id="Amateur"
+          className={`${difficulty === "Amateur" && styles.active}`}
+          onClick={(e) => handleDifficultySelect(e)}
+        >
+          Amateur
+        </div>
+        <div
+          id="Pro"
+          className={`${difficulty === "Pro" && styles.active}`}
+          onClick={(e) => handleDifficultySelect(e)}
+        >
+          Pro
+        </div>
+      </div>
       <button type="submit">Generate</button>
     </form>
   );
