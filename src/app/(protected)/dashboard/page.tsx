@@ -126,32 +126,34 @@ export default async function Index({
 
   return (
     <div className={styles.pageWrapperUser}>
-      <h1 className={styles.welcomeText}>
-        Welcome back, {user.user_metadata.full_name.split(" ")[0]}
-      </h1>
-      <p className={styles.tag}>Monitor your progress to date</p>
-      <div className={styles.timeSeriesWrapper}>
-        <div className={styles.dataDisplayGrid}>
-          {tiles.map((item, index) => (
-            <DataDisplaySmall
-              key={index}
-              index={index}
-              data={item.data}
-              title={item.title}
-              icon={item.icon}
-              text={item.text}
-              queryParam={item.queryParam}
-              isActive={item.isActive}
-              currentQuery={query}
-            />
-          ))}
+      <div className={styles.dashboardWrapper}>
+        <h1 className={styles.welcomeText}>
+          Welcome back, {user.user_metadata.full_name.split(" ")[0]}
+        </h1>
+        <p className={styles.tag}>Monitor your progress to date</p>
+        <div className={styles.timeSeriesWrapper}>
+          <div className={styles.dataDisplayGrid}>
+            {tiles.map((item, index) => (
+              <DataDisplaySmall
+                key={index}
+                index={index}
+                data={item.data}
+                title={item.title}
+                icon={item.icon}
+                text={item.text}
+                queryParam={item.queryParam}
+                isActive={item.isActive}
+                currentQuery={query}
+              />
+            ))}
+          </div>
+          <DataDisplayGraph
+            timeSeriesData={timeSeriesData}
+            filterButtons={filterButtons}
+            activeTileParam={activeTileParam}
+            activeFilterParam={activeFilterParam}
+          />
         </div>
-        <DataDisplayGraph
-          timeSeriesData={timeSeriesData}
-          filterButtons={filterButtons}
-          activeTileParam={activeTileParam}
-          activeFilterParam={activeFilterParam}
-        />
       </div>
     </div>
   );
