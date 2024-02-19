@@ -54,7 +54,7 @@ export default function Workout({ selectedWorkout }: { selectedWorkout: Workout 
   };
 
   return (
-    <div className={`${styles.card} ${isActive && styles.isActive}`}>
+    <div className={styles.card}>
       <div className={styles.cardTop}>
         <div className={styles.cardTopLeft}>
           <WorkoutAvatar
@@ -74,8 +74,8 @@ export default function Workout({ selectedWorkout }: { selectedWorkout: Workout 
       <div className={styles.info}>
         <div className={styles.infoDisplay}>
           <MdOutlineTimer size={20} />
-          Total time {formatTimeDisplay(totalTime)} | Warmup{" "}
-          {formatTimeDisplay(selectedWorkout.workout_data.warmup_time)}
+          Total time {formatTimeDisplay(totalTime)} (warm-up{" "}
+          {formatTimeDisplay(selectedWorkout.workout_data.warmup_time)})
         </div>
         <div className={styles.infoDisplay}>
           <BsLightningCharge size={20} />

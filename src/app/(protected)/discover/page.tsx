@@ -54,6 +54,8 @@ export default async function DiscoverPage({
         <div className={styles.discoverWrapper}>
           <div className={styles.leftView}>
             <WorkoutsFeed workouts={workouts} selectedIndex={selectedIndex} />
+            <WorkoutsFeed workouts={workouts} selectedIndex={selectedIndex} />
+            <WorkoutsFeed workouts={workouts} selectedIndex={selectedIndex} />
           </div>
           <div className={styles.rightView}>
             <WithCustomLoading selectedWorkout={workoutById} />

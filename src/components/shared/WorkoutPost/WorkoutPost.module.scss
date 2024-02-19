@@ -5,15 +5,14 @@
   color: var(--text-color-main);
   gap: 8px;
   padding: 1rem;
-  background-color: var(--bg-black-0);
-  border: solid 1px transparent;
-
-  &:not(:last-child) {
-    border-bottom-color: var(--border-color);
-  }
+  background-color: hsl(0, 0%, 8%);
+  border: solid 1px hsl(0, 0%, 10%);
+  border-radius: 15px;
+  // &:not(:last-child) {
+  //   border-bottom-color: var(--border-color);
+  // }
 
   @media (min-width: 900px) {
-    padding: 1.5rem;
   }
 }
 
