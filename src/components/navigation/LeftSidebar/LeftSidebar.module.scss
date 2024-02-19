@@ -20,7 +20,8 @@
       flex-direction: column;
       justify-content: center;
       list-style: none;
-      padding: 1rem;
+      padding: 1.5rem;
+      gap: 1.5rem;
       width: 100%;
       font-size: 1rem;
       text-align: center;
@@ -31,7 +32,7 @@
           align-items: center;
           justify-content: flex-start;
           gap: 1rem;
-          padding: 1rem;
+          // padding: 1rem;
           width: 100%;
           text-decoration: none;
           color: var(--text-color-accent);
