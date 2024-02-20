@@ -22,16 +22,16 @@ export async function middleware(req: NextRequest) {
   const supabase = createMiddlewareClient({ req, res: NextResponse.next() });
 
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  console.log("Unrequired Authentication: ", isProtectedRoute);
+  console.log("Unrequired Authentication: ", isPublicRoute);
   console.log("Requires Authentication: ", isProtectedRoute);
-  console.log("Session: ", session);
+  console.log("Session: ", user);
 
-  if (isProtectedRoute && !session?.user) {
+  if (isProtectedRoute && !user) {
     return NextResponse.redirect(`${req.nextUrl.origin}/login`);
-  } else if (isPublicRoute && session?.user) {
+  } else if (isPublicRoute && user) {
     return NextResponse.redirect(`${req.nextUrl.origin}/dashboard`);
   }
 
