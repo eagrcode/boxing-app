@@ -1,38 +1,30 @@
 "use client";
 
-// styles
-import styles from "./LikeButton.module.scss";
-
-// next
 import { usePathname } from "next/navigation";
-
-// utils
-import likeWorkout from "./likeWorkout";
-
+import handleLikePost from "./likeWorkout";
 import Button from "./Button";
-
+import { useAppSelector } from "@/src/redux/hooks";
 import { useOptimistic } from "react";
 
-interface LikesDisplayPropTypes {
+interface LikeButton {
   id: string;
-  userID: string;
   isLiked: boolean | null;
-  onToggleLike: (isLiked: any) => void;
+  onToggleLike: (isLiked: boolean) => void;
 }
 
-export default function LikeButton({ id, userID, isLiked, onToggleLike }: LikesDisplayPropTypes) {
+export default function LikeButton({ id, isLiked, onToggleLike }: LikeButton) {
+  const { userID } = useAppSelector((state) => state.auth);
+  const [optimisticLike, toggleOptimisticLike] = useOptimistic(isLiked, (state, _) => !state);
   const path = usePathname();
 
-  const [optimisticLike, toggleOptimisticLike] = useOptimistic(isLiked, (state, _) => !state);
+  const handleLike = async () => {
+    toggleOptimisticLike(isLiked);
+    onToggleLike(!isLiked);
+    await handleLikePost(isLiked, id, userID, path);
+  };
 
   return (
-    <form
-      action={async () => {
-        toggleOptimisticLike(isLiked);
-        onToggleLike(!isLiked);
-        await likeWorkout(isLiked, id, userID, path);
-      }}
-    >
+    <form action={handleLike}>
       <Button optimisticLike={optimisticLike} />
     </form>
   );

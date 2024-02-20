@@ -1,6 +1,6 @@
 import styles from "./UserSavedWorkouts.module.scss";
 import WorkoutPost from "../../shared/WorkoutPost/WorkoutPost";
-import getUserSavedWorkouts from "@/src/lib/services/getUserSavedWorkouts";
+import getUserSavedWorkouts from "@/src/lib/services/profile/getUserSavedWorkouts";
 
 export default async function UserSavedWorkouts({ userID }: { userID: string }) {
   const savedWorkouts = await getUserSavedWorkouts(userID);

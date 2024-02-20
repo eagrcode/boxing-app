@@ -1,19 +1,30 @@
+"use client";
+
 import styles from "./Timer.module.scss";
 import { useState, useEffect, Dispatch, SetStateAction, useMemo, useCallback, useRef } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import ComboCard from "../../shared/ComboCard/ComboCard";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
-import getRandomCombo from "@/src/lib/services/getRandomCombo";
+import getRandomCombo from "@/src/lib/services/timer/getRandomCombo";
 import React from "react";
+import addToCompletedWorkouts from "@/src/lib/services/timer/addToCompletedWorkouts";
+import addToCompletedTime from "@/src/lib/services/timer/addToCompletedTime";
 
 interface TimerProps {
   setIsTimerActive: Dispatch<SetStateAction<boolean>>;
   sequence: string[];
   setRandomCombo: Dispatch<SetStateAction<string[]>>;
   isMuted: boolean;
+  setIsModeView: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMuted }: TimerProps) {
+export default function Timer({
+  setIsTimerActive,
+  sequence,
+  setRandomCombo,
+  isMuted,
+  setIsModeView,
+}: TimerProps) {
   // context
   const {
     difficulty,
@@ -85,6 +96,9 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
+  // calc total workout time
+  const totalTimeSeconds = Math.floor(warmupTime + roundTime * rounds + restTime * (rounds - 1));
+
   // format timer colors based on round type
   const timerColors: any = !isFightRound
     ? [["#050778"], ["#050778"], ["#050778"]]
@@ -127,6 +141,12 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
     }
   }, [isRestRound, difficulty, sequence.length, setRandomCombo]);
 
+  console.log(totalTimeSeconds);
+
+  const addWorkoutStats = async () => {
+    await Promise.all([addToCompletedTime(totalTimeSeconds), addToCompletedWorkouts(null)]);
+  };
+
   // logic for end of rounds/workout
   const handleOnComplete = useCallback(() => {
     if (currentRound < totalRounds) {
@@ -135,13 +155,12 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
       } else {
         audioRefBellSingle.current?.play();
       }
-
       setCurrentRound((prev) => prev + 1);
       setTimerKey((prev) => prev + 1);
       return { shouldRepeat: true, delay: 0 };
     } else {
       audioRefBell.current?.play();
-
+      addWorkoutStats();
       setIsCountingDown(false);
       setIsFinished(true);
       return { shouldRepeat: false };
@@ -157,6 +176,7 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
     setCurrentRound(1);
     setRandomCombo([]);
     setIsTimerActive(false);
+    setIsModeView(true);
   }, [
     setRounds,
     setRoundTime,
@@ -165,6 +185,7 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
     setCurrentRound,
     setRandomCombo,
     setIsTimerActive,
+    setIsModeView,
     DEFAULT_ROUNDS,
     DEFAULT_ROUND_TIME,
     DEFAULT_REST_TIME,

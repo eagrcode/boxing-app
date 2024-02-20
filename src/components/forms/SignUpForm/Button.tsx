@@ -7,16 +7,16 @@ import styles from "./SignUpForm.module.scss";
 import PulseLoader from "react-spinners/PulseLoader";
 
 type ButtonProps = {
-  isLoading: boolean;
+  isSubmitting: boolean;
 };
 
-export default function Button({ isLoading }: ButtonProps) {
+export default function Button({ isSubmitting }: ButtonProps) {
   return (
-    <button disabled={isLoading} type="submit" className={styles.signUpBtn}>
-      {isLoading ? (
+    <button disabled={isSubmitting} type="submit" className={styles.signUpBtn}>
+      {isSubmitting ? (
         <PulseLoader
-          loading={isLoading}
-          color="var(--header-color-main)"
+          loading={isSubmitting}
+          color="var(--bg-black-0)"
           aria-label="Loading Spinner"
           data-testid="loader"
           size={8}

@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  width: 100%;
+  max-width: 600px;
 
   h1 {
     font-size: 1rem;
@@ -97,7 +99,7 @@
     border: solid 1px hsla(230, 20%, 50%, 0.5);
 
     &.selectError {
-      border-color: var(--accent-color-red);
+      border-color: var(--accent-color-blue);
     }
 
     .comboSelect {

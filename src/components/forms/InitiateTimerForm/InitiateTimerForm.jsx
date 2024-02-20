@@ -1,16 +1,9 @@
-// styles
 import styles from "./InitiateTimerForm.module.scss";
-
-// context
 import { useTimerDataContext } from "@/src/context/TimerData.context";
-
-// icons
 import { FaPlay } from "react-icons/fa";
-
-// utils
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 
-const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
+const InitiateTimerForm = ({ setIsTimerActive, setIsFormView }) => {
   // destructure context
   const {
     rounds,
@@ -45,6 +38,7 @@ const InitiateTimerForm = ({ setIsTimerActive, randomCombo }) => {
   // handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsFormView(false);
     setIsTimerActive(true);
   };
 

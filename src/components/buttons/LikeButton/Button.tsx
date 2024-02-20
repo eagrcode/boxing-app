@@ -1,5 +1,5 @@
 import styles from "./LikeButton.module.scss";
-import {useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { GiPunchBlast } from "react-icons/gi";
 
 export default function Button({ optimisticLike }: { optimisticLike: boolean | null }) {
@@ -9,10 +9,7 @@ export default function Button({ optimisticLike }: { optimisticLike: boolean | n
     <button
       disabled={pending}
       type="submit"
-      className={styles.likeBtn}
-      style={{
-        color: `${optimisticLike ? "var(--accent-color-blue)" : "var(--text-color-main)"}`,
-      }}
+      className={`${styles.likeBtn} ${optimisticLike && styles.active}`}
     >
       <GiPunchBlast size={20} />
     </button>

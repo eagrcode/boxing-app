@@ -1,7 +1,7 @@
 import styles from "./UserWorkoutList.module.scss";
 import Link from "next/link";
 import WorkoutPost from "../../shared/WorkoutPost/WorkoutPost";
-import getUserWorkouts from "@/src/lib/services/getUserWorkouts";
+import getUserWorkouts from "@/src/lib/services/profile/getUserWorkouts";
 
 export default async function UserWorkoutList({ userID }: { userID: string }) {
   // get workouts

@@ -19,14 +19,14 @@ export default function SaveButton({ saved, id, onToggleSave }: SaveButtonPropTy
 
   const [optimisticSave, toggleOptimisticSave] = useOptimistic(saved, (state, _) => !state);
 
+  const handleSave = async () => {
+    toggleOptimisticSave(saved);
+    onToggleSave(!saved);
+    await saveWorkout(saved, id, path);
+  };
+
   return (
-    <form
-      action={async () => {
-        toggleOptimisticSave(saved);
-        onToggleSave(!saved);
-        await saveWorkout(saved, id, path);
-      }}
-    >
+    <form action={handleSave}>
       <Button optimisticSave={optimisticSave} />
     </form>
   );

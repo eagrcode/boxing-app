@@ -5,21 +5,22 @@ import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import ComboCard from "../../shared/ComboCard/ComboCard";
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
+import { BsFillVolumeMuteFill, BsFillVolumeUpFill } from "react-icons/bs";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import addToHistory from "@/src/lib/services/timer/addToHistory";
+import incrementPlays from "@/src/lib/services/timer/incrementPlays";
 
-const WorkoutTimer = ({
-  setIsWorkoutMode,
-  id,
-  isMuted,
-}: {
-  setIsWorkoutMode: React.Dispatch<React.SetStateAction<boolean>>;
-  id: string;
-  isMuted: boolean;
-}) => {
-  // destructure context
-  const { roundInfo, workoutRounds, workoutRoundTime, workoutRestTime, workoutWarmupTime } =
-    useWorkoutTimerDataContext();
+const WorkoutTimer = ({ selectedWorkoutID }: { selectedWorkoutID: string }) => {
+  const {
+    roundInfo,
+    workoutRounds,
+    workoutRoundTime,
+    workoutRestTime,
+    workoutWarmupTime,
+    isWorkoutMode,
+    setIsWorkoutMode,
+  } = useWorkoutTimerDataContext();
 
-  // init state
   const [currentRound, setCurrentRound] = useState(1);
   const [currentDuration, setCurrentDuration] = useState(workoutWarmupTime);
   const [isFinished, setIsFinished] = useState(false);
@@ -27,18 +28,20 @@ const WorkoutTimer = ({
   const [displayRound, setDisplayRound] = useState(1);
   const [currentCombo, setCurrentCombo] = useState<number>(0);
   const [timerKey, setTimerKey] = useState<number>(0);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const pathname = usePathname();
+  const { replace } = useRouter();
 
-  // refs
   const audioRefBellSingle = useRef<HTMLAudioElement | null>(null);
   const audioRefBell = useRef<HTMLAudioElement | null>(null);
 
-  // calculate total rounds & format round types
   const totalRounds = useMemo(() => workoutRounds * 2, [workoutRounds]);
   const isWarmupRound = useMemo(() => currentRound === 1, [currentRound]);
   const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
   const isRestRound = useMemo(() => currentRound > 1 && currentRound % 2 !== 0, [currentRound]);
 
-  // format display based on round type
   const renderTimerText = (remainingTime: number) => {
     switch (true) {
       case isWarmupRound:
@@ -67,19 +70,16 @@ const WorkoutTimer = ({
     }
   };
 
-  // format remaining time to 00:00
   const formatRemainingTime = (remainingTime: number) => {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
-  // format timer colors based on round type
   const timerColors: any = !isFightRound
     ? [["#050778"], ["#050778"], ["#050778"]]
     : [["#cfa227"], ["#cfa227"], ["#cfa227"]];
 
-  // format button text
   const buttonText = isCountingDown ? "Pause" : "Resume";
 
   // Mute or unmute audio based on the isMuted prop
@@ -88,7 +88,17 @@ const WorkoutTimer = ({
     audioRefBell.current && (audioRefBell.current.muted = isMuted);
   }, [isMuted]);
 
-  // change duration based on round type
+  const addWorkoutData = async () => {
+    await addToHistory(selectedWorkoutID);
+    await incrementPlays(selectedWorkoutID, pathname);
+  };
+
+  useEffect(() => {
+    if (isWorkoutMode) {
+      addWorkoutData();
+    }
+  }, [isWorkoutMode]);
+
   useEffect(() => {
     if (isFightRound) {
       setCurrentDuration(workoutRoundTime);
@@ -97,21 +107,18 @@ const WorkoutTimer = ({
     }
   }, [isFightRound, isRestRound, workoutRoundTime, workoutRestTime, setCurrentDuration]);
 
-  // change to next round combo when rest round
   useEffect(() => {
     if (isRestRound) {
       setCurrentCombo((prev) => prev + 1);
     }
   }, [isRestRound, setCurrentCombo]);
 
-  // increment display round from second round onwards
   useEffect(() => {
     if (currentRound > 3 && isFightRound) {
       setDisplayRound((prev) => prev + 1);
     }
   }, [currentRound, isFightRound, setDisplayRound]);
 
-  // end of rounds/workout
   const handleOnComplete = useCallback(() => {
     if (currentRound < totalRounds) {
       if (currentRound % 2 === 0) {
@@ -129,12 +136,14 @@ const WorkoutTimer = ({
     }
   }, [currentRound, totalRounds]);
 
-  // reset state to defaults and render form components again
   const handleCancel = useCallback(() => {
+    params.delete("timer_mode");
+    replace(`${pathname}?${params.toString()}`);
+
     setIsCountingDown(false);
     setCurrentRound(1);
     setIsWorkoutMode(false);
-  }, [setIsWorkoutMode, setCurrentRound, setIsCountingDown]);
+  }, [setIsCountingDown, setIsWorkoutMode, setCurrentRound, , params]);
 
   return (
     <>
@@ -194,6 +203,9 @@ const WorkoutTimer = ({
         </div>
       </div>
       <ComboCard sequence={roundInfo.round_info[currentCombo].sequence} />
+      <button onClick={() => setIsMuted((prev) => !prev)} className={styles.muteBtn}>
+        {isMuted ? <BsFillVolumeMuteFill size={25} /> : <BsFillVolumeUpFill size={25} />}
+      </button>
       <audio preload="none" ref={audioRefBellSingle} src="/assets/audio/321bellSingle.mp3" />
       <audio preload="none" ref={audioRefBell} src="/assets/audio/321bell.mp3" />
     </>
