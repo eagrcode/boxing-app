@@ -23,6 +23,7 @@ type TypeSignInSchema = z.infer<typeof signInEmailSchema>;
 
 export default function SignInForm() {
   // init state
+  const [isLoadingEmail, setIsLoadingEmail] = useState<boolean>(false);
   const [isLoadingGuest, setIsLoadingGuest] = useState<boolean>(false);
   const [isLoadingGoogle, setIsLoadingGoogle] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>("");
@@ -40,10 +41,12 @@ export default function SignInForm() {
 
   // email log in
   async function handleEmailSubmit(data: TypeSignInSchema) {
+    setIsLoadingEmail(true);
     const { email, password } = data;
     const errorRes = await signInEmail(email, password);
 
     if (errorRes) {
+      setIsLoadingEmail(false);
       if (errorRes.errorType === "auth") {
         console.log(errorRes.error.message);
         setErrorMsg(errorRes.error.message);
@@ -96,7 +99,7 @@ export default function SignInForm() {
           <label htmlFor="password">Password</label>
           <input {...register("password")} name="password" placeholder="••••••••" type="password" />
         </div>
-        <SubmitEmailButton isSubmitting={isSubmitting} />
+        <SubmitEmailButton isSubmitting={isLoadingEmail} />
       </form>
       {errors.email && (
         <p style={{ color: "var(--accent-color-red)" }}>{`${errors.email.message}`}</p>
