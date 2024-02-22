@@ -48,15 +48,13 @@ export default function SignInForm() {
     if (errorRes) {
       setIsLoadingEmail(false);
       if (errorRes.errorType === "auth") {
-        console.log(errorRes.error.message);
-        setErrorMsg(errorRes.error.message);
+        console.log(errorRes.message);
+        setErrorMsg(errorRes.message);
       } else if (errorRes.errorType === "unexpected") {
-        console.log(errorRes.error.message);
-        setErrorMsg(errorRes.error.message);
+        console.log(errorRes.message);
+        setErrorMsg(errorRes.message);
       }
     }
-
-    router.refresh();
   }
 
   // guest log in

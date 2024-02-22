@@ -24,6 +24,8 @@ const RobotoFlex = Roboto_Flex({
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const user = await getUser();
 
+  console.log("LAYOUT: ", user);
+
   let userID = "";
   let fullName = "";
   let email = "";
