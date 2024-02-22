@@ -67,13 +67,13 @@ export default function SignInForm() {
     router.refresh();
   }
 
-  // google log in
-  async function handleGoogleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
-    e.preventDefault();
-    setIsLoadingGoogle(true);
-    await signInGoogle();
-    router.refresh();
-  }
+  // // google log in (temp disabled due to mobile browser bug)
+  // async function handleGoogleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
+  //   e.preventDefault();
+  //   setIsLoadingGoogle(true);
+  //   await signInGoogle();
+  //   router.refresh();
+  // }
 
   return (
     <div className={styles.formWrapper}>
@@ -84,9 +84,9 @@ export default function SignInForm() {
         <SubmitGuestButton isLoadingGuest={isLoadingGuest} />
       </form>
 
-      <form onSubmit={(e) => handleGoogleSubmit(e)} className={styles.form}>
+      {/* <form onSubmit={(e) => handleGoogleSubmit(e)} className={styles.form}>
         <SubmitGoogleButton isLoadingGoogle={isLoadingGoogle} />
-      </form>
+      </form> */}
 
       <p>or</p>
 
