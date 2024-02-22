@@ -128,7 +128,8 @@ export default async function Index({
     <div className={styles.pageWrapperUser}>
       <div className={styles.dashboardWrapper}>
         <h1 className={styles.welcomeText}>
-          Welcome back, {user.user_metadata.full_name.split(" ")[0]}
+          Welcome back,{" "}
+          {user.email === "guest@guest.com" ? "Guest" : user.user_metadata.full_name.split(" ")[0]}
         </h1>
         <p className={styles.tag}>Monitor your progress to date</p>
         <div className={styles.timeSeriesWrapper}>

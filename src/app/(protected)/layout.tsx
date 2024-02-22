@@ -30,10 +30,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   let avatarURL = "";
 
   if (user) {
-    userID = user.id;
-    fullName = user.user_metadata.full_name;
-    email = user.user_metadata.email;
-    avatarURL = user.user_metadata.avatar_url;
+    if (user.email === "guest@guest.com") {
+      userID = user.id;
+      fullName = "Guest Smith";
+      email = user.email;
+      avatarURL = "";
+    } else {
+      userID = user.id;
+      fullName = user.user_metadata.full_name;
+      email = user.user_metadata.email;
+      avatarURL = user.user_metadata.avatar_url;
+    }
   }
 
   return (
