@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./GenerateComboForm.module.scss";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
 import getRandomCombo from "@/src/lib/services/timer/getRandomCombo";
@@ -10,6 +12,7 @@ interface GenerateComboFormProps {
 export default function GenerateComboForm({ setRandomCombo }: GenerateComboFormProps) {
   // destructure context
   const { difficulty, setDifficulty } = useTimerDataContext();
+  const [isBtnDisabled, setIsBtnDisabled] = useState(difficulty === "");
 
   // assign difficulty selection
   const handleDifficultySelect = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -56,7 +59,9 @@ export default function GenerateComboForm({ setRandomCombo }: GenerateComboFormP
           Pro
         </div>
       </div>
-      <button type="submit">Generate</button>
+      <button disabled={difficulty === ""} type="submit">
+        Generate
+      </button>
     </form>
   );
 }

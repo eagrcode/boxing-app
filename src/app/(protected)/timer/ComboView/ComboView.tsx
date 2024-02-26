@@ -11,7 +11,7 @@ type PropTypes = {
 
 export default function ComboView({ randomCombo, setRandomCombo, handleViewChange }: PropTypes) {
   return (
-    <div className={styles.wrapper}>
+    <>
       <h1>Select difficulty</h1>
       <div className={styles.formCardContainer}>
         <GenerateComboForm setRandomCombo={setRandomCombo} />
@@ -21,9 +21,9 @@ export default function ComboView({ randomCombo, setRandomCombo, handleViewChang
           <ComboCard sequence={randomCombo} />
         )}
         <button id="form-view" disabled={!randomCombo.length} onClick={(e) => handleViewChange(e)}>
-          Submit
+          Next
         </button>
       </div>
-    </div>
+    </>
   );
 }

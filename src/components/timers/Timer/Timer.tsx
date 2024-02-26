@@ -15,16 +15,9 @@ interface TimerProps {
   sequence: string[];
   setRandomCombo: Dispatch<SetStateAction<string[]>>;
   isMuted: boolean;
-  setIsModeView: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Timer({
-  setIsTimerActive,
-  sequence,
-  setRandomCombo,
-  isMuted,
-  setIsModeView,
-}: TimerProps) {
+export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMuted }: TimerProps) {
   // context
   const {
     difficulty,
@@ -176,7 +169,6 @@ export default function Timer({
     setCurrentRound(1);
     setRandomCombo([]);
     setIsTimerActive(false);
-    setIsModeView(true);
   }, [
     setRounds,
     setRoundTime,
@@ -185,7 +177,6 @@ export default function Timer({
     setCurrentRound,
     setRandomCombo,
     setIsTimerActive,
-    setIsModeView,
     DEFAULT_ROUNDS,
     DEFAULT_ROUND_TIME,
     DEFAULT_REST_TIME,

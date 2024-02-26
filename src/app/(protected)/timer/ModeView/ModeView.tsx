@@ -6,14 +6,14 @@ type PropTypes = {
 
 export default function ModeView({ handleViewChange }: PropTypes) {
   return (
-    <div className={styles.wrapper}>
-      <h1>Select Mode</h1>
-      <div id="combo-view" onClick={(e) => handleViewChange(e)}>
-        ACG
-      </div>
-      <div id="form-view" onClick={(e) => handleViewChange(e)}>
-        Default
-      </div>
-    </div>
+    <>
+      <h1>Mode</h1>
+      <button className={styles.modeBtn} id="combo-view" onClick={(e) => handleViewChange(e)}>
+        TABATA - ACG
+      </button>
+      <button className={styles.modeBtn} id="form-view" onClick={(e) => handleViewChange(e)}>
+        TABATA
+      </button>
+    </>
   );
 }

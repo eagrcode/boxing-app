@@ -31,7 +31,7 @@ export const useTimerDataContext = (): FightDataContextType => {
   return context;
 };
 
-const DEFAULT_DIFFICULTY = "Beginner";
+const DEFAULT_DIFFICULTY = "";
 const DEFAULT_ROUNDS = 1;
 const DEFAULT_ROUND_TIME = 60;
 const DEFAULT_REST_TIME = 30;
