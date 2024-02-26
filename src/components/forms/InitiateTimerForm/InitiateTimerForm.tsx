@@ -1,24 +1,33 @@
 import styles from "./InitiateTimerForm.module.scss";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
-import { FaPlay } from "react-icons/fa";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import ComboCard from "../../shared/ComboCard/ComboCard";
 import getRandomCombo from "@/src/lib/services/timer/getRandomCombo";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
-import { MdInfoOutline } from "react-icons/md";
 
-type PropTypes = {
-  setShowInfo: Dispatch<SetStateAction<boolean>>;
-};
+const STEP_1 = 1;
+const STEP_2 = 2;
+const STEP_3 = 3;
 
-const InitiateTimerForm = ({ setShowInfo }: PropTypes) => {
+const InitiateTimerForm = () => {
   const [currentSelectedMode, setCurrentSelectedMode] = useState<string>("");
   const [randomCombo, setRandomCombo] = useState<string[]>([]);
   const [currentError, setCurrentError] = useState<string | null>("");
+  const [currentStep, setCurrentStep] = useState<number>(STEP_1);
   const { difficulty, setDifficulty, setIsTimerActive } = useTimerDataContext();
+  const {
+    rounds,
+    roundTime,
+    restTime,
+    warmupTime,
+    setRounds,
+    setRoundTime,
+    setRestTime,
+    setWarmupTime,
+  } = useTimerDataContext();
 
-  const stepsConfig = [
+  const formSteps = [
     {
       id: 1,
       name: "Timer mode",
@@ -42,142 +51,71 @@ const InitiateTimerForm = ({ setShowInfo }: PropTypes) => {
     },
   ];
 
-  const [formSteps, setFormSteps] = useState(stepsConfig);
-  const [currentStep, setCurrentStep] = useState<number>(formSteps[0].id);
-
-  const isSkippable = !!formSteps.find((step) => step.isSkippable === true);
-
+  // Define button disabled condition
   const isGenerateBtnDisabled = difficulty === "";
   const isNextBtnDisabled = !randomCombo.length;
 
-  // destructure context
-  const {
-    rounds,
-    roundTime,
-    restTime,
-    warmupTime,
-    setRounds,
-    setRoundTime,
-    setRestTime,
-    setWarmupTime,
-  } = useTimerDataContext();
-
-  // const handleStepChange = (nextStepId: number) => {
-  //   setCurrentError("");
-
-  //   const currentStepIndex = formSteps.findIndex((step) => step.id === currentStep);
-  //   const nextStepIndex = formSteps.findIndex((step) => step.id === nextStepId);
-
-  //   if (currentSelectedMode === "TABATA" && formSteps[nextStepIndex].isSkippable) {
-  //     setCurrentError("Please select TABATA - ACG mode first");
-  //     return;
-  //   }
-
-  //   if (
-  //     currentStep === 2 &&
-  //     nextStepId === 3 &&
-  //     !formSteps[currentStepIndex].completed &&
-  //     randomCombo.length
-  //   ) {
-  //     setCurrentError("Please press next");
-  //     return;
-  //   }
-
-  //   if (nextStepId < currentStep || formSteps[nextStepIndex].completed) {
-  //     // Proceed if moving back or to a completed step
-  //     setCurrentStep(nextStepId);
-  //   } else if (!formSteps[currentStepIndex].completed) {
-  //     // If trying to move forward without completing the current step, show an error
-  //     setCurrentError(formSteps[currentStepIndex].errorMessage);
-  //   } else {
-  //     // If the current step is completed, simply move to the next step
-  //     setCurrentStep(nextStepId);
-  //   }
-  // };
-
   const handleBackClick = () => {
     if (currentSelectedMode === "TABATA") {
-      setCurrentStep((prev) => prev - 2);
+      setCurrentStep(STEP_1);
     }
 
     if (currentSelectedMode === "TABATA - ACG") {
-      setCurrentStep((prev) => prev - 1);
+      setCurrentStep((prev) => prev - STEP_1);
     }
   };
 
-  const handleAcgSelect = (mode: string) => {
-    setCurrentError("");
+  // Step 1 - Mode select
+  const handleModeSelect = (mode: string) => {
     setCurrentSelectedMode(mode);
-
-    setFormSteps((prevSteps) =>
-      prevSteps.map((step) => (step.id === currentStep ? { ...step, completed: true } : step))
-    );
-
-    setCurrentStep((prev) => prev + 1);
-  };
-
-  const handleTabataSelect = (mode: string) => {
     setCurrentError("");
-    setCurrentSelectedMode(mode);
-    setRandomCombo([]);
-    setDifficulty("");
 
-    // setFormSteps((prevSteps) =>
-    //   prevSteps.map((step) => (step.isSkippable ? { ...step, completed: false } : step))
-    // );
-
-    // setFormSteps((prevSteps) =>
-    //   prevSteps.map((step) => (step.id === currentStep ? { ...step, completed: true } : step))
-    // );
-
-    setCurrentStep((prev) => prev + 2);
+    if (mode === "TABATA") {
+      setRandomCombo([]);
+      setDifficulty("");
+      setCurrentStep(STEP_3); // Skip to step 3
+    } else {
+      setCurrentStep(STEP_2); // Go to step 2
+    }
   };
 
-  const handleNextClick = () => {
-    setCurrentError("");
-    setFormSteps((prevSteps) =>
-      prevSteps.map((step) => (step.id === currentStep ? { ...step, completed: true } : step))
-    );
-    setCurrentStep((prev) => prev + 1);
-  };
-
+  // Step 2 - ACG
   const handleDifficultySelect = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const { id } = e.currentTarget;
-    console.log(id);
     setDifficulty(id);
   };
-
-  const handleGetRandomCombo = async (difficulty: string) => {
+  //
+  const handleGetRandomCombo = async () => {
     const combo = await getRandomCombo(difficulty);
-    console.log(combo);
     setRandomCombo(combo);
   };
-
-  const generateCombo = () => {
-    if (currentError !== "") {
-      setCurrentError("");
-    }
-    handleGetRandomCombo(difficulty);
+  //
+  const handleNextClick = () => {
+    setCurrentError("");
+    setCurrentStep(STEP_3);
   };
 
+  // Step 3 - Round settings
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const numericValue = Number(value);
-    if (name === "rounds") {
-      setRounds(numericValue);
-      console.log(numericValue);
-    } else if (name === "roundTime") {
-      setRoundTime(numericValue);
-      console.log(numericValue);
-    } else if (name === "restTime") {
-      setRestTime(numericValue);
-      console.log(numericValue);
-    } else if (name === "warmup") {
-      setWarmupTime(numericValue);
-      console.log(numericValue);
+
+    switch (name) {
+      case "rounds":
+        setRounds(numericValue);
+        break;
+      case "roundTime":
+        setRoundTime(numericValue);
+        break;
+      case "restTime":
+        setRestTime(numericValue);
+        break;
+      case "warmup":
+        setWarmupTime(numericValue);
+        break;
     }
   };
-
+  //
   const handleSubmit = (e: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
     e.preventDefault();
     setIsTimerActive(true);
@@ -185,29 +123,6 @@ const InitiateTimerForm = ({ setShowInfo }: PropTypes) => {
 
   return (
     <div className={styles.formWrapper}>
-      {/* <div className={styles.stepContainer}>
-        {formSteps.map((step, index) => (
-          <>
-            <button
-              onClick={() => handleStepChange(step.id)}
-              key={index}
-              className={`${styles.step} ${step.id === currentStep && styles.active} ${
-                step.completed && styles.completed
-              }`}
-              disabled={!step.completed}
-            >
-              <span className={styles.stepId}>{step.id}</span>
-              <span className={styles.stepName}>{step.name}</span>
-            </button>
-            <div
-              className={`${styles.stepProgress} ${
-                currentSelectedMode === "TABATA" || step.completed ? styles.completed : ""
-              }`}
-            ></div>
-          </>
-        ))}
-        {currentError && <p className={styles.error}>{currentError}</p>}
-      </div> */}
       <div className={styles.formTop}>
         <h1 className={styles.stepTitle}>{formSteps[currentStep - 1].name}</h1>
       </div>
@@ -222,7 +137,7 @@ const InitiateTimerForm = ({ setShowInfo }: PropTypes) => {
                 <button
                   type="button"
                   className={styles.btnPrimary}
-                  onClick={() => handleAcgSelect("TABATA - ACG")}
+                  onClick={() => handleModeSelect("TABATA - ACG")}
                 >
                   Find combo
                 </button>
@@ -234,9 +149,9 @@ const InitiateTimerForm = ({ setShowInfo }: PropTypes) => {
                 <button
                   type="button"
                   className={styles.btnPrimary}
-                  onClick={() => handleTabataSelect("TABATA")}
+                  onClick={() => handleModeSelect("TABATA")}
                 >
-                  TABATA
+                  Settings
                 </button>
               </div>
             </div>
@@ -275,7 +190,7 @@ const InitiateTimerForm = ({ setShowInfo }: PropTypes) => {
               className={`${styles.btnSecondary} ${styles.btnGenerate} ${
                 isGenerateBtnDisabled && styles.disabled
               }`}
-              onClick={generateCombo}
+              onClick={() => handleGetRandomCombo()}
               disabled={isGenerateBtnDisabled}
             >
               Generate
