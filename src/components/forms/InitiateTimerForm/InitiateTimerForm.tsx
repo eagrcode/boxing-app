@@ -134,9 +134,9 @@ const InitiateTimerForm = ({ setShowInfo, randomCombo, setRandomCombo }: PropTyp
   //
   const handleSubmit = (e: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
     e.preventDefault();
-    // setIsTimerActive(true);
     params.set("timer_mode", "active");
     replace(`${pathname}?${params.toString()}`);
+    setIsTimerActive(true);
   };
 
   return (

@@ -9,6 +9,9 @@ import { BsFillVolumeMuteFill, BsFillVolumeUpFill } from "react-icons/bs";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import addToHistory from "@/src/lib/services/timer/addToHistory";
 import incrementPlays from "@/src/lib/services/timer/incrementPlays";
+import addToCompletedRounds from "@/src/lib/services/timer/addToCompletedRounds";
+import addToCompletedTime from "@/src/lib/services/timer/addToCompletedTime";
+import addToCompletedWorkouts from "@/src/lib/services/timer/addToCompletedWorkouts";
 
 const WorkoutTimer = ({ selectedWorkoutID }: { selectedWorkoutID: string }) => {
   const {
@@ -37,6 +40,9 @@ const WorkoutTimer = ({ selectedWorkoutID }: { selectedWorkoutID: string }) => {
   const audioRefBellSingle = useRef<HTMLAudioElement | null>(null);
   const audioRefBell = useRef<HTMLAudioElement | null>(null);
 
+  const totalTimeSeconds = Math.floor(
+    workoutWarmupTime + workoutRoundTime * workoutRounds + workoutRestTime * (workoutRounds - 1)
+  );
   const totalRounds = useMemo(() => workoutRounds * 2, [workoutRounds]);
   const isWarmupRound = useMemo(() => currentRound === 1, [currentRound]);
   const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
@@ -89,8 +95,13 @@ const WorkoutTimer = ({ selectedWorkoutID }: { selectedWorkoutID: string }) => {
   }, [isMuted]);
 
   const addWorkoutData = async () => {
-    await addToHistory(selectedWorkoutID);
-    await incrementPlays(selectedWorkoutID, pathname);
+    await Promise.all([
+      addToHistory(selectedWorkoutID),
+      incrementPlays(selectedWorkoutID, pathname),
+      addToCompletedRounds(workoutRounds),
+      addToCompletedTime(totalTimeSeconds),
+      addToCompletedWorkouts(null),
+    ]);
   };
 
   useEffect(() => {

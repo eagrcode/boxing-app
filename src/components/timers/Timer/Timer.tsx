@@ -10,6 +10,7 @@ import React from "react";
 import addToCompletedWorkouts from "@/src/lib/services/timer/addToCompletedWorkouts";
 import addToCompletedTime from "@/src/lib/services/timer/addToCompletedTime";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import addToCompletedRounds from "@/src/lib/services/timer/addToCompletedRounds";
 
 interface TimerProps {
   sequence: string[];
@@ -29,6 +30,7 @@ export default function Timer({ sequence, setRandomCombo, isMuted }: TimerProps)
     setRestTime,
     warmupTime,
     setWarmupTime,
+    isTimerActive,
     DEFAULT_ROUNDS,
     DEFAULT_ROUND_TIME,
     DEFAULT_REST_TIME,
@@ -139,11 +141,19 @@ export default function Timer({ sequence, setRandomCombo, isMuted }: TimerProps)
     }
   }, [isRestRound, difficulty, sequence.length, setRandomCombo]);
 
-  console.log(totalTimeSeconds);
-
   const addWorkoutStats = async () => {
-    await Promise.all([addToCompletedTime(totalTimeSeconds), addToCompletedWorkouts(null)]);
+    await Promise.all([
+      addToCompletedTime(totalTimeSeconds),
+      addToCompletedWorkouts(null),
+      addToCompletedRounds(rounds),
+    ]);
   };
+
+  useEffect(() => {
+    if (isTimerActive) {
+      addWorkoutStats();
+    }
+  }, [isTimerActive]);
 
   // logic for end of rounds/workout
   const handleOnComplete = useCallback(() => {
