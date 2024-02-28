@@ -6,8 +6,8 @@ import Timer from "@/src/components/timers/Timer/Timer";
 import InitiateTimerForm from "@/src/components/forms/InitiateTimerForm/InitiateTimerForm";
 import { BsFillVolumeUpFill } from "react-icons/bs";
 import { BsFillVolumeMuteFill } from "react-icons/bs";
-import { useTimerDataContext } from "@/src/context/TimerData.context";
 import { MdInfoOutline, MdOutlineClose } from "react-icons/md";
+import { motion } from "framer-motion";
 
 export default function TimerPage({
   searchParams,
@@ -37,16 +37,26 @@ export default function TimerPage({
 
   return (
     <div className={styles.wrapper}>
-      <div onClick={() => setShowInfo((prev) => !prev)} className={styles.infoIcon}>
+      <button
+        type="button"
+        aria-label="Show information"
+        onClick={() => setShowInfo((prev) => !prev)}
+        className={styles.infoIcon}
+      >
         {!showInfo ? <MdInfoOutline size={30} /> : <MdOutlineClose size={30} />}
-      </div>
+      </button>
       <InitiateTimerForm
         setShowInfo={setShowInfo}
         randomCombo={randomCombo}
         setRandomCombo={setRandomCombo}
       />
       {showInfo && (
-        <div className={styles.infoWrapper}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.1 }}
+          className={styles.infoWrapper}
+        >
           <h2 className={styles.modeHeading}>Interval - ACG</h2>
 
           <p>Standard interval timer with Beatdown automatic combo generation.</p>
@@ -68,7 +78,7 @@ export default function TimerPage({
             <li>Generate initial combination</li>
             <li>Define round settings</li>
           </ol>
-        </div>
+        </motion.div>
       )}
     </div>
   );
