@@ -24,6 +24,10 @@
   color: var(--text-color-main);
 
   z-index: 1;
+
+  @media (min-width: 900px) {
+    right: 1.5rem;
+  }
 }
 
 .infoWrapper {
@@ -35,9 +39,14 @@
   padding: 1rem;
   height: 100%;
   width: 100%;
+  max-width: 500px;
 
   ol {
     list-style-position: inside;
+  }
+
+  @media (min-width: 900px) {
+    padding: 1.5rem 0;
   }
 }
 
