@@ -9,15 +9,15 @@ import getRandomCombo from "@/src/lib/services/timer/getRandomCombo";
 import React from "react";
 import addToCompletedWorkouts from "@/src/lib/services/timer/addToCompletedWorkouts";
 import addToCompletedTime from "@/src/lib/services/timer/addToCompletedTime";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 interface TimerProps {
-  setIsTimerActive: Dispatch<SetStateAction<boolean>>;
   sequence: string[];
   setRandomCombo: Dispatch<SetStateAction<string[]>>;
   isMuted: boolean;
 }
 
-export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMuted }: TimerProps) {
+export default function Timer({ sequence, setRandomCombo, isMuted }: TimerProps) {
   // context
   const {
     difficulty,
@@ -42,6 +42,11 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
   const [isCountingDown, setIsCountingDown] = useState<boolean>(true);
   const [displayRound, setDisplayRound] = useState<number>(1);
   const [timerKey, setTimerKey] = useState<number>(0);
+
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const pathname = usePathname();
+  const { replace } = useRouter();
 
   // refs
   const audioRefBellSingle = useRef<HTMLAudioElement | null>(null);
@@ -162,13 +167,15 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
 
   // reset state to defaults and render form components again
   const handleCancel = useCallback(() => {
+    params.delete("timer_mode");
+    replace(`${pathname}?${params.toString()}`);
+
     setRounds(DEFAULT_ROUNDS);
     setRoundTime(DEFAULT_ROUND_TIME);
     setRestTime(DEFAULT_REST_TIME);
     setWarmupTime(DEFAULT_WARMUP_TIME);
     setCurrentRound(1);
     setRandomCombo([]);
-    setIsTimerActive(false);
   }, [
     setRounds,
     setRoundTime,
@@ -176,7 +183,6 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
     setWarmupTime,
     setCurrentRound,
     setRandomCombo,
-    setIsTimerActive,
     DEFAULT_ROUNDS,
     DEFAULT_ROUND_TIME,
     DEFAULT_REST_TIME,

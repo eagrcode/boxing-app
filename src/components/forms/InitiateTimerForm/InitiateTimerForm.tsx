@@ -1,21 +1,28 @@
+"use client";
+
 import styles from "./InitiateTimerForm.module.scss";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import ComboCard from "../../shared/ComboCard/ComboCard";
 import getRandomCombo from "@/src/lib/services/timer/getRandomCombo";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
+
+type PropTypes = {
+  setShowInfo: Dispatch<SetStateAction<boolean>>;
+  randomCombo: string[];
+  setRandomCombo: Dispatch<SetStateAction<string[]>>;
+};
 
 const STEP_1 = 1;
 const STEP_2 = 2;
 const STEP_3 = 3;
 
-const InitiateTimerForm = () => {
+const InitiateTimerForm = ({ setShowInfo, randomCombo, setRandomCombo }: PropTypes) => {
   const [currentSelectedMode, setCurrentSelectedMode] = useState<string>("");
-  const [randomCombo, setRandomCombo] = useState<string[]>([]);
   const [currentError, setCurrentError] = useState<string | null>("");
   const [currentStep, setCurrentStep] = useState<number>(STEP_1);
-  const { difficulty, setDifficulty, setIsTimerActive } = useTimerDataContext();
   const {
     rounds,
     roundTime,
@@ -25,7 +32,16 @@ const InitiateTimerForm = () => {
     setRoundTime,
     setRestTime,
     setWarmupTime,
+    difficulty,
+    setDifficulty,
+    setIsTimerActive,
   } = useTimerDataContext();
+
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  const params = new URLSearchParams(searchParams);
 
   const formSteps = [
     {
@@ -118,7 +134,9 @@ const InitiateTimerForm = () => {
   //
   const handleSubmit = (e: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
     e.preventDefault();
-    setIsTimerActive(true);
+    // setIsTimerActive(true);
+    params.set("timer_mode", "active");
+    replace(`${pathname}?${params.toString()}`);
   };
 
   return (

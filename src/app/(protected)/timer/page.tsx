@@ -9,23 +9,25 @@ import { BsFillVolumeMuteFill } from "react-icons/bs";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
 import { MdInfoOutline, MdOutlineClose } from "react-icons/md";
 
-export default function TimerPage() {
+export default function TimerPage({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    timer_mode?: string;
+  };
+}) {
   const [randomCombo, setRandomCombo] = useState<string[]>([]);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [showInfo, setShowInfo] = useState<boolean>(false);
 
-  const { isTimerActive, setIsTimerActive } = useTimerDataContext();
+  const timerMode = searchParams?.timer_mode || "";
 
   // Show timer view
-  if (isTimerActive) {
+  if (timerMode === "active") {
     return (
       <div className={styles.timerWrapper}>
-        <Timer
-          setIsTimerActive={setIsTimerActive}
-          sequence={randomCombo}
-          setRandomCombo={setRandomCombo}
-          isMuted={isMuted}
-        />
+        <Timer sequence={randomCombo} setRandomCombo={setRandomCombo} isMuted={isMuted} />
         <div onClick={() => setIsMuted((prev) => !prev)} className={styles.muteBtn}>
           {isMuted ? <BsFillVolumeMuteFill size={25} /> : <BsFillVolumeUpFill size={25} />}
         </div>
@@ -38,7 +40,11 @@ export default function TimerPage() {
       <div onClick={() => setShowInfo((prev) => !prev)} className={styles.infoIcon}>
         {!showInfo ? <MdInfoOutline size={30} /> : <MdOutlineClose size={30} />}
       </div>
-      <InitiateTimerForm setShowInfo={setShowInfo} />
+      <InitiateTimerForm
+        setShowInfo={setShowInfo}
+        randomCombo={randomCombo}
+        setRandomCombo={setRandomCombo}
+      />
       {showInfo && (
         <div className={styles.infoWrapper}>
           <h2 className={styles.modeHeading}>Interval - ACG</h2>
