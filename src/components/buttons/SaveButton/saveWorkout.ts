@@ -25,6 +25,6 @@ export default async function handleSaveWorkout(saved: boolean | null, id: strin
     }
   }
 
-  revalidatePath(path);
+  revalidatePath("/", "layout");
   return { success: true, message: saved ? "Workout unsaved" : "Workout saved" };
 }

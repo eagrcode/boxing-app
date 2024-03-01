@@ -32,7 +32,7 @@ export default async function handleLikePost(
     }
   }
 
-  revalidatePath(path);
+  revalidatePath("/", "layout");
 
   return { success: true, message: isLiked ? "Unliked" : "Liked" };
 }
