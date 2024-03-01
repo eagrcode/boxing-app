@@ -8,11 +8,9 @@ import { IoTimerOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
 import { TbListSearch } from "react-icons/tb";
-import BackButton from "../../buttons/BackButton/BackButton";
+import React from "react";
 
-export default function LeftSidebar() {
-  console.log("RENDERED");
-
+const LeftSidebar = () => {
   const path = usePathname();
   const searchParams = useSearchParams();
   const timerMode = searchParams.get("timer_mode");
@@ -54,17 +52,6 @@ export default function LeftSidebar() {
     return path === linkUrl || (path !== "/" && path.startsWith(linkUrl + "/"));
   };
 
-  const renderBackButton = () => {
-    if (
-      path.startsWith("/workout/") ||
-      path.startsWith("/account/userWorkout/") ||
-      path.startsWith("/account/savedWorkouts/")
-    ) {
-      return <BackButton variant={"sidebar"} />;
-    }
-    return null;
-  };
-
   if (timerMode === "active") {
     return null;
   }
@@ -88,8 +75,9 @@ export default function LeftSidebar() {
             </Link>
           </li>
         ))}
-        {renderBackButton()}
       </ul>
     </nav>
   );
-}
+};
+
+export default LeftSidebar;

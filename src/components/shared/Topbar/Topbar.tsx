@@ -3,14 +3,9 @@
 import styles from "./Topbar.module.scss";
 import Logo from "../Logo/Logo";
 import Avatar from "../Avatar/Avatar";
-import { useTimerDataContext } from "@/src/context/TimerData.context";
-import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
 import { useSearchParams } from "next/navigation";
 
-export default function Topbar() {
-  const { isTimerActive } = useTimerDataContext();
-  const { isWorkoutMode } = useWorkoutTimerDataContext();
-
+const Topbar = () => {
   const searchParams = useSearchParams();
   const timerMode = searchParams.get("timer_mode");
 
@@ -24,4 +19,6 @@ export default function Topbar() {
       <Avatar position={"topBar"} />
     </div>
   );
-}
+};
+
+export default Topbar;
