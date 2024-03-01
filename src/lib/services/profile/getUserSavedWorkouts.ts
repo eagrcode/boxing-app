@@ -1,24 +1,14 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { unstable_cache } from "next/cache";
 import { cookies } from "next/headers";
-import type { Database } from "@/src/lib/types/database.types";
 
-export default async function getUserSavedWorkouts(id: string) {
-  const supabase = createServerComponentClient<
-    Database["public"]["Tables"]["user_saved_workouts"]["WithProfile"][]
-  >({ cookies });
+const getUserSavedWorkouts = async (id: string) => {
+  const supabase = createServerComponentClient({ cookies });
 
   try {
-    const { data, error } = await supabase
-      .from("user_saved_workouts")
-      .select(
-        `
-        *,
-        profiles: user_id (username, email, full_name),
-        workouts: workout_id (*)
-      `
-      )
-      .eq("user_id", id)
-      .order("created_at", { ascending: false });
+    let { data, error } = await supabase.rpc("get_user_saved_workouts", {
+      user_id: id,
+    });
 
     if (error) {
       console.log("DB error: ", error.message);
@@ -31,4 +21,6 @@ export default async function getUserSavedWorkouts(id: string) {
     console.log("Fetch error: ", error.message);
     return [];
   }
-}
+};
+
+export default unstable_cache(getUserSavedWorkouts);
