@@ -15,5 +15,5 @@ export default async function addToHistory(id: string) {
     console.log("Added to user history: ", data);
   }
 
-  revalidatePath("/account/history");
+  revalidatePath("/profile/history", "page");
 }
