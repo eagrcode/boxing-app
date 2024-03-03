@@ -9,6 +9,7 @@ import LeftSidebar from "../../components/navigation/LeftSidebar/LeftSidebar";
 import Topbar from "../../components/shared/Topbar/Topbar";
 import StoreProvider from "../../redux/StoreProvider";
 import { getUser } from "@/src/lib/services/user/getUser";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "Beatdown",
@@ -30,13 +31,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   let avatarURL = "";
 
   if (user) {
+    userID = user.id;
+
     if (user.email === "guest@guest.com") {
-      userID = user.id;
       fullName = "Guest Smith";
       email = user.email;
       avatarURL = "";
     } else {
-      userID = user.id;
       fullName = user.user_metadata.full_name;
       email = user.user_metadata.email;
       avatarURL = user.user_metadata.avatar_url;
@@ -50,12 +51,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <html lang="en" className={RobotoFlex.className}>
             <body>
               <div className={styles.appWrapper}>
-                <Topbar />
+                <Suspense>
+                  <Topbar />
+                </Suspense>
                 <div className={styles.midAppWrapper}>
-                  <LeftSidebar />
+                  <Suspense>
+                    <LeftSidebar />
+                  </Suspense>
                   <main className={styles.main}>{children}</main>
                 </div>
-                <BottomNav />
+                <Suspense>
+                  <BottomNav />
+                </Suspense>
               </div>
             </body>
           </html>
