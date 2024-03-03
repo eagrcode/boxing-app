@@ -5,8 +5,7 @@ import { getUser } from "@/src/lib/services/user/getUser";
 import getWorkoutById from "@/src/lib/services/workout/getWorkoutById";
 import getWorkouts from "@/src/lib/services/workout/getWorkouts";
 import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
-import dynamic from "next/dynamic";
-import PostSkeleton from "@/src/components/shared/PostSkeleton/PostSkeleton";
+import Workout from "@/src/components/shared/Workout/Workout";
 
 const DEFAULT_SELECTED_INDEX: number = 0;
 
@@ -18,13 +17,15 @@ export default async function DiscoverPage({
     timer_mode?: string;
   };
 }) {
-  const { id: userID } = await getUser();
+  const user = await getUser();
   const query = searchParams?.query || "";
   const timerMode = searchParams?.timer_mode || "";
 
-  const WithCustomLoading = dynamic(() => import("@/src/components/shared/Workout/Workout"), {
-    loading: () => <PostSkeleton />,
-  });
+  let userID: string = "";
+
+  if (user) {
+    userID += user.id;
+  }
 
   // left pane data
   const workouts = await getWorkouts(apiRoutes.getWorkouts, userID);
@@ -58,7 +59,7 @@ export default async function DiscoverPage({
             <WorkoutsFeed workouts={workouts} selectedIndex={selectedIndex} />
           </div>
           <div className={styles.rightView}>
-            <WithCustomLoading selectedWorkout={workoutById} />
+            <Workout selectedWorkout={workoutById} />
           </div>
         </div>
       )}

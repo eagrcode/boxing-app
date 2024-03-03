@@ -17,12 +17,17 @@ export default async function ProfileSavedWorkoutsPage({
     timer_mode?: string;
   };
 }) {
-  const { id: userID } = await getUser();
+  const user = await getUser();
   const query = searchParams?.query || "";
   const timerMode = searchParams?.timer_mode || "";
 
+  let userID: string = "";
+
+  if (user) {
+    userID += user.id;
+  }
+
   // left view data
-  // const workouts = await getUserWorkouts(apiRoutes.getUserWorkouts, userID);
 
   const workouts = await getUserSavedWorkouts(userID);
 

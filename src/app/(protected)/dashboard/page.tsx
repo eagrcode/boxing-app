@@ -12,8 +12,6 @@ import { getUser } from "@/src/lib/services/user/getUser";
 import { getTotalCompletedTime } from "@/src/lib/services/dashboard/getTotalCompletedTime";
 import { getTotalCompletedRounds } from "@/src/lib/services/dashboard/getTotalCompletedRounds";
 import { getAverageWorkoutLength } from "@/src/lib/services/dashboard/getAverageWorkoutLength";
-import { Suspense } from "react";
-import PostSkeleton from "@/src/components/shared/PostSkeleton/PostSkeleton";
 
 const FILTER_6_MONTHS: string = "_6_months";
 const FILTER_1_MONTH: string = "_1_month";
@@ -42,6 +40,12 @@ export default async function Index({
   const user = await getUser();
   const query = searchParams?.query || "";
 
+  let userID: string = "";
+
+  if (user) {
+    userID += user.id;
+  }
+
   const [
     cachedTotalCompletedWorkouts,
     cachedTotalCompletedTime,
@@ -54,7 +58,7 @@ export default async function Index({
     getAverageWorkoutLength(apiRoutes.getTotalCompletedTime(user.id)),
   ]);
 
-  const timeSeriesData = await getGraphData(apiRoutes.getGraphData(query), user.id);
+  const timeSeriesData = await getGraphData(apiRoutes.getGraphData(query), userID);
 
   const filterButtons = [
     {
