@@ -1,0 +1,31 @@
+.noWorkouts {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  .createLink {
+    color: var(--text-color-accent);
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease-in 0.1s;
+
+    &:hover {
+      color: var(--text-color-main);
+    }
+  }
+}
