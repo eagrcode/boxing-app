@@ -1,11 +1,6 @@
 import styles from "./WorkoutsFeed.module.scss";
-import dynamic from "next/dynamic";
-import PostSkeleton from "@/src/components/shared/PostSkeleton/PostSkeleton";
 import { Workout } from "@/src/lib/types/workout.types";
-
-const WithCustomLoading = dynamic(() => import("@/src/components/shared/WorkoutPost/WorkoutPost"), {
-  loading: () => <PostSkeleton />,
-});
+import WorkoutPost from "../WorkoutPost/WorkoutPost";
 
 export default function WorkoutsFeed({
   workouts,
@@ -17,7 +12,7 @@ export default function WorkoutsFeed({
   return (
     <div className={styles.container}>
       {workouts?.map((workout, index) => (
-        <WithCustomLoading
+        <WorkoutPost
           key={workout.workout_data.id}
           index={index}
           selectedIndex={selectedIndex}
