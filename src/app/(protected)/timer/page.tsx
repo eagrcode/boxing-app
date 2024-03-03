@@ -82,19 +82,4 @@ export default function TimerPage({
       )}
     </div>
   );
-
-  // return (
-  //   <div className={styles.wrapper}>
-  //
-  //     {isModeView && <ModeView handleViewChange={handleViewChange} />}
-  //     {isComboView && (
-  //       <ComboView
-  //         randomCombo={randomCombo}
-  //         setRandomCombo={setRandomCombo}
-  //         handleViewChange={handleViewChange}
-  //       />
-  //     )}
-  //     {isFormView && <InitiateTimerForm setIsTimerActive={setIsTimerActive} />}
-  //   </div>
-  // );
 }
