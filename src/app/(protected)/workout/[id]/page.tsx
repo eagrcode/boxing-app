@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import PostSkeleton from "@/src/components/shared/PostSkeleton/PostSkeleton";
 import { apiRoutes } from "@/src/lib/dbAPI/apiRoutes";
 import Workout from "@/src/components/shared/Workout/Workout";
-import { Suspense } from "react";
 import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
 
 type PropTypes = {
@@ -23,10 +22,6 @@ export default async function WorkoutPage({ params, searchParams }: PropTypes) {
 
   const workoutById = await getWorkoutById(userID, apiRoutes.getWorkoutByID, params.id);
 
-  const WithCustomLoading = dynamic(() => import("@/src/components/shared/Workout/Workout"), {
-    loading: () => <PostSkeleton />,
-  });
-
   return (
     <div className={styles.wrapper}>
       {timerMode === "active" ? (
@@ -34,7 +29,7 @@ export default async function WorkoutPage({ params, searchParams }: PropTypes) {
           <WorkoutTimer selectedWorkoutID={workoutById.workout_id} />
         </div>
       ) : (
-        <WithCustomLoading selectedWorkout={workoutById} />
+        <Workout selectedWorkout={workoutById} />
       )}
     </div>
   );
