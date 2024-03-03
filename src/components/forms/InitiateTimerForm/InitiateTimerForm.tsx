@@ -67,7 +67,6 @@ const InitiateTimerForm = ({ setShowInfo, randomCombo, setRandomCombo }: PropTyp
     },
   ];
 
-  // Define button disabled condition
   const isGenerateBtnDisabled = difficulty === "";
   const isNextBtnDisabled = !randomCombo.length;
 
@@ -141,10 +140,6 @@ const InitiateTimerForm = ({ setShowInfo, randomCombo, setRandomCombo }: PropTyp
 
   return (
     <div className={styles.formWrapper}>
-      <div className={styles.formTop}>
-        <h1 className={styles.stepTitle}>{formSteps[currentStep - 1].name}</h1>
-      </div>
-
       <form onSubmit={handleSubmit} className={styles.form}>
         {currentStep === 1 && (
           <>
