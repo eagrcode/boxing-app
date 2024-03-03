@@ -5,5 +5,9 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  min-height: calc(100dvh - 78px);
+  min-height: calc(100svh - 58px);
+
+  @media (min-width: 900px) {
+    min-height: calc(100vh - 64px);
+  }
 }
