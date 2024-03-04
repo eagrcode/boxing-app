@@ -1,4 +1,4 @@
-import styles from "../page.module.scss";
+import styles from "./page.module.scss";
 import WorkoutsFeed from "@/src/components/shared/WorkoutsFeed/WorkoutsFeed";
 import { apiRoutes } from "@/src/lib/dbAPI/apiRoutes";
 import { getUser } from "@/src/lib/services/user/getUser";
@@ -6,6 +6,7 @@ import getWorkoutById from "@/src/lib/services/workout/getWorkoutById";
 import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
 import Workout from "@/src/components/shared/Workout/Workout";
 import getUserSavedWorkouts from "@/src/lib/services/profile/getUserSavedWorkouts";
+import NoWorkouts from "@/src/components/profile/NoWorkouts/NoWorkouts";
 
 const DEFAULT_SELECTED_INDEX: number = 0;
 
@@ -54,10 +55,14 @@ export default async function ProfileSavedWorkoutsPage({
       ) : (
         <div className={styles.discoverWrapper}>
           <div className={styles.leftView}>
-            <WorkoutsFeed workouts={workouts} selectedIndex={selectedIndex} />
+            {workouts.length ? (
+              <WorkoutsFeed workouts={workouts} selectedIndex={selectedIndex} />
+            ) : (
+              <NoWorkouts variant={"profile-saved"} />
+            )}
           </div>
           <div className={styles.rightView}>
-            <Workout selectedWorkout={workoutById} />
+            {workoutById && <Workout selectedWorkout={workoutById} />}
           </div>
         </div>
       )}

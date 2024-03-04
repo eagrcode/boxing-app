@@ -6,6 +6,7 @@ import getWorkoutById from "@/src/lib/services/workout/getWorkoutById";
 import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
 import getUserWorkouts from "@/src/lib/services/profile/getUserWorkouts";
 import Workout from "@/src/components/shared/Workout/Workout";
+import NoWorkouts from "@/src/components/profile/NoWorkouts/NoWorkouts";
 
 const DEFAULT_SELECTED_INDEX: number = 0;
 
@@ -53,10 +54,14 @@ export default async function ProfilePage({
       ) : (
         <div className={styles.discoverWrapper}>
           <div className={styles.leftView}>
-            <WorkoutsFeed workouts={workouts} selectedIndex={selectedIndex} />
+            {workouts.length ? (
+              <WorkoutsFeed workouts={workouts} selectedIndex={selectedIndex} />
+            ) : (
+              <NoWorkouts variant={"profile-workouts"} />
+            )}
           </div>
           <div className={styles.rightView}>
-            <Workout selectedWorkout={workoutById} />
+            {workoutById && <Workout selectedWorkout={workoutById} />}
           </div>
         </div>
       )}
