@@ -16,7 +16,7 @@ export default async function createWorkout(workoutData: any, path: string) {
     console.log(error.message);
   } else {
     console.log("Created: ", data);
-    revalidatePath(path);
-    redirect("/account");
+    revalidatePath("/", "layout");
+    redirect("/profile");
   }
 }
