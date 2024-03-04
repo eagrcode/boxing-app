@@ -10,15 +10,23 @@ type UserProps = {
   fullName: string;
   email: string;
   avatarURL: string;
+  username: string;
   children: React.ReactNode;
 };
 
-export default function StoreProvider({ userID, fullName, email, avatarURL, children }: UserProps) {
+export default function StoreProvider({
+  userID,
+  fullName,
+  email,
+  avatarURL,
+  username,
+  children,
+}: UserProps) {
   const storeRef = useRef<AppStore>();
   if (!storeRef.current) {
     // Create the store instance the first time this renders
     storeRef.current = makeStore();
-    storeRef.current.dispatch(setUserDetails({ userID, fullName, email, avatarURL }));
+    storeRef.current.dispatch(setUserDetails({ userID, fullName, email, avatarURL, username }));
   }
 
   return <Provider store={storeRef.current}>{children}</Provider>;

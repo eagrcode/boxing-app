@@ -6,6 +6,7 @@ interface UserState {
   fullName: string;
   email: string;
   avatarURL: string;
+  username: string;
 }
 
 interface SetUserDetailsActionPayload {
@@ -13,6 +14,7 @@ interface SetUserDetailsActionPayload {
   fullName: string;
   email: string;
   avatarURL: string;
+  username: string;
 }
 
 const initialState: UserState = {
@@ -20,6 +22,7 @@ const initialState: UserState = {
   fullName: "",
   email: "",
   avatarURL: "",
+  username: "",
 };
 
 const userSlice = createSlice({
@@ -27,11 +30,12 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUserDetails: (state, action: PayloadAction<SetUserDetailsActionPayload>) => {
-      const { userID, fullName, email, avatarURL } = action.payload;
+      const { userID, fullName, email, avatarURL, username } = action.payload;
       state.userID = userID;
       state.fullName = fullName;
       state.email = email;
       state.avatarURL = avatarURL;
+      state.username = username;
     },
   },
 });

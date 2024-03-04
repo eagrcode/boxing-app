@@ -29,6 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   let fullName = "";
   let email = "";
   let avatarURL = "";
+  let username = "";
 
   if (user) {
     userID = user.id;
@@ -37,15 +38,23 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       fullName = "Guest Smith";
       email = user.email;
       avatarURL = "";
+      username = "guestboxer001";
     } else {
       fullName = user.user_metadata.full_name;
       email = user.user_metadata.email;
       avatarURL = user.user_metadata.avatar_url;
+      username = user.user_metadata.username;
     }
   }
 
   return (
-    <StoreProvider userID={userID} fullName={fullName} email={email} avatarURL={avatarURL}>
+    <StoreProvider
+      userID={userID}
+      fullName={fullName}
+      email={email}
+      avatarURL={avatarURL}
+      username={username}
+    >
       <WorkoutModeProvider>
         <FightDataProvider>
           <html lang="en" className={RobotoFlex.className}>
