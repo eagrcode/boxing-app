@@ -7,7 +7,7 @@ import { IconType } from "react-icons"; // Make sure to import IconType
 type VariantKeys = "profile-workouts" | "profile-saved" | "profile-history";
 
 const variantProps: {
-  [key in VariantKeys]: { title: string; linkURL: string; Icon: IconType };
+  [key in VariantKeys]: { title: string; linkURL?: string; Icon?: IconType };
 } = {
   "profile-workouts": {
     title: "Create your first workout",
@@ -21,12 +21,9 @@ const variantProps: {
   },
   "profile-history": {
     title: "Complete an activity to view your history",
-    linkURL: "/discover",
-    Icon: TbListSearch,
   },
 };
 
-// Update PropTypes to use VariantKeys type for variant
 type PropTypes = {
   variant: VariantKeys;
 };
@@ -43,9 +40,11 @@ export default function NoWorkouts({ variant }: PropTypes) {
   return (
     <div className={styles.noWorkouts}>
       <h1>{title}</h1>
-      <Link className={styles.createLink} href={linkURL}>
-        <Icon size={40} />
-      </Link>
+      {linkURL && Icon && (
+        <Link className={styles.createLink} href={linkURL}>
+          <Icon size={40} />
+        </Link>
+      )}
     </div>
   );
 }
