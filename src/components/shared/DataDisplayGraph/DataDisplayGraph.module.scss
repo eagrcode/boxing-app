@@ -7,9 +7,9 @@
   width: 100%;
   color: var(--text-color-main);
   border: solid 1px var(--border-color);
-  background-color: var(--bg-black-4);
+  background-color: var(--primary-element-color);
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: var(--primary-element-radius);
   flex: 3;
 }
 

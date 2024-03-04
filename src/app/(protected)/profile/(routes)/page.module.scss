@@ -7,7 +7,7 @@
 .discoverWrapper {
   position: relative;
   display: flex;
-  min-height: calc(100svh - 58px);
+  min-height: calc(100svh - 196px);
   width: 100%;
   max-width: 1200px;
 
@@ -19,6 +19,7 @@
 
 .leftView {
   flex: 1;
+  display: flex;
 
   @media (min-width: 900px) {
     min-height: calc(100vh - 211px);
@@ -58,29 +59,5 @@
   header {
     position: absolute;
     top: 1rem;
-  }
-}
-
-.layoutTop {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-
-  @media (min-width: 768px) {
-    padding: 0;
-  }
-
-  .topLeft {
-    display: flex;
-    flex-direction: column;
-
-    gap: 8px;
-
-    div {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
   }
 }

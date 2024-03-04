@@ -5,21 +5,19 @@
 
   gap: 0.5rem;
   color: var(--text-color-main);
-  background-color: var(--bg-black-0);
+  background-color: var(--primary-element-color);
   border: solid 1px var(--border-color);
 
   padding: 1rem;
-  border-radius: 5px;
+  border-radius: var(--primary-element-radius);
   cursor: pointer;
 
   &.isActive {
-    border-color: var(--border-color-hover);
-    background-color: var(--bg-black-4);
+    border-color: var(--border-color-active);
   }
 
   &:hover {
-    border-color: var(--border-color-hover);
-    background-color: var(--bg-black-4);
+    background-color: var(--primary-element-color-hover);
   }
 }
 

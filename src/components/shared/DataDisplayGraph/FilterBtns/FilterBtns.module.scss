@@ -1,14 +1,11 @@
 .filterBtn {
   display: flex;
   color: var(--text-color-accent);
-  padding: 5px 5px;
-  border-radius: 5px;
-  border: solid 1px transparent;
+  padding: 8px;
+  font-size: 14px;
 
   &.isActive {
     color: var(--text-color-main);
-    background-color: var(--bg-black-0);
-    border: solid 1px var(--border-color-hover);
   }
 
   &:hover {
