@@ -1,15 +1,7 @@
-// styles
-import styles from "./UserWorkout.module.scss";
-
-// react
+import styles from "./DeleteModal.module.scss";
 import { SetStateAction, Dispatch } from "react";
-
-// supabase client
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-
-// utils
 import DeleteWorkout from "./deleteWorkout";
-
 import { usePathname } from "next/navigation";
 import DeleteButton from "./DeleteButton";
 
@@ -30,25 +22,15 @@ export default function DeleteModal({ id, setShowDeleteModal }: DeleteModalPropT
   };
 
   return (
-    <div className={styles.modalWrapper}>
-      <div className={styles.deleteModal}>
-        <div className={styles.modalTextContainer}>
-          <p style={{ color: "var(--header-color-main)" }}>Delete workout?</p>
-          <p style={{ color: "var(--text-color-accent)" }}>
-            if You delete this workout, you won't be able to recover it.
-          </p>
-        </div>
-        <div className={styles.modalButtonContainer}>
-          <form action={() => handleDeleteWorkout(id, path)}>
-            <DeleteButton />
-          </form>
-          <button
-            onClick={() => setShowDeleteModal(false)}
-            style={{ color: "var(--text-color-main)" }}
-          >
-            Cancel
-          </button>
-        </div>
+    <div className={styles.deleteModal}>
+      <p>if You delete this workout, you won't be able to recover it.</p>
+      <div className={styles.btnContainer}>
+        <form action={() => handleDeleteWorkout(id, path)}>
+          <DeleteButton />
+        </form>
+        <button className={styles.btnSecondary} onClick={() => setShowDeleteModal(false)}>
+          Cancel
+        </button>
       </div>
     </div>
   );
