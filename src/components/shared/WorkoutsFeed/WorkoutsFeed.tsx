@@ -32,6 +32,7 @@ export default function WorkoutsFeed({
           isSaved={workout.is_saved}
           likesCount={workout.likes_count}
           savesCount={workout.saves_count}
+          authorID={workout.profiles_data.id}
         />
       ))}
     </div>
