@@ -1,17 +1,19 @@
 "use client";
 
 import styles from "./CreateWorkoutForm.module.scss";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import React from "react";
 import Button from "./Button";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import createUserWorkout from "@/src/lib/actions/createUserWorkout";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
 import { HiArrowSmRight } from "react-icons/hi";
 import { FaDeleteLeft } from "react-icons/fa6";
+import { useAppSelector } from "@/src/redux/hooks";
 
-const CreateWorkoutForm = ({ mode }: { mode: string }) => {
-  // init state
+const CreateWorkoutForm = () => {
+  const username = useAppSelector((state) => state.auth.username);
+
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [rounds, setRounds] = useState<number>(1);
@@ -21,10 +23,8 @@ const CreateWorkoutForm = ({ mode }: { mode: string }) => {
   const [selectedCombos, setSelectedCombos] = useState<string[][]>([[]]);
   const [isPublic, setIsPublic] = useState<boolean>(true);
 
-  // init hooks
   const path = usePathname();
 
-  // handle input onChange values
   const handleInputChange = (e: { target: { name: string; value: string | number } }) => {
     const { name, value } = e.target;
     const numericValue = Number(value);
@@ -53,14 +53,12 @@ const CreateWorkoutForm = ({ mode }: { mode: string }) => {
     }
   };
 
-  // clear selections for a specific round
   const handleClearRound = (roundIndex: number) => {
     const updatedSelectedCombos = [...selectedCombos];
     updatedSelectedCombos[roundIndex] = [];
     setSelectedCombos(updatedSelectedCombos);
   };
 
-  // assign selected combos and update state
   const handleComboSelection = (roundIndex: number, selectedCombo: string) => {
     const updatedSelectedCombos = [...selectedCombos];
     if (!updatedSelectedCombos[roundIndex]) {
@@ -68,11 +66,8 @@ const CreateWorkoutForm = ({ mode }: { mode: string }) => {
     }
     updatedSelectedCombos[roundIndex].push(selectedCombo);
     setSelectedCombos(updatedSelectedCombos);
-
-    console.log(updatedSelectedCombos);
   };
 
-  // define data structure for db entry
   const workoutData = {
     title: title,
     description: description,
@@ -84,14 +79,14 @@ const CreateWorkoutForm = ({ mode }: { mode: string }) => {
       round: idx + 1,
       sequence: seq,
     })),
+    created_by: username,
     is_public: isPublic,
   };
 
   const selected = workoutData.round_info.map((round, index) => round.sequence);
   const allSelected = selected.length === rounds && selected.some((sub) => sub.length > 0);
 
-  // check mode type then handle server action
-  function handleAction(mode: string) {
+  function handleAction() {
     if (!allSelected) {
       return;
     } else {
@@ -103,7 +98,7 @@ const CreateWorkoutForm = ({ mode }: { mode: string }) => {
     <div className={styles.formWrapper}>
       <form
         action={() => {
-          handleAction(mode);
+          handleAction();
         }}
         className={styles.form}
       >
