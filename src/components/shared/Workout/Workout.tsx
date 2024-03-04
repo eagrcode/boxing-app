@@ -56,16 +56,17 @@ export default function Workout({ selectedWorkout }: { selectedWorkout: Workout 
   return (
     <div className={styles.card}>
       <div className={styles.cardTop}>
-        <div className={styles.cardTopLeft}>
+        <div className={styles.topLeft}>
+          <DiscoverBackButton />
           <WorkoutAvatar
             fullName={selectedWorkout.profiles_data.full_name}
             avatarURL={selectedWorkout.profiles_data.avatar_url}
           />
           <p>{selectedWorkout.workout_data.created_by}</p>
-          <span>-</span>
+        </div>
+        <div className={styles.topRight}>
           <span>{formatTimeAgo(selectedWorkout.workout_data.created_at)}</span>
         </div>
-        <DiscoverBackButton />
       </div>
       <div className={styles.titleContainer}>
         <h1>{selectedWorkout.workout_data.title}</h1>
