@@ -58,4 +58,5 @@ export type WorkoutPost = {
   isLiked: boolean;
   savesCount: number;
   likesCount: number;
+  authorID: string;
 };
