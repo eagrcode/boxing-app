@@ -8,14 +8,14 @@ import ProfileNav from "@/src/components/profile/ProfileNav/ProfileNav";
 export default function ProfileBanner() {
   const user = useAppSelector((state) => state.auth);
 
-  const { userID, fullName, email, avatarURL } = user;
+  const { userID, fullName, email, avatarURL, username } = user;
 
   return (
     <div className={styles.profileBanner}>
       <div className={styles.top}>
         <div className={styles.topLeft}>
           <h1>{fullName}</h1>
-          <p>{email}</p>
+          <p>{username}</p>
         </div>
       </div>
       <ProfileNav />

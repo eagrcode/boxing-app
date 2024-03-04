@@ -9,7 +9,7 @@ export default function ProfileNav() {
   const links = [
     {
       id: 1,
-      title: "Posts",
+      title: "Workouts",
       url: "/profile",
     },
     {
