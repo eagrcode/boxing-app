@@ -1,6 +1,6 @@
 "use client";
 
-import { IoChevronForward } from "react-icons/io5";
+import { IoChevronBack } from "react-icons/io5";
 import styles from "./DiscoverBackButton.module.scss";
 import { useRouter } from "next/navigation";
 
@@ -13,7 +13,7 @@ export default function DiscoverBackButton() {
 
   return (
     <button className={styles.btn} onClick={() => handleClick()}>
-      <IoChevronForward size={35} />
+      <IoChevronBack size={35} />
     </button>
   );
 }
