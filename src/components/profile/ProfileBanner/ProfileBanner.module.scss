@@ -10,13 +10,22 @@
 
 .top {
   display: flex;
-  justify-content: center;
-  text-align: center;
+  justify-content: space-between;
   width: 100%;
 }
 
 .topLeft {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+}
+
+.topRight {
+  color: var(--text-color-accent);
+}
+
+.btnEdit {
+  color: var(--text-color-main);
+  border: solid 2px var(--border-color);
+  padding: 5px;
+  width: 100%;
 }

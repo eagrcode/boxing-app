@@ -3,29 +3,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 3rem;
+  width: 100%;
 
   @media (min-width: 600px) {
     padding: 0 1rem;
   }
 
   .link {
+    flex: 1;
+    text-align: center;
     color: var(--text-color-accent);
     text-decoration: none;
     padding: 8px;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
 
     &.active {
       color: var(--accent-color-white);
       // border-bottom: solid 1px hsl(0, 0, 90%);
-      background-color: var(--accent-color-dark);
       border-bottom: solid 1px var(--accent-color-white);
     }
 
     &:hover {
       color: var(--accent-color-white);
-      background-color: var(--accent-color-dark);
     }
   }
 }
