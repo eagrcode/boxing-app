@@ -13,7 +13,7 @@
 
   @media (min-width: 900px) {
     min-height: auto;
-    height: calc(100vh - 211px);
+    height: calc(100vh - 234px);
   }
 }
 
@@ -21,7 +21,7 @@
   flex: 1;
 
   @media (min-width: 900px) {
-    min-height: calc(100vh - 211px);
+    min-height: calc(100vh - 234px);
     overflow-y: auto;
 
     scrollbar-width: thin;
@@ -38,7 +38,7 @@
     width: 100%;
     padding: 1.5rem;
     overflow-y: auto;
-    min-height: calc(100vh - 211px);
+    min-height: calc(100vh - 234px);
 
     scrollbar-width: thin;
     scrollbar-color: hsl(0, 0%, 10%) transparent;
