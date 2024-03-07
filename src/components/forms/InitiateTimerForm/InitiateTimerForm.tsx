@@ -9,17 +9,11 @@ import getRandomCombo from "@/src/lib/services/timer/getRandomCombo";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-type PropTypes = {
-  setShowInfo: Dispatch<SetStateAction<boolean>>;
-  randomCombo: string[];
-  setRandomCombo: Dispatch<SetStateAction<string[]>>;
-};
-
 const STEP_1 = 1;
 const STEP_2 = 2;
 const STEP_3 = 3;
 
-const InitiateTimerForm = ({ setShowInfo, randomCombo, setRandomCombo }: PropTypes) => {
+const InitiateTimerForm = () => {
   const [currentSelectedMode, setCurrentSelectedMode] = useState<string>("");
   const [currentError, setCurrentError] = useState<string | null>("");
   const [currentStep, setCurrentStep] = useState<number>(STEP_1);
@@ -35,6 +29,8 @@ const InitiateTimerForm = ({ setShowInfo, randomCombo, setRandomCombo }: PropTyp
     difficulty,
     setDifficulty,
     setIsTimerActive,
+    randomCombo,
+    setRandomCombo,
   } = useTimerDataContext();
 
   const searchParams = useSearchParams();

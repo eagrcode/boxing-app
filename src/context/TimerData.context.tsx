@@ -13,6 +13,8 @@ interface FightDataContextType {
   setRestTime: Dispatch<SetStateAction<number>>;
   warmupTime: number;
   setWarmupTime: Dispatch<SetStateAction<number>>;
+  randomCombo: string[];
+  setRandomCombo: Dispatch<SetStateAction<string[]>>;
   DEFAULT_ROUNDS: number;
   DEFAULT_ROUND_TIME: number;
   DEFAULT_REST_TIME: number;
@@ -44,6 +46,7 @@ export const FightDataProvider = ({ children }: { children: ReactNode }) => {
   const [roundTime, setRoundTime] = useState(DEFAULT_ROUND_TIME);
   const [restTime, setRestTime] = useState(DEFAULT_REST_TIME);
   const [warmupTime, setWarmupTime] = useState(DEFAULT_WARMUP_TIME);
+  const [randomCombo, setRandomCombo] = useState([""]);
   const [isTimerActive, setIsTimerActive] = useState<boolean>(false);
 
   return (
@@ -59,6 +62,8 @@ export const FightDataProvider = ({ children }: { children: ReactNode }) => {
         setRestTime,
         warmupTime,
         setWarmupTime,
+        randomCombo,
+        setRandomCombo,
         DEFAULT_ROUNDS,
         DEFAULT_ROUND_TIME,
         DEFAULT_REST_TIME,

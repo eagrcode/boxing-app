@@ -11,15 +11,9 @@ import addToCompletedWorkouts from "@/src/lib/services/timer/addToCompletedWorko
 import addToCompletedTime from "@/src/lib/services/timer/addToCompletedTime";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import addToCompletedRounds from "@/src/lib/services/timer/addToCompletedRounds";
+import MuteButton from "../../buttons/MuteButton/MuteButton";
 
-interface TimerProps {
-  sequence: string[];
-  setRandomCombo: Dispatch<SetStateAction<string[]>>;
-  isMuted: boolean;
-}
-
-export default function Timer({ sequence, setRandomCombo, isMuted }: TimerProps) {
-  // context
+export default function Timer() {
   const {
     difficulty,
     rounds,
@@ -31,6 +25,8 @@ export default function Timer({ sequence, setRandomCombo, isMuted }: TimerProps)
     warmupTime,
     setWarmupTime,
     isTimerActive,
+    randomCombo,
+    setRandomCombo,
     DEFAULT_ROUNDS,
     DEFAULT_ROUND_TIME,
     DEFAULT_REST_TIME,
@@ -44,23 +40,21 @@ export default function Timer({ sequence, setRandomCombo, isMuted }: TimerProps)
   const [isCountingDown, setIsCountingDown] = useState<boolean>(true);
   const [displayRound, setDisplayRound] = useState<number>(1);
   const [timerKey, setTimerKey] = useState<number>(0);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
 
   const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
+  const params = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  // refs
   const audioRefBellSingle = useRef<HTMLAudioElement | null>(null);
   const audioRefBell = useRef<HTMLAudioElement | null>(null);
 
-  // calculate total rounds & format round types
   const totalRounds = useMemo(() => rounds * 2, [rounds]);
   const isWarmupRound = useMemo(() => currentRound === 1, [currentRound]);
   const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
   const isRestRound = useMemo(() => currentRound > 1 && currentRound % 2 !== 0, [currentRound]);
 
-  // format display based on round type
   const renderTimerText = (remainingTime: number) => {
     switch (true) {
       case isWarmupRound:
@@ -89,22 +83,18 @@ export default function Timer({ sequence, setRandomCombo, isMuted }: TimerProps)
     }
   };
 
-  // format remaining time to 00:00
   const formatRemainingTime = (remainingTime: number) => {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
-  // calc total workout time
   const totalTimeSeconds = Math.floor(warmupTime + roundTime * rounds + restTime * (rounds - 1));
 
-  // format timer colors based on round type
   const timerColors: any = !isFightRound
     ? [["#050778"], ["#050778"], ["#050778"]]
     : [["#cfa227"], ["#cfa227"], ["#cfa227"]];
 
-  // format button text
   const buttonText = isCountingDown ? "Pause" : "Resume";
 
   // toggle mute audio
@@ -136,24 +126,19 @@ export default function Timer({ sequence, setRandomCombo, isMuted }: TimerProps)
       setRandomCombo(combo);
     };
 
-    if (sequence.length > 0 && isRestRound) {
+    if (randomCombo.length > 0 && isRestRound) {
       fetchRandomCombo();
     }
-  }, [isRestRound, difficulty, sequence.length, setRandomCombo]);
+  }, [isRestRound, difficulty, randomCombo.length, setRandomCombo]);
 
-  const addWorkoutStats = async () => {
+  const addWorkoutStats = useCallback(async () => {
     await Promise.all([
       addToCompletedTime(totalTimeSeconds),
       addToCompletedWorkouts(null),
       addToCompletedRounds(rounds),
     ]);
-  };
-
-  useEffect(() => {
-    if (isTimerActive) {
-      addWorkoutStats();
-    }
-  }, [isTimerActive]);
+    console.log("added workout stats");
+  }, [rounds, totalTimeSeconds]);
 
   // logic for end of rounds/workout
   const handleOnComplete = useCallback(() => {
@@ -167,8 +152,8 @@ export default function Timer({ sequence, setRandomCombo, isMuted }: TimerProps)
       setTimerKey((prev) => prev + 1);
       return { shouldRepeat: true, delay: 0 };
     } else {
-      audioRefBell.current?.play();
       addWorkoutStats();
+      audioRefBell.current?.play();
       setIsCountingDown(false);
       setIsFinished(true);
       return { shouldRepeat: false };
@@ -177,30 +162,36 @@ export default function Timer({ sequence, setRandomCombo, isMuted }: TimerProps)
 
   // reset state to defaults and render form components again
   const handleCancel = useCallback(() => {
+    setIsFinished(true);
+
     params.delete("timer_mode");
     replace(`${pathname}?${params.toString()}`);
 
-    setRounds(DEFAULT_ROUNDS);
-    setRoundTime(DEFAULT_ROUND_TIME);
-    setRestTime(DEFAULT_REST_TIME);
-    setWarmupTime(DEFAULT_WARMUP_TIME);
-    setCurrentRound(1);
-    setRandomCombo([]);
+    // setRounds(DEFAULT_ROUNDS);
+    // setRoundTime(DEFAULT_ROUND_TIME);
+    // setRestTime(DEFAULT_REST_TIME);
+    // setWarmupTime(DEFAULT_WARMUP_TIME);
+    // setCurrentRound(1);
+    // setRandomCombo([""]);
   }, [
-    setRounds,
-    setRoundTime,
-    setRestTime,
-    setWarmupTime,
-    setCurrentRound,
-    setRandomCombo,
-    DEFAULT_ROUNDS,
-    DEFAULT_ROUND_TIME,
-    DEFAULT_REST_TIME,
-    DEFAULT_WARMUP_TIME,
+    // setRounds,
+    // setRoundTime,
+    // setRestTime,
+    // setWarmupTime,
+    // setCurrentRound,
+    // setRandomCombo,
+    // DEFAULT_ROUNDS,
+    // DEFAULT_ROUND_TIME,
+    // DEFAULT_REST_TIME,
+    // DEFAULT_WARMUP_TIME,
+    params,
+    pathname,
+    replace,
   ]);
 
   return (
     <>
+      <MuteButton isMuted={isMuted} setIsMuted={setIsMuted} />
       <div className={styles.timer} aria-label="Timer">
         {isWarmupRound ? (
           <h1>WARMUP</h1>
@@ -256,7 +247,7 @@ export default function Timer({ sequence, setRandomCombo, isMuted }: TimerProps)
           </button>
         </div>
       </div>
-      {sequence.length > 0 && <ComboCard sequence={sequence} />}
+      {randomCombo.length > 0 && <ComboCard sequence={randomCombo} />}
 
       <audio preload="none" ref={audioRefBellSingle} src="/assets/audio/321bellSingle.mp3" />
       <audio preload="none" ref={audioRefBell} src="/assets/audio/321bell.mp3" />

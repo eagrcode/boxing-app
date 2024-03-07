@@ -1,0 +1,15 @@
+.infoIcon {
+  position: absolute;
+  top: calc(1rem - 5px);
+  right: 1rem;
+
+  display: flex;
+  align-items: center;
+  color: var(--text-color-main);
+
+  z-index: 1;
+
+  @media (min-width: 900px) {
+    right: 1.5rem;
+  }
+}

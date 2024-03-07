@@ -14,42 +14,6 @@
   }
 }
 
-.infoIcon {
-  position: absolute;
-  top: calc(1rem - 5px);
-  right: 1rem;
-
-  display: flex;
-  align-items: center;
-  color: var(--text-color-main);
-
-  z-index: 1;
-
-  @media (min-width: 900px) {
-    right: 1.5rem;
-  }
-}
-
-.infoWrapper {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background-color: var(--bg-primary);
-  padding: 1rem;
-  height: 100%;
-  width: 100%;
-  max-width: 500px;
-
-  ol {
-    list-style-position: inside;
-  }
-
-  @media (min-width: 900px) {
-    padding: 1.5rem 0;
-  }
-}
-
 .timerWrapper {
   display: flex;
   flex-direction: column;
@@ -59,11 +23,4 @@
   height: 100dvh;
   gap: 1rem;
   padding: 1rem;
-}
-
-.muteBtn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  color: white;
 }
