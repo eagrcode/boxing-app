@@ -47,7 +47,7 @@ export default async function signUpEmail(
           email: email,
         },
 
-        emailRedirectTo: `${location.origin}/auth/callback`,
+        emailRedirectTo: `${location.origin}/login`,
       },
     });
 
