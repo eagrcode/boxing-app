@@ -158,9 +158,9 @@ export default function Timer() {
       setIsFinished(true);
       return { shouldRepeat: false };
     }
-  }, [currentRound, totalRounds]);
+  }, [currentRound, totalRounds, addWorkoutStats]);
 
-  // reset state to defaults and render form components again
+  // remove Timer component from view
   const handleCancel = useCallback(() => {
     setIsFinished(true);
 

@@ -94,6 +94,7 @@ const WorkoutTimer = ({ selectedWorkoutID }: { selectedWorkoutID: string }) => {
     audioRefBell.current && (audioRefBell.current.muted = isMuted);
   }, [isMuted]);
 
+  // add workout data to DB
   const addWorkoutData = useCallback(async () => {
     await Promise.all([
       addToHistory(selectedWorkoutID),
@@ -105,6 +106,7 @@ const WorkoutTimer = ({ selectedWorkoutID }: { selectedWorkoutID: string }) => {
     console.log("added workout stats");
   }, [selectedWorkoutID, pathname, workoutRounds, totalTimeSeconds]);
 
+  // change duration based on round type
   useEffect(() => {
     if (isFightRound) {
       setCurrentDuration(workoutRoundTime);
@@ -113,18 +115,21 @@ const WorkoutTimer = ({ selectedWorkoutID }: { selectedWorkoutID: string }) => {
     }
   }, [isFightRound, isRestRound, workoutRoundTime, workoutRestTime, setCurrentDuration]);
 
+  // fetch new random combo on each rest round
   useEffect(() => {
     if (isRestRound) {
       setCurrentCombo((prev) => prev + 1);
     }
   }, [isRestRound, setCurrentCombo]);
 
+  // increment display round from second round onwards
   useEffect(() => {
     if (currentRound > 3 && isFightRound) {
       setDisplayRound((prev) => prev + 1);
     }
   }, [currentRound, isFightRound, setDisplayRound]);
 
+  // logic for end of rounds/workout
   const handleOnComplete = useCallback(() => {
     if (currentRound < totalRounds) {
       if (currentRound % 2 === 0) {
@@ -141,8 +146,9 @@ const WorkoutTimer = ({ selectedWorkoutID }: { selectedWorkoutID: string }) => {
       setIsFinished(true);
       return { shouldRepeat: false };
     }
-  }, [currentRound, totalRounds]);
+  }, [currentRound, totalRounds, addWorkoutData]);
 
+  // remove Timer component from view
   const handleCancel = useCallback(() => {
     params.delete("timer_mode");
     replace(`${pathname}?${params.toString()}`);
