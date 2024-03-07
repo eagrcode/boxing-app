@@ -33,7 +33,7 @@ const WorkoutTimer = ({ selectedWorkoutID }: { selectedWorkoutID: string }) => {
   const [timerKey, setTimerKey] = useState<number>(0);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
+  const params = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
   const pathname = usePathname();
   const { replace } = useRouter();
 
@@ -94,7 +94,7 @@ const WorkoutTimer = ({ selectedWorkoutID }: { selectedWorkoutID: string }) => {
     audioRefBell.current && (audioRefBell.current.muted = isMuted);
   }, [isMuted]);
 
-  const addWorkoutData = async () => {
+  const addWorkoutData = useCallback(async () => {
     await Promise.all([
       addToHistory(selectedWorkoutID),
       incrementPlays(selectedWorkoutID, pathname),
@@ -102,13 +102,8 @@ const WorkoutTimer = ({ selectedWorkoutID }: { selectedWorkoutID: string }) => {
       addToCompletedTime(totalTimeSeconds),
       addToCompletedWorkouts(null),
     ]);
-  };
-
-  useEffect(() => {
-    if (isWorkoutMode) {
-      addWorkoutData();
-    }
-  }, [isWorkoutMode]);
+    console.log("added workout stats");
+  }, [selectedWorkoutID, pathname, workoutRounds, totalTimeSeconds]);
 
   useEffect(() => {
     if (isFightRound) {
@@ -141,6 +136,7 @@ const WorkoutTimer = ({ selectedWorkoutID }: { selectedWorkoutID: string }) => {
       setTimerKey((prev) => prev + 1);
       return { shouldRepeat: true, delay: 0 };
     } else {
+      addWorkoutData();
       setIsCountingDown(false);
       setIsFinished(true);
       return { shouldRepeat: false };
@@ -154,7 +150,7 @@ const WorkoutTimer = ({ selectedWorkoutID }: { selectedWorkoutID: string }) => {
     setIsCountingDown(false);
     setCurrentRound(1);
     setIsWorkoutMode(false);
-  }, [setIsCountingDown, setIsWorkoutMode, setCurrentRound, , params]);
+  }, [setIsCountingDown, setIsWorkoutMode, setCurrentRound, , params, pathname, replace]);
 
   return (
     <>
