@@ -5,12 +5,18 @@
   --bg-black-3: hsl(0, 0%, 3%);
   --bg-black-4: hsl(0, 0%, 5%);
 
-  --border-color: hsla(230, 20%, 20%, 0.8);
-  --border-color-hover: hsla(220, 50%, 40%, 0.7);
+  --bg-primary: hsl(225, 10%, 2%);
+
+  --primary-element-color: hsl(225, 15%, 8%);
+  --primary-element-radius: 8px;
+
+  --border-color: hsl(225, 20%, 15%);
+  --border-color-hover: hsla(220, 5%, 60%, 0.9);
+  --border-color-active: hsl(225, 10%, 80%);
 
   --text-color-main: hsla(220, 0%, 90%, 0.9);
-  --text-color-accent: hsla(0, 0%, 50%, 0.9);
-  --header-color-main: hsl(240, 0%, 90%, 0.9);
+  --text-color-accent: hsl(240, 5%, 60%);
+  --header-color-main: hsl(240, 0%, 90%);
   --accent-color-white: hsl(0, 0%, 95%);
   --accent-color-dark: hsl(226, 21%, 12%);
   --color-outline: hsla(232, 0%, 100%, 0.1);

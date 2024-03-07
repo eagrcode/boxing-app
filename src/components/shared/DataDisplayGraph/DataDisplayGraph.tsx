@@ -1,7 +1,6 @@
 "use client";
 
-import { Bar } from "react-chartjs-2";
-import formatGraphLabels from "@/src/lib/utils/formatGraphLabels";
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,6 +11,7 @@ import {
   Tooltip,
   Legend,
   BarElement,
+  Filler,
 } from "chart.js";
 import styles from "./DataDisplayGraph.module.scss";
 import FilterBtns from "./FilterBtns/FilterBtns";
@@ -123,9 +123,10 @@ export default function DataDisplayGraph({
     labels: formattedLabels,
     datasets: [
       {
+        fill: true,
         data: formattedData,
-        backgroundColor: "#0b84da",
-        borderColor: "#0b84da99",
+        backgroundColor: "hsl(220, 100%, 60%)",
+        borderColor: "#3377ff50",
       },
     ],
   };
@@ -161,7 +162,7 @@ export default function DataDisplayGraph({
           ))}
         </div>
       </div>
-      <Bar className={styles.graph} options={options} data={data} />
+      <Line className={styles.graph} options={options} data={data} />
     </div>
   );
 }
