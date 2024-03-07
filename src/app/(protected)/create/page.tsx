@@ -4,7 +4,7 @@ import CreateWorkoutForm from "@/src/components/forms/CreateWorkoutForm/CreateWo
 export default function CreateWorkoutPage() {
   return (
     <div className={styles.wrapper}>
-      <CreateWorkoutForm mode={"create"} />
+      <CreateWorkoutForm />
     </div>
   );
 }
