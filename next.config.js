@@ -2,7 +2,7 @@
 const nextConfig = {
   experimental: {
     serverActions: {
-      allowedOrigins: ["localhost:3000", "192.168.0.16:3000", "thebeatdown.co.uk"],
+      allowedOrigins: ["localhost:3000", "thebeatdown.co.uk"],
     },
   },
   logging: {
@@ -10,9 +10,9 @@ const nextConfig = {
       fullUrl: true,
     },
   },
-  // compiler: {
-  //   removeConsole: process.env.NODE_ENV === "production",
-  // },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
   images: {
     remotePatterns: [
       {
