@@ -7,7 +7,7 @@
   transition: all ease-in 0.1s;
 
   &:hover {
-    border-color: var(--border-color-hover);
+    border-color: var(--border-color-active);
     .itemLink {
       color: var(--accent-color-white);
       display: flex;

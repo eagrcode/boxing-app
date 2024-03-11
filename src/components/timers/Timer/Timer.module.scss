@@ -43,7 +43,7 @@
 }
 
 .btnCancel {
-  box-shadow: 0 0 5px 1px var(--accent-color-blue);
+  box-shadow: 0 0 5px 1px var(--accent-color-red);
   color: white;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .btnToggleBlue {
-  box-shadow: 0 0 5px 1px hsl(239, 90%, 50%);
+  box-shadow: 0 0 5px 1px var(--accent-color-blue);
   color: white;
 }
 

@@ -18,7 +18,7 @@
 
     &:hover {
       background-color: var(--avatar-dropdown-bg-color);
-      // border-color: var(--border-color-hover);
+      // border-color: var(--border-color-active);
     }
   }
 }
@@ -60,7 +60,7 @@
     &:hover {
       transition: all ease-in 0.1s;
       background-color: var(--avatar-dropdown-bg-color);
-      border-color: var(--border-color-hover);
+      border-color: var(--border-color-active);
     }
 
     &.active {

@@ -199,18 +199,18 @@
 
   &:hover {
     background-color: var(--bg-black-4);
-    border-color: var(--border-color-hover);
+    border-color: var(--border-color-active);
   }
 
   &.active {
     background-color: var(--bg-black-4);
-    border-color: var(--border-color-hover);
+    border-color: var(--border-color-active);
   }
 }
 
 .btnGenerate {
   &:hover {
-    border-color: var(--border-color-hover);
+    border-color: var(--border-color-active);
     background-color: var(--bg-black-4);
   }
 
