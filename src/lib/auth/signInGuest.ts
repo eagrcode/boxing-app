@@ -7,8 +7,8 @@ export default async function signInGuest() {
 
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
-      email: "guest@guest.com",
-      password: "guestuser9000",
+      email: process.env.NEXT_PUBLIC_GUEST_USER_EMAIL as string,
+      password: process.env.NEXT_PUBLIC_GUEST_USER_PASS as string,
     });
 
     if (error) {

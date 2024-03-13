@@ -1,68 +1,28 @@
 "use client";
 
 import styles from "./Workout.module.scss";
-import React, { useState } from "react";
+import React from "react";
 import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
-import WorkoutTimer from "@/src/components/timers/WorkoutTimer/WorkoutTimer";
 import SocialDataDisplay from "../SocialDataDisplay/SocialDataDisplay";
-import { GiHighPunch } from "react-icons/gi";
 import { MdOutlineTimer } from "react-icons/md";
 import { BsLightningCharge, BsHourglassTop } from "react-icons/bs";
 import { HiArrowSmRight } from "react-icons/hi";
-import { BsFillVolumeUpFill } from "react-icons/bs";
-import { BsFillVolumeMuteFill } from "react-icons/bs";
+import { RiZzzFill } from "react-icons/ri";
 import formatTimeAgo from "@/src/lib/utils/formatTimeAgo";
 import formatTimeDisplay from "@/src/lib/utils/formatTimeDisplay";
-import addToHistory from "@/src/lib/services/addToHistory";
-import incrementPlays from "@/src/lib/services/incrementPlays";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import StartButton from "@/src/components/buttons/StartButton/StartButton";
+import DiscoverBackButton from "../../buttons/DiscoverBackButton/DiscoverBackButton";
+import WorkoutAvatar from "../WorkoutAvatar/WorkoutAvatar";
+import { Workout } from "@/src/lib/types/workout.types";
+import { useAppSelector } from "@/src/redux/hooks";
 
-interface WorkoutPropTypes {
-  id: string;
-  userID: string;
-  title: string;
-  description: string;
-  roundInfo: { round: number; sequence: string[] }[];
-  workoutRounds: number;
-  workoutWarmupTime: number;
-  workoutRoundTime: number;
-  workoutRestTime: number;
-  createdAt: string;
-  createdBy: string;
-  saved: boolean | null;
-  likes: number;
-  isLiked: boolean | null;
-  plays: number;
-  savesCount: number;
-  name: string;
-}
+export default function Workout({ selectedWorkout }: { selectedWorkout: Workout }) {
+  const { isActive } = useAppSelector((state) => state.workout);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
 
-export default function Workout({
-  id,
-  userID,
-  title,
-  description,
-  roundInfo,
-  workoutRounds,
-  workoutWarmupTime,
-  workoutRoundTime,
-  workoutRestTime,
-  createdAt,
-  createdBy,
-  saved,
-  likes,
-  isLiked,
-  plays,
-  savesCount,
-  name,
-}: WorkoutPropTypes) {
-  // init state
-  const [isMuted, setIsMuted] = useState<boolean>(false);
-
-  const path = usePathname();
-
-  // destructure context
   const {
     setWorkoutRounds,
     setWorkoutRoundTime,
@@ -73,104 +33,97 @@ export default function Workout({
     setIsWorkoutMode,
   } = useWorkoutTimerDataContext();
 
-  // calc total workout time
+  const params = new URLSearchParams(searchParams);
+
   const totalTime = Math.floor(
-    workoutWarmupTime + workoutRoundTime * workoutRounds + workoutRestTime * (workoutRounds - 1)
+    selectedWorkout.workout_data.warmup_time +
+      selectedWorkout.workout_data.round_time * selectedWorkout.workout_data.number_of_rounds +
+      selectedWorkout.workout_data.rest_time * (selectedWorkout.workout_data.number_of_rounds - 1)
   );
 
-  // handle workout timer start
-  const handleStart = async () => {
-    setRoundInfo({ round_info: roundInfo });
-    setWorkoutRounds(workoutRounds);
-    setWorkoutRoundTime(workoutRoundTime);
-    setWorkoutRestTime(workoutRestTime);
-    setWorkoutWarmupTime(workoutWarmupTime);
+  const handleStart = () => {
+    setRoundInfo({ round_info: selectedWorkout.workout_data.round_info });
+    setWorkoutRounds(selectedWorkout.workout_data.number_of_rounds);
+    setWorkoutRoundTime(selectedWorkout.workout_data.round_time);
+    setWorkoutRestTime(selectedWorkout.workout_data.rest_time);
+    setWorkoutWarmupTime(selectedWorkout.workout_data.warmup_time);
     setIsWorkoutMode(true);
-    await addToHistory(id);
-    await incrementPlays(id, path);
+
+    params.set("timer_mode", "active");
+    replace(`${pathname}?${params.toString()}`);
   };
 
-  if (!isWorkoutMode) {
-    return (
-      <div key={id} className={styles.card}>
-        <div className={styles.cardTop}>
-          <div className={styles.usernameContainer}>
-            <div className={styles.avatar}>
-              <div>{name?.charAt(0)}</div>
-            </div>
-            <p>{createdBy}</p>
-          </div>
-          <span>{formatTimeAgo(createdAt)}</span>
-        </div>
-        <h1>{title}</h1>
-        <div className={styles.overview}>
-          <p>{description}</p>
-        </div>
-        <div className={styles.info}>
-          <div className={styles.infoDisplay}>
-            <MdOutlineTimer size={20} />
-            <span>{formatTimeDisplay(totalTime)}</span>
-          </div>
-          <div className={styles.infoDisplay}>
-            <BsLightningCharge size={20} />
-            <span>{workoutRounds}</span>
-          </div>
-          <div className={styles.infoDisplay}>
-            <BsHourglassTop size={18} />
-            <span>{formatTimeDisplay(workoutRoundTime)}</span>
-          </div>
-          {/* <span>{workoutWarmupTime} sec / warmup</span> */}
-        </div>
-        <div className={styles.comboContainer}>
-          {roundInfo.map((round, index) => (
-            <div className={styles.row} key={index}>
-              <h2>Round {round.round}</h2>
-              <ul className={styles.ul}>
-                {round.sequence.map((punch, index) => (
-                  <React.Fragment key={index}>
-                    <li className={styles.punchTag}>{punch}</li>{" "}
-                    <div className={styles.arrow}>
-                      <HiArrowSmRight />
-                    </div>
-                  </React.Fragment>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        {/* <div className={styles.socialBtnContainer}>
-          <LikeButton id={id} userID={userID} isLiked={isLiked} />
-          <SaveButton id={id} saved={saved} />
-        </div> */}
-        <div className={styles.workoutBottom}>
-          <SocialDataDisplay
-            likes={likes}
-            plays={plays}
-            id={id}
-            userID={userID}
-            saved={saved}
-            isLiked={isLiked}
-            savesCount={savesCount}
+  return (
+    <div className={styles.card}>
+      <div className={styles.cardTop}>
+        <div className={styles.topLeft}>
+          <DiscoverBackButton />
+          <WorkoutAvatar
+            fullName={selectedWorkout.profiles_data.full_name}
+            avatarURL={selectedWorkout.profiles_data.avatar_url}
           />
-          <div className={styles.btnContainer}>
-            <form action={() => handleStart()}>
-              <StartButton />
-            </form>
-          </div>
+          <p>{selectedWorkout.workout_data.created_by}</p>
+        </div>
+        <div className={styles.topRight}>
+          <span>{formatTimeAgo(selectedWorkout.workout_data.created_at)}</span>
         </div>
       </div>
-    );
-  }
-
-  if (isWorkoutMode) {
-    return (
-      <div className={styles.timerWrapper}>
-        <WorkoutTimer id={id} setIsWorkoutMode={setIsWorkoutMode} isMuted={isMuted} />
-        <button onClick={() => setIsMuted((prev) => !prev)} className={styles.muteBtn}>
-          {isMuted ? <BsFillVolumeMuteFill size={25} /> : <BsFillVolumeUpFill size={25} />}
-        </button>
+      <div className={styles.titleContainer}>
+        <h1>{selectedWorkout.workout_data.title}</h1>
       </div>
-    );
-  }
+
+      <div className={styles.info}>
+        <div className={styles.infoDisplay}>
+          <MdOutlineTimer size={20} />
+          Total time {formatTimeDisplay(totalTime)} (warm-up{" "}
+          {formatTimeDisplay(selectedWorkout.workout_data.warmup_time)})
+        </div>
+        <div className={styles.infoDisplay}>
+          <BsLightningCharge size={20} />
+          Working rounds x {selectedWorkout.workout_data.number_of_rounds}
+        </div>
+        <div className={styles.infoDisplay}>
+          <BsHourglassTop size={18} />
+          Round length {formatTimeDisplay(selectedWorkout.workout_data.round_time)}
+        </div>
+        <div className={styles.infoDisplay}>
+          <RiZzzFill size={18} />
+          Rest length {formatTimeDisplay(selectedWorkout.workout_data.rest_time)}
+        </div>
+        <SocialDataDisplay
+          plays={selectedWorkout.workout_data.plays}
+          id={selectedWorkout.workout_id}
+          isLiked={selectedWorkout.is_liked}
+          isSaved={selectedWorkout.is_saved}
+          likesCount={selectedWorkout.likes_count}
+          savesCount={selectedWorkout.saves_count}
+        />
+      </div>
+
+      <div className={styles.divider}>
+        <StartButton handleStart={handleStart} />
+      </div>
+      <div className={styles.overview}>
+        <p className={styles.about}>About the workout</p>
+        <p>{selectedWorkout.workout_data.description}</p>
+      </div>
+      <div className={styles.comboContainer}>
+        {selectedWorkout.workout_data.round_info.map((round, index) => (
+          <div className={styles.row} key={index}>
+            <h2>Round {round.round}</h2>
+            <ul className={styles.ul}>
+              {round.sequence.map((punch, index) => (
+                <React.Fragment key={index}>
+                  <li className={styles.punchTag}>{punch}</li>{" "}
+                  <div className={styles.arrow}>
+                    <HiArrowSmRight />
+                  </div>
+                </React.Fragment>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }

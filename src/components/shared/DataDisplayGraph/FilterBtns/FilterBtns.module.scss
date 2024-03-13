@@ -1,0 +1,15 @@
+.filterBtn {
+  display: flex;
+  color: var(--text-color-accent);
+  padding: 8px;
+  font-size: 14px;
+
+  &.isActive {
+    color: var(--text-color-main);
+  }
+
+  &:hover {
+    // background-color: var(--border-color-active);
+    color: var(--text-color-main);
+  }
+}

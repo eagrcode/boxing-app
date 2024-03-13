@@ -22,6 +22,5 @@ export default async function DeleteWorkout(id: string, path: string) {
     console.error("Unexpected error: ", error.message);
   }
 
-  revalidatePath(path);
-  redirect("/account");
+  revalidatePath("/", "layout");
 }

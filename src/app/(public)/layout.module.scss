@@ -1,0 +1,19 @@
+.appWrapper {
+  display: flex;
+  justify-content: center;
+  min-height: 100dvh;
+  background: linear-gradient(330deg, hsl(240, 5%, 5%) 40%, hsl(250, 15%, 8%) 100%);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 0;
+
+  @media (min-width: 768px) {
+    padding: 0;
+  }
+}

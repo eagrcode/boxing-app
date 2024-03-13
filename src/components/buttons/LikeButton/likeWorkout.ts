@@ -24,7 +24,7 @@ export default async function handleLikePost(
       .from("likes")
       .delete()
       .eq("workout_id", id)
-      .eq("user_id", userID); // ensure only the specific user's like is deleted
+      .eq("user_id", userID);
 
     if (error) {
       console.log("Error while unliking: ", error.message);
@@ -32,6 +32,7 @@ export default async function handleLikePost(
     }
   }
 
-  revalidatePath(path);
+  revalidatePath("/", "layout");
+
   return { success: true, message: isLiked ? "Unliked" : "Liked" };
 }

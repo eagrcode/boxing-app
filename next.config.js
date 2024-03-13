@@ -1,8 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["localhost:3000", "thebeatdown.co.uk"],
+    },
   },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
+  // compiler: {
+  //   removeConsole: process.env.NODE_ENV === "production",
+  // },
   images: {
     remotePatterns: [
       {

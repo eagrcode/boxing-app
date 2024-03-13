@@ -1,0 +1,47 @@
+.dataDisplaySmall {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  gap: 0.5rem;
+  color: var(--text-color-main);
+  background-color: var(--primary-element-color);
+  border: solid 2px var(--border-color);
+
+  padding: 1rem;
+  border-radius: var(--primary-element-radius);
+  cursor: pointer;
+
+  &.isActive {
+    border-color: var(--border-color-active);
+  }
+
+  &:hover {
+    border-color: var(--border-color-active);
+  }
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 1rem;
+}
+
+.bottom {
+  display: flex;
+  align-items: last baseline;
+  // flex-direction: column;
+  gap: 8px;
+}
+
+.data {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.completed {
+  color: var(--text-color-accent);
+}

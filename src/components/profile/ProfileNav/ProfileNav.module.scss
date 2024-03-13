@@ -1,0 +1,29 @@
+.linkContainer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  @media (min-width: 600px) {
+    padding: 0 1rem;
+  }
+
+  .link {
+    flex: 1;
+    text-align: center;
+    color: var(--text-color-accent);
+    text-decoration: none;
+    padding: 8px;
+
+    &.active {
+      color: var(--accent-color-white);
+      // border-bottom: solid 1px hsl(0, 0, 90%);
+      border-bottom: solid 1px var(--accent-color-white);
+    }
+
+    &:hover {
+      color: var(--accent-color-white);
+    }
+  }
+}

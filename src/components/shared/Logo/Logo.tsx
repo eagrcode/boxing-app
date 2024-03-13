@@ -13,9 +13,8 @@ export default function Logo({ variant }: { variant: string }) {
   }
 
   return (
-    <Link className={styleSet(variant)} href={"/"}>
-      <span style={{ color: "white" }}>Beat</span>
-      <span style={{ color: "var(--accent-color-blue)" }}>down</span>
+    <Link className={styleSet(variant)} href={"/dashboard"}>
+      BEATDOWN
     </Link>
   );
 }

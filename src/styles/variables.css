@@ -1,14 +1,29 @@
 :root {
-  --bg-color-main: hsl(240, 3%, 6%);
-  --text-color-main: hsla(240, 5%, 90%, 0.7);
-  --text-color-accent: hsla(240, 5%, 90%, 0.5);
-  --header-color-main: hsl(240, 0%, 90%, 0.9);
+  --bg-black-0: hsl(0, 0%, 0%);
+  --bg-black-1: hsl(0, 0%, 1%);
+  --bg-black-2: hsl(0, 0%, 2%);
+  --bg-black-3: hsl(0, 0%, 3%);
+  --bg-black-4: hsl(0, 0%, 5%);
+
+  --bg-primary: hsl(225, 10%, 2%);
+
+  --primary-element-color: hsl(225, 15%, 8%);
+  --primary-element-radius: 8px;
+
+  --border-color: hsl(225, 20%, 15%);
+  --border-color-active: hsl(225, 10%, 80%);
+
+  --text-color-main: hsla(220, 0%, 90%, 0.8);
+  --text-color-accent: hsl(240, 5%, 60%);
+  --header-color-main: hsl(240, 0%, 90%);
   --accent-color-white: hsl(0, 0%, 95%);
-  --accent-color-dark: rgb(24, 27, 37);
-  --accent-color-outline: hsla(230, 20%, 30%);
+  --accent-color-dark: hsl(226, 21%, 12%);
+  --color-outline: hsla(232, 0%, 100%, 0.1);
+  --color-outline-hover: hsl(232, 0%, 100%, 0.2);
   --accent-color-dark-blue: hsl(230, 80%, 10%);
-  --accent-color-red: hsla(0, 70%, 50%, 0.5);
-  --accent-color-blue: hsl(205, 90%, 45%);
+  --accent-color-red: hsl(0, 70%, 50%);
+  --accent-color-blue: hsl(220, 100%, 60%);
   --accent-color-yel: rgb(255, 196, 0);
   --box-shadow: hsla(0, 0%, 50%, 0.2) 0px 2px 8px 0px;
+  --avatar-dropdown-bg-color: hsl(230, 10%, 6%);
 }

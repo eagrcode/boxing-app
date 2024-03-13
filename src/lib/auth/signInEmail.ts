@@ -12,8 +12,6 @@ export default async function signInEmail(
   email: string,
   password: string
 ): Promise<SignInError | null> {
-  console.log(email, password);
-
   const supabase = createClientComponentClient();
 
   try {
@@ -23,14 +21,14 @@ export default async function signInEmail(
     });
 
     if (authError) {
-      console.log("DB SIGN IN ERROR: ", authError);
+      console.log(authError);
       return { errorType: "auth", error: authError };
     }
 
-    return null; // Explicitly return null when there's no error.
+    return null;
   } catch (error: any) {
     console.error("Unexpected error during sign in:", error);
-    // Return a structured error for unexpected issues.
+
     return {
       errorType: "unexpected",
       error: new AuthError("An unexpected error occurred during sign in."),

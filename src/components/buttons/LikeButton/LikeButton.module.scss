@@ -3,11 +3,9 @@
   border: transparent;
   border-radius: 50%;
   position: relative;
+  color: var(--text-color-accent);
 
-  @media (min-width: 768px) {
-    padding: 5px;
-    &:hover {
-      background-color: hsla(240, 50%, 80%, 0.1);
-    }
+  &.active {
+    color: var(--accent-color-blue);
   }
 }

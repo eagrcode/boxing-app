@@ -4,15 +4,78 @@
   align-items: center;
   gap: 1rem;
   width: 100%;
+  height: 100%;
+  max-width: 500px;
+}
+
+// .stepContainer {
+//   position: relative;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 100%;
+// }
+
+// .step {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   text-align: center;
+//   color: var(--text-color-accent);
+//   padding: 5px;
+//   height: 30px;
+//   width: 30px;
+
+//   border: solid 2px var(--text-color-accent);
+//   border-radius: 50%;
+
+//   // .stepId {
+//   //   font-size: 1.2rem;
+//   // }
+
+//   // .stepName {
+//   //   font-size: 14px;
+//   // }
+
+//   &.active {
+//     border-color: var(--text-color-accent);
+//   }
+
+//   &.completed {
+//     color: var(--text-color-main);
+//     border: solid 2px var(--text-color-main);
+//   }
+// }
+
+// .stepProgress {
+//   background-color: transparent;
+//   width: 30px;
+//   height: 2px;
+
+//   &.completed {
+//     background-color: var(--text-color-main);
+//   }
+
+//   &:last-of-type {
+//     display: none;
+//   }
+// }
+
+.error {
+  color: var(--accent-color-red);
+  position: absolute;
+  top: calc(100% + 1rem);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 100%;
+  height: 100%;
   gap: 1rem;
+  position: relative;
 
   .row {
     width: 100%;
@@ -41,18 +104,6 @@
       flex-direction: column;
       gap: 1rem;
     }
-  }
-
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    font-size: 1.2rem;
-    padding: 1rem;
-    background-color: transparent;
-    color: var(--accent-color-blue);
-    border: transparent;
   }
 
   input[type="range"] {
@@ -85,4 +136,143 @@
     width: 30px;
     border-radius: 50%;
   }
+}
+
+.formTop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+// .infoIcon {
+//   position: absolute;
+//   right: 0;
+
+//   display: flex;
+//   align-items: center;
+//   color: var(--text-color-main);
+// }
+
+.stepTitle {
+  font-size: 1rem;
+}
+
+.modeSelectContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.acgCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: solid 2px var(--border-color);
+  border-radius: 8px;
+  padding: 3rem;
+  gap: 1rem;
+}
+
+.difficultySelectContainer {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+}
+
+.btnPrimary {
+  background-color: var(--text-color-main);
+  // border: solid 2px transparent;
+  color: var(--bg-primary);
+  padding: 8px;
+  width: 100%;
+}
+
+.btnSecondary {
+  border: solid 2px var(--border-color);
+  color: var(--text-color-main);
+  padding: 8px;
+  width: 100%;
+  transition: all ease-in 0.1s;
+
+  &:hover {
+    background-color: var(--bg-black-4);
+    border-color: var(--border-color-active);
+  }
+
+  &.active {
+    background-color: var(--bg-black-4);
+    border-color: var(--border-color-active);
+  }
+}
+
+.btnGenerate {
+  &:hover {
+    border-color: var(--border-color-active);
+    background-color: var(--bg-black-4);
+  }
+
+  &.disabled {
+    color: var(--text-color-accent);
+
+    &:hover {
+      border-color: var(--border-color);
+      background-color: transparent;
+    }
+  }
+}
+
+.comboSkeleton {
+  height: 38px;
+}
+
+.bottomBtnContainer {
+  position: absolute;
+  bottom: 0;
+
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+.btnBack {
+  color: var(--text-color-main);
+
+  &:hover {
+    background-color: var(--bg-black-4);
+  }
+
+  .backIcon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: 1rem;
+  }
+}
+
+.btnNext {
+  &.disabled {
+    color: var(--text-color-accent);
+
+    &:hover {
+      background-color: var(--text-color-main);
+    }
+  }
+
+  &:hover {
+    background-color: hsl(0, 0%, 70%);
+  }
+
+  .nextIcon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    right: 1rem;
+  }
+}
+
+.btnSubmit {
+  color: var(--accent-color-blue);
 }

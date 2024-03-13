@@ -10,12 +10,20 @@ import SubmitGoogleButton from "./SubmitGoogleButton";
 import signInEmail from "@/src/lib/auth/signInEmail";
 import signInGuest from "@/src/lib/auth/signInGuest";
 import signInGoogle from "@/src/lib/auth/signInGoogle";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const signInEmailSchema = z.object({
+  email: z.string().email("Please use a valid email"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+type TypeSignInSchema = z.infer<typeof signInEmailSchema>;
 
 export default function SignInForm() {
   // init state
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingEmail, setIsLoadingEmail] = useState<boolean>(false);
   const [isLoadingGuest, setIsLoadingGuest] = useState<boolean>(false);
   const [isLoadingGoogle, setIsLoadingGoogle] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>("");
@@ -23,25 +31,35 @@ export default function SignInForm() {
   // init hooks
   const router = useRouter();
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
-    e.preventDefault();
-    setIsLoading(true);
-    const errorResponse = await signInEmail(email, password);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<TypeSignInSchema>({
+    resolver: zodResolver(signInEmailSchema),
+  });
 
-    if (errorResponse) {
-      if (errorResponse.errorType === "auth") {
-        setIsLoading(false);
-        console.log(errorResponse.error.message);
-        setErrorMsg(errorResponse.error.message);
-      } else if (errorResponse.errorType === "unexpected") {
-        setIsLoading(false);
-        console.log(errorResponse.error.message);
-        setErrorMsg(errorResponse.error.message);
+  // email log in
+  async function handleEmailSubmit(data: TypeSignInSchema) {
+    setIsLoadingEmail(true);
+    const { email, password } = data;
+    const errorRes = await signInEmail(email, password);
+
+    if (errorRes) {
+      setIsLoadingEmail(false);
+      if (errorRes.errorType === "auth") {
+        console.log(errorRes.error.message);
+        setErrorMsg(errorRes.error.message);
+      } else if (errorRes.errorType === "unexpected") {
+        console.log(errorRes.error.message);
+        setErrorMsg(errorRes.error.message);
       }
     }
+
     router.refresh();
   }
 
+  // guest log in
   async function handleGuestSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault();
     setIsLoadingGuest(true);
@@ -49,12 +67,13 @@ export default function SignInForm() {
     router.refresh();
   }
 
-  async function handleGoogleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
-    e.preventDefault();
-    setIsLoadingGoogle(true);
-    await signInGoogle();
-    router.refresh();
-  }
+  // // google log in (temp disabled due to mobile browser bug)
+  // async function handleGoogleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
+  //   e.preventDefault();
+  //   setIsLoadingGoogle(true);
+  //   await signInGoogle();
+  //   router.refresh();
+  // }
 
   return (
     <div className={styles.formWrapper}>
@@ -65,36 +84,29 @@ export default function SignInForm() {
         <SubmitGuestButton isLoadingGuest={isLoadingGuest} />
       </form>
 
-      <form onSubmit={(e) => handleGoogleSubmit(e)} className={styles.form}>
+      {/* <form onSubmit={(e) => handleGoogleSubmit(e)} className={styles.form}>
         <SubmitGoogleButton isLoadingGoogle={isLoadingGoogle} />
-      </form>
+      </form> */}
 
       <p>or</p>
 
-      <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
+      <form onSubmit={handleSubmit(handleEmailSubmit)} className={styles.form}>
         <div className={styles.inputRow}>
           <label htmlFor="email">Email</label>
-          <input
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@example.com"
-            required
-          />
+          <input {...register("email")} name="email" placeholder="you@example.com" />
         </div>
         <div className={styles.inputRow}>
           <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            name="password"
-            placeholder="••••••••"
-            required
-          />
+          <input {...register("password")} name="password" placeholder="••••••••" type="password" />
         </div>
-        <SubmitEmailButton isLoading={isLoading} />
+        <SubmitEmailButton isSubmitting={isLoadingEmail} />
       </form>
+      {errors.email && (
+        <p style={{ color: "var(--accent-color-red)" }}>{`${errors.email.message}`}</p>
+      )}
+      {errors.password && (
+        <p style={{ color: "var(--accent-color-red)" }}>{`${errors.password.message}`}</p>
+      )}
       {errorMsg && <p style={{ color: "var(--accent-color-red)" }}>{errorMsg}</p>}
 
       <p>

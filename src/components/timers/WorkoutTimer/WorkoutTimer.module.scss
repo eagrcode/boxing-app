@@ -53,11 +53,18 @@
 }
 
 .btnToggleBlue {
-  box-shadow: 0 0 5px 1px hsl(239, 90%, 50%);
+  box-shadow: 0 0 5px 1px var(--accent-color-blue);
   color: white;
 }
 
 .btnToggleOrange {
   box-shadow: 0 0 5px 1px hsl(44, 90%, 40%);
+  color: white;
+}
+
+.muteBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
   color: white;
 }

@@ -1,20 +1,19 @@
+"use client";
+
 import styles from "./Timer.module.scss";
 import { useState, useEffect, Dispatch, SetStateAction, useMemo, useCallback, useRef } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import ComboCard from "../../shared/ComboCard/ComboCard";
 import { useTimerDataContext } from "@/src/context/TimerData.context";
-import getRandomCombo from "@/src/lib/services/getRandomCombo";
+import getRandomCombo from "@/src/lib/services/timer/getRandomCombo";
 import React from "react";
+import addToCompletedWorkouts from "@/src/lib/services/timer/addToCompletedWorkouts";
+import addToCompletedTime from "@/src/lib/services/timer/addToCompletedTime";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import addToCompletedRounds from "@/src/lib/services/timer/addToCompletedRounds";
+import MuteButton from "../../buttons/MuteButton/MuteButton";
 
-interface TimerProps {
-  setIsTimerActive: Dispatch<SetStateAction<boolean>>;
-  sequence: string[];
-  setRandomCombo: Dispatch<SetStateAction<string[]>>;
-  isMuted: boolean;
-}
-
-export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMuted }: TimerProps) {
-  // context
+export default function Timer() {
   const {
     difficulty,
     rounds,
@@ -25,6 +24,9 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
     setRestTime,
     warmupTime,
     setWarmupTime,
+    isTimerActive,
+    randomCombo,
+    setRandomCombo,
     DEFAULT_ROUNDS,
     DEFAULT_ROUND_TIME,
     DEFAULT_REST_TIME,
@@ -38,18 +40,21 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
   const [isCountingDown, setIsCountingDown] = useState<boolean>(true);
   const [displayRound, setDisplayRound] = useState<number>(1);
   const [timerKey, setTimerKey] = useState<number>(0);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
 
-  // refs
+  const searchParams = useSearchParams();
+  const params = useMemo(() => new URLSearchParams(searchParams), [searchParams]);
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
   const audioRefBellSingle = useRef<HTMLAudioElement | null>(null);
   const audioRefBell = useRef<HTMLAudioElement | null>(null);
 
-  // calculate total rounds & format round types
   const totalRounds = useMemo(() => rounds * 2, [rounds]);
   const isWarmupRound = useMemo(() => currentRound === 1, [currentRound]);
   const isFightRound = useMemo(() => currentRound > 1 && currentRound % 2 === 0, [currentRound]);
   const isRestRound = useMemo(() => currentRound > 1 && currentRound % 2 !== 0, [currentRound]);
 
-  // format display based on round type
   const renderTimerText = (remainingTime: number) => {
     switch (true) {
       case isWarmupRound:
@@ -78,19 +83,18 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
     }
   };
 
-  // format remaining time to 00:00
   const formatRemainingTime = (remainingTime: number) => {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
     return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
-  // format timer colors based on round type
+  const totalTimeSeconds = Math.floor(warmupTime + roundTime * rounds + restTime * (rounds - 1));
+
   const timerColors: any = !isFightRound
     ? [["#050778"], ["#050778"], ["#050778"]]
     : [["#cfa227"], ["#cfa227"], ["#cfa227"]];
 
-  // format button text
   const buttonText = isCountingDown ? "Pause" : "Resume";
 
   // toggle mute audio
@@ -122,10 +126,19 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
       setRandomCombo(combo);
     };
 
-    if (sequence.length > 0 && isRestRound) {
+    if (randomCombo.length > 0 && isRestRound) {
       fetchRandomCombo();
     }
-  }, [isRestRound, difficulty, sequence.length, setRandomCombo]);
+  }, [isRestRound, difficulty, randomCombo.length, setRandomCombo]);
+
+  const addWorkoutStats = useCallback(async () => {
+    await Promise.all([
+      addToCompletedTime(totalTimeSeconds),
+      addToCompletedWorkouts(null),
+      addToCompletedRounds(rounds),
+    ]);
+    console.log("added workout stats");
+  }, [rounds, totalTimeSeconds]);
 
   // logic for end of rounds/workout
   const handleOnComplete = useCallback(() => {
@@ -135,44 +148,50 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
       } else {
         audioRefBellSingle.current?.play();
       }
-
       setCurrentRound((prev) => prev + 1);
       setTimerKey((prev) => prev + 1);
       return { shouldRepeat: true, delay: 0 };
     } else {
+      addWorkoutStats();
       audioRefBell.current?.play();
-
       setIsCountingDown(false);
       setIsFinished(true);
       return { shouldRepeat: false };
     }
-  }, [currentRound, totalRounds]);
+  }, [currentRound, totalRounds, addWorkoutStats]);
 
-  // reset state to defaults and render form components again
+  // remove Timer component from view
   const handleCancel = useCallback(() => {
-    setRounds(DEFAULT_ROUNDS);
-    setRoundTime(DEFAULT_ROUND_TIME);
-    setRestTime(DEFAULT_REST_TIME);
-    setWarmupTime(DEFAULT_WARMUP_TIME);
-    setCurrentRound(1);
-    setRandomCombo([]);
-    setIsTimerActive(false);
+    setIsFinished(true);
+
+    params.delete("timer_mode");
+    replace(`${pathname}?${params.toString()}`);
+
+    // setRounds(DEFAULT_ROUNDS);
+    // setRoundTime(DEFAULT_ROUND_TIME);
+    // setRestTime(DEFAULT_REST_TIME);
+    // setWarmupTime(DEFAULT_WARMUP_TIME);
+    // setCurrentRound(1);
+    // setRandomCombo([""]);
   }, [
-    setRounds,
-    setRoundTime,
-    setRestTime,
-    setWarmupTime,
-    setCurrentRound,
-    setRandomCombo,
-    setIsTimerActive,
-    DEFAULT_ROUNDS,
-    DEFAULT_ROUND_TIME,
-    DEFAULT_REST_TIME,
-    DEFAULT_WARMUP_TIME,
+    // setRounds,
+    // setRoundTime,
+    // setRestTime,
+    // setWarmupTime,
+    // setCurrentRound,
+    // setRandomCombo,
+    // DEFAULT_ROUNDS,
+    // DEFAULT_ROUND_TIME,
+    // DEFAULT_REST_TIME,
+    // DEFAULT_WARMUP_TIME,
+    params,
+    pathname,
+    replace,
   ]);
 
   return (
     <>
+      <MuteButton isMuted={isMuted} setIsMuted={setIsMuted} />
       <div className={styles.timer} aria-label="Timer">
         {isWarmupRound ? (
           <h1>WARMUP</h1>
@@ -228,7 +247,7 @@ export default function Timer({ setIsTimerActive, sequence, setRandomCombo, isMu
           </button>
         </div>
       </div>
-      {sequence.length > 0 && <ComboCard sequence={sequence} />}
+      {randomCombo.length > 0 && <ComboCard sequence={randomCombo} />}
 
       <audio preload="none" ref={audioRefBellSingle} src="/assets/audio/321bellSingle.mp3" />
       <audio preload="none" ref={audioRefBell} src="/assets/audio/321bell.mp3" />

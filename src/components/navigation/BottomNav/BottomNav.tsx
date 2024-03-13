@@ -2,49 +2,53 @@
 
 import styles from "./BottomNav.module.scss";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { GoHome } from "react-icons/go";
+import { usePathname, useSearchParams } from "next/navigation";
 import { IoTimerOutline } from "react-icons/io5";
 import { RiAccountCircleLine } from "react-icons/ri";
 import { IoCreateOutline } from "react-icons/io5";
 import BackButton from "../../buttons/BackButton/BackButton";
-import { useTimerDataContext } from "@/src/context/TimerData.context";
-import { useWorkoutTimerDataContext } from "@/src/context/WorkoutTimerData.context";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { TbListSearch } from "react-icons/tb";
+import Avatar from "../../shared/Avatar/Avatar";
 
 export default function BottomNav() {
   const path = usePathname();
-  const { isTimerActive } = useTimerDataContext();
-  const { isWorkoutMode } = useWorkoutTimerDataContext();
+  const searchParams = useSearchParams();
+  const timerMode = searchParams.get("timer_mode");
 
-  // init links view for authenticated users
-  const authLinks = [
+  const links = [
     {
       id: 1,
-      title: "Home",
-      url: "/",
-      icon: <GoHome size={30} />,
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: <LuLayoutDashboard size={25} />,
     },
     {
       id: 2,
       title: "Timer",
       url: "/timer",
-      icon: <IoTimerOutline size={30} />,
+      icon: <IoTimerOutline size={25} />,
     },
     {
       id: 3,
-      title: "Post",
-      url: "/post",
-      icon: <IoCreateOutline size={30} />,
+      title: "Create",
+      url: "/create",
+      icon: <IoCreateOutline size={25} />,
     },
     {
       id: 4,
-      title: "Account",
-      url: "/account",
-      icon: <RiAccountCircleLine size={30} />,
+      title: "Discover",
+      url: "/discover",
+      icon: <TbListSearch size={25} />,
+    },
+    {
+      id: 5,
+      title: "Profile",
+      url: "/profile",
+      icon: <RiAccountCircleLine size={25} />,
     },
   ];
 
-  // Define a function to determine if the link should have active styles
   const shouldHaveActiveStyles = (path: string, linkUrl: string) => {
     return (
       path === linkUrl ||
@@ -52,29 +56,15 @@ export default function BottomNav() {
     );
   };
 
-  // Conditionally render the BackButton based on the path
-  const renderBackButton = () => {
-    if (
-      path.startsWith("/workout/") ||
-      path.startsWith("/account/userWorkout/") ||
-      path.startsWith("/account/savedWorkouts/")
-    ) {
-      return <BackButton />;
-    }
-    return null;
-  };
-
-  if (isTimerActive) {
-    return null;
-  } else if (isWorkoutMode) {
+  if (timerMode === "active") {
     return null;
   }
 
   return (
     <nav className={styles.nav}>
-      {renderBackButton()}
+      {/* {renderBackButton()} */}
       <ul className={styles.menu}>
-        {authLinks.map((link, index) => (
+        {links.map((link, index) => (
           <li key={index} className={styles.item}>
             <Link
               className={
@@ -83,12 +73,14 @@ export default function BottomNav() {
                   : styles.link
               }
               href={link.url}
+              prefetch={true}
             >
               {link.icon}
             </Link>
           </li>
         ))}
       </ul>
+      <Avatar position={"bottomNav"} />
     </nav>
   );
 }
