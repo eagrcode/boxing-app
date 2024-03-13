@@ -1,38 +1,41 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./page.module.scss";
-import TimerImg from "@/public/assets/images/timer-img.png";
-import FeedImg from "@/public/assets/images/feed-img.png";
-import ComboGImg from "@/public/assets/images/combo-g-img.png";
-import MobileImg1 from "@/public/assets/images/4.png";
-import MobileImg2 from "@/public/assets/images/5.png";
-import MobileImg3 from "@/public/assets/images/6.png";
+import MobImg1 from "@/public/assets/images/bd-m-discover.png";
+import MobImg2 from "@/public/assets/images/bd-m-profile.png";
+import MobImg3 from "@/public/assets/images/bd-m-timer.png";
+import DesktopImg1 from "@/public/assets/images/bd-dashboard.png";
+import DesktopImg2 from "@/public/assets/images/bd-discover.png";
+import DesktopImg3 from "@/public/assets/images/bd-timer.png";
+import DesktopImg4 from "@/public/assets/images/bd-acg.png";
+import HeroBoxer1 from "@/public/assets/images/hero-boxer-1.png";
 
 export default function Index() {
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.hero}>
-        <h1>
-          <span style={{ color: "white" }}>BEAT</span>
-          <span
-            style={{
-              color: "var(--accent-color-blue)",
-            }}
-          >
-            DOWN
-          </span>
-        </h1>
-        <p>
-          Unlock your full potential, connect with fellow boxing enthusiasts, and take your fitness
-          journey to the next level with Beatdown. Join our community of fighters today!
-        </p>
-        <div className={styles.btnContainer}>
-          <Link href="/login">
-            <button className={styles.btnL}>Get Started</button>
-          </Link>
-          <a href="#features">
-            <button className={styles.btnR}>Explore</button>
-          </a>
+        <div className={styles.heroLeft}>
+          <h1 className={styles.title}>BEATDOWN</h1>
+          <p>
+            Unlock your full potential, connect with fellow boxing enthusiasts, and take your
+            fitness journey to the next level with Beatdown. Join our community of fighters today!
+          </p>
+          <div className={styles.btnContainer}>
+            <Link href="/login">
+              <button className="btnPrimary">Get Started</button>
+            </Link>
+            <a href="#features">
+              <button className="btnSecondary">Explore</button>
+            </a>
+          </div>
+        </div>
+
+        <div className={styles.heroRight}>
+          <Image
+            src={HeroBoxer1}
+            alt="Mobile timer"
+            style={{ height: "auto", width: "100%" }}
+          ></Image>
         </div>
       </div>
 
@@ -40,16 +43,16 @@ export default function Index() {
         <div className={styles.featureContainer}>
           <div className={styles.featureCard}>
             <div className={styles.featureContent}>
-              <h2>Crush Your Goals</h2>
+              <h2>Get Sweaty</h2>
               <p>
-                Our app doubles as a powerful interval timer, helping you optimise your training
-                sessions. Whether you're into high-intensity interval training or just need a
-                structured workout routine, Beatdown has got you covered.
+                Our app's primary feature is an powerful interval timer, helping you optimise your
+                training sessions. Whether you're into high-intensity interval training or just need
+                a structured workout routine, Beatdown has got you covered.
               </p>
             </div>
             <div className={styles.featureImg}>
               <Image
-                src={TimerImg}
+                src={DesktopImg3}
                 alt="Mobile timer"
                 style={{ height: "auto", width: "100%" }}
                 quality={100}
@@ -69,7 +72,7 @@ export default function Index() {
             </div>
             <div className={styles.featureImg}>
               <Image
-                src={FeedImg}
+                src={DesktopImg2}
                 alt="Mobile timer"
                 style={{ height: "auto", width: "100%" }}
                 quality={100}
@@ -89,9 +92,28 @@ export default function Index() {
             </div>
             <div className={styles.featureImg}>
               <Image
-                src={ComboGImg}
+                src={DesktopImg4}
                 alt="Mobile timer"
                 style={{ height: "auto", width: "100%" }}
+              ></Image>
+            </div>
+          </div>
+          <div className={`${styles.featureCard} ${styles.rightAlignText}`}>
+            <div className={`${styles.featureContent} ${styles.rightAlignText}`}>
+              <h2>Crush Your Goals</h2>
+              <p>
+                Our app's primary feature is an powerful interval timer, helping you optimise your
+                training sessions. Whether you're into high-intensity interval training or just need
+                a structured workout routine, Beatdown has got you covered.
+              </p>
+            </div>
+            <div className={styles.featureImg}>
+              <Image
+                src={DesktopImg1}
+                alt="Mobile timer"
+                style={{ height: "auto", width: "100%" }}
+                quality={100}
+                unoptimized
               ></Image>
             </div>
           </div>
@@ -100,24 +122,25 @@ export default function Index() {
       <section className={styles.mobileFeaturesWrapper}>
         <div className={styles.mobileFeaturesContainer}>
           <h2>Fully Mobile Responsive</h2>
+          <p>When in the Gym, you're primary use will be on mobile devices</p>
           <div className={styles.mobileImagesContainer}>
             <div className={styles.featureImg}>
               <Image
-                src={MobileImg1}
+                src={MobImg1}
                 alt="Mobile timer"
                 style={{ height: "auto", width: "100%" }}
               ></Image>
             </div>
             <div className={styles.featureImg}>
               <Image
-                src={MobileImg2}
+                src={MobImg2}
                 alt="Mobile timer"
                 style={{ height: "auto", width: "100%" }}
               ></Image>
             </div>
             <div className={styles.featureImg}>
               <Image
-                src={MobileImg3}
+                src={MobImg3}
                 alt="Mobile timer"
                 style={{ height: "auto", width: "100%" }}
               ></Image>

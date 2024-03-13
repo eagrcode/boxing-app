@@ -13,7 +13,7 @@
   --border-color: hsl(225, 20%, 15%);
   --border-color-active: hsl(225, 10%, 80%);
 
-  --text-color-main: hsla(220, 0%, 90%, 0.9);
+  --text-color-main: hsla(220, 0%, 90%, 0.8);
   --text-color-accent: hsl(240, 5%, 60%);
   --header-color-main: hsl(240, 0%, 90%);
   --accent-color-white: hsl(0, 0%, 95%);
