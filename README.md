@@ -19,6 +19,7 @@ Beatdown is a solution to a problem I was having in the gym. When practicing my 
 - Sass
 - JavaScript
 - TypeScript
+- PostgreSQL
 - React
 - Next.js
 - Supabase
@@ -28,14 +29,14 @@ Beatdown is a solution to a problem I was having in the gym. When practicing my 
 
 The **Beatdown** app showcases the following features:
 
+- Data visualisation tools for tracking performance over time.
 - Interval timer featuring automatic random combo generation.
 - Live feed of workouts posted by other users.
-- Run users workouts
+- Run users workouts.
 - Social media interactions.
 - Create and share you own workouts for others to try.
 - Responsive design (mobile version recommended).
-- User history
 
 ## Issues
 
-- Google Auth is not working on mobile browsers
+- Google auth is not working on mobile browsers.
