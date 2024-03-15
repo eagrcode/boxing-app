@@ -30,13 +30,13 @@ export default function Index() {
           </div>
         </div>
 
-        <div className={styles.heroRight}>
+        {/* <div className={styles.heroRight}>
           <Image
             src={HeroBoxer1}
             alt="Mobile timer"
             style={{ height: "auto", width: "100%" }}
           ></Image>
-        </div>
+        </div> */}
       </div>
 
       <div className={styles.featuresWrapper} id="features">
