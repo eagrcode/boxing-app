@@ -27,6 +27,14 @@
   gap: 1rem;
 }
 
+.formGoogle {
+  display: none;
+
+  @media (min-width: 900px) {
+    display: initial;
+  }
+}
+
 .inputRow {
   width: 100%;
   display: flex;

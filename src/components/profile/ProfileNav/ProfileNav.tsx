@@ -17,11 +17,11 @@ export default function ProfileNav() {
       title: "Saved",
       url: "/profile/savedWorkouts",
     },
-    {
-      id: 3,
-      title: "History",
-      url: "/profile/history",
-    },
+    // {
+    //   id: 3,
+    //   title: "History",
+    //   url: "/profile/history",
+    // },
   ];
 
   // init hooks
