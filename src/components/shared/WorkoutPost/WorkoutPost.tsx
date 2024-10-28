@@ -43,13 +43,15 @@ export default function WorkoutPost({
   const { replace } = useRouter();
 
   const totalTime = Math.floor(
-    workoutWarmupTime + workoutRoundTime * workoutRounds + workoutRestTime * (workoutRounds - 1)
+    workoutWarmupTime +
+      workoutRoundTime * workoutRounds +
+      workoutRestTime * (workoutRounds - 1)
   );
 
   function handleSelect(param: string) {
     // if (isActive) return;
 
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
     param ? params.set("query", param) : params.delete("query");
     replace(`${pathname}?${params.toString()}`);
   }
@@ -60,7 +62,12 @@ export default function WorkoutPost({
 
   return (
     <>
-      <div key={id} className={`${styles.card} ${index === selectedIndex && styles.isActive}`}>
+      <div
+        key={id}
+        className={`${styles.card} ${
+          index === selectedIndex && styles.isActive
+        }`}
+      >
         <div className={styles.mobileWrapper}>
           <div className={styles.cardTop}>
             <div className={styles.usernameContainer}>
@@ -68,9 +75,14 @@ export default function WorkoutPost({
               <p>{createdBy}</p>
             </div>
             <div className={styles.topRight}>
-              <span className={styles.timeStamp}>{formatTimeAgo(createdAt)}</span>
+              <span className={styles.timeStamp}>
+                {formatTimeAgo(createdAt)}
+              </span>
               {userID === authorID && (
-                <button onClick={handleShowDeleteModal} className={styles.showDropdown}>
+                <button
+                  onClick={handleShowDeleteModal}
+                  className={styles.showDropdown}
+                >
                   <IoEllipsisHorizontal size={20} />
                 </button>
               )}
@@ -108,9 +120,14 @@ export default function WorkoutPost({
               <p>{createdBy}</p>
             </div>
             <div className={styles.topRight}>
-              <span className={styles.timeStamp}>{formatTimeAgo(createdAt)}</span>
+              <span className={styles.timeStamp}>
+                {formatTimeAgo(createdAt)}
+              </span>
               {userID === authorID && (
-                <button onClick={handleShowDeleteModal} className={styles.showDropdown}>
+                <button
+                  onClick={handleShowDeleteModal}
+                  className={styles.showDropdown}
+                >
                   <IoEllipsisHorizontal size={20} />
                 </button>
               )}
@@ -151,7 +168,9 @@ export default function WorkoutPost({
           likesCount={likesCount}
           savesCount={savesCount}
         />
-        {showDeleteModal && <DeleteModal setShowDeleteModal={setShowDeleteModal} id={id} />}
+        {showDeleteModal && (
+          <DeleteModal setShowDeleteModal={setShowDeleteModal} id={id} />
+        )}
       </div>
     </>
   );
