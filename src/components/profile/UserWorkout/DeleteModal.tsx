@@ -10,7 +10,10 @@ interface DeleteModalPropTypes {
   setShowDeleteModal: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function DeleteModal({ id, setShowDeleteModal }: DeleteModalPropTypes) {
+export default function DeleteModal({
+  id,
+  setShowDeleteModal,
+}: DeleteModalPropTypes) {
   // init supabase client
   const supabase = createClientComponentClient();
 
@@ -25,10 +28,16 @@ export default function DeleteModal({ id, setShowDeleteModal }: DeleteModalPropT
     <div className={styles.deleteModal}>
       <p>if You delete this workout, you won't be able to recover it.</p>
       <div className={styles.btnContainer}>
-        <form action={() => handleDeleteWorkout(id, path)}>
+        <form
+          className={styles.form}
+          action={() => handleDeleteWorkout(id, path)}
+        >
           <DeleteButton />
         </form>
-        <button className={styles.btnSecondary} onClick={() => setShowDeleteModal(false)}>
+        <button
+          className={styles.btnSecondary}
+          onClick={() => setShowDeleteModal(false)}
+        >
           Cancel
         </button>
       </div>
