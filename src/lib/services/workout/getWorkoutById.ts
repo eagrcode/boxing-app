@@ -3,13 +3,20 @@
 import { Workout } from "../../types/workout.types";
 import { setApiHeaders } from "../../utils/setApiHeaders";
 
-const getWorkoutById = async (id: string, URL: string, workoutID: string): Promise<Workout> => {
+const getWorkoutById = async (
+  id: string,
+  URL: string,
+  workoutID: string
+): Promise<Workout> => {
   try {
-    const headers = setApiHeaders();
+    const headers = await setApiHeaders();
 
     const res = await fetch(process.env.NEXT_PUBLIC_SUPABASE_URL + URL, {
       method: "POST",
-      body: JSON.stringify({ requesting_user_id: id, target_workout_id: workoutID }),
+      body: JSON.stringify({
+        requesting_user_id: id,
+        target_workout_id: workoutID,
+      }),
       headers: headers,
       cache: "force-cache",
     });

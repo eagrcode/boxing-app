@@ -5,12 +5,15 @@ import { setApiHeaders } from "../../utils/setApiHeaders";
 
 export const getUser = async () => {
   try {
-    const headers = setApiHeaders();
+    const headers = await setApiHeaders();
 
-    const res = await fetch(process.env.NEXT_PUBLIC_SUPABASE_URL + apiRoutes.getUser, {
-      headers: headers,
-      cache: "force-cache",
-    });
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_SUPABASE_URL + apiRoutes.getUser,
+      {
+        headers: headers,
+        cache: "force-cache",
+      }
+    );
 
     if (!res.ok) {
       console.error("Error fetching user: ", res);

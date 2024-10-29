@@ -38,7 +38,8 @@ export default async function Index({
   };
 }) {
   const user = await getUser();
-  const query = searchParams?.query || "";
+  const params = await searchParams;
+  const query = params?.query || "";
 
   let userID: string = "";
 
@@ -58,7 +59,10 @@ export default async function Index({
     getAverageWorkoutLength(apiRoutes.getTotalCompletedTime(user.id)),
   ]);
 
-  const timeSeriesData = await getGraphData(apiRoutes.getGraphData(query), userID);
+  const timeSeriesData = await getGraphData(
+    apiRoutes.getGraphData(query),
+    userID
+  );
 
   const filterButtons = [
     {
@@ -81,7 +85,8 @@ export default async function Index({
     },
   ];
 
-  const activeFilterParam = filterButtons.find((btn) => btn.isActive)?.filter || FILTER_6_MONTHS;
+  const activeFilterParam =
+    filterButtons.find((btn) => btn.isActive)?.filter || FILTER_6_MONTHS;
 
   const tiles = [
     {
@@ -92,7 +97,9 @@ export default async function Index({
       text: "completed",
       baseParam: BASE_PARAM_COMPLETED_WORKOUTS,
       queryParam: BASE_PARAM_COMPLETED_WORKOUTS + activeFilterParam,
-      isActive: query === "" || query === BASE_PARAM_COMPLETED_WORKOUTS + activeFilterParam,
+      isActive:
+        query === "" ||
+        query === BASE_PARAM_COMPLETED_WORKOUTS + activeFilterParam,
     },
     {
       id: 2,
@@ -133,7 +140,9 @@ export default async function Index({
       <div className={styles.dashboardWrapper}>
         <h1 className={styles.welcomeText}>
           Welcome back,{" "}
-          {user.email === "guest@guest.com" ? "Guest" : user.user_metadata.full_name.split(" ")[0]}
+          {user.email === "guest@guest.com"
+            ? "Guest"
+            : user.user_metadata.full_name.split(" ")[0]}
         </h1>
         <p className={styles.tag}>Monitor your progress to date</p>
         <div className={styles.timeSeriesWrapper}>

@@ -8,7 +8,7 @@ type PropType = {
 
 export const getTotalCompletedTime = async (query: string): Promise<number> => {
   try {
-    const headers = setApiHeaders();
+    const headers = await setApiHeaders();
 
     const res = await fetch(process.env.NEXT_PUBLIC_SUPABASE_URL + query, {
       headers: headers,

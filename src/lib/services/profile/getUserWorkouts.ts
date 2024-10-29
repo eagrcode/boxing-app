@@ -37,9 +37,12 @@
 import { setApiHeaders } from "../../utils/setApiHeaders";
 import { Workout } from "../../types/workout.types";
 
-export default async function getUserWorkouts(query: string, id: string): Promise<Workout[]> {
+export default async function getUserWorkouts(
+  query: string,
+  id: string
+): Promise<Workout[]> {
   try {
-    const headers = setApiHeaders();
+    const headers = await setApiHeaders();
 
     const res = await fetch(process.env.NEXT_PUBLIC_SUPABASE_URL + query, {
       method: "POST",

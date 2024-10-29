@@ -6,9 +6,11 @@ type PropType = {
   created_at: string;
 };
 
-export const getTotalCompletedWorkouts = async (query: string): Promise<number> => {
+export const getTotalCompletedWorkouts = async (
+  query: string
+): Promise<number> => {
   try {
-    const headers = setApiHeaders();
+    const headers = await setApiHeaders();
 
     const res = await fetch(process.env.NEXT_PUBLIC_SUPABASE_URL + query, {
       headers: headers,

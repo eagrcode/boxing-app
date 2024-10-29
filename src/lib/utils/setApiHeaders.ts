@@ -1,7 +1,9 @@
 import { cookies } from "next/headers";
 
-export const setApiHeaders = (): Headers => {
-  const supabaseToken = cookies().get("sb-qaohjtcwvtqnnmzvhzty-auth-token")?.value;
+export const setApiHeaders = async (): Promise<Headers> => {
+  const supabaseToken = (await cookies()).get(
+    "sb-qaohjtcwvtqnnmzvhzty-auth-token"
+  )?.value;
   const accessToken = supabaseToken ? JSON.parse(supabaseToken)[0] : "";
 
   const headers = new Headers();
